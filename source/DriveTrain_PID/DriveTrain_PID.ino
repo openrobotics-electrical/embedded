@@ -65,7 +65,7 @@ boolean stringComplete = false;  // whether the string is complete
   double _rightMotorRPMset = 0, _rightInput = 0, _rightOutput = 0;
   double _leftMotorRPMset = 0, _leftInput = 0, _leftOutput = 0;
   const float SampleTime = 50;
-  int Kp = 160, Kd = 0, Ki = 1000;
+  int Kp = 160, Kd = 0, Ki = 0;
   int KpIN = 0, KdIN = 0, KiIN = 0;
   int KpPin = 5, KdPin = 6, KiPin = 7;
   double MaxRPM = 1.45;
@@ -103,6 +103,16 @@ void setup()
   pinMode(ENB1, OUTPUT);
   pinMode(ENA2, OUTPUT);
   pinMode(ENB2, OUTPUT);
+  
+  //--------------TURNTABLE CONTROL 
+  
+  pinMode(A12, OUTPUT); // 
+  pinMode(A13, OUTPUT);
+  pinMode(A14, OUTPUT); //
+  pinMode(A15, OUTPUT);
+  
+  //-------------------------------
+  
   pinMode(rightKillPin,INPUT_PULLUP);
   pinMode(leftKillPin,INPUT_PULLUP);
   pinMode(RemotePowerPin,INPUT);
@@ -125,6 +135,32 @@ void loop()
 {
 /////////////////////////////////////////////////////////////////////////////////void loop///////////////////////////////////////////////////////////////////////////////////////////////////
       //SetPIDValues(); //Set Kp, Ki, Kd
+      
+      //------------------TURNTABLE
+      // max@theprogrammingclub.com is responsible for this mess
+      
+      digitalWrite(A13, 0); // DIR
+      digitalWrite(A14, 0); // GND
+      digitalWrite(A15, 1); // 5V
+      int x = 0;
+      
+      while(1) { // SET TO ZERO TO RESTORE DRIVING FUNCTION
+        x = analogRead(twistRemotePin);
+        // Serial.println(x);
+        if (x > 900) {
+          digitalWrite(A13, 0);
+          digitalWrite(A12, 1); // STEP
+          delayMicroseconds(10);
+        } else if (x < 100) {
+          digitalWrite(A13, 1);
+          digitalWrite(A12, 1); // STEP
+          delayMicroseconds(10);
+        }
+        digitalWrite(A12, 0);
+        delayMicroseconds(50);
+      }
+      
+      //-----------------------------
       
       rightPID.SetTunings(Kp, Ki, Kd);
       leftPID.SetTunings(Kp, Ki, Kd);
