@@ -21,7 +21,7 @@ boolean stringComplete = false;  // whether the string is complete
 ///////////////////////////////////////////////////////
   
   //Thethered control: ANALOG PINS
-  const int        twistRemotePin = 3, linearRemotePin = 4, RemotePowerPin = 46;
+  const int        twistRemotePin = 10, linearRemotePin = 11, RemotePowerPin = 46;
   const int        rightKillPin = 50, leftKillPin = 48;
   int              _RightMotorKillValue = 0;
   int              _LeftMotorKillValue = 0;
@@ -30,22 +30,35 @@ boolean stringComplete = false;  // whether the string is complete
   double val0 = 200; // Duty Cycle val = 0 gives 0% DUTY, val = 254 gives 100% DUTY
   double rightPotValue = 200; // Duty Cycle val = 0 gives 0% DUTY, val = 254 gives 100% DUTY
   
-  const int        INA1 = 47; // These pins control the state of 
-  const int        INB1 = 53; // the bridge in normal operation: 
-  const int        INA2 = 39;
-  const int        INB2 = 45;
+  const int        INA1 = 22; // These pins control the state of 
+  const int        INB1 = 28; // the bridge in normal operation: 
+  const int        INA2 = 30;
+  const int        INB2 = 36;
   
 //  [HIGH HIGH = BRAKE to Vcc] 
 //  [HIGH LOW = CLOCKWISE]
 //  [LOW HIGH = Counter Clock Wise]
 //  [LOW LOW = BRAKE to ground]
  
-  const int        ENA1 = 49; //LOW Disables Half Bridge A HIGH Enables half bridge A
-  const int        ENB1 = 51; //LOW Disables Half Bridge B HIGH Enables half bridge B
-  const int        ENA2 = 41;
-  const int        ENB2 = 43;
+  const int        ENA1 = 24; //LOW Disables Half Bridge A HIGH Enables half bridge A
+  const int        ENB1 = 28; //LOW Disables Half Bridge B HIGH Enables half bridge B
+  const int        ENA2 = 32;
+  const int        ENB2 = 36;
   const int        PWMpin1 = 7;
   const int        PWMpin2 = 6;
+  #define LAD A8
+  #define RAD A9
+  
+  // TURNTABLE
+  
+  #define EN_ 39
+  #define MS1 52
+  #define MS2 52
+  #define MS3 52
+  #define RST_ 47
+  #define SLP_ 49
+  #define STEP 51
+  #define DIR 53
   
   //Encoder count variables:   
   double           _leftMotorRPM = 0;
@@ -106,10 +119,15 @@ void setup()
   
   //--------------TURNTABLE CONTROL 
   
-  pinMode(A12, OUTPUT); // 
-  pinMode(A13, OUTPUT);
-  pinMode(A14, OUTPUT); //
-  pinMode(A15, OUTPUT);
+  pinMode(EN_, OUTPUT); 
+  pinMode(MS1, OUTPUT);
+  pinMode(MS2, OUTPUT);
+  pinMode(MS3, OUTPUT);
+  pinMode(RST_, OUTPUT); 
+  pinMode(SLP_, OUTPUT);
+  pinMode(STEP, OUTPUT);
+  pinMode(DIR, OUTPUT);
+  
   
   //-------------------------------
   
@@ -139,34 +157,60 @@ void loop()
       //------------------TURNTABLE
       // max@theprogrammingclub.com is responsible for this mess
       
-      digitalWrite(A13, 0); // DIR
-      digitalWrite(A14, 0); // GND
-      digitalWrite(A15, 1); // 5V
-      int x = 0;
-      
-      while(1) { // SET TO ZERO TO RESTORE DRIVING FUNCTION
-        x = analogRead(twistRemotePin);
-        // Serial.println(x);
-        if (x > 900) {
-          digitalWrite(A13, 0);
-          digitalWrite(A12, 1); // STEP
-          delayMicroseconds(10);
-        } else if (x < 100) {
-          digitalWrite(A13, 1);
-          digitalWrite(A12, 1); // STEP
-          delayMicroseconds(10);
+      if(0) {
+        while(1) {
+           digitalWrite(ENA1, 1);
+           digitalWrite(ENB1, 1);
+           digitalWrite(INA1, 1);
+           digitalWrite(INB1, 0);
+           digitalWrite(PWMpin1, 0);
+           digitalWrite(PWMpin2, 0);
+           delayMicroseconds  (1000);
+           digitalWrite(PWMpin1, 1);
+           digitalWrite(PWMpin2, 1);
+           delayMicroseconds  (500);
         }
-        digitalWrite(A12, 0);
-        delayMicroseconds(50);
+      }
+      
+      if(1) {
+        digitalWrite(RST_, 0);
+        
+        digitalWrite(EN_, 0);
+        digitalWrite(MS1, 1);
+        digitalWrite(MS2, 1);
+        digitalWrite(MS3, 1);
+        digitalWrite(RST_, 1);
+        digitalWrite(SLP_, 1);
+
+        int x = 0;
+        
+        while(1) { // SET TO ZERO TO RESTORE DRIVING FUNCTION
+          x = analogRead(twistRemotePin);
+          // Serial.println(x);
+          if (x > 900) {
+            digitalWrite(DIR, 0);
+            digitalWrite(STEP, 1); // STEP
+            delayMicroseconds(100);
+          } else if (x < 100) {
+            digitalWrite(DIR, 1);
+            digitalWrite(STEP, 1); // STEP
+            delayMicroseconds(100);
+          }
+          digitalWrite(STEP, 0);
+          delayMicroseconds(50);
+          delay(1);
+        }
       }
       
       //-----------------------------
       
+      Serial.println(analogRead(twistRemotePin));
+      
       rightPID.SetTunings(Kp, Ki, Kd);
       leftPID.SetTunings(Kp, Ki, Kd);
 
-     _LeftMotorKillValue = digitalRead(leftKillPin);
-     _RightMotorKillValue = digitalRead(rightKillPin);      //print analog pin 3 input value
+     _LeftMotorKillValue = 0; // digitalRead(leftKillPin);
+     _RightMotorKillValue = 0; // digitalRead(rightKillPin);      //print analog pin 3 input value
      
      //using -RightMotorKillValue to control both motors 
      //KillMotor(_LeftMotorKillValue, ENA1, ENB1);      //enable or disable H-bridge 2 based on input from analog input. HIGH = OFF, LOW = ON
@@ -192,7 +236,7 @@ void loop()
      
      analogWrite(PWMpin1, _leftOutput); 
      analogWrite(PWMpin2, _rightOutput); 
-
+ 
     delay(SampleTime); //loop DELAY
    
   ///////////////////////////////////////////////////////////////////////////////// end void loop/////////////////////////////////////////////////////////////////////////////////////////////
