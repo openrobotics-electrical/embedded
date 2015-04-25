@@ -21,11 +21,7 @@ boolean stringComplete = false;  // whether the string is complete
 ///////////////////////////////////////////////////////
   
   //Thethered control: ANALOG PINS
-  const int        twistRemotePin = 10, linearRemotePin = 11, RemotePowerPin = 46;
-  const int        rightKillPin = 50, leftKillPin = 48;
-  int              _RightMotorKillValue = 0;
-  int              _LeftMotorKillValue = 0;
-  
+  const int        twistRemotePin = 10, linearRemotePin = 11, button = 12;
   
   double val0 = 200; // Duty Cycle val = 0 gives 0% DUTY, val = 254 gives 100% DUTY
   double rightPotValue = 200; // Duty Cycle val = 0 gives 0% DUTY, val = 254 gives 100% DUTY
@@ -102,6 +98,10 @@ boolean stringComplete = false;  // whether the string is complete
   PID rightPID(&_rightInput, &_rightOutput, &_rightMotorRPMset, Kp, Ki, Kd, DIRECT);
   PID leftPID(&_leftInput, &_leftOutput, &_leftMotorRPMset, Kp, Ki, Kd, DIRECT);
 
+  #define TURN_ROBOT true
+  #define DRIVE_ROBOT false
+  boolean mode = TURN_ROBOT;
+  int x = 0;
 
 void setup()
 {    
@@ -130,11 +130,9 @@ void setup()
   
   //-------------------------------
   
-  pinMode(rightKillPin,INPUT_PULLUP);
-  pinMode(leftKillPin,INPUT_PULLUP);
-  pinMode(RemotePowerPin,INPUT);
+  pinMode(button, INPUT_PULLUP);
   
-   inputString.reserve(200);
+  inputString.reserve(200);
     
   // Initialize Velocity Setpoint
   _rightMotorRPMset = 1;  
@@ -146,116 +144,85 @@ void setup()
   leftPID.SetMode(AUTOMATIC);
   leftPID.SetSampleTime(SampleTime);
     
+  enableMotors();
+  
+  digitalWrite(RST_, 0);
+  digitalWrite(EN_, 0);
+  digitalWrite(MS1, 1);
+  digitalWrite(MS2, 1);
+  digitalWrite(MS3, 1);
+  digitalWrite(RST_, 1);
+  digitalWrite(SLP_, 1);
 }
 
-void enableBothMotors() {
+void enableMotors() {
+  
   digitalWrite(ENA1, 1);
   digitalWrite(ENB1, 1);
   digitalWrite(ENA2, 1);
   digitalWrite(ENB2, 1);
 }
 
-void loop()
-{
-/////////////////////////////////////////////////////////////////////////////////void loop///////////////////////////////////////////////////////////////////////////////////////////////////
-      //SetPIDValues(); //Set Kp, Ki, Kd
-      
-      //------------------TURNTABLE
-      // max@theprogrammingclub.com is responsible for this mess
-      
-      if(0) {
-        while(1) {
-           digitalWrite(ENA1, 1);
-           digitalWrite(ENB1, 1);
-           digitalWrite(INA1, 1);
-           digitalWrite(INB1, 0);
-           digitalWrite(PWMpin1, 0);
-           digitalWrite(PWMpin2, 0);
-           delayMicroseconds  (1000);
-           digitalWrite(PWMpin1, 1);
-           digitalWrite(PWMpin2, 1);
-           delayMicroseconds  (500);
-        }
-      }
-      
-      if(0) {
-        digitalWrite(RST_, 0);
-        
-        digitalWrite(EN_, 0);
-        digitalWrite(MS1, 1);
-        digitalWrite(MS2, 1);
-        digitalWrite(MS3, 1);
-        digitalWrite(RST_, 1);
-        digitalWrite(SLP_, 1);
+void loop() { (mode == TURN_ROBOT)? turn() : drive(); }
 
-        int x = 0;
-        
-        while(1) { // SET TO ZERO TO RESTORE DRIVING FUNCTION
-          x = analogRead(twistRemotePin);
-          // Serial.println(x);
-          if (x > 900) {
-            digitalWrite(DIR, 0);
-            digitalWrite(STEP, 1); // STEP
-            delayMicroseconds(100);
-          } else if (x < 100) {
-            digitalWrite(DIR, 1);
-            digitalWrite(STEP, 1); // STEP
-            delayMicroseconds(100);
-          }
-          digitalWrite(STEP, 0);
-          delayMicroseconds(50);
-          delay(1);
-        }
-      }
-      
-      //-----------------------------
-      enableBothMotors();
-      
-      rightPID.SetTunings(Kp, Ki, Kd);
-      leftPID.SetTunings(Kp, Ki, Kd);
-     
-     _leftMotorRPMset = getLeftTwistRPM() + getLinearRPM();
-     _rightMotorRPMset = getRightTwistRPM() + getLinearRPM();
-     
-     digitalWrite(INA1, 1);
-     digitalWrite(INB1, 0);
-     digitalWrite(INA2, 1);
-     digitalWrite(INB2, 0);
-     
-     /*
-     setMotorDirection(_leftMotorRPMset, INA1, INB1);  //Sets Pin outs for Pololu 705 
-     setMotorDirection(_rightMotorRPMset, INA2, INB2);
-     */
-     
-     _leftMotorRPMset = abs(_leftMotorRPMset);
-     _rightMotorRPMset = abs(_rightMotorRPMset);
-     
-     computeLeftRPM();   
-     computeRightRPM();                                     //RIGHT motorSpeed compute
-     
-     _leftInput = _leftMotorRPM;
-     _rightInput = _rightMotorRPM;
+void drive() {
   
-     leftPID.Compute();                              //Compute new PID values given input = _rightMotorRPM
-     rightPID.Compute();
-     
-     analogWrite(PWMpin1, _leftOutput); 
-     analogWrite(PWMpin2, _rightOutput); 
-     
-     Serial.println(_leftOutput);
-     Serial.println(_rightOutput);
+  rightPID.SetTunings(Kp, Ki, Kd);
+  leftPID.SetTunings(Kp, Ki, Kd);
  
-    delay(SampleTime); //loop DELAY
-   
-  ///////////////////////////////////////////////////////////////////////////////// end void loop/////////////////////////////////////////////////////////////////////////////////////////////
+  _leftMotorRPMset = getLeftTwistRPM() + getLinearRPM();
+  _rightMotorRPMset = getRightTwistRPM() + getLinearRPM();
+ 
+  setMotorDirection(_leftMotorRPMset, INA1, INB1);  //Sets Pin outs for Pololu 705 
+  setMotorDirection(_rightMotorRPMset, INA2, INB2);
+ 
+  _leftMotorRPMset = abs(_leftMotorRPMset);
+  _rightMotorRPMset = abs(_rightMotorRPMset);
+ 
+  computeLeftRPM();   
+  computeRightRPM();                                     //RIGHT motorSpeed compute
+ 
+  _leftInput = _leftMotorRPM;
+  _rightInput = _rightMotorRPM;
+
+  leftPID.Compute();                              //Compute new PID values given input = _rightMotorRPM
+  rightPID.Compute();
+ 
+  analogWrite(PWMpin1, _leftOutput); 
+  analogWrite(PWMpin2, _rightOutput);
+ 
+  int i = 0;
+  for(; i < SampleTime; i++) {
+    if(readMode()) i == SampleTime;
+  }
 }
 
-//////////////////////////////////////////////////////////////////////////////////////Functions///////////////////////////////////////////////////////////////////////////////////////////////
-//
-//FUNCTION: SetPIDValues: This function is used to set the PID values of the MCU 
-//using three potentiometers. Each potentiometer is power between 5V and GND. 
-//The gains Kp, Kd, and Ki, are changed through the analog signals is input into 
-//the Arduino Mega pins: 5, 6, and 7 respectively. 
+void turn() {
+  
+  x = analogRead(linearRemotePin);
+  // Serial.println(x);
+  if (x > 900) {
+    digitalWrite(DIR, 0);
+    digitalWrite(STEP, 1); // STEP
+    delayMicroseconds(100);
+  } else if (x < 100) {
+    digitalWrite(DIR, 1);
+    digitalWrite(STEP, 1); // STEP
+    delayMicroseconds(100);
+  }
+  digitalWrite(STEP, 0);
+  delay(1);
+  readMode();
+}
+
+boolean readMode() {
+  if(analogRead(button) == 0) {
+    mode = !mode;
+    while(analogRead(button) == 0);
+    return true;
+  }
+  return false;
+}
 
 void SetPIDValues()
 {
@@ -344,7 +311,7 @@ void computeRightRPM()
 
 // FUNCTION: CaclRPMSet
 
-double CalcRPMSet( double XHigh, double XLow, double XCentre, double AnalogInput, int PowerPin)
+double CalcRPMSet( double XHigh, double XLow, double XCentre, double AnalogInput)
 {
   double SlopeHigh = 0, SlopeLow = 0;
   double FHigh = 0, FLow = 0;
@@ -352,8 +319,7 @@ double CalcRPMSet( double XHigh, double XLow, double XCentre, double AnalogInput
   double X = 0;
   double power = 0;
   X = analogRead(AnalogInput);
-  power = digitalRead(PowerPin);
-  if(power == HIGH){
+
   if( X > XCentre){
     SlopeHigh = (MaxRPM/(XHigh-XCentre));
     FHigh = SlopeHigh*(X-XCentre);
@@ -382,10 +348,7 @@ double CalcRPMSet( double XHigh, double XLow, double XCentre, double AnalogInput
       output = MaxOut;
     }
   }
-  }
-  else{
-    output = 0;
-  }
+  
   return output;
 }
 
@@ -416,11 +379,10 @@ double getLeftTwistRPM()
   double twistRPM = 0;
   double leftTwistRPM = 0;
   double rightTwistRPM = 0;
-  twistRPM = CalcRPMSet( twistXHigh, twistXLow , twistXCentre, twistRemotePin, RemotePowerPin);
+  twistRPM = CalcRPMSet( twistXHigh, twistXLow , twistXCentre, twistRemotePin);
   leftTwistRPM = -twistRPM;
   
   return leftTwistRPM;
-   
 }
 
 //FUNCTION getRightTwistRPM
@@ -430,11 +392,10 @@ double getRightTwistRPM()
   double twistRPM = 0;
   double leftTwistRPM = 0;
   double rightTwistRPM = 0;
-  twistRPM = CalcRPMSet( twistXHigh, twistXLow , twistXCentre, twistRemotePin, RemotePowerPin);
+  twistRPM = CalcRPMSet( twistXHigh, twistXLow , twistXCentre, twistRemotePin);
   rightTwistRPM = twistRPM;
   
   return rightTwistRPM;
-
 }
 
 //FUNCTION: getLinearRPM
@@ -442,10 +403,9 @@ double getRightTwistRPM()
 double getLinearRPM()
 {
   double linearRPM = 0;
-  linearRPM = CalcRPMSet( linearXHigh, linearXLow , linearXCentre, linearRemotePin, RemotePowerPin);
+  linearRPM = CalcRPMSet( linearXHigh, linearXLow , linearXCentre, linearRemotePin);
   
   return linearRPM;
-  
 }
 
   
