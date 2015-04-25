@@ -41,9 +41,9 @@ boolean stringComplete = false;  // whether the string is complete
 //  [LOW LOW = BRAKE to ground]
  
   const int        ENA1 = 24; //LOW Disables Half Bridge A HIGH Enables half bridge A
-  const int        ENB1 = 28; //LOW Disables Half Bridge B HIGH Enables half bridge B
+  const int        ENB1 = 26; //LOW Disables Half Bridge B HIGH Enables half bridge B
   const int        ENA2 = 32;
-  const int        ENB2 = 36;
+  const int        ENB2 = 34;
   const int        PWMpin1 = 7;
   const int        PWMpin2 = 6;
   #define LAD A8
@@ -128,7 +128,6 @@ void setup()
   pinMode(STEP, OUTPUT);
   pinMode(DIR, OUTPUT);
   
-  
   //-------------------------------
   
   pinMode(rightKillPin,INPUT_PULLUP);
@@ -147,6 +146,13 @@ void setup()
   leftPID.SetMode(AUTOMATIC);
   leftPID.SetSampleTime(SampleTime);
     
+}
+
+void enableBothMotors() {
+  digitalWrite(ENA1, 1);
+  digitalWrite(ENB1, 1);
+  digitalWrite(ENA2, 1);
+  digitalWrite(ENB2, 1);
 }
 
 void loop()
@@ -172,7 +178,7 @@ void loop()
         }
       }
       
-      if(1) {
+      if(0) {
         digitalWrite(RST_, 0);
         
         digitalWrite(EN_, 0);
@@ -203,24 +209,23 @@ void loop()
       }
       
       //-----------------------------
-      
-      Serial.println(analogRead(twistRemotePin));
+      enableBothMotors();
       
       rightPID.SetTunings(Kp, Ki, Kd);
       leftPID.SetTunings(Kp, Ki, Kd);
-
-     _LeftMotorKillValue = 0; // digitalRead(leftKillPin);
-     _RightMotorKillValue = 0; // digitalRead(rightKillPin);      //print analog pin 3 input value
      
-     //using -RightMotorKillValue to control both motors 
-     //KillMotor(_LeftMotorKillValue, ENA1, ENB1);      //enable or disable H-bridge 2 based on input from analog input. HIGH = OFF, LOW = ON
-     KillMotor(_RightMotorKillValue, ENA2, ENB2);           //Kill Right motor when kill cable is pulled
-     KillMotor(_RightMotorKillValue, ENA1, ENB1);     
      _leftMotorRPMset = getLeftTwistRPM() + getLinearRPM();
      _rightMotorRPMset = getRightTwistRPM() + getLinearRPM();
      
+     digitalWrite(INA1, 1);
+     digitalWrite(INB1, 0);
+     digitalWrite(INA2, 1);
+     digitalWrite(INB2, 0);
+     
+     /*
      setMotorDirection(_leftMotorRPMset, INA1, INB1);  //Sets Pin outs for Pololu 705 
      setMotorDirection(_rightMotorRPMset, INA2, INB2);
+     */
      
      _leftMotorRPMset = abs(_leftMotorRPMset);
      _rightMotorRPMset = abs(_rightMotorRPMset);
@@ -236,6 +241,9 @@ void loop()
      
      analogWrite(PWMpin1, _leftOutput); 
      analogWrite(PWMpin2, _rightOutput); 
+     
+     Serial.println(_leftOutput);
+     Serial.println(_rightOutput);
  
     delay(SampleTime); //loop DELAY
    
@@ -301,25 +309,6 @@ float getRPM(double _Count,  double SampleTime, int CountsPerRotation, int Multi
   }
   
   return _MotorRPM;
-}
-//FUNCTION: killMotor
-
-int KillMotor(int analogPinValue, int ENA, int ENB )
-{
-   if (analogPinValue == LOW)
-   {
-       digitalWrite(ENA, LOW);
-       digitalWrite(ENB, LOW);
-       
-   }
-   else
-   {  
-       
-       digitalWrite(ENA, HIGH);
-       digitalWrite(ENB, HIGH);
-   }
-   
-   return 0;
 }
 
 //FUNCTION: ComputeRightRPM
