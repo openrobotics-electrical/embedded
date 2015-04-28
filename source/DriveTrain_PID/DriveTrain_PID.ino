@@ -1,18 +1,12 @@
 
 
-  #include <math.h>  // requires an Atmega168 chip 
+#include <math.h>  // requires an Atmega168 chip 
   
-  /* [6/3/2015]  If using the arduino sketch programmer both the Encoder.h anf PID_v1.h headers must be included in the 
-  /../Arduino/libraries path. Copies of the header files are included in the Drive train folder
-  on the intelligence45 google drive account*/
-  #include <Encoder.h>
-  #include <PID_v1.h> // Include PID library for closed loop control
-  
-  ///////////////////////////////////////////////////////////////////////////////////Variables/////////////////////////////////////////////////////////////////////////////////////////////////
-  
-  double error = 0;
-  
-  /////////////////////////////////////////////////
+/* [6/3/2015]  If using the arduino sketch programmer both the Encoder.h anf PID_v1.h headers must be included in the 
+/../Arduino/libraries path. Copies of the header files are included in the Drive train folder
+on the intelligence45 google drive account*/
+#include <Encoder.h>
+#include <PID_v1.h> // Include PID library for closed loop control
   
 String inputString = "";         // a string to hold incoming data
 boolean stringComplete = false;  // whether the string is complete
@@ -30,12 +24,6 @@ boolean stringComplete = false;  // whether the string is complete
   const int        INB1 = 28; // the bridge in normal operation: 
   const int        INA2 = 30;
   const int        INB2 = 36;
-  
-//  [HIGH HIGH = BRAKE to Vcc] 
-//  [HIGH LOW = CLOCKWISE]
-//  [LOW HIGH = Counter Clock Wise]
-//  [LOW LOW = BRAKE to ground]
- 
   const int        ENA1 = 24; //LOW Disables Half Bridge A HIGH Enables half bridge A
   const int        ENB1 = 26; //LOW Disables Half Bridge B HIGH Enables half bridge B
   const int        ENA2 = 32;
@@ -55,6 +43,9 @@ boolean stringComplete = false;  // whether the string is complete
   #define SLP_ 49
   #define STEP 51
   #define DIR 53
+  
+  #define LRSW 9
+  #define RRSW 10
   
   //Encoder count variables:   
   double           _leftMotorRPM = 0;
@@ -87,8 +78,6 @@ boolean stringComplete = false;  // whether the string is complete
   double twistXHigh = 1023;
   double twistXLow = 125;
   double twistXCentre = 480;
-  double test = 0;
-  
   
   //Initialize encoder inputs
   Encoder LeftEncoder(2, 3);
@@ -100,6 +89,8 @@ boolean stringComplete = false;  // whether the string is complete
 
   #define TURN_ROBOT true
   #define DRIVE_ROBOT false
+  #define LEFT 1
+  #define RIGHT 0
   boolean mode = TURN_ROBOT;
   int x = 0;
 
@@ -129,6 +120,9 @@ void setup()
   pinMode(DIR, OUTPUT);
   
   //-------------------------------
+  
+  pinMode(RRSW, INPUT_PULLUP);
+  pinMode(LRSW, INPUT_PULLUP);
   
   pinMode(button, INPUT_PULLUP);
   
@@ -163,7 +157,10 @@ void enableMotors() {
   digitalWrite(ENB2, 1);
 }
 
-void loop() { (mode == TURN_ROBOT)? turn() : drive(); }
+void loop() { 
+	// drive();
+	(mode == TURN_ROBOT)? turn() : drive(); 
+}
 
 void drive() {
   
@@ -193,35 +190,44 @@ void drive() {
  
   int i = 0;
   for(; i < SampleTime; i++) {
-    if(readMode()) i == SampleTime;
+    if(readMode()) 
+		i == SampleTime;
   }
 }
 
 void turn() {
   
-  x = analogRead(linearRemotePin);
-  // Serial.println(x);
-  if (x > 900) {
-    digitalWrite(DIR, 0);
-    digitalWrite(STEP, 1); // STEP
-    delayMicroseconds(100);
-  } else if (x < 100) {
-    digitalWrite(DIR, 1);
-    digitalWrite(STEP, 1); // STEP
-    delayMicroseconds(100);
-  }
-  digitalWrite(STEP, 0);
-  delay(1);
-  readMode();
+	x = analogRead(linearRemotePin);
+	// Serial.println(x);
+	if (x > 900 && digitalRead(LRSW)) {
+		digitalWrite(DIR, LEFT);
+		digitalWrite(STEP, 1); // STEP
+		delayMicroseconds(100);
+	} else if (x < 100 && digitalRead(RRSW)) {
+		digitalWrite(DIR, RIGHT);
+		digitalWrite(STEP, 1); // STEP
+		delayMicroseconds(100);
+	}
+  
+	digitalWrite(STEP, 0);
+	delay(1);
+	readMode();
 }
 
 boolean readMode() {
-  if(analogRead(button) == 0) {
-    mode = !mode;
-    while(analogRead(button) == 0);
-    return true;
-  }
-  return false;
+	
+	int modeSwitch = analogRead(button);
+	delayMicroseconds(100);
+	
+	if(modeSwitch <= 10) {
+		mode = !mode;
+		while(modeSwitch <= 10) {
+			modeSwitch = analogRead(button);
+			delayMicroseconds(150);
+		}
+		return true;
+	}
+	return false;
 }
 
 void SetPIDValues()
@@ -448,14 +454,7 @@ void onReceived(String s) {
     else if (s == "set\n") {
       Serial.println(_rightMotorRPMset);
     }
-//    else if (s == "rightPot\n") {
-//      Serial.println(rightPotValue);
-//    }
         else if (s == "output\n") {
       Serial.println(_rightOutput);
     }
-        else if (s == "err\n") {
-      Serial.println(error);
-    }
-  
 }
