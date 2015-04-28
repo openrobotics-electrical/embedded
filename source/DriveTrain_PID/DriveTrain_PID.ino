@@ -74,7 +74,7 @@ boolean stringComplete = false;  // whether the string is complete
   double _rightMotorRPMset = 0, _rightInput = 0, _rightOutput = 0;
   double _leftMotorRPMset = 0, _leftInput = 0, _leftOutput = 0;
   const float SampleTime = 50;
-  int Kp = 160, Kd = 0, Ki = 0;
+  int Kp = 75, Kd = 0, Ki = 0;
   int KpIN = 0, KdIN = 0, KiIN = 0;
   int KpPin = 5, KdPin = 6, KiPin = 7;
   double MaxRPM = 1.45;
