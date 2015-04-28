@@ -46,6 +46,7 @@ boolean stringComplete = false;  // whether the string is complete
   
   #define LRSW 9
   #define RRSW 10
+  #define HES 8
   
   //Encoder count variables:   
   double           _leftMotorRPM = 0;
@@ -123,6 +124,7 @@ void setup()
   
   pinMode(RRSW, INPUT_PULLUP);
   pinMode(LRSW, INPUT_PULLUP);
+  pinMode(HES, INPUT);
   
   pinMode(button, INPUT_PULLUP);
   
@@ -158,8 +160,35 @@ void enableMotors() {
 }
 
 void loop() { 
-	// drive();
+	
 	(mode == TURN_ROBOT)? turn() : drive(); 
+}
+
+void testHall() {
+	
+	int hallHigh, hallLow;
+	
+	while(1) {
+		int thing = digitalRead(HES);
+		Serial.print(thing);
+		/*
+		hallHigh = 0;
+		hallLow = 0;
+		while (digitalRead(HES) == 0);
+		while(digitalRead(HES) == 1) {
+			delayMicroseconds(100);
+			hallHigh++;
+		}
+		while(digitalRead(HES) == 0) {
+			delayMicroseconds(100);
+			hallLow++;
+		}
+		Serial.print("H: ");
+		Serial.print(hallHigh);
+		Serial.print(" L: ");
+		Serial.println(hallLow);
+		*/
+	}
 }
 
 void drive() {
