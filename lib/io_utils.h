@@ -5,19 +5,6 @@
  *  max@theprogrammingclub.com
  */ 
 
-/* USAGE EXAMPLES
-
-	Analog::selectChannel(3);
-	Analog::startConversion();
-	
-	while(Analog::conversionComplete) { 
-		
-		// wait 
-	}
-	
-	uint16_t = Analog::getValue();
-
-*/
 
 #ifndef IO_UTILS_H
 #define IO_UTILS_H
