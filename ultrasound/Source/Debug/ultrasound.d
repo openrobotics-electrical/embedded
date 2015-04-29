@@ -1,4 +1,4 @@
-ultrasound.d ultrasound.o: .././ultrasound.cpp .././../../lib/F_CPU.h \
+ultrasound.d ultrasound.o: .././ultrasound.cpp \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\avr\io.h \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\avr\sfr_defs.h \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\inttypes.h \
@@ -21,8 +21,6 @@ ultrasound.d ultrasound.o: .././ultrasound.cpp .././../../lib/F_CPU.h \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\stdlib.h \
  .././../../lib/usart.cpp .././../../lib/usart.h \
  .././../../lib/io_utils.h
-
-.././../../lib/F_CPU.h:
 
 c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\avr\io.h:
 
