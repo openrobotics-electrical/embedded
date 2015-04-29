@@ -43,6 +43,7 @@ int main(void) {
 	Bit trig(2, &PORTD, &DDRD);
 	Bit echo(3, &PORTD, &DDRD);
 	Bus ultra;
+	void (*silliness) (int i); 
 	
 	trig.setAsOutput();
 	echo.setAsInput();
@@ -52,6 +53,7 @@ int main(void) {
 	while(1) {
 		
 		uint16_t uCount = 0;
+		// silliness = [&uCount](int) { int c = 0; };
 		
 		trig.clear();
 		echo.clear();

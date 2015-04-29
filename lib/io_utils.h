@@ -79,7 +79,7 @@ class Bus {
 			
 		Bus add(Bit b) { 
 			
-			bits = (Bit *) realloc (++width);
+			bits = (Bit *) realloc (bits, ++width * sizeof(Bit));
 			bits[width - 1] = b;
 			return *this;
 		}	
