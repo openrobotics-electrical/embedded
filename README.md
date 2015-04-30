@@ -35,5 +35,5 @@ I want to make this documentation effective<br>
 <code>  git push origin master</code><br>
 <br>
 In case of Git conflicts: <br>
-<code>git checkout -b [some name that indicates this branch is screwed up]
+<code>  git checkout -b [some name that indicates this branch is screwed up]</code><br>
 &nbsp;&nbsp;Initiate a pull request on github.com<br>
