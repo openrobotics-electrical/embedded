@@ -1,6 +1,6 @@
 # open_robotics_embedded
 Drive motor and turntable controller for OpenRobotics.ca<br>
-Seriously any questions get at me max@theprogrammingclub.com<br><br>
+Seriously any questions get at me max@theprogrammingclub.com<br>
 ###Things you need to be effective here:<br>
 git:<br>
 &nbsp;&nbsp;<a href="https://windows.github.com/">Windows install</a><br>
@@ -25,7 +25,6 @@ For serial programming in a non-Arduino project:<br>
 <br>
 Email me! max@theprogrammingclub.com<br>
 I want to make this documentation effective<br>
-<br>
 ###Git workflow: <br>
 <code>  git pull origin master</code><br>
 <code>  [do your stuff]</code><br>
