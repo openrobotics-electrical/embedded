@@ -3,16 +3,16 @@ Drive motor and turntable controller for OpenRobotics.ca<br>
 
 Seriously any questions get at me max@theprogrammingclub.com<br>
 <br>
-<u>Things you need to be effective here:</u><br>
+###Things you need to be effective here:<br>
 git:<br>
-  <a href="https://windows.github.com/">Windows install</a><br>
-  <a href="http://git-scm.com/download/linux">Linux/Unix install</a><br>
-Our Trello page:<br>
-  https://trello.com/openrobotics
-Slack is helpful:<br>
-  https://opbots.slack.com/<br>
+&nbsp;&nbsp;<a href="https://windows.github.com/">Windows install</a><br>
+&nbsp;&nbsp;<a href="http://git-scm.com/download/linux">Linux/Unix install</a><br>
+###Our Trello page:<br>
+&nbsp;&nbsp;https://trello.com/openrobotics
+###Slack is helpful:<br>
+&nbsp;&nbsp;https://opbots.slack.com/<br>
 <br>
-<u>About the repo</u><br>
+###About the repo<br>
 We program in a mix of Arduino and CPP over USB and using ICSP, usually using avrdude.exe to program<br>
 http://www.atmel.com/microsite/atmel_studio6 is used as a dev environment with the Visual Micro extension<br>
 For serial programming in a non-Arduino project:<br>
@@ -29,7 +29,7 @@ For serial programming in a non-Arduino project:<br>
 Email me! max@theprogrammingclub.com<br>
 I want to make this documentation effective<br>
 <br>
-Git workflow: <br>
+###Git workflow: <br>
 <code>  git pull origin master</code><br>
 <code>  [do your stuff]</code><br>
 <code>  git add [new files]</code><br>
