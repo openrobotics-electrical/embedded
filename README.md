@@ -7,9 +7,9 @@ Seriously any questions get at me max@theprogrammingclub.com<br>
 git:<br>
 &nbsp;&nbsp;<a href="https://windows.github.com/">Windows install</a><br>
 &nbsp;&nbsp;<a href="http://git-scm.com/download/linux">Linux/Unix install</a><br>
-###Our Trello page:<br>
+Our Trello page:<br>
 &nbsp;&nbsp;https://trello.com/openrobotics
-###Slack is helpful:<br>
+Slack is helpful:<br>
 &nbsp;&nbsp;https://opbots.slack.com/<br>
 <br>
 ###About the repo<br>
