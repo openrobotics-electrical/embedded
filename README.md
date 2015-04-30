@@ -1,17 +1,14 @@
 # open_robotics_embedded
 Drive motor and turntable controller for OpenRobotics.ca<br>
-
-Seriously any questions get at me max@theprogrammingclub.com<br>
-<br>
+Seriously any questions get at me max@theprogrammingclub.com<br><br>
 ###Things you need to be effective here:<br>
 git:<br>
 &nbsp;&nbsp;<a href="https://windows.github.com/">Windows install</a><br>
 &nbsp;&nbsp;<a href="http://git-scm.com/download/linux">Linux/Unix install</a><br>
 Our Trello page:<br>
-&nbsp;&nbsp;https://trello.com/openrobotics
+&nbsp;&nbsp;https://trello.com/openrobotics<br>
 Slack is helpful:<br>
 &nbsp;&nbsp;https://opbots.slack.com/<br>
-<br>
 ###About the repo<br>
 We program in a mix of Arduino and CPP over USB and using ICSP, usually using avrdude.exe to program<br>
 http://www.atmel.com/microsite/atmel_studio6 is used as a dev environment with the Visual Micro extension<br>
@@ -39,4 +36,4 @@ I want to make this documentation effective<br>
 <br>
 In case of Git conflicts: <br>
 <code>git checkout -b [some name that indicates this branch is screwed up]
-&nbsp;&nbsp;Initiate a pull request on github.com
+&nbsp;&nbsp;Initiate a pull request on github.com<br>
