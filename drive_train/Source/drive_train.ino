@@ -124,7 +124,7 @@ void setup()
   
   pinMode(RRSW, INPUT_PULLUP);
   pinMode(LRSW, INPUT_PULLUP);
-  pinMode(HES, INPUT);
+  pinMode(HES, INPUT_PULLUP);
   
   pinMode(button, INPUT_PULLUP);
   
@@ -160,7 +160,6 @@ void enableMotors() {
 }
 
 void loop() { 
-	
 	(mode == TURN_ROBOT)? turn() : drive(); 
 }
 
@@ -169,25 +168,20 @@ void testHall() {
 	int hallHigh, hallLow;
 	
 	while(1) {
-		int thing = digitalRead(HES);
-		Serial.print(thing);
-		/*
 		hallHigh = 0;
 		hallLow = 0;
+		while(digitalRead(HES) == 1);
 		while (digitalRead(HES) == 0);
 		while(digitalRead(HES) == 1) {
-			delayMicroseconds(100);
 			hallHigh++;
 		}
 		while(digitalRead(HES) == 0) {
-			delayMicroseconds(100);
 			hallLow++;
 		}
 		Serial.print("H: ");
 		Serial.print(hallHigh);
 		Serial.print(" L: ");
 		Serial.println(hallLow);
-		*/
 	}
 }
 

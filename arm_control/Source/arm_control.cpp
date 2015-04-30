@@ -1,7 +1,7 @@
 /*
- * ultrasound.cpp
+ * arm_control.cpp
  *
- * Created: 4/28/2015 9:28:17 AM
+ * Created: 4/29/2015 5:09:36 PM
  *  Author: Max Prokopenko
  *  max@theprogrammingclub.com
  */
@@ -26,48 +26,38 @@
 char strOut[CHAR_BUFFER_LENGTH];
 char strIn[CHAR_BUFFER_LENGTH];
 
-//------------------INTERRUPT SERVICE ROUTINES
-
-ISR(TIMER1_COMPA_vect) {
-	
-	TCNT1 = 0;
-}
-
 //------------------MAIN
 
 int main(void) {
 	
 	USART_Init(convertBaud(COM_SPEED));
 	
-	Bit trig(2, PORTD);
-	Bit echo(3, PORTD);
+	Bit	d1G_(2, PORTD);
 	
-	trig.setAsOutput();
-	echo.setAsHighZInput();
+	Bit d1A1();
+	Bit d1A2();
+	Bit d1A3();	
+	Bit d1A4();
+	
+	Bit d1Y1();
+	Bit d1Y2();
+	Bit d1Y3();
+	Bit d1Y4();
+	
+	Bit d2G_(3, PORTD);
+	
+	Bit d2A1();
+	Bit d2A2();
+	Bit d2A3();
+	Bit d2A4();
+	
+	Bit d2Y1();
+	Bit d2Y2();
+	Bit d2Y3();
+	Bit d2Y4();
 	
 	while(1) {
 		
-		uint16_t uCount = 0;
 		
-		trig.clear();
-		_delay_us(20);	
-		trig.set();
-		_delay_us(20);
-		trig.clear();
-		
-		while(echo.isLow()) {};
-			
-		while(echo.isHigh()) {
-			
-			_delay_us(1);
-			uCount++;
-		}
-		
-		sprintf(strOut, "%u mm\n", (uint16_t)(uCount * 0.25));
-		USART_Send_string(strOut);
-		_delay_ms(50);
 	}
 }
-
-
-
