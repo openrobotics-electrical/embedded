@@ -12,6 +12,7 @@ Slack is helpful:<br>
 ###About the repo<br>
 We program in a mix of Arduino and CPP over USB and using ICSP, usually using avrdude.exe to program<br>
 http://www.atmel.com/microsite/atmel_studio6 is used as a dev environment with the Visual Micro extension<br>
+<br>
 For serial programming in a non-Arduino project:<br>
 &nbsp;&nbsp;Select Tools -> External tools<br>
 &nbsp;&nbsp;&nbsp;&nbsp;Choose Add<br>
