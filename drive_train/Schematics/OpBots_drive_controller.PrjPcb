@@ -71,7 +71,7 @@ GenerateClassCluster=0
 DocumentUniqueId=KPMXNBIT
 
 [Document3]
-DocumentPath=..\..\..\..\..\Public\Documents\Altium\AD14\Library\PartsDatabaseV13p1\PartsDatabaseV12.PcbLib
+DocumentPath=..\..\lib\Header.PcbLib
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -85,10 +85,10 @@ ClassGenCCAutoRoomEnabled=1
 ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
-DocumentUniqueId=BVNXSABG
+DocumentUniqueId=
 
 [Document4]
-DocumentPath=Header.PcbLib
+DocumentPath=..\..\lib\Header.SchLib
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -102,10 +102,10 @@ ClassGenCCAutoRoomEnabled=1
 ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
-DocumentUniqueId=YDPGEQIY
+DocumentUniqueId=
 
 [Document5]
-DocumentPath=Header.SchLib
+DocumentPath=..\..\lib\OpBots.PcbLib
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -122,7 +122,7 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [Document6]
-DocumentPath=..\..\..\..\..\Public\Documents\Altium\AD14\Library\PartsDatabaseV13p1\PartsDatabaseV12.SchLib
+DocumentPath=..\..\lib\OpBots.SchLib
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -136,10 +136,10 @@ ClassGenCCAutoRoomEnabled=1
 ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
-DocumentUniqueId=OUPWGGHD
+DocumentUniqueId=
 
 [Document7]
-DocumentPath=OpBots.SchLib
+DocumentPath=..\..\lib\PartsDatabaseV13p1.IntLib
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -153,10 +153,10 @@ ClassGenCCAutoRoomEnabled=1
 ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
-DocumentUniqueId=BOUAWJUR
+DocumentUniqueId=
 
 [Document8]
-DocumentPath=OpBots.PcbLib
+DocumentPath=..\..\lib\PartsDatabaseV13p2.IntLib
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -170,7 +170,7 @@ ClassGenCCAutoRoomEnabled=1
 ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
-DocumentUniqueId=QEKYOYLB
+DocumentUniqueId=
 
 [GeneratedDocument1]
 DocumentPath=Project Outputs for PCB_Project\AdruinoMegaSheild.NET
