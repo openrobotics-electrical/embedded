@@ -3,165 +3,462 @@ arm_control.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         000000f6  00000000  00000000  00000074  2**1
+  0 .text         000002c2  00000000  00000000  00000074  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .bss          00000002  00800100  00800100  0000016a  2**0
+  1 .bss          00000010  00800100  00800100  00000336  2**0
                   ALLOC
-  2 .comment      00000030  00000000  00000000  0000016a  2**0
+  2 .comment      00000030  00000000  00000000  00000336  2**0
                   CONTENTS, READONLY
-  3 .debug_aranges 00000070  00000000  00000000  0000019a  2**0
+  3 .debug_aranges 00000190  00000000  00000000  00000366  2**0
                   CONTENTS, READONLY, DEBUGGING
-  4 .debug_info   000003c5  00000000  00000000  0000020a  2**0
+  4 .debug_info   000109b7  00000000  00000000  000004f6  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_abbrev 000001f8  00000000  00000000  000005cf  2**0
+  5 .debug_abbrev 000004fb  00000000  00000000  00010ead  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_line   000001c1  00000000  00000000  000007c7  2**0
+  6 .debug_line   000013e8  00000000  00000000  000113a8  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_frame  00000118  00000000  00000000  00000988  2**2
+  7 .debug_frame  00000b34  00000000  00000000  00012790  2**2
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_str    000002ed  00000000  00000000  00000aa0  2**0
+  8 .debug_str    00000e86  00000000  00000000  000132c4  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_loc    0000026a  00000000  00000000  00000d8d  2**0
+  9 .debug_loc    00006fbe  00000000  00000000  0001414a  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_ranges 00000060  00000000  00000000  00000ff7  2**0
+ 10 .debug_ranges 00000180  00000000  00000000  0001b108  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
 
 00000000 <__vectors>:
-   0:	0c 94 34 00 	jmp	0x68	; 0x68 <__ctors_end>
-   4:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-   8:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-   c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-  10:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-  14:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-  18:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-  1c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-  20:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-  24:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-  28:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-  2c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-  30:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-  34:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-  38:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-  3c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-  40:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-  44:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-  48:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-  4c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-  50:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-  54:	0c 94 5e 00 	jmp	0xbc	; 0xbc <__vector_21>
-  58:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-  5c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-  60:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-  64:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+   0:	0c 94 35 00 	jmp	0x6a	; 0x6a <__ctors_end>
+   4:	0c 94 5d 00 	jmp	0xba	; 0xba <__bad_interrupt>
+   8:	0c 94 5d 00 	jmp	0xba	; 0xba <__bad_interrupt>
+   c:	0c 94 5d 00 	jmp	0xba	; 0xba <__bad_interrupt>
+  10:	0c 94 5d 00 	jmp	0xba	; 0xba <__bad_interrupt>
+  14:	0c 94 5d 00 	jmp	0xba	; 0xba <__bad_interrupt>
+  18:	0c 94 5d 00 	jmp	0xba	; 0xba <__bad_interrupt>
+  1c:	0c 94 5d 00 	jmp	0xba	; 0xba <__bad_interrupt>
+  20:	0c 94 5d 00 	jmp	0xba	; 0xba <__bad_interrupt>
+  24:	0c 94 5d 00 	jmp	0xba	; 0xba <__bad_interrupt>
+  28:	0c 94 5d 00 	jmp	0xba	; 0xba <__bad_interrupt>
+  2c:	0c 94 5d 00 	jmp	0xba	; 0xba <__bad_interrupt>
+  30:	0c 94 5d 00 	jmp	0xba	; 0xba <__bad_interrupt>
+  34:	0c 94 5d 00 	jmp	0xba	; 0xba <__bad_interrupt>
+  38:	0c 94 5d 00 	jmp	0xba	; 0xba <__bad_interrupt>
+  3c:	0c 94 5d 00 	jmp	0xba	; 0xba <__bad_interrupt>
+  40:	0c 94 5d 00 	jmp	0xba	; 0xba <__bad_interrupt>
+  44:	0c 94 5d 00 	jmp	0xba	; 0xba <__bad_interrupt>
+  48:	0c 94 5d 00 	jmp	0xba	; 0xba <__bad_interrupt>
+  4c:	0c 94 5d 00 	jmp	0xba	; 0xba <__bad_interrupt>
+  50:	0c 94 5d 00 	jmp	0xba	; 0xba <__bad_interrupt>
+  54:	0c 94 6a 00 	jmp	0xd4	; 0xd4 <__vector_21>
+  58:	0c 94 5d 00 	jmp	0xba	; 0xba <__bad_interrupt>
+  5c:	0c 94 5d 00 	jmp	0xba	; 0xba <__bad_interrupt>
+  60:	0c 94 5d 00 	jmp	0xba	; 0xba <__bad_interrupt>
+  64:	0c 94 5d 00 	jmp	0xba	; 0xba <__bad_interrupt>
 
-00000068 <__ctors_end>:
-  68:	11 24       	eor	r1, r1
-  6a:	1f be       	out	0x3f, r1	; 63
-  6c:	cf ef       	ldi	r28, 0xFF	; 255
-  6e:	d8 e0       	ldi	r29, 0x08	; 8
-  70:	de bf       	out	0x3e, r29	; 62
-  72:	cd bf       	out	0x3d, r28	; 61
+00000068 <__ctors_start>:
+  68:	0f 01       	movw	r0, r30
 
-00000074 <__do_copy_data>:
-  74:	11 e0       	ldi	r17, 0x01	; 1
-  76:	a0 e0       	ldi	r26, 0x00	; 0
-  78:	b1 e0       	ldi	r27, 0x01	; 1
-  7a:	e6 ef       	ldi	r30, 0xF6	; 246
-  7c:	f0 e0       	ldi	r31, 0x00	; 0
-  7e:	02 c0       	rjmp	.+4      	; 0x84 <__do_copy_data+0x10>
-  80:	05 90       	lpm	r0, Z+
-  82:	0d 92       	st	X+, r0
-  84:	a0 30       	cpi	r26, 0x00	; 0
-  86:	b1 07       	cpc	r27, r17
-  88:	d9 f7       	brne	.-10     	; 0x80 <__do_copy_data+0xc>
+0000006a <__ctors_end>:
+  6a:	11 24       	eor	r1, r1
+  6c:	1f be       	out	0x3f, r1	; 63
+  6e:	cf ef       	ldi	r28, 0xFF	; 255
+  70:	d8 e0       	ldi	r29, 0x08	; 8
+  72:	de bf       	out	0x3e, r29	; 62
+  74:	cd bf       	out	0x3d, r28	; 61
 
-0000008a <__do_clear_bss>:
-  8a:	21 e0       	ldi	r18, 0x01	; 1
-  8c:	a0 e0       	ldi	r26, 0x00	; 0
-  8e:	b1 e0       	ldi	r27, 0x01	; 1
-  90:	01 c0       	rjmp	.+2      	; 0x94 <.do_clear_bss_start>
+00000076 <__do_copy_data>:
+  76:	11 e0       	ldi	r17, 0x01	; 1
+  78:	a0 e0       	ldi	r26, 0x00	; 0
+  7a:	b1 e0       	ldi	r27, 0x01	; 1
+  7c:	e2 ec       	ldi	r30, 0xC2	; 194
+  7e:	f2 e0       	ldi	r31, 0x02	; 2
+  80:	02 c0       	rjmp	.+4      	; 0x86 <__do_copy_data+0x10>
+  82:	05 90       	lpm	r0, Z+
+  84:	0d 92       	st	X+, r0
+  86:	a0 30       	cpi	r26, 0x00	; 0
+  88:	b1 07       	cpc	r27, r17
+  8a:	d9 f7       	brne	.-10     	; 0x82 <__do_copy_data+0xc>
 
-00000092 <.do_clear_bss_loop>:
-  92:	1d 92       	st	X+, r1
+0000008c <__do_clear_bss>:
+  8c:	21 e0       	ldi	r18, 0x01	; 1
+  8e:	a0 e0       	ldi	r26, 0x00	; 0
+  90:	b1 e0       	ldi	r27, 0x01	; 1
+  92:	01 c0       	rjmp	.+2      	; 0x96 <.do_clear_bss_start>
 
-00000094 <.do_clear_bss_start>:
-  94:	a2 30       	cpi	r26, 0x02	; 2
-  96:	b2 07       	cpc	r27, r18
-  98:	e1 f7       	brne	.-8      	; 0x92 <.do_clear_bss_loop>
-  9a:	0e 94 72 00 	call	0xe4	; 0xe4 <main>
-  9e:	0c 94 79 00 	jmp	0xf2	; 0xf2 <_exit>
+00000094 <.do_clear_bss_loop>:
+  94:	1d 92       	st	X+, r1
 
-000000a2 <__bad_interrupt>:
-  a2:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+00000096 <.do_clear_bss_start>:
+  96:	a0 31       	cpi	r26, 0x10	; 16
+  98:	b2 07       	cpc	r27, r18
+  9a:	e1 f7       	brne	.-8      	; 0x94 <.do_clear_bss_loop>
 
-000000a6 <_Z10USART_Initj>:
-	return (((((FOSC * 10) / (16L * baud)) + 5) / 10) - 1);
-}
+0000009c <__do_global_ctors>:
+  9c:	10 e0       	ldi	r17, 0x00	; 0
+  9e:	ca e6       	ldi	r28, 0x6A	; 106
+  a0:	d0 e0       	ldi	r29, 0x00	; 0
+  a2:	04 c0       	rjmp	.+8      	; 0xac <__do_global_ctors+0x10>
+  a4:	22 97       	sbiw	r28, 0x02	; 2
+  a6:	fe 01       	movw	r30, r28
+  a8:	0e 94 5b 01 	call	0x2b6	; 0x2b6 <__tablejump__>
+  ac:	c8 36       	cpi	r28, 0x68	; 104
+  ae:	d1 07       	cpc	r29, r17
+  b0:	c9 f7       	brne	.-14     	; 0xa4 <__do_global_ctors+0x8>
+  b2:	0e 94 97 00 	call	0x12e	; 0x12e <main>
+  b6:	0c 94 5f 01 	jmp	0x2be	; 0x2be <_exit>
 
-void USART_Init(unsigned int ubrr) {
-	/*Set baud rate */
-	UBRR0H = (unsigned char)(ubrr>>8);
-  a6:	90 93 c5 00 	sts	0x00C5, r25
-	UBRR0L = (unsigned char)ubrr;
-  aa:	80 93 c4 00 	sts	0x00C4, r24
-	//Enable receiver and transmitter */
-	UCSR0B = (1 << RXEN0)|(1 << TXEN0);
-  ae:	88 e1       	ldi	r24, 0x18	; 24
-  b0:	80 93 c1 00 	sts	0x00C1, r24
-	/* Set frame format: 8data, 1 stop bit */
-	UCSR0C = (0 << USBS0)|(3 << UCSZ00);
-  b4:	86 e0       	ldi	r24, 0x06	; 6
-  b6:	80 93 c2 00 	sts	0x00C2, r24
-  ba:	08 95       	ret
+000000ba <__bad_interrupt>:
+  ba:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
 
-000000bc <__vector_21>:
+000000be <_Z10USART_Initj>:
+		}
 
-volatile uint8_t analogLow, analogHigh;
-
-//------------------INTERRUPT SERVICE ROUTINES
-
-ISR(ADC_vect) {
-  bc:	1f 92       	push	r1
-  be:	0f 92       	push	r0
-  c0:	0f b6       	in	r0, 0x3f	; 63
-  c2:	0f 92       	push	r0
-  c4:	11 24       	eor	r1, r1
-  c6:	8f 93       	push	r24
+//------PUBLIC FUNCTIONS
 	
-	analogLow = ADCL;
-  c8:	80 91 78 00 	lds	r24, 0x0078
-  cc:	80 93 01 01 	sts	0x0101, r24
-	analogHigh = ADCH;
-  d0:	80 91 79 00 	lds	r24, 0x0079
-  d4:	80 93 00 01 	sts	0x0100, r24
-}
-  d8:	8f 91       	pop	r24
-  da:	0f 90       	pop	r0
-  dc:	0f be       	out	0x3f, r0	; 63
-  de:	0f 90       	pop	r0
-  e0:	1f 90       	pop	r1
-  e2:	18 95       	reti
+		void set()			{ setBitTo(this->bit, 1, this->port); }		
+		void clear()		{ setBitTo(this->bit, 0, this->port); }	
+  be:	90 93 c5 00 	sts	0x00C5, r25
 
-000000e4 <main>:
-
-//------------------MAIN
-
-int main(void) {
+//------FUNCTIONS
 	
-	USART_Init(convertBaud(COM_SPEED));
-  e4:	80 e1       	ldi	r24, 0x10	; 16
-  e6:	90 e0       	ldi	r25, 0x00	; 0
-  e8:	0e 94 53 00 	call	0xa6	; 0xa6 <_Z10USART_Initj>
+		size_t write(uint8_t byte) {
+			
+			if(byte > 0) {
+  c2:	80 93 c4 00 	sts	0x00C4, r24
+			}
+		}
+
+//------PUBLIC FUNCTIONS
 	
-}
-  ec:	80 e0       	ldi	r24, 0x00	; 0
-  ee:	90 e0       	ldi	r25, 0x00	; 0
-  f0:	08 95       	ret
+		void set()			{ setBitTo(this->bit, 1, this->port); }		
+  c6:	88 e1       	ldi	r24, 0x18	; 24
+  c8:	80 93 c1 00 	sts	0x00C1, r24
+  cc:	86 e0       	ldi	r24, 0x06	; 6
+  ce:	80 93 c2 00 	sts	0x00C2, r24
+  d2:	08 95       	ret
 
-000000f2 <_exit>:
-  f2:	f8 94       	cli
+000000d4 <__vector_21>:
+  d4:	1f 92       	push	r1
+		void clear()		{ setBitTo(this->bit, 0, this->port); }	
+  d6:	0f 92       	push	r0
+  d8:	0f b6       	in	r0, 0x3f	; 63
+  da:	0f 92       	push	r0
+  dc:	11 24       	eor	r1, r1
+  de:	8f 93       	push	r24
+  e0:	80 91 78 00 	lds	r24, 0x0078
+  e4:	80 93 0f 01 	sts	0x010F, r24
+  e8:	80 91 79 00 	lds	r24, 0x0079
+  ec:	80 93 0e 01 	sts	0x010E, r24
+  f0:	8f 91       	pop	r24
+  f2:	0f 90       	pop	r0
+  f4:	0f be       	out	0x3f, r0	; 63
+  f6:	0f 90       	pop	r0
+  f8:	1f 90       	pop	r1
+  fa:	18 95       	reti
 
-000000f4 <__stop_program>:
-  f4:	ff cf       	rjmp	.-2      	; 0xf4 <__stop_program>
+000000fc <_Z8setBitTohhPVh>:
+			}
+		}
+
+//------PUBLIC FUNCTIONS
+	
+		void set()			{ setBitTo(this->bit, 1, this->port); }		
+  fc:	fa 01       	movw	r30, r20
+  fe:	90 81       	ld	r25, Z
+ 100:	e1 e0       	ldi	r30, 0x01	; 1
+ 102:	f0 e0       	ldi	r31, 0x00	; 0
+ 104:	9f 01       	movw	r18, r30
+ 106:	08 2e       	mov	r0, r24
+ 108:	02 c0       	rjmp	.+4      	; 0x10e <_Z8setBitTohhPVh+0x12>
+ 10a:	22 0f       	add	r18, r18
+ 10c:	33 1f       	adc	r19, r19
+ 10e:	0a 94       	dec	r0
+ 110:	e2 f7       	brpl	.-8      	; 0x10a <_Z8setBitTohhPVh+0xe>
+ 112:	20 95       	com	r18
+ 114:	29 23       	and	r18, r25
+ 116:	70 e0       	ldi	r23, 0x00	; 0
+ 118:	fb 01       	movw	r30, r22
+ 11a:	02 c0       	rjmp	.+4      	; 0x120 <_Z8setBitTohhPVh+0x24>
+ 11c:	ee 0f       	add	r30, r30
+ 11e:	ff 1f       	adc	r31, r31
+ 120:	8a 95       	dec	r24
+ 122:	e2 f7       	brpl	.-8      	; 0x11c <_Z8setBitTohhPVh+0x20>
+ 124:	cf 01       	movw	r24, r30
+ 126:	82 2b       	or	r24, r18
+ 128:	fa 01       	movw	r30, r20
+ 12a:	80 83       	st	Z, r24
+ 12c:	08 95       	ret
+
+0000012e <main>:
+ 12e:	80 e1       	ldi	r24, 0x10	; 16
+ 130:	90 e0       	ldi	r25, 0x00	; 0
+ 132:	0e 94 5f 00 	call	0xbe	; 0xbe <_Z10USART_Initj>
+		void clear()		{ setBitTo(this->bit, 0, this->port); }	
+ 136:	9b b1       	in	r25, 0x0b	; 11
+ 138:	85 b1       	in	r24, 0x05	; 5
+ 13a:	98 13       	cpse	r25, r24
+ 13c:	88 b1       	in	r24, 0x08	; 8
+ 13e:	9b b1       	in	r25, 0x0b	; 11
+ 140:	85 b1       	in	r24, 0x05	; 5
+ 142:	98 13       	cpse	r25, r24
+ 144:	88 b1       	in	r24, 0x08	; 8
+ 146:	8b b1       	in	r24, 0x0b	; 11
+ 148:	95 b1       	in	r25, 0x05	; 5
+ 14a:	89 17       	cp	r24, r25
+ 14c:	59 f0       	breq	.+22     	; 0x164 <main+0x36>
+ 14e:	98 b1       	in	r25, 0x08	; 8
+ 150:	89 13       	cpse	r24, r25
+ 152:	10 c0       	rjmp	.+32     	; 0x174 <main+0x46>
+ 154:	08 e2       	ldi	r16, 0x28	; 40
+			}
+		}
+
+//------PUBLIC FUNCTIONS
+	
+		void set()			{ setBitTo(this->bit, 1, this->port); }		
+ 156:	10 e0       	ldi	r17, 0x00	; 0
+ 158:	0f 2e       	mov	r0, r31
+ 15a:	f7 e2       	ldi	r31, 0x27	; 39
+ 15c:	cf 2e       	mov	r12, r31
+ 15e:	d1 2c       	mov	r13, r1
+ 160:	f0 2d       	mov	r31, r0
+ 162:	0f c0       	rjmp	.+30     	; 0x182 <main+0x54>
+ 164:	05 e2       	ldi	r16, 0x25	; 37
+		void clear()		{ setBitTo(this->bit, 0, this->port); }	
+ 166:	10 e0       	ldi	r17, 0x00	; 0
+ 168:	0f 2e       	mov	r0, r31
+ 16a:	f4 e2       	ldi	r31, 0x24	; 36
+ 16c:	cf 2e       	mov	r12, r31
+ 16e:	d1 2c       	mov	r13, r1
+ 170:	f0 2d       	mov	r31, r0
+ 172:	07 c0       	rjmp	.+14     	; 0x182 <main+0x54>
+ 174:	0b e2       	ldi	r16, 0x2B	; 43
+			}
+		}
+
+//------PUBLIC FUNCTIONS
+	
+		void set()			{ setBitTo(this->bit, 1, this->port); }		
+ 176:	10 e0       	ldi	r17, 0x00	; 0
+ 178:	0f 2e       	mov	r0, r31
+ 17a:	fa e2       	ldi	r31, 0x2A	; 42
+ 17c:	cf 2e       	mov	r12, r31
+ 17e:	d1 2c       	mov	r13, r1
+ 180:	f0 2d       	mov	r31, r0
+ 182:	95 b1       	in	r25, 0x05	; 5
+ 184:	89 17       	cp	r24, r25
+		void clear()		{ setBitTo(this->bit, 0, this->port); }	
+ 186:	59 f0       	breq	.+22     	; 0x19e <main+0x70>
+ 188:	98 b1       	in	r25, 0x08	; 8
+ 18a:	89 13       	cpse	r24, r25
+ 18c:	10 c0       	rjmp	.+32     	; 0x1ae <main+0x80>
+ 18e:	c8 e2       	ldi	r28, 0x28	; 40
+ 190:	d0 e0       	ldi	r29, 0x00	; 0
+ 192:	0f 2e       	mov	r0, r31
+ 194:	f7 e2       	ldi	r31, 0x27	; 39
+ 196:	ef 2e       	mov	r14, r31
+ 198:	f1 2c       	mov	r15, r1
+			}
+		}
+
+//------PUBLIC FUNCTIONS
+	
+		void set()			{ setBitTo(this->bit, 1, this->port); }		
+ 19a:	f0 2d       	mov	r31, r0
+ 19c:	0f c0       	rjmp	.+30     	; 0x1bc <main+0x8e>
+ 19e:	c5 e2       	ldi	r28, 0x25	; 37
+ 1a0:	d0 e0       	ldi	r29, 0x00	; 0
+ 1a2:	0f 2e       	mov	r0, r31
+ 1a4:	f4 e2       	ldi	r31, 0x24	; 36
+ 1a6:	ef 2e       	mov	r14, r31
+ 1a8:	f1 2c       	mov	r15, r1
+ 1aa:	f0 2d       	mov	r31, r0
+		void clear()		{ setBitTo(this->bit, 0, this->port); }	
+ 1ac:	07 c0       	rjmp	.+14     	; 0x1bc <main+0x8e>
+ 1ae:	cb e2       	ldi	r28, 0x2B	; 43
+ 1b0:	d0 e0       	ldi	r29, 0x00	; 0
+ 1b2:	0f 2e       	mov	r0, r31
+ 1b4:	fa e2       	ldi	r31, 0x2A	; 42
+ 1b6:	ef 2e       	mov	r14, r31
+ 1b8:	f1 2c       	mov	r15, r1
+ 1ba:	f0 2d       	mov	r31, r0
+ 1bc:	a7 01       	movw	r20, r14
+ 1be:	61 e0       	ldi	r22, 0x01	; 1
+ 1c0:	83 e0       	ldi	r24, 0x03	; 3
+ 1c2:	0e 94 7e 00 	call	0xfc	; 0xfc <_Z8setBitTohhPVh>
+ 1c6:	a6 01       	movw	r20, r12
+ 1c8:	61 e0       	ldi	r22, 0x01	; 1
+ 1ca:	82 e0       	ldi	r24, 0x02	; 2
+ 1cc:	0e 94 7e 00 	call	0xfc	; 0xfc <_Z8setBitTohhPVh>
+ 1d0:	a8 01       	movw	r20, r16
+			}
+		}
+
+//------PUBLIC FUNCTIONS
+	
+		void set()			{ setBitTo(this->bit, 1, this->port); }		
+ 1d2:	61 e0       	ldi	r22, 0x01	; 1
+ 1d4:	82 e0       	ldi	r24, 0x02	; 2
+ 1d6:	0e 94 7e 00 	call	0xfc	; 0xfc <_Z8setBitTohhPVh>
+ 1da:	ae 01       	movw	r20, r28
+ 1dc:	60 e0       	ldi	r22, 0x00	; 0
+ 1de:	83 e0       	ldi	r24, 0x03	; 3
+ 1e0:	0e 94 7e 00 	call	0xfc	; 0xfc <_Z8setBitTohhPVh>
+ 1e4:	2f ef       	ldi	r18, 0xFF	; 255
+ 1e6:	83 ec       	ldi	r24, 0xC3	; 195
+ 1e8:	99 e0       	ldi	r25, 0x09	; 9
+ 1ea:	21 50       	subi	r18, 0x01	; 1
+ 1ec:	80 40       	sbci	r24, 0x00	; 0
+ 1ee:	90 40       	sbci	r25, 0x00	; 0
+ 1f0:	e1 f7       	brne	.-8      	; 0x1ea <main+0xbc>
+ 1f2:	00 c0       	rjmp	.+0      	; 0x1f4 <main+0xc6>
+ 1f4:	00 00       	nop
+ 1f6:	a8 01       	movw	r20, r16
+ 1f8:	60 e0       	ldi	r22, 0x00	; 0
+		void clear()		{ setBitTo(this->bit, 0, this->port); }	
+ 1fa:	82 e0       	ldi	r24, 0x02	; 2
+ 1fc:	0e 94 7e 00 	call	0xfc	; 0xfc <_Z8setBitTohhPVh>
+ 200:	ae 01       	movw	r20, r28
+ 202:	61 e0       	ldi	r22, 0x01	; 1
+ 204:	83 e0       	ldi	r24, 0x03	; 3
+ 206:	0e 94 7e 00 	call	0xfc	; 0xfc <_Z8setBitTohhPVh>
+ 20a:	2f ef       	ldi	r18, 0xFF	; 255
+ 20c:	83 ec       	ldi	r24, 0xC3	; 195
+ 20e:	99 e0       	ldi	r25, 0x09	; 9
+ 210:	21 50       	subi	r18, 0x01	; 1
+ 212:	80 40       	sbci	r24, 0x00	; 0
+ 214:	90 40       	sbci	r25, 0x00	; 0
+ 216:	e1 f7       	brne	.-8      	; 0x210 <main+0xe2>
+ 218:	00 c0       	rjmp	.+0      	; 0x21a <main+0xec>
+ 21a:	00 00       	nop
+ 21c:	cf cf       	rjmp	.-98     	; 0x1bc <main+0x8e>
+
+0000021e <_GLOBAL__sub_I__Z11convertBaudj>:
+ 21e:	6b b1       	in	r22, 0x0b	; 11
+			}
+		}
+
+//------PUBLIC FUNCTIONS
+	
+		void set()			{ setBitTo(this->bit, 1, this->port); }		
+ 220:	85 b1       	in	r24, 0x05	; 5
+ 222:	68 17       	cp	r22, r24
+ 224:	51 f0       	breq	.+20     	; 0x23a <_GLOBAL__sub_I__Z11convertBaudj+0x1c>
+ 226:	88 b1       	in	r24, 0x08	; 8
+ 228:	68 13       	cpse	r22, r24
+ 22a:	0e c0       	rjmp	.+28     	; 0x248 <_GLOBAL__sub_I__Z11convertBaudj+0x2a>
+ 22c:	86 e2       	ldi	r24, 0x26	; 38
+ 22e:	90 e0       	ldi	r25, 0x00	; 0
+ 230:	28 e2       	ldi	r18, 0x28	; 40
+ 232:	30 e0       	ldi	r19, 0x00	; 0
+ 234:	47 e2       	ldi	r20, 0x27	; 39
+ 236:	50 e0       	ldi	r21, 0x00	; 0
+ 238:	0d c0       	rjmp	.+26     	; 0x254 <_GLOBAL__sub_I__Z11convertBaudj+0x36>
+ 23a:	83 e2       	ldi	r24, 0x23	; 35
+ 23c:	90 e0       	ldi	r25, 0x00	; 0
+ 23e:	25 e2       	ldi	r18, 0x25	; 37
+ 240:	30 e0       	ldi	r19, 0x00	; 0
+ 242:	44 e2       	ldi	r20, 0x24	; 36
+ 244:	50 e0       	ldi	r21, 0x00	; 0
+ 246:	06 c0       	rjmp	.+12     	; 0x254 <_GLOBAL__sub_I__Z11convertBaudj+0x36>
+ 248:	89 e2       	ldi	r24, 0x29	; 41
+		void clear()		{ setBitTo(this->bit, 0, this->port); }	
+ 24a:	90 e0       	ldi	r25, 0x00	; 0
+ 24c:	2b e2       	ldi	r18, 0x2B	; 43
+ 24e:	30 e0       	ldi	r19, 0x00	; 0
+ 250:	4a e2       	ldi	r20, 0x2A	; 42
+ 252:	50 e0       	ldi	r21, 0x00	; 0
+ 254:	e0 e0       	ldi	r30, 0x00	; 0
+ 256:	f1 e0       	ldi	r31, 0x01	; 1
+ 258:	72 e0       	ldi	r23, 0x02	; 2
+ 25a:	70 83       	st	Z, r23
+ 25c:	52 83       	std	Z+2, r21	; 0x02
+ 25e:	41 83       	std	Z+1, r20	; 0x01
+ 260:	34 83       	std	Z+4, r19	; 0x04
+ 262:	23 83       	std	Z+3, r18	; 0x03
+ 264:	96 83       	std	Z+6, r25	; 0x06
+ 266:	85 83       	std	Z+5, r24	; 0x05
+ 268:	85 b1       	in	r24, 0x05	; 5
+ 26a:	68 17       	cp	r22, r24
+ 26c:	51 f0       	breq	.+20     	; 0x282 <_GLOBAL__sub_I__Z11convertBaudj+0x64>
+ 26e:	88 b1       	in	r24, 0x08	; 8
+			}
+		}
+
+//------PUBLIC FUNCTIONS
+	
+		void set()			{ setBitTo(this->bit, 1, this->port); }		
+ 270:	68 13       	cpse	r22, r24
+ 272:	0e c0       	rjmp	.+28     	; 0x290 <_GLOBAL__sub_I__Z11convertBaudj+0x72>
+ 274:	86 e2       	ldi	r24, 0x26	; 38
+ 276:	90 e0       	ldi	r25, 0x00	; 0
+ 278:	28 e2       	ldi	r18, 0x28	; 40
+ 27a:	30 e0       	ldi	r19, 0x00	; 0
+ 27c:	47 e2       	ldi	r20, 0x27	; 39
+ 27e:	50 e0       	ldi	r21, 0x00	; 0
+ 280:	0d c0       	rjmp	.+26     	; 0x29c <_GLOBAL__sub_I__Z11convertBaudj+0x7e>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 282:	83 e2       	ldi	r24, 0x23	; 35
+ 284:	90 e0       	ldi	r25, 0x00	; 0
+ 286:	25 e2       	ldi	r18, 0x25	; 37
+ 288:	30 e0       	ldi	r19, 0x00	; 0
+ 28a:	44 e2       	ldi	r20, 0x24	; 36
+ 28c:	50 e0       	ldi	r21, 0x00	; 0
+			set();
+		}
+		
+		void setAsHighZInput() { 
+		
+			setBitTo(bit, 0, direction);
+ 28e:	06 c0       	rjmp	.+12     	; 0x29c <_GLOBAL__sub_I__Z11convertBaudj+0x7e>
+ 290:	89 e2       	ldi	r24, 0x29	; 41
+ 292:	90 e0       	ldi	r25, 0x00	; 0
+ 294:	2b e2       	ldi	r18, 0x2B	; 43
+ 296:	30 e0       	ldi	r19, 0x00	; 0
+ 298:	4a e2       	ldi	r20, 0x2A	; 42
+ 29a:	50 e0       	ldi	r21, 0x00	; 0
+ 29c:	e0 e0       	ldi	r30, 0x00	; 0
+ 29e:	f1 e0       	ldi	r31, 0x01	; 1
+ 2a0:	63 e0       	ldi	r22, 0x03	; 3
+ 2a2:	67 83       	std	Z+7, r22	; 0x07
+		}
+
+//------PUBLIC FUNCTIONS
+	
+		void set()			{ setBitTo(this->bit, 1, this->port); }		
+		void clear()		{ setBitTo(this->bit, 0, this->port); }	
+ 2a4:	51 87       	std	Z+9, r21	; 0x09
+ 2a6:	40 87       	std	Z+8, r20	; 0x08
+ 2a8:	33 87       	std	Z+11, r19	; 0x0b
+ 2aa:	22 87       	std	Z+10, r18	; 0x0a
+ 2ac:	95 87       	std	Z+13, r25	; 0x0d
+ 2ae:	84 87       	std	Z+12, r24	; 0x0c
+ 2b0:	08 95       	ret
+
+000002b2 <__tablejump2__>:
+ 2b2:	ee 0f       	add	r30, r30
+ 2b4:	ff 1f       	adc	r31, r31
+
+000002b6 <__tablejump__>:
+			set();
+		}
+		
+		void setAsHighZInput() { 
+		
+			setBitTo(bit, 0, direction);
+ 2b6:	05 90       	lpm	r0, Z+
+ 2b8:	f4 91       	lpm	r31, Z
+ 2ba:	e0 2d       	mov	r30, r0
+ 2bc:	09 94       	ijmp
+
+000002be <_exit>:
+ 2be:	f8 94       	cli
+
+000002c0 <__stop_program>:
+ 2c0:	ff cf       	rjmp	.-2      	; 0x2c0 <__stop_program>

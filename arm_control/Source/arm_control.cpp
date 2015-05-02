@@ -20,6 +20,8 @@
 #include <stdarg.h>
 #include "../../lib/usart.cpp"
 #include "../../lib/io_utils.h"
+#include "../../lib/SoftwareSerial.h"
+#include "../../lib/DynamixelSoftSerial/DynamixelSoftSerial.cpp"
 
 //------------------VARIABLES
 
@@ -56,8 +58,15 @@ int main(void) {
 	Bit d2Y3();
 	Bit d2Y4();
 	
+	SoftwareSerial s(2, 3, PORTD);
+	
 	while(1) {
 		
-		
+		s.setMode(1);
+		s.write(1);
+		_delay_ms(200);
+		// s.setMode(0);
+		s.write(0);
+		_delay_ms(200);
 	}
 }

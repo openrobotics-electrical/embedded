@@ -20,7 +20,10 @@ arm_control.d arm_control.o: .././arm_control.cpp \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\avr\interrupt.h \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\stdlib.h \
  .././../../lib/usart.cpp .././../../lib/usart.h \
- .././../../lib/io_utils.h
+ .././../../lib/io_utils.h .././../../lib/SoftwareSerial.h \
+ .././../../lib/DynamixelSoftSerial/DynamixelSoftSerial.cpp \
+ .././../../lib/DynamixelSoftSerial/DynamixelSoftSerial.h \
+ .././../../lib/DynamixelSoftSerial/../SoftwareSerial.h
 
 c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\avr\io.h:
 
@@ -67,3 +70,11 @@ c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-g
 .././../../lib/usart.h:
 
 .././../../lib/io_utils.h:
+
+.././../../lib/SoftwareSerial.h:
+
+.././../../lib/DynamixelSoftSerial/DynamixelSoftSerial.cpp:
+
+.././../../lib/DynamixelSoftSerial/DynamixelSoftSerial.h:
+
+.././../../lib/DynamixelSoftSerial/../SoftwareSerial.h:
