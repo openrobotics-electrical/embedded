@@ -1,0 +1,3 @@
+*ST Microelectronics
+*HCF4020: 14-bit Binary Counter
+.MODEL HCF4020 xsimcode(file="{MODEL_PATH}CMOS.SCB" func=4020 {mntymx})

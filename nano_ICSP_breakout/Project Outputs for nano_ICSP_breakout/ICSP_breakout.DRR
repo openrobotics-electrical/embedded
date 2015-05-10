@@ -1,0 +1,15 @@
+---------------------------------------------------------------------------
+NCDrill File Report For: ICSP_breakout.PcbDoc   5/9/2015  1:45:31 PM
+---------------------------------------------------------------------------
+
+Layer Pair : Top Layer to Bottom Layer
+ASCII RoundHoles File : ICSP_breakout.TXT
+
+Tool         Hole Size           Hole Type     Hole Count Plated       Tool Travel
+---------------------------------------------------------------------------
+T1        28mil (0.7112mm)         Round          11               2.50 Inch (63.41 mm)
+T2        39.37mil (1mm)           Round          44               6.24 Inch (158.57 mm)
+---------------------------------------------------------------------------
+Totals                                            55               8.74 Inch (221.99 mm)
+
+Total Processing Time (hh:mm:ss) : 00:00:00

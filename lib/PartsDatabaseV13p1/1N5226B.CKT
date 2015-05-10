@@ -1,0 +1,27 @@
+***************** Zener Diode Electrical Parameters ******************
+** Product: 1N5226B
+** Package: DO-35 Glass Case
+**--------------------------------------------------------------------
+* Node:          anode cathode
+.SUBCKT F1N5226B 2     1
+D1 2 1 MD1
+.MODEL MD1 D  IS=2.14005e-10 N=2.0 XTI=1 RS=0.656
++ CJO=1.5e-11 TT=1e-08 
+R 1 2 MDR 4.00e4	
+.MODEL MDR RES TC1=0 TC2=0
+RZ 2 3 10.8
+IZG 4 3 0.1
+R4 4 3 10
+D3 3 4 MD3
+.MODEL MD3 D IS=2.5e-12 N=1 XTI=0 EG=0.1
+D2 5 4 MD2
+.MODEL MD2 D IS=2.5e-12 N=3 XTI=0 EG=0.1
+EV1 1 5 6 0 1
+IBV 0 6 2.0e-02
+RBV 6 0 MDRBV 95.6
+.MODEL MDRBV RES TC1=1.0e-7
+.ENDS
+**********************************************************************
+** Creation: Mar.-17-2009   Rev: 0.0
+** Fairchild Semiconductor
+

@@ -1,0 +1,2 @@
+*SIMCODE
+.MODEL 74HC597 xsimcode(file="{MODEL_PATH}UBC.TXT" func=74HC597)

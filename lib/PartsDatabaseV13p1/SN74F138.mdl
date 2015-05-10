@@ -1,0 +1,4 @@
+*Texas Instruments
+*SN74F138: 3-Line to 8-Line Decoder/Demultiplexer
+.MODEL SN74F138 xsimcode(file="{MODEL_PATH}FAST.SCB" func=f138 {mntymx})
+

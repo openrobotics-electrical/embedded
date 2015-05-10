@@ -1,0 +1,30 @@
+*LM339
+*Quad SnglSup pkg:DIP14 (A:5,4,3,12,2)(B:7,6,3,12,1)(C:9,8,3,12,14)(D:11,10,3,12,13)
+*
+* Connections:
+*             Non-Inverting Input
+*             |   Inverting Input
+*             |   |   Positive Power Supply
+*             |   |   |   Negative power Supply
+*             |   |   |   |   Out
+*             |   |   |   |   |
+.SUBCKT LM339 1   2   3   4   5
+F1  9 3 V1 1
+IEE 3 7 DC 100.0E-6
+VI1 21 1 DC .75
+VI2 22 2 DC .75
+Q1  9 21  7 QIN
+Q2  8 22  7 QIN
+Q3  9  8  4 QMO
+Q4  8  8  4 QMI
+.MODEL QIN PNP(IS=800.0E-18 BF=2E3)
+.MODEL QMI NPN(IS=800.0E-18 BF=1002)
+.MODEL QMO NPN(IS=800.0E-18 BF=1000 CJC=1E-15 TR=807.4E-9)
+E1 10  4  9  4  1
+V1 10 11 DC 0
+Q5  5 11  4 QOC
+.MODEL QOC NPN(IS=800.0E-18 BF=20.29E3 CJC=1E-15 TF=942.6E-12 TR=543.8E-9)
+DP  4  3 DX
+RP  3  4 46.3E3
+.MODEL DX  D(IS=800.0E-18)
+.ENDS LM339

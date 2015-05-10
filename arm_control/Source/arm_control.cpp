@@ -58,7 +58,7 @@ int main(void) {
 	Bit d2Y3();
 	Bit d2Y4();
 	
-	SoftwareSerial s(2, 3, PORTD);
+	SoftwareSerial s(4, 5, PORTD);
 	
 	while(1) {
 		

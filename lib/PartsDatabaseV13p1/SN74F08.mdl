@@ -1,0 +1,4 @@
+*Texas Instruments
+*SN74F08: FAST Quad 2-input AND
+.MODEL SN74F08 xsimcode(file="{MODEL_PATH}FAST.SCB" func=f08 {mntymx})
+

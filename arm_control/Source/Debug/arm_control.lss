@@ -285,11 +285,11 @@ Disassembly of section .text:
  1ba:	f0 2d       	mov	r31, r0
  1bc:	a7 01       	movw	r20, r14
  1be:	61 e0       	ldi	r22, 0x01	; 1
- 1c0:	83 e0       	ldi	r24, 0x03	; 3
+ 1c0:	85 e0       	ldi	r24, 0x05	; 5
  1c2:	0e 94 7e 00 	call	0xfc	; 0xfc <_Z8setBitTohhPVh>
  1c6:	a6 01       	movw	r20, r12
  1c8:	61 e0       	ldi	r22, 0x01	; 1
- 1ca:	82 e0       	ldi	r24, 0x02	; 2
+ 1ca:	84 e0       	ldi	r24, 0x04	; 4
  1cc:	0e 94 7e 00 	call	0xfc	; 0xfc <_Z8setBitTohhPVh>
  1d0:	a8 01       	movw	r20, r16
 			}
@@ -299,11 +299,11 @@ Disassembly of section .text:
 	
 		void set()			{ setBitTo(this->bit, 1, this->port); }		
  1d2:	61 e0       	ldi	r22, 0x01	; 1
- 1d4:	82 e0       	ldi	r24, 0x02	; 2
+ 1d4:	84 e0       	ldi	r24, 0x04	; 4
  1d6:	0e 94 7e 00 	call	0xfc	; 0xfc <_Z8setBitTohhPVh>
  1da:	ae 01       	movw	r20, r28
  1dc:	60 e0       	ldi	r22, 0x00	; 0
- 1de:	83 e0       	ldi	r24, 0x03	; 3
+ 1de:	85 e0       	ldi	r24, 0x05	; 5
  1e0:	0e 94 7e 00 	call	0xfc	; 0xfc <_Z8setBitTohhPVh>
  1e4:	2f ef       	ldi	r18, 0xFF	; 255
  1e6:	83 ec       	ldi	r24, 0xC3	; 195
@@ -317,11 +317,11 @@ Disassembly of section .text:
  1f6:	a8 01       	movw	r20, r16
  1f8:	60 e0       	ldi	r22, 0x00	; 0
 		void clear()		{ setBitTo(this->bit, 0, this->port); }	
- 1fa:	82 e0       	ldi	r24, 0x02	; 2
+ 1fa:	84 e0       	ldi	r24, 0x04	; 4
  1fc:	0e 94 7e 00 	call	0xfc	; 0xfc <_Z8setBitTohhPVh>
  200:	ae 01       	movw	r20, r28
  202:	61 e0       	ldi	r22, 0x01	; 1
- 204:	83 e0       	ldi	r24, 0x03	; 3
+ 204:	85 e0       	ldi	r24, 0x05	; 5
  206:	0e 94 7e 00 	call	0xfc	; 0xfc <_Z8setBitTohhPVh>
  20a:	2f ef       	ldi	r18, 0xFF	; 255
  20c:	83 ec       	ldi	r24, 0xC3	; 195
