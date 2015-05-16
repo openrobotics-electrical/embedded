@@ -7,6 +7,8 @@
 on the intelligence45 google drive account*/
 #include <Encoder.h>
 #include <PID_v1.h> // Include PID library for closed loop control
+#include <Wire.h>
+#include <interrupt.h>
   
 String inputString = "";         // a string to hold incoming data
 boolean stringComplete = false;  // whether the string is complete
@@ -14,7 +16,7 @@ boolean stringComplete = false;  // whether the string is complete
 
 ///////////////////////////////////////////////////////
   
-  //Thethered control: ANALOG PINS
+  //Tethered control: ANALOG PINS
   const int        twistRemotePin = 10, linearRemotePin = 11, button = 12;
   
   double val0 = 200; // Duty Cycle val = 0 gives 0% DUTY, val = 254 gives 100% DUTY
@@ -61,6 +63,8 @@ boolean stringComplete = false;  // whether the string is complete
   const float      CountsPerRotation = 4680;
   const float      MultiplicationFactor = 6; //counts per encoder impulse
   
+  //delay
+  uint16_t lastMillis;
   
   //PID Variables:
   double _rightMotorRPMset = 0, _rightInput = 0, _rightOutput = 0;
@@ -95,72 +99,99 @@ boolean stringComplete = false;  // whether the string is complete
   boolean mode = TURN_ROBOT;
   int x = 0;
 
-void setup()
-{    
-/////////////////////////////////////////////////////////////////////////////////void setup //////////////////////////////////////////////////////////////////////////////////////////////////  
-  Serial.begin(9600);
+void setup() {
+	/*
+	    
+	Serial.begin(9600);
   
-  pinMode(INA1, OUTPUT);
-  pinMode(INB1, OUTPUT);  
-  pinMode(INA2, OUTPUT);
-  pinMode(INB2, OUTPUT);
-  pinMode(ENA1, OUTPUT);
-  pinMode(ENB1, OUTPUT);
-  pinMode(ENA2, OUTPUT);
-  pinMode(ENB2, OUTPUT);
+	pinMode(INA1, OUTPUT);
+	pinMode(INB1, OUTPUT);  
+	pinMode(INA2, OUTPUT);
+	pinMode(INB2, OUTPUT);
+	pinMode(ENA1, OUTPUT);
+	pinMode(ENB1, OUTPUT);
+	pinMode(ENA2, OUTPUT);
+	pinMode(ENB2, OUTPUT);
   
-  //--------------TURNTABLE CONTROL 
+	//--------------TURNTABLE CONTROL 
   
-  pinMode(EN_, OUTPUT); 
-  pinMode(MS1, OUTPUT);
-  pinMode(MS2, OUTPUT);
-  pinMode(MS3, OUTPUT);
-  pinMode(RST_, OUTPUT); 
-  pinMode(SLP_, OUTPUT);
-  pinMode(STEP, OUTPUT);
-  pinMode(DIR, OUTPUT);
+	pinMode(EN_, OUTPUT); 
+	pinMode(MS1, OUTPUT);
+	pinMode(MS2, OUTPUT);
+	pinMode(MS3, OUTPUT);
+	pinMode(RST_, OUTPUT); 
+	pinMode(SLP_, OUTPUT);
+	pinMode(STEP, OUTPUT);
+	pinMode(DIR, OUTPUT);
   
-  //-------------------------------
+	//-------------------------------
   
-  pinMode(RRSW, INPUT_PULLUP);
-  pinMode(LRSW, INPUT_PULLUP);
-  pinMode(HES, INPUT_PULLUP);
+	pinMode(RRSW, INPUT_PULLUP);
+	pinMode(LRSW, INPUT_PULLUP);
+	pinMode(HES, INPUT_PULLUP);
   
-  pinMode(button, INPUT_PULLUP);
+	pinMode(button, INPUT_PULLUP);
   
-  inputString.reserve(200);
+	inputString.reserve(200);
     
-  // Initialize Velocity Setpoint
-  _rightMotorRPMset = 1;  
+	// Initialize Velocity Setpoint
+	_rightMotorRPMset = 1;  
   
-  //turn the PID on
-  rightPID.SetMode(AUTOMATIC);
-  rightPID.SetSampleTime(SampleTime);
+	//turn the PID on
+	rightPID.SetMode(AUTOMATIC);
+	rightPID.SetSampleTime(SampleTime);
   
-  leftPID.SetMode(AUTOMATIC);
-  leftPID.SetSampleTime(SampleTime);
+	leftPID.SetMode(AUTOMATIC);
+	leftPID.SetSampleTime(SampleTime);
     
-  enableMotors();
+	enableMotors();
   
-  digitalWrite(RST_, 0);
-  digitalWrite(EN_, 0);
-  digitalWrite(MS1, 1);
-  digitalWrite(MS2, 1);
-  digitalWrite(MS3, 1);
-  digitalWrite(RST_, 1);
-  digitalWrite(SLP_, 1);
+	digitalWrite(RST_, 0);
+	digitalWrite(EN_, 0);
+	digitalWrite(MS1, 1);
+	digitalWrite(MS2, 1);
+	digitalWrite(MS3, 1);
+	digitalWrite(RST_, 1);
+	digitalWrite(SLP_, 1);
+	UCSR0B |= (1 << RXEN0) | (1 << TXEN0) | (1 << RXCIE0);
+	sei();
+	
+	*/
+	
+	Wire.begin();
 }
 
 void enableMotors() {
   
-  digitalWrite(ENA1, 1);
-  digitalWrite(ENB1, 1);
-  digitalWrite(ENA2, 1);
-  digitalWrite(ENB2, 1);
+	digitalWrite(ENA1, 1);
+	digitalWrite(ENB1, 1);
+	digitalWrite(ENA2, 1);
+	digitalWrite(ENB2, 1);
+}
+
+uint16_t thisMillis;
+uint16_t buffer[] = {1};
+
+ISR(USART0_RX_vect) {
+	
+	digitalWrite(13, HIGH);   // set the LED on
+	delay(1000);              // wait for a second
+	digitalWrite(13, LOW);
 }
 
 void loop() { 
-	(mode == TURN_ROBOT)? turn() : drive(); 
+	
+	Wire.beginTransmission(4); // transmit to device #4
+	Wire.write(1);              // sends one byte
+	Wire.endTransmission();    // stop transmitting
+
+	delay(100);
+	// while (Serial.available()) { Serial.println(Serial.read()); }
+	// thisMillis = millis();
+	// Serial.println(thisMillis - lastMillis);
+	// lastMillis = thisMillis;
+	// (mode == TURN_ROBOT)? turn() : drive(); 
+	// drive();
 }
 
 void testHall() {
@@ -325,7 +356,7 @@ void computeRightRPM()
 
 //FUNCTION: ComputeLeftRPM
 
-    void computeLeftRPM()
+void computeLeftRPM()
 {
     _newLeftEncoderPosition = LeftEncoder.read();  
     _leftCount = getCount( _oldLeftEncoderPosition, _newLeftEncoderPosition);
