@@ -100,10 +100,10 @@ boolean stringComplete = false;  // whether the string is complete
   int x = 0;
 
 void setup() {
-	/*
+
 	    
 	Serial.begin(9600);
-  
+	/*
 	pinMode(INA1, OUTPUT);
 	pinMode(INB1, OUTPUT);  
 	pinMode(INA2, OUTPUT);
@@ -157,8 +157,30 @@ void setup() {
 	sei();
 	
 	*/
+	Wire.begin(1);
+	Wire.onRequest(requestEvent);
+	Wire.onReceive(receiveEvent);
+}
+
+uint16_t thisMillis, position;
+uint16_t buffer[] = {1};
+
+void requestEvent() {
+
+	Serial.println("request to 1 received");
 	
-	Wire.begin();
+	uint8_t outBuffer[3];
+	outBuffer[0] = position;
+	outBuffer[1] = position / 0x100;
+	outBuffer[2] = 0;
+	Wire.write(outBuffer, 3);
+}
+
+void receiveEvent(int args) {
+	
+	Serial.println(String(args) + " args received");
+	while(Wire.available() > 0)
+		Serial.println(Wire.read());
 }
 
 void enableMotors() {
@@ -169,29 +191,19 @@ void enableMotors() {
 	digitalWrite(ENB2, 1);
 }
 
-uint16_t thisMillis;
-uint16_t buffer[] = {1};
-
+/*
 ISR(USART0_RX_vect) {
 	
 	digitalWrite(13, HIGH);   // set the LED on
 	delay(1000);              // wait for a second
 	digitalWrite(13, LOW);
 }
+*/
 
 void loop() { 
-	
-	Wire.beginTransmission(4); // transmit to device #4
-	Wire.write(1);              // sends one byte
-	Wire.endTransmission();    // stop transmitting
-
+	position = analogRead(0);
 	delay(100);
-	// while (Serial.available()) { Serial.println(Serial.read()); }
-	// thisMillis = millis();
-	// Serial.println(thisMillis - lastMillis);
-	// lastMillis = thisMillis;
-	// (mode == TURN_ROBOT)? turn() : drive(); 
-	// drive();
+	// (mode == TURN_ROBOT)? turn() : drive();
 }
 
 void testHall() {
