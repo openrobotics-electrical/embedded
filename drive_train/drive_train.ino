@@ -1,14 +1,13 @@
 
-
-#include <math.h>  // requires an Atmega168 chip 
-  
-/* [6/3/2015]  If using the arduino sketch programmer both the Encoder.h anf PID_v1.h headers must be included in the 
-/../Arduino/libraries path. Copies of the header files are included in the Drive train folder
-on the intelligence45 google drive account*/
-#include <Encoder.h>
-#include <PID_v1.h> // Include PID library for closed loop control
+/*
+  Drivers if programming is not going smoothly:
+  http://www.ftdichip.com/Drivers/VCP.htm
+*/
+#include <math.h>  // requires an Atmega168 chip   
+#include "Encoder.h"
+#include "PID_v1.h" // Include PID library for closed loop control
 #include <Wire.h>
-#include <interrupt.h>
+#include <avr/interrupt.h>
   
 String inputString = "";         // a string to hold incoming data
 boolean stringComplete = false;  // whether the string is complete
