@@ -7,7 +7,7 @@
 #include "Encoder.h"
 #include "PID_v1.h" // Include PID library for closed loop control
 #include <Wire.h>
-#include <avr/interrupt.h>
+#include "I2C.h"
   
 String inputString = "";         // a string to hold incoming data
 boolean stringComplete = false;  // whether the string is complete
@@ -99,8 +99,7 @@ boolean stringComplete = false;  // whether the string is complete
   int x = 0;
 
 void setup() {
-
-	    
+  
 	Serial.begin(9600);
 	/*
 	pinMode(INA1, OUTPUT);
@@ -163,23 +162,35 @@ void setup() {
 
 uint16_t thisMillis, position;
 uint16_t buffer[] = {1};
+uint8_t request = 0;
+
+char name16[] = "drive_train     "; 
 
 void requestEvent() {
 
-	Serial.println("request to 1 received");
-	
-	uint8_t outBuffer[3];
-	outBuffer[0] = position;
-	outBuffer[1] = position / 0x100;
-	outBuffer[2] = 0;
-	Wire.write(outBuffer, 3);
+  if(request == 0) {
+  
+    Wire.write(name16, 16);
+  } 
+  else 
+  if(request == 1) {
+   
+    Wire.write(99);
+  } 
+  else 
+  if(request == 2) {
+    
+    uint8_t outBuffer[2];
+    outBuffer[0] = position;
+    outBuffer[1] = position / 0x100;
+    Wire.write(outBuffer, 2);
+  }
 }
 
 void receiveEvent(int args) {
-	
-	Serial.println(String(args) + " args received");
-	while(Wire.available() > 0)
-		Serial.println(Wire.read());
+
+  // while(Wire.available() > 0)
+    request = Wire.read();
 }
 
 void enableMotors() {
