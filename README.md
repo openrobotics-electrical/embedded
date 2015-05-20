@@ -5,9 +5,11 @@ Seriously any questions get at me max@theprogrammingclub.com<br>
 git:<br>
 &nbsp;&nbsp;<a href="https://windows.github.com/">Windows install</a><br>
 &nbsp;&nbsp;<a href="http://git-scm.com/download/linux">Linux/Unix install</a><br>
-Our Trello page:<br>
+Arduino IDE (more advanced users use Atmel studio as below):<br>
+&nbsp;&nbsp;http://www.arduino.cc/en/Main/Software<br>
+Our Trello page for task-tracking:<br>
 &nbsp;&nbsp;https://trello.com/openrobotics<br>
-Slack is helpful:<br>
+Slack is helpful for communication:<br>
 &nbsp;&nbsp;https://opbots.slack.com/<br>
 ###About the repo<br>
 We program in a mix of Arduino and CPP over USB and using ICSP, usually using avrdude.exe to program<br>
