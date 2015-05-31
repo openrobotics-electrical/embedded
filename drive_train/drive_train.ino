@@ -21,8 +21,8 @@ boolean stringComplete = false;  // whether the string is complete
   double val0 = 200; // Duty Cycle val = 0 gives 0% DUTY, val = 254 gives 100% DUTY
   double rightPotValue = 200; // Duty Cycle val = 0 gives 0% DUTY, val = 254 gives 100% DUTY
   
-  const int        INA1 = 22; // These pins control the state of 
-  const int        INB1 = 28; // the bridge in normal operation: 
+  const int        INA1 = 28; // These pins control the state of 
+  const int        INB1 = 22; // the bridge in normal operation: 
   const int        INA2 = 30;
   const int        INB2 = 36;
   const int        ENA1 = 24; //LOW Disables Half Bridge A HIGH Enables half bridge A
@@ -69,7 +69,7 @@ boolean stringComplete = false;  // whether the string is complete
   double _rightMotorRPMset = 0, _rightInput = 0, _rightOutput = 0;
   double _leftMotorRPMset = 0, _leftInput = 0, _leftOutput = 0;
   const float SampleTime = 50;
-  int Kp = 75, Kd = 0, Ki = 0;
+  int Kp = 50, Kd = 0, Ki = 0;
   int KpIN = 0, KdIN = 0, KiIN = 0;
   int KpPin = 5, KdPin = 6, KiPin = 7;
   double MaxRPM = 1.45;
@@ -95,13 +95,14 @@ boolean stringComplete = false;  // whether the string is complete
   #define DRIVE_ROBOT false
   #define LEFT 1
   #define RIGHT 0
-  boolean mode = TURN_ROBOT;
+  boolean mode = TURN_ROBOT, newData = false;
+  int leftTwistRPM, rightTwistRPM, linearRPM;
   int x = 0;
 
 void setup() {
   
-	Serial.begin(9600);
-	/*
+	Serial.begin(57600);
+
 	pinMode(INA1, OUTPUT);
 	pinMode(INB1, OUTPUT);  
 	pinMode(INA2, OUTPUT);
@@ -143,6 +144,7 @@ void setup() {
 	leftPID.SetSampleTime(SampleTime);
     
 	enableMotors();
+        leftTwistRPM = rightTwistRPM = linearRPM = 0;
   
 	digitalWrite(RST_, 0);
 	digitalWrite(EN_, 0);
@@ -150,11 +152,8 @@ void setup() {
 	digitalWrite(MS2, 1);
 	digitalWrite(MS3, 1);
 	digitalWrite(RST_, 1);
-	digitalWrite(SLP_, 1);
-	UCSR0B |= (1 << RXEN0) | (1 << TXEN0) | (1 << RXCIE0);
-	sei();
-	
-	*/
+	digitalWrite(SLP_, 0);
+
 	Wire.begin(1);
 	Wire.onRequest(requestEvent);
 	Wire.onReceive(receiveEvent);
@@ -188,9 +187,10 @@ void requestEvent() {
 }
 
 void receiveEvent(int args) {
-
+   
   // while(Wire.available() > 0)
     request = Wire.read();
+    newData = true;
 }
 
 void enableMotors() {
@@ -210,10 +210,39 @@ ISR(USART0_RX_vect) {
 }
 */
 
+typedef struct controlMessage {
+  uint8_t something;
+};
+
 void loop() { 
-	position = analogRead(0);
-	delay(100);
-	// (mode == TURN_ROBOT)? turn() : drive();
+  
+  if(newData) {
+    
+    if((char)request == 'l') 
+      turn(LEFT, 200);
+    else if ((char)request == 'r') 
+      turn(RIGHT, 200);
+    else if ((char)request == 'f') {
+      linearRPM = 5;
+    } else if ((char)request == 'b') {
+      linearRPM = -5;
+    }
+      
+    newData = false;
+  }
+  
+  if(linearRPM != 0) {
+    
+    for(int i = 0; i < 10; i++) {
+      
+      delay(50);
+      drive();
+    }
+    
+    linearRPM = 0;
+  }
+  
+  drive();
 }
 
 void testHall() {
@@ -243,8 +272,8 @@ void drive() {
   rightPID.SetTunings(Kp, Ki, Kd);
   leftPID.SetTunings(Kp, Ki, Kd);
  
-  _leftMotorRPMset = getLeftTwistRPM() + getLinearRPM();
-  _rightMotorRPMset = getRightTwistRPM() + getLinearRPM();
+  _leftMotorRPMset = leftTwistRPM + linearRPM;
+  _rightMotorRPMset = rightTwistRPM + linearRPM; 
  
   setMotorDirection(_leftMotorRPMset, INA1, INB1);  //Sets Pin outs for Pololu 705 
   setMotorDirection(_rightMotorRPMset, INA2, INB2);
@@ -263,31 +292,22 @@ void drive() {
  
   analogWrite(PWMpin1, _leftOutput); 
   analogWrite(PWMpin2, _rightOutput);
- 
-  int i = 0;
-  for(; i < SampleTime; i++) {
-    if(readMode()) 
-		i == SampleTime;
-  }
 }
 
-void turn() {
+void turn(uint8_t dir, uint8_t steps) {
   
-	x = analogRead(linearRemotePin);
-	// Serial.println(x);
-	if (x > 900 && digitalRead(LRSW)) {
-		digitalWrite(DIR, LEFT);
-		digitalWrite(STEP, 1); // STEP
-		delayMicroseconds(100);
-	} else if (x < 100 && digitalRead(RRSW)) {
-		digitalWrite(DIR, RIGHT);
-		digitalWrite(STEP, 1); // STEP
-		delayMicroseconds(100);
-	}
+  digitalWrite(SLP_, 1);
+ 
+  for(; steps > 0; steps--) {
+    
+    digitalWrite(DIR, dir);
+    digitalWrite(STEP, 1); // STEP
+    delayMicroseconds(100);
+    digitalWrite(STEP, 0);
+    delay(10);
+  }
   
-	digitalWrite(STEP, 0);
-	delay(1);
-	readMode();
+  digitalWrite(SLP_, 0);
 }
 
 boolean readMode() {
@@ -296,6 +316,7 @@ boolean readMode() {
 	delayMicroseconds(100);
 	
 	if(modeSwitch <= 10) {
+  
 		mode = !mode;
 		while(modeSwitch <= 10) {
 			modeSwitch = analogRead(button);
@@ -303,6 +324,7 @@ boolean readMode() {
 		}
 		return true;
 	}
+
 	return false;
 }
 
@@ -366,13 +388,11 @@ void computeRightRPM()
 {
   _newRightEncoderPosition = RightEncoder.read();
   _rightCount = getCount( _oldRightEncoderPosition, _newRightEncoderPosition);
-//  Serial.println(_rightCount);
   _rightMotorRPM = getRPM(_rightCount, SampleTime, CountsPerRotation, MultiplicationFactor);
   
   if (_newRightEncoderPosition != _oldRightEncoderPosition) 
   {
   _oldRightEncoderPosition = _newRightEncoderPosition;
-//  Serial.println(_rightMotorRPM);
   }
 }
 
@@ -387,7 +407,6 @@ void computeLeftRPM()
      {
      _leftMotorRPM = getRPM(_leftCount, SampleTime, CountsPerRotation, MultiplicationFactor);
      _oldLeftEncoderPosition = _newLeftEncoderPosition;
-  //Serial.println(_leftMotorRPM);
   }
 }
 

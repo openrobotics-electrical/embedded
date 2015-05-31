@@ -17,8 +17,14 @@ extern "C" void __cxa_pure_virtual() {;}
 
 //
 //
-void receiveEvent(int howMany);
-void printReceived();
+void print_menu();
+void get_uint8_t(int address);
+uint16_t get_uint16_t(uint8_t address);
+void list_devices();
+uint8_t getReceived(volatile uint8_t *receiveBuffer);
+void print_received();
+void print_address_selected();
+void select_address(uint8_t i);
 
 #include "C:\Program Files (x86)\Arduino\hardware\arduino\variants\mega\pins_arduino.h" 
 #include "C:\Program Files (x86)\Arduino\hardware\arduino\cores\arduino\arduino.h"

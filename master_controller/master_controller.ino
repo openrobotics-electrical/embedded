@@ -12,6 +12,8 @@
 
 #include <Wire.h>
 
+enum COMMANDS { GET_ID_CHAR16, GET_DATA_1, GET_DATA_2 };
+
 void setup() {
   
   Serial.begin(9600);
@@ -24,6 +26,7 @@ void setup() {
 }
 
 volatile uint8_t dataBuffer[16];
+volatile uint8_t currentAddress = 0;
 
 void loop() {
   
@@ -32,14 +35,51 @@ void loop() {
     char in = Serial.read();  
     
     if(in == '?') {
+		
       print_menu();
-    } else if(in == 'l') {
+	  print_address_selected();
+	  
+    } else if(in == 'd') {
+		
       list_devices();
+	  
     } else if(in == 'q') {
+		
       get_uint8_t(1);
+	  
     } else if(in == 'Q') {
+		
       Serial.println(get_uint16_t(1));
-    }
+	  
+	} else if(in == 'l') {
+		
+	  Wire.beginTransmission(currentAddress);
+	  Wire.write('l');
+	  Wire.endTransmission();
+	  
+	} else if(in == 'r') {
+		
+		Wire.beginTransmission(currentAddress);
+		Wire.write('r');
+		Wire.endTransmission();
+		
+	} else if(in == 'f') {
+
+		Wire.beginTransmission(currentAddress);
+		Wire.write('f');
+		Wire.endTransmission();
+
+	} else if(in == 'b') {
+
+		Wire.beginTransmission(currentAddress);
+		Wire.write('b');
+		Wire.endTransmission();
+
+    } else if('0' <= in <= '9') {
+		
+	  currentAddress = (uint8_t)in - (uint8_t)'0';
+	  print_address_selected();
+	}
   } 
    /*
   Wire.requestFrom(1, 3);
@@ -56,15 +96,20 @@ void loop() {
 
 void print_menu() {
   
-  Serial.println("[l]ist devices"); 
+  Serial.println("select channel [0-9]");
+  Serial.println("list [d]evices"); 
   Serial.println("[q]uery 8-bit");
   Serial.println("[Q]uery 16-bit");
+  Serial.println("force [l]eft rotation");
+  Serial.println("force [r]ight rotation");
+  Serial.println("[f]orward");
+  Serial.println("[b]ack");
 }
 
 void get_uint8_t(int address) {
   
   Wire.beginTransmission(address);
-  Wire.write(1);
+  Wire.write(GET_DATA_1);
   Wire.endTransmission();
   
   Wire.requestFrom(address, 1);
@@ -77,10 +122,10 @@ void get_uint8_t(int address) {
 uint16_t get_uint16_t(uint8_t address) {
   
   Wire.beginTransmission(address);
-  Wire.write(2);
+  Wire.write(GET_DATA_2);
   Wire.endTransmission();
   
-  Wire.requestFrom(address, 2);
+  Wire.requestFrom(address, (uint8_t)2);
   delayMicroseconds(15);
  
   uint8_t high, low;
@@ -102,7 +147,7 @@ void list_devices() {
     bytes_returned = 0;
     
     Wire.beginTransmission(i);
-    Wire.write(0);
+    Wire.write(GET_ID_CHAR16);
     Wire.endTransmission();
     
     Wire.requestFrom(i, 16);
@@ -114,7 +159,7 @@ void list_devices() {
     
     if(bytes_returned > 0) {
       
-      Serial.print(String(i) + " ");
+      Serial.print("[" + String(i) + "]");
         
       while(bytes_returned > j) {
         
@@ -143,7 +188,7 @@ uint8_t getReceived(volatile uint8_t *receiveBuffer) {
   return 0;
 }
 
-void printReceived() {
+void print_received() {
 	
   if(Wire.available()) {
     
@@ -159,4 +204,13 @@ void printReceived() {
   
     Serial.println(input);
   }
+}
+
+void print_address_selected() {
+	Serial.println("Address " + String(currentAddress) + " selected");
+}
+
+void select_address(uint8_t i) {
+	currentAddress = i;
+	print_address_selected();
 }
