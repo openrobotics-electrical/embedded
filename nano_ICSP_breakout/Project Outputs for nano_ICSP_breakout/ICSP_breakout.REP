@@ -18,8 +18,6 @@ Used DCodes :
     D12
     D13
     D14
-    D15
-    D16
 *************************************************************
 
 *************************************************************
@@ -39,8 +37,113 @@ Used DCodes :
     D12
     D13
     D14
+*************************************************************
+
+*************************************************************
+Generating : Bottom Pad Master
+      File : ICSP_breakout.GPB
+
+    Adding Layer      : Bottom Layer
+
+    Adding Layer      : Multi-Layer
+
+    Adding Layer      : Mechanical 1
+
+
+Used DCodes :
+    D10
+    D11
+    D12
+    D13
+    D14
+*************************************************************
+
+*************************************************************
+Generating : Top Pad Master
+      File : ICSP_breakout.GPT
+
+    Adding Layer      : Top Layer
+
+    Adding Layer      : Multi-Layer
+
+    Adding Layer      : Mechanical 1
+
+
+Used DCodes :
+    D10
+    D11
+    D12
+    D13
+    D14
+*************************************************************
+
+*************************************************************
+Generating : Top Overlay
+      File : ICSP_breakout.GTO
+
+    Adding Layer      : Top Overlay
+
+    Adding Layer      : Mechanical 1
+
+
+Used DCodes :
+    D10
     D15
+*************************************************************
+
+*************************************************************
+Generating : Top Solder
+      File : ICSP_breakout.GTS
+
+    Adding Layer      : Top Solder
+
+    Adding Layer      : Mechanical 1
+
+    Adding Layer      : Top Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D10
     D16
+    D17
+    D18
+    D19
+*************************************************************
+
+*************************************************************
+Generating : Bottom Solder
+      File : ICSP_breakout.GBS
+
+    Adding Layer      : Bottom Solder
+
+    Adding Layer      : Mechanical 1
+
+    Adding Layer      : Bottom Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D10
+    D16
+    D17
+    D18
+    D19
+*************************************************************
+
+*************************************************************
+Generating : Keep-Out Layer
+      File : ICSP_breakout.GKO
+
+    Adding Layer      : Keep-Out Layer
+
+    Adding Layer      : Mechanical 1
+
+
+Used DCodes :
+    D10
 *************************************************************
 
 *************************************************************
@@ -54,5 +157,37 @@ Generating : Mechanical 1
 
 Used DCodes :
     D10
+*************************************************************
+
+*************************************************************
+Generating : Drill Drawing
+      File : ICSP_breakout.GD1
+
+    Adding Layer      : Mechanical 1
+
+    Adding Drill Pair : Top Layer-Bottom Layer
+
+    Adding Layer      : Drill Drawing
+
+
+Used DCodes :
+    D10
+    D20
+*************************************************************
+
+*************************************************************
+Generating : Drill Guide
+      File : ICSP_breakout.GG1
+
+    Adding Layer      : Mechanical 1
+
+    Adding Drill Pair : Top Layer-Bottom Layer
+
+    Adding Layer      : Drill Guide
+
+
+Used DCodes :
+    D10
+    D20
 *************************************************************
 
