@@ -39,3 +39,6 @@ I want to make this documentation effective<br>
 In case of Git conflicts: <br>
 <code>  git checkout -b [some name that indicates this branch is screwed up]</code><br>
 &nbsp;&nbsp;Initiate a pull request on github.com<br>
+<br>
+###Helpful links for programming over serial<br>
+<a href="http://playground.arduino.cc/Code/MegaISP">Arduino MegaISP</a>
