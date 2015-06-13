@@ -44,7 +44,11 @@ In case of Git conflicts: <br>
 &nbsp;&nbsp;<a href="http://playground.arduino.cc/Code/MegaISP">Arduino MegaISP</a><br>
 &nbsp;&nbsp;<a href="https://learn.sparkfun.com/tutorials/installing-an-arduino-bootloader">Installing a bootloader</a><br>
 &nbsp;&nbsp;<a href="/usr/local/CrossPack-AVR-20131216/manual/gettingstarted.html">Programming with mac OS X</a><br>
+<br>
 &nbsp;&nbsp;Example Makefile settings (OS X):<br>
 <code>    PROGRAMMER = -c avrisp -b 19200 -U flash:w:main.hex -P /dev/tty.usbserial-A600bTaM -v</code><br>
 <br>
+&nbsp;&nbsp;If you are receiving stk500 errors when attempting to program via ICSP try holding down the RESET button of the programmer (or Arduino as ISP) right before you program<br>
+<br>
+
  
