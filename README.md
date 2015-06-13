@@ -45,6 +45,6 @@ In case of Git conflicts: <br>
 &nbsp;&nbsp;<a href="https://learn.sparkfun.com/tutorials/installing-an-arduino-bootloader">Installing a bootloader</a><br>
 &nbsp;&nbsp;<a href="/usr/local/CrossPack-AVR-20131216/manual/gettingstarted.html">Programming with mac OS X</a><br>
 &nbsp;&nbsp;Example Makefile settings (OS X):<br>
-<code>    PROGRAMMER = -c avrisp -b 19200 -U flash:w:main,hex -P /dev/tty.usbserial-A600bTaM -v</code><br>
+<code>    PROGRAMMER = -c avrisp -b 19200 -U flash:w:main.hex -P /dev/tty.usbserial-A600bTaM -v</code><br>
 <br>
  
