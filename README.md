@@ -40,5 +40,11 @@ In case of Git conflicts: <br>
 <code>  git checkout -b [some name that indicates this branch is screwed up]</code><br>
 &nbsp;&nbsp;Initiate a pull request on github.com<br>
 <br>
-###Helpful links for programming over serial<br>
-<a href="http://playground.arduino.cc/Code/MegaISP">Arduino MegaISP</a>
+###Helpful links/tips for ICSP(In-Circuit Serial Programming<br>
+&nbsp;&nbsp;<a href="http://playground.arduino.cc/Code/MegaISP">Arduino MegaISP</a><br>
+&nbsp;&nbsp;<a href="https://learn.sparkfun.com/tutorials/installing-an-arduino-bootloader">Installing a bootloader</a><br>
+&nbsp;&nbsp;<a href="/usr/local/CrossPack-AVR-20131216/manual/gettingstarted.html">Programming with mac OS X</a><br>
+&nbsp;&nbsp;Example Makefile settings (OS X):<br>
+<code>    PROGRAMMER = -c avrisp -b 19200 -U flash:w:main,hex -P /dev/tty.usbserial-A600bTaM -v</code><br>
+<br>
+ 
