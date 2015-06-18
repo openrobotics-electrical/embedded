@@ -45,11 +45,11 @@ void loop() {
 	  
     } else if(in == 'q') {
 		
-      get_uint8_t(1);
+      get_uint8_t(currentAddress);
 	  
     } else if(in == 'Q') {
 		
-      Serial.println(get_uint16_t(1));
+      Serial.println(get_uint16_t(currentAddress));
 	  
 	} else if(in == 'l') {
 		
