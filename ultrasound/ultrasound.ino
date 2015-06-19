@@ -14,6 +14,7 @@ void setup() {
 }
 
 char* temp = new char[8];
+uint8_t output[4];
 
 void loop() {
   
@@ -33,7 +34,13 @@ void loop() {
     uCount++;
   }
   
-  Serial.println(String(uCount));
+  output[0] = uCount % 0x100;
+  output[1] = (uCount / 0x100) % 0x100;
+  output[2] = (uCount / 0x10000) % 0x100;
+  output[3] = (uCount / 0x1000000) % 0x100;
+  
+  Serial.write('#');
+  Serial.write(output, 4);
   
   digitalWrite(BOARD_LED, 1);
   delay(50);
