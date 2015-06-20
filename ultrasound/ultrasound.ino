@@ -1,51 +1,90 @@
-#define TRIG 3
-#define ECHO 2
-#define VCC_U1 4
+#define TRIG_A 3
+#define TRIG_B 7
+#define ECHO_A 2
+#define ECHO_B 6
+#define VCC_A 4
+#define VCC_B 8
+#define GND_B 5 
 #define BOARD_LED 13
 
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
   pinMode(BOARD_LED, OUTPUT);
-  pinMode(VCC_U1, OUTPUT);
-  pinMode(TRIG, OUTPUT);
-  pinMode(ECHO, INPUT_PULLUP);
-  digitalWrite(VCC_U1, HIGH);
+  pinMode(VCC_A, OUTPUT);
+  pinMode(VCC_B, OUTPUT);
+  pinMode(GND_B, OUTPUT);
+  
+  setUltrasound(TRIG_A, ECHO_A);
+  setUltrasound(TRIG_B, ECHO_B);
+  
+  digitalWrite(VCC_A, HIGH);
+  digitalWrite(VCC_B, HIGH);
+  digitalWrite(GND_B, LOW);
+}
+
+void setUltrasound(int trig, int echo) {
+  
+  pinMode(trig, OUTPUT);
+  pinMode(echo, INPUT_PULLUP);
 }
 
 char* temp = new char[8];
 uint8_t output[4];
 
-void loop() {
+uint32_t read(int trig, int echo) {
   
   uint32_t uCount = 0;
-  printRegisters(temp);
+  // printRegisters(temp);
   
-  digitalWrite(TRIG, LOW);
-  digitalWrite(TRIG, HIGH);
+  digitalWrite(trig, LOW);
+  digitalWrite(trig, HIGH);
   delayMicroseconds(20);
-  digitalWrite(TRIG, LOW);
+  digitalWrite(trig, LOW);
   
-  while(digitalRead(ECHO) == 0) {};
+  while(digitalRead(echo) == 0) {};
   
-  while(digitalRead(ECHO) == 1) {
+  while(digitalRead(echo) == 1) {
     
     delayMicroseconds(1);
     uCount++;
   }
   
-  output[0] = uCount % 0x100;
-  output[1] = (uCount / 0x100) % 0x100;
-  output[2] = (uCount / 0x10000) % 0x100;
-  output[3] = (uCount / 0x1000000) % 0x100;
+  return uCount;
+}
+  
+void serialize(uint32_t u) {
+  
+  /*
+  output[0] = '0';
+  output[1] = '1';
+  output[2] = '2';
+  output[3] = '3';
+  */
+  output[0] = u % 0x100;
+  output[1] = (u / 0x100) % 0x100;
+  output[2] = (u / 0x10000) % 0x100;
+  output[3] = (u / 0x1000000) % 0x100;
+  
+  Serial.write(output, 4);
+}
+
+uint32_t reading_A, reading_B;
+
+void loop() {
+  
+  reading_A = read(TRIG_A, ECHO_A);
+  reading_B = read(TRIG_B, ECHO_B);
   
   Serial.write('#');
-  Serial.write(output, 4);
+  serialize(reading_A);
+  serialize(reading_B);
   
   digitalWrite(BOARD_LED, 1);
-  delay(50);
+  delay(25);
+
   digitalWrite(BOARD_LED, 0);
-  delay(50);
+  delay(25);
 }
 
 void printRegisters(char* charBuffer /* 8 bytes minimum */) {
