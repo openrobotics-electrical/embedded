@@ -4,6 +4,7 @@
 #include <Wire.h>
 
 typedef struct wireData WireData;
+
 struct wireData {
   
   bool hasNewData;
@@ -22,6 +23,8 @@ void setup() {
   Wire.begin(DEVICE_NUMBER);
   Wire.onRequest(requestEvent);
   Wire.onReceive(receiveEvent);
+  
+  Serial.begin(115200);
 }
  
 uint8_t request = '!';
@@ -56,37 +59,13 @@ void receiveEvent(int args) {
 
 void loop() {
   
-  delay(100);
-  PORTB = PINB ^ 0x20; 
-/*
-Bit trig(2, PORTD);
-	Bit echo(3, PORTD);
-	
-	trig.setAsOutput();
-	echo.setAsHighZInput();
-	
-	while(1) {
-		
-		uint16_t uCount = 0;
-		
-		trig.clear();
-		_delay_us(20);	
-		trig.set();
-		_delay_us(20);
-		trig.clear();
-		
-		while(echo.isLow()) {};
-			
-		while(echo.isHigh()) {
-			
-			_delay_us(1);
-			uCount++;
-		}
-		
-		sprintf(strOut, "%u mm\n", (uint16_t)(uCount * 0.25));
-		USART_Send_string(strOut);
-		_delay_ms(50);
-	}
-*/
+  while(Serial.available() > 0) {
+    char c = (char)Serial.read();
+    if(c == 'g') {
+      Serial.print("GET DETECTED\n");
+    } else if(c == 's')
+      Serial.print("SET DETECTED\n");
+  }
+  PORTB = PINB ^ 0x20;
 }
 
