@@ -1,0 +1,919 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dynamixel</name>
+    </assembly>
+    <members>
+        <member name="T:AgaveRobotics.Servos.StatusError">
+            <summary>
+            Dynamixel status packet error enumeration
+            </summary>
+        </member>
+        <member name="F:AgaveRobotics.Servos.StatusError.Instruction">
+            <summary>
+            Instruction error flag
+            </summary>
+        </member>
+        <member name="F:AgaveRobotics.Servos.StatusError.Overload">
+            <summary>
+            Overload error flag
+            </summary>
+        </member>
+        <member name="F:AgaveRobotics.Servos.StatusError.Checksum">
+            <summary>
+            Checksum error flag
+            </summary>
+        </member>
+        <member name="F:AgaveRobotics.Servos.StatusError.Range">
+            <summary>
+            Range error flag
+            </summary>
+        </member>
+        <member name="F:AgaveRobotics.Servos.StatusError.Overheating">
+            <summary>
+            Over heating error flag
+            </summary>
+        </member>
+        <member name="F:AgaveRobotics.Servos.StatusError.AngleLimit">
+            <summary>
+            Angle limit error flag
+            </summary>
+        </member>
+        <member name="F:AgaveRobotics.Servos.StatusError.InputVoltage">
+            <summary>
+            Input voltage error flag
+            </summary>
+        </member>
+        <member name="T:AgaveRobotics.Servos.StatusPacketBuilder">
+            <summary>
+            Provides custom constructors and methods to build a dynamixel status packet. 
+            </summary>
+        </member>
+        <member name="M:AgaveRobotics.Servos.StatusPacketBuilder.OnRaiseStatusErrorEvent(AgaveRobotics.Servos.StatusErrorEventArgs)">
+            <summary>
+            Wrap the event invocations inside a protected virtual method
+            to allow derived classes to override the event invocation behavior
+            </summary>
+            <param name="e">StatusErrorEventArgs</param>
+        </member>
+        <member name="E:AgaveRobotics.Servos.StatusPacketBuilder.RaiseStatusErrorEvent">
+            <summary>
+            Represents the method that will handle the status error of the StatusPacketBuilder object.
+            </summary>
+        </member>
+        <member name="E:AgaveRobotics.Servos.StatusPacketBuilder.RaiseStatusPacketReceivedEvent">
+            <summary>
+            Represents the method that will handle the status packet received event of the StatusPacketBuilder object.
+            </summary>
+        </member>
+        <member name="T:AgaveRobotics.Servos.StatusErrorEventArgs">
+            <summary>
+            Dynamixel status error event event arguments.  Inherits from EventArgs
+            </summary>
+        </member>
+        <member name="M:AgaveRobotics.Servos.StatusErrorEventArgs.#ctor(System.Byte[])">
+            <summary>
+            Initializes a new instance of the StatusErrorArg class with the specified 
+            Dynamixel status byte[] array.
+            </summary>
+            <param name="statusPacketBuffer"></param>
+        </member>
+        <member name="P:AgaveRobotics.Servos.StatusErrorEventArgs.Error">
+            <summary>
+            Get status packet error byte.
+            </summary>
+        </member>
+        <member name="T:AgaveRobotics.Servos.StatusErrorArg">
+            <summary>
+            Dynamixel status error event arguments
+            </summary>
+        </member>
+        <member name="M:AgaveRobotics.Servos.StatusErrorArg.#ctor(System.Byte[])">
+            <summary>
+            Initializes a new instance of the StatusErrorArg class with the specified 
+            Dynamixel status byte[] array.
+            </summary>
+            <param name="statusPacketBuffer">Dynamixel status packet</param>
+        </member>
+        <member name="M:AgaveRobotics.Servos.StatusErrorArg.#ctor(AgaveRobotics.Servos.StatusError,System.String)">
+            <summary>
+            Initializes a new instance of the StatusErrorArg class with the specified 
+            error byte and description
+            </summary>
+            <param name="Error"></param>
+            <param name="Description"></param>
+        </member>
+        <member name="M:AgaveRobotics.Servos.StatusErrorArg.ParseErrorByte(System.Byte)">
+            <summary>
+            Convert the error byte returned in a Dynamixel status packet to an array of errors with descritions.
+            Generally, one error is returned.  However, this method will handle a compound error byte.
+            </summary>
+            <param name="error">Error byte returned from a Dynamixel status packet</param>
+            <returns>Complex StatusErrorType that contains an error byte and friendly description. </returns>
+        </member>
+        <member name="P:AgaveRobotics.Servos.StatusErrorArg.Error">
+            <summary>
+            Status packet error byte.
+            </summary>
+        </member>
+        <member name="P:AgaveRobotics.Servos.StatusErrorArg.Description">
+            <summary>
+            Status packet error description.
+            </summary>
+        </member>
+        <member name="M:AgaveRobotics.Servos.StatusPacketEventArgs.getParameters">
+            <summary>
+            Get all pramater bytes from a status packet.  Parameters can be an empty byte array to all 50 register values.  It all
+            depends on the instruction packet.
+            </summary>
+            <returns>Fills the Parameter read-only property</returns>
+        </member>
+        <member name="P:AgaveRobotics.Servos.StatusPacketEventArgs.StartByte1">
+            <summary>
+            Status packet start byte
+            </summary>
+        </member>
+        <member name="P:AgaveRobotics.Servos.StatusPacketEventArgs.StartByte2">
+            <summary>
+            Status packet start byte
+            </summary>
+        </member>
+        <member name="P:AgaveRobotics.Servos.StatusPacketEventArgs.ID">
+            <summary>
+            Dynamixel response Id
+            </summary>
+        </member>
+        <member name="P:AgaveRobotics.Servos.StatusPacketEventArgs.Length">
+            <summary>
+            Status packet length byte.
+            </summary>
+        </member>
+        <member name="P:AgaveRobotics.Servos.StatusPacketEventArgs.Error">
+            <summary>
+            Status packet error byte.
+            </summary>
+        </member>
+        <member name="P:AgaveRobotics.Servos.StatusPacketEventArgs.Parameters">
+            <summary>
+            Status packet parameters
+            </summary>
+        </member>
+        <member name="P:AgaveRobotics.Servos.StatusPacketEventArgs.Checksum">
+            <summary>
+            Status packet checksum
+            </summary>
+        </member>
+        <member name="T:AgaveRobotics.Servos.DynamixelInstruction">
+            <summary>
+            Dynamixel instructions used in the dynamixel instruction packet
+            </summary>
+            <seealso cref="T:AgaveRobotics.Servos.DynamixelInstruction"/>
+        </member>
+        <member name="F:AgaveRobotics.Servos.DynamixelInstruction.Ping">
+            <summary>
+            Ping a Dynamixel ID on the network.  The Dynamixel will respond a status packet.
+            </summary>
+        </member>
+        <member name="F:AgaveRobotics.Servos.DynamixelInstruction.ReadData">
+            <summary>
+            Read register values.
+            </summary>
+        </member>
+        <member name="F:AgaveRobotics.Servos.DynamixelInstruction.WriteData">
+            <summary>
+            Write register values.
+            </summary>
+        </member>
+        <member name="F:AgaveRobotics.Servos.DynamixelInstruction.RegWrite">
+            <summary>
+            Write register values and stay in standby mode
+            until a global Action instruction is received.
+            </summary>
+        </member>
+        <member name="F:AgaveRobotics.Servos.DynamixelInstruction.Action">
+            <summary>
+            Ecexute RegWrite instructions.
+            </summary>
+        </member>
+        <member name="F:AgaveRobotics.Servos.DynamixelInstruction.Reset">
+            <summary>
+            Reset all registers (including ID) to default values.
+            </summary>
+        </member>
+        <member name="F:AgaveRobotics.Servos.DynamixelInstruction.SyncWrite">
+            <summary>
+            Write register data to multiple Dynamixels at once.
+            </summary>
+        </member>
+        <member name="T:AgaveRobotics.Servos.ControlTable">
+            <summary>
+            Control table present on each Dynamixel.
+            </summary>
+        </member>
+        <member name="F:AgaveRobotics.Servos.ControlTable.ModelNumber">
+            <summary>
+            Model Number Address
+            </summary>
+        </member>
+        <member name="F:AgaveRobotics.Servos.ControlTable.FirmwareVersion">
+            <summary>
+            Firmware Version Address
+            </summary>
+        </member>
+        <member name="F:AgaveRobotics.Servos.ControlTable.Id">
+            <summary>
+            Id Address
+            </summary>
+        </member>
+        <member name="F:AgaveRobotics.Servos.ControlTable.BaudRate">
+            <summary>
+            Baud Rate Address
+            </summary>
+        </member>
+        <member name="F:AgaveRobotics.Servos.ControlTable.ReturnDelay">
+            <summary>
+            Register number for Return Delay.
+            </summary>
+        </member>
+        <member name="F:AgaveRobotics.Servos.ControlTable.CWAngleLimit">
+            <summary>
+            Clockwise Angle Limit Address
+            </summary>
+        </member>
+        <member name="F:AgaveRobotics.Servos.ControlTable.CCWAngleLimit">
+            <summary>
+            Counter Clockwise Angle Limit Address
+            </summary>
+        </member>
+        <member name="F:AgaveRobotics.Servos.ControlTable.TemperatureLimit">
+            <summary>
+            Temperature Limit Address
+            </summary>
+        </member>
+        <member name="F:AgaveRobotics.Servos.ControlTable.LowVoltageLimit">
+            <summary>
+            Low Voltage Limit Address
+            </summary>
+        </member>
+        <member name="F:AgaveRobotics.Servos.ControlTable.HighVoltageLimit">
+            <summary>
+            High Voltage Limit Address
+            </summary>
+        </member>
+        <member name="F:AgaveRobotics.Servos.ControlTable.MaxTorque">
+            <summary>
+            Max Torque Address
+            </summary>
+        </member>
+        <member name="F:AgaveRobotics.Servos.ControlTable.StatusReturnLevel">
+            <summary>
+            Status Return Level Address
+            </summary>
+        </member>
+        <member name="F:AgaveRobotics.Servos.ControlTable.AlarmLed">
+            <summary>
+            Alarm Led Address
+            </summary>
+        </member>
+        <member name="F:AgaveRobotics.Servos.ControlTable.AlarmShutdown">
+            <summary>
+            Alarm Shutdown Address
+            </summary>
+        </member>
+        <member name="F:AgaveRobotics.Servos.ControlTable.DownCalibration">
+            <summary>
+            Down Calibration Address
+            </summary>
+        </member>
+        <member name="F:AgaveRobotics.Servos.ControlTable.UpCalibration">
+            <summary>
+            Up Calibration Address
+            </summary>
+        </member>
+        <member name="F:AgaveRobotics.Servos.ControlTable.TorqueEnable">
+            <summary>
+            Torque Enable Address
+            </summary>
+        </member>
+        <member name="F:AgaveRobotics.Servos.ControlTable.LED">
+            <summary>
+            LED Address
+            </summary>
+        </member>
+        <member name="F:AgaveRobotics.Servos.ControlTable.CWComplianceMargin">
+            <summary>
+            Clockwise Compliance Margin Address
+            </summary>
+        </member>
+        <member name="F:AgaveRobotics.Servos.ControlTable.CCWComplianceMargin">
+            <summary>
+            Counter Clockwise Compliance Margin Address
+            </summary>
+        </member>
+        <member name="F:AgaveRobotics.Servos.ControlTable.CWComplianceSlope">
+            <summary>
+            Clockwise Compliance Slope Address
+            </summary>
+        </member>
+        <member name="F:AgaveRobotics.Servos.ControlTable.CCWComplianceSlope">
+            <summary>
+            Counter Clockwise Compliance Slope Address
+            </summary>
+        </member>
+        <member name="F:AgaveRobotics.Servos.ControlTable.GoalPosition">
+            <summary>
+            Goal Position Address
+            </summary>
+        </member>
+        <member name="F:AgaveRobotics.Servos.ControlTable.MovingSpeed">
+            <summary>
+            Moving Speed Address
+            </summary>
+        </member>
+        <member name="F:AgaveRobotics.Servos.ControlTable.TorqueLimit">
+            <summary>
+            Torque Limit Address
+            </summary>
+        </member>
+        <member name="F:AgaveRobotics.Servos.ControlTable.CurrentPosition">
+            <summary>
+            Register number for Current Position.
+            </summary>
+        </member>
+        <member name="F:AgaveRobotics.Servos.ControlTable.CurrentSpeed">
+            <summary>
+            Current Speed Address
+            </summary>
+        </member>
+        <member name="F:AgaveRobotics.Servos.ControlTable.CurrentLoad">
+            <summary>
+            Current Load Address
+            </summary>
+        </member>
+        <member name="F:AgaveRobotics.Servos.ControlTable.CurrentVoltage">
+            <summary>
+            Current Voltage Address
+            </summary>
+        </member>
+        <member name="F:AgaveRobotics.Servos.ControlTable.CurrentTemperature">
+            <summary>
+            Current Temperature Address
+            </summary>
+        </member>
+        <member name="F:AgaveRobotics.Servos.ControlTable.RegisteredInstruction">
+            <summary>
+            Registered Instruction Address 
+            </summary>
+        </member>
+        <member name="F:AgaveRobotics.Servos.ControlTable.Moving">
+            <summary>
+            Moving Address
+            </summary>
+        </member>
+        <member name="F:AgaveRobotics.Servos.ControlTable.Lock">
+            <summary>
+            Lock Address
+            </summary>
+        </member>
+        <member name="F:AgaveRobotics.Servos.ControlTable.Punch">
+            <summary>
+            Punch Address
+            </summary>
+        </member>
+        <member name="T:AgaveRobotics.Servos.InstructionPacket">
+            <summary>
+            Build Dyanmixl instruction commands.
+            </summary>
+        </member>
+        <member name="T:AgaveRobotics.Servos.DynamixelInstructionBuilderBase">
+            <summary>
+            The Dynamixel instruction builder is the base class for dynamixel instruction classes.
+            DynamixelInstructionBuilderBase implements the IDynamixelInstruction interface.
+            </summary>
+        </member>
+        <member name="T:AgaveRobotics.Servos.IDynamixelInstruction">
+            <summary>
+            Dynamixel instruction interface.  All dynamixel instructions implement the ToByteArray() method.
+            </summary>
+        </member>
+        <member name="M:AgaveRobotics.Servos.IDynamixelInstruction.ToByteArray">
+            <summary>
+            The virtual ToByteArray method creates an array of bytes that represents a serialized dynamixel command that all
+            inheriter must implement.
+            </summary>
+            <returns>Serialized dynamixel command (byte[])</returns>
+        </member>
+        <member name="F:AgaveRobotics.Servos.DynamixelInstructionBuilderBase.id">
+            <summary>
+            Dynamixel ID (byte)
+            </summary>
+        </member>
+        <member name="F:AgaveRobotics.Servos.DynamixelInstructionBuilderBase.paramters">
+            <summary>
+            Genaric byte list of Dynamixel parameters
+            </summary>
+        </member>
+        <member name="M:AgaveRobotics.Servos.DynamixelInstructionBuilderBase.ToByteArray">
+            <summary>
+            The virtual ToByteArray method creates an array of bytes that represents a serialized dynamixel command.  The
+            inheriters can override the basic implementation.
+            </summary>
+            <returns>Serialized dynamixel command (byte[])</returns>
+        </member>
+        <member name="M:AgaveRobotics.Servos.DynamixelInstructionBuilderBase.IsWordRegister(System.Byte)">
+            <summary>
+            Check the register (control table address) we're writing to.  If the register is a word size and 
+            we're writing a byte then we need to also send 0x00 as the high byte.
+            </summary>
+            <param name="startAddress">Start address to check</param>
+            <returns>True if the register is a word size.  Returns false if the register is a byte size.</returns>
+        </member>
+        <member name="M:AgaveRobotics.Servos.DynamixelInstructionBuilderBase.ToString">
+            <summary>
+            Convert a Dynamixel instruction byte array to a space delimited string.
+            </summary>
+            <returns>The string representation of a dynamixel instruction</returns>
+        </member>
+        <member name="P:AgaveRobotics.Servos.DynamixelInstructionBuilderBase.Id">
+            <summary>
+            Get Set the dynamixel ID (byte)
+            </summary>
+        </member>
+        <member name="P:AgaveRobotics.Servos.DynamixelInstructionBuilderBase.Paramters">
+            <summary>
+            Get Set the genaric list of byte parameters
+            </summary>
+        </member>
+        <member name="M:AgaveRobotics.Servos.InstructionPacket.#ctor">
+            <summary>
+            InstructionPacket default constructor
+            </summary>
+        </member>
+        <member name="M:AgaveRobotics.Servos.InstructionPacket.#ctor(System.Byte,AgaveRobotics.Servos.DynamixelInstruction)">
+            <summary>
+            InstructionPacket
+            </summary>
+            <param name="Id">ID of the dynamixel to affect</param>
+            <param name="Instruction">Instruction to preform.</param>
+        </member>
+        <member name="M:AgaveRobotics.Servos.InstructionPacket.ToByteArray">
+            <summary>
+            The ToByteArray method overrides the base ToByteArray method.  
+            ToByteArray creates an array of bytes that represents
+            a serialized dynamixel command.  
+            </summary>
+            <returns>Serialized dynamixel command (byte[])</returns>
+        </member>
+        <member name="M:AgaveRobotics.Servos.InstructionPacket.csum">
+            <summary>
+            Calculate the check sum = ~(ID + Length + instruction + Parameter 1 + paramerter N)
+            </summary>
+            <returns>~(ID + Length + instruction + Parameter 1 + paramerter N)</returns>
+        </member>
+        <member name="P:AgaveRobotics.Servos.InstructionPacket.StartBytes">
+            <summary>
+             Dynamixel instruction start bytes
+            </summary>
+        </member>
+        <member name="P:AgaveRobotics.Servos.InstructionPacket.Length">
+            <summary>
+            Instruction length byte
+            </summary>
+        </member>
+        <member name="P:AgaveRobotics.Servos.InstructionPacket.Instruction">
+            <summary>
+            Dynamixel instruction
+            </summary>
+        </member>
+        <member name="P:AgaveRobotics.Servos.InstructionPacket.Parameters">
+            <summary>
+            Byte array of dynamixel parameters
+            </summary>
+        </member>
+        <member name="P:AgaveRobotics.Servos.InstructionPacket.Checksum">
+            <summary>
+            Checksum = ~(ID + Length + instruction + Parameter 1 + paramerter N)
+            </summary>
+        </member>
+        <member name="T:AgaveRobotics.Servos.WriteDataBuilder">
+            <summary>
+            Provides custom constructors and methods to build a dynamixel WriteData instruction.  
+            </summary>
+        </member>
+        <member name="M:AgaveRobotics.Servos.WriteDataBuilder.#ctor(System.Byte,AgaveRobotics.Servos.ControlTable)">
+            <summary>
+            Initializes a new instance of the WriteDataBuilder class with the specified 
+            Dynmixel ID and Dynamixel control table address (register).
+            </summary>
+            <param name="id">Dynamixel ID to execute the WriteData instruction.</param>
+            <param name="startAddress">Dynamixel control table address.</param>
+        </member>
+        <member name="M:AgaveRobotics.Servos.WriteDataBuilder.#ctor(System.Byte,System.String)">
+            <summary>
+            Initializes a new instance of the WriteDataBuilder class with the specified 
+            Dynmixel ID and parameter string.  
+            </summary>
+            <param name="id">Dynamixel ID to execute the WriteData instruction.</param>
+            <param name="parameters">The paramter argument is a space delimited string 
+            starting with the start address followed by control table values.
+            </param>
+        </member>
+        <member name="M:AgaveRobotics.Servos.WriteDataBuilder.#ctor(System.Byte,AgaveRobotics.Servos.ControlTable,System.String)">
+            <summary>
+            Initializes a new instance of the WriteDataBuilder class with the specified 
+            Dynmixel ID, Dynamixel control table address (register), and space delimited string 
+            of values to write.
+            </summary>
+            <param name="id">Dynamixel ID to execute the WriteData instruction.</param>
+            <param name="startAddress">Dynamixel control table address.</param>
+            <param name="parameters">The paramter argument is a space delimited string of control table values.</param>
+        </member>
+        <member name="M:AgaveRobotics.Servos.WriteDataBuilder.#ctor(System.Byte,AgaveRobotics.Servos.ControlTable,System.Int32)">
+            <summary>
+            Initializes a new instance of the WriteDataBuilder class with the specified 
+            Dynmixel ID, Dynamixel control table address (register), and initial value
+            </summary>
+            <param name="id">Dynamixel ID to execute the WriteData instruction.</param>
+            <param name="startAddress">Dynamixel control table address.</param>
+            <param name="value">First value to write.</param>
+        </member>
+        <member name="M:AgaveRobotics.Servos.WriteDataBuilder.#ctor(System.Byte,AgaveRobotics.Servos.ControlTable,System.Int32[])">
+            <summary>
+            Initializes a new instance of the WriteDataBuilder class with the specified 
+            Dynmixel ID, Dynamixel control table address (register), and array of values.
+            </summary>
+            <param name="id">Dynamixel ID to execute the WriteData instruction.</param>
+            <param name="startAddress">Dynamixel control table address.</param>
+            <param name="args">Array of values to write starting at the start address.</param>
+        </member>
+        <member name="M:AgaveRobotics.Servos.WriteDataBuilder.ParseParameterString(System.String)">
+            <summary>
+            Takes a space delimited string and converts the string to a generic list of integers.
+            </summary>
+            <param name="parmString">Space delimited string</param>
+            <returns>Generic list of integers</returns>
+        </member>
+        <member name="M:AgaveRobotics.Servos.WriteDataBuilder.AddParameter(System.Int32)">
+            <summary>
+            Add a parameter value to the WriteData instruction.
+            </summary>
+            <param name="value">If the Dynamixel control table address requires a high and low byte the 
+            value is split into two bytes [low byte] [high byte]; otherwise only the low byte is added.</param>
+        </member>
+        <member name="M:AgaveRobotics.Servos.WriteDataBuilder.ToByteArray">
+            <summary>
+            The ToByteArray method overrides the base ToByteArray method.  
+            ToByteArray creates an array of bytes that represents
+            a serialized dynamixel command.  
+            </summary>
+            <returns>Serialized dynamixel command (byte[])</returns>
+        </member>
+        <member name="P:AgaveRobotics.Servos.WriteDataBuilder.StartAddress">
+            <summary>
+            Get Dynamixel control table address.
+            </summary>
+        </member>
+        <member name="T:AgaveRobotics.Servos.RegWriteBuilder">
+            <summary>
+            Provides custom constructors and methods to build a dynamixel RegWrite instruction.
+            </summary>
+        </member>
+        <member name="M:AgaveRobotics.Servos.RegWriteBuilder.#ctor(System.Byte,AgaveRobotics.Servos.ControlTable)">
+            <summary>
+            Initializes a new instance of the RegWriteBuilder class with the specified 
+            Dynmixel ID and Dynamixel control table address (register).
+            </summary>
+            <param name="id">Dynamixel ID to execute the RegWrite instruction.</param>
+            <param name="startAddress">Dynamixel control table address.</param>
+        </member>
+        <member name="M:AgaveRobotics.Servos.RegWriteBuilder.#ctor(System.Byte,System.String)">
+            <summary>
+            Initializes a new instance of the RegWriteaBuilder class with the specified 
+            Dynmixel ID and parameter string.  
+            </summary>
+            <param name="id">Dynamixel ID to execute the RegWrite instruction.</param>
+            <param name="parameters">A space delimited string 
+            starting with the start address followed by control table values.
+            </param>
+        </member>
+        <member name="M:AgaveRobotics.Servos.RegWriteBuilder.#ctor(System.Byte,AgaveRobotics.Servos.ControlTable,System.String)">
+            <summary>
+            Initializes a new instance of the RegWriteBuilder class with the specified 
+            Dynmixel ID, Dynamixel control table address (register), and space delimited string 
+            of values to write.
+            </summary>
+            <param name="id">Dynamixel ID to execute the RegWrite instruction.</param>
+            <param name="startAddress">Dynamixel control table address.</param>
+            <param name="parameters">A space delimited string of control table values.</param>
+        </member>
+        <member name="M:AgaveRobotics.Servos.RegWriteBuilder.#ctor(System.Byte,AgaveRobotics.Servos.ControlTable,System.Int32)">
+            <summary>
+            Initializes a new instance of the RegWriteBuilder class with the specified 
+            Dynmixel ID, Dynamixel control table address (register), and initial value
+            </summary>
+            <param name="id">Dynamixel ID to execute the RegWrite instruction.</param>
+            <param name="startAddress">Dynamixel control table address.</param>
+            <param name="value">First value to write.</param>
+        </member>
+        <member name="M:AgaveRobotics.Servos.RegWriteBuilder.#ctor(System.Byte,AgaveRobotics.Servos.ControlTable,System.Int32[])">
+            <summary>
+            Initializes a new instance of the RegWriteBuilder class with the specified 
+            Dynmixel ID, Dynamixel control table address (register), and array of values.
+            </summary>
+            <param name="id">Dynamixel ID to execute the RegWrite instruction.</param>
+            <param name="startAddress">Dynamixel control table address.</param>
+            <param name="args">Array of values to write starting at the start address.</param>
+        </member>
+        <member name="M:AgaveRobotics.Servos.RegWriteBuilder.ParseParameterString(System.String)">
+            <summary>
+            Takes a space delimited string and converts the string to a generic list of integers.
+            </summary>
+            <param name="parmString">Space delimited string</param>
+            <returns>Generic list of integers</returns>
+        </member>
+        <member name="M:AgaveRobotics.Servos.RegWriteBuilder.AddParameter(System.Int32)">
+            <summary>
+            Add a parameter value to the RegWrite instruction.
+            </summary>
+            <param name="value">If the Dynamixel control table address requires a high and low byte the 
+            value is split into two bytes [low byte] [high byte]; otherwise only the low byte is added.</param>
+        </member>
+        <member name="M:AgaveRobotics.Servos.RegWriteBuilder.ToByteArray">
+            <summary>
+            The ToByteArray method overrides the base ToByteArray method.  
+            ToByteArray creates an array of bytes that represents
+            a serialized dynamixel command.  
+            </summary>
+            <returns>Serialized dynamixel command (byte[])</returns>
+        </member>
+        <member name="P:AgaveRobotics.Servos.RegWriteBuilder.StartAddress">
+            <summary>
+            Get Set the control table starting address of the write.
+            </summary>
+        </member>
+        <member name="T:AgaveRobotics.Servos.ReadDataBuilder">
+            <summary>
+            Provides custom constructors and methods to build a dynamixel ReadData instruction.
+            </summary>
+        </member>
+        <member name="M:AgaveRobotics.Servos.ReadDataBuilder.#ctor(System.Byte,AgaveRobotics.Servos.ControlTable,System.Byte)">
+            <summary>
+            Initializes a new instance of the RegWriteBuilder class with the specified 
+            Dynmixel ID, Dynamixel control table address (register), and number
+            of bytes to read from the control table.
+            </summary>
+            <param name="id">Dynamixel ID to execute the ReadData instruction.</param>
+            <param name="startAddress">Dynamixel control table address.</param>
+            <param name="bytesToRead">The number of byte to read.</param>
+        </member>
+        <member name="M:AgaveRobotics.Servos.ReadDataBuilder.#ctor(System.Byte,System.String)">
+            <summary>
+            Initializes a new instance of the RegWriteBuilder class with the specified 
+            Dynmixel ID and space delimited string of parameters
+            </summary>
+            <param name="id">Dynamixel ID to execute the ReadData instruction.</param>
+            <param name="paramters">A space delimited string of control table values starting with the 
+            a start address followed by the number of bytes to read.</param>
+        </member>
+        <member name="M:AgaveRobotics.Servos.ReadDataBuilder.ToByteArray">
+            <summary>
+            The ToByteArray method overrides the base ToByteArray method.  
+            ToByteArray creates an array of bytes that represents
+            a serialized dynamixel command.  
+            </summary>
+            <returns>Serialized dynamixel command (byte[])</returns>
+        </member>
+        <member name="P:AgaveRobotics.Servos.ReadDataBuilder.StartAddress">
+            <summary>
+            Get Set the control table starting address of the read.
+            </summary>
+        </member>
+        <member name="P:AgaveRobotics.Servos.ReadDataBuilder.BytesToRead">
+            <summary>
+            Get Set the number of bytes to read
+            </summary>
+        </member>
+        <member name="T:AgaveRobotics.Servos.SyncWriteBuilder">
+            <summary>
+            Provides custom constructors and methods to build a dynamixel SyncWrite instruction.
+            </summary>
+        </member>
+        <member name="M:AgaveRobotics.Servos.SyncWriteBuilder.#ctor(AgaveRobotics.Servos.ControlTable)">
+            <summary>
+            Initializes a new instance of the WriteDataBuilder class with the specified 
+            control table start address.
+            </summary>
+            <param name="startAddress">Dynamixel control table address.</param>
+        </member>
+        <member name="M:AgaveRobotics.Servos.SyncWriteBuilder.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the WriteDataBuilder class with the specified 
+            space delimited string of parameters.
+            </summary>
+            <param name="parameters">Space delimited string of SyncWrite parameters.
+            [start address] [dyanmixel data length] [ID 1] [1st value] [value...N] [IDx] [1st x value] [x value...N]</param>
+        </member>
+        <member name="M:AgaveRobotics.Servos.SyncWriteBuilder.ParseParameterString(System.String)">
+            <summary>
+            Takes a space delimited string and converts the string to a generic list of integers.
+            </summary>
+            <param name="parmString">Space delimited string</param>
+            <returns>Generic list of integers</returns>
+        </member>
+        <member name="M:AgaveRobotics.Servos.SyncWriteBuilder.BuildSyncWriteParameters(System.Collections.Generic.List{System.Int32})">
+            <summary>
+            Convert a generic list of integers to a generic collection of SyncWriteParameters.
+            </summary>
+            <param name="parms">Generic list of integers.</param>
+        </member>
+        <member name="M:AgaveRobotics.Servos.SyncWriteBuilder.AddParameter(System.Byte,System.Int32)">
+            <summary>
+            Add a SyncWriteParameter to the SyncWriteParameters generic collection
+            </summary>
+            <param name="id">Dynamixel ID to execute the instruction.</param>
+            <param name="value">Initial control table address for the write.</param>
+        </member>
+        <member name="M:AgaveRobotics.Servos.SyncWriteBuilder.AddParameter(System.Byte,System.Int32[])">
+            <summary>
+            Add a SyncWriteParameter to the SyncWriteParameters generic collection
+            </summary>
+            <param name="id">Dynamixel ID to execute the instruction.</param>
+            <param name="args">Generic list of values to write.</param>
+        </member>
+        <member name="M:AgaveRobotics.Servos.SyncWriteBuilder.AddParameter(AgaveRobotics.Servos.SyncWriteParameter)">
+            <summary>
+            Add a SyncWriteParameter to the SyncWriteParameters generic collections
+            </summary>
+            <param name="syncWriteParameter">SyncWriteParameter to add to the SyncWriteParameters generic collection</param>
+        </member>
+        <member name="M:AgaveRobotics.Servos.SyncWriteBuilder.ToByteArray">
+            <summary>
+            The ToByteArray method overrides the base ToByteArray method.  
+            ToByteArray creates an array of bytes that represents
+            a serialized dynamixel command.  
+            </summary>
+            <returns>Serialized dynamixel command (byte[])</returns>
+        </member>
+        <member name="M:AgaveRobotics.Servos.SyncWriteBuilder.ClearAllParameters">
+            <summary>
+            Clears all SyncWrite Parameters
+            </summary>
+        </member>
+        <member name="M:AgaveRobotics.Servos.SyncWriteBuilder.RemoveParameter(AgaveRobotics.Servos.SyncWriteParameter)">
+            <summary>
+            Removes the first occurrence of the SyncWriteParameter object from syncWriteParameters list
+            </summary>
+            <param name="paramater">SyncWrite parameter</param>
+        </member>
+        <member name="M:AgaveRobotics.Servos.SyncWriteBuilder.RemoveParameterAt(System.Int32)">
+            <summary>
+            Removes the element at the specified index of the syncWriteParameters list
+            </summary>
+            <param name="index"></param>
+        </member>
+        <member name="M:AgaveRobotics.Servos.SyncWriteBuilder.ParameterIdExists(System.Byte)">
+            <summary>
+            Determines whether the SyncWriteParameters list already contains a 
+            command for the SyncWriteParameter.Id argument  passed to the method.
+            </summary>
+            <param name="id">SyncWriteParameter to find</param>
+            <returns>True if the parameter is found; otherwisw returns false</returns>
+        </member>
+        <member name="M:AgaveRobotics.Servos.SyncWriteBuilder.ParameterIndexOfId(System.Byte)">
+            <summary>
+            Returns the index of a SyncWriteParameter if a parameter with the same ID is 
+            found in the SyncWriteParameters list.
+            </summary>
+            <param name="id">SyncWriteParameter to find</param>
+            <returns>The first index of the SyncWriteParameter found in the SyncWriteParameters list</returns>
+        </member>
+        <member name="M:AgaveRobotics.Servos.SyncWriteBuilder.IsSyncWriteParameterValid(AgaveRobotics.Servos.SyncWriteParameter)">
+            <summary>
+            The SyncWrite business rules say that all IDs being affected must write to the same
+            control table registers.  The IsSyncWriteParameterValid compares each parameter byte length
+            to the SyncWriteParameter index 0.
+            </summary>
+            <param name="swp">SyncWriteParameter to compare</param>
+            <returns>True if the lengths are equal; otherwise false.</returns>
+        </member>
+        <member name="P:AgaveRobotics.Servos.SyncWriteBuilder.StartAddress">
+            <summary>
+            Get Set the control table starting address of the write.
+            </summary>
+        </member>
+        <member name="T:AgaveRobotics.Servos.SyncWriteParameter">
+            <summary>
+            Provides custom constructors and methods to help build a dynamixel SyncWrite instruction.
+            </summary>
+        </member>
+        <member name="M:AgaveRobotics.Servos.SyncWriteParameter.#ctor(System.Byte,AgaveRobotics.Servos.ControlTable)">
+            <summary>
+            Initializes a new instance of the SyncWriteParameter class with the specified 
+            Dynmixel ID, Dynamixel control table address (register).
+            </summary>
+            <param name="id">Dynamixel ID to execute the instruction.</param>
+            <param name="startAddress">Dynamixel control table address.</param>
+        </member>
+        <member name="M:AgaveRobotics.Servos.SyncWriteParameter.#ctor(System.Byte,AgaveRobotics.Servos.ControlTable,System.Int32)">
+            <summary>
+            Initializes a new instance of the WriteDataBuilder class with the specified 
+            Dynmixel ID, Dynamixel control table address (register), and initial value
+            </summary>
+            <param name="id">Dynamixel ID to execute the instruction.</param>
+            <param name="startAddress">Dynamixel control table address.</param>
+            <param name="value">First value to write.</param>
+        </member>
+        <member name="M:AgaveRobotics.Servos.SyncWriteParameter.#ctor(System.Byte,AgaveRobotics.Servos.ControlTable,System.Int32[])">
+            <summary>
+            Initializes a new instance of the WriteDataBuilder class with the specified 
+            Dynmixel ID, Dynamixel control table address (register), and array of values.
+            </summary>
+            <param name="id">Dynamixel ID to execute the instruction.</param>
+            <param name="startAddress">Dynamixel control table address.</param>
+            <param name="args">Array of values to write starting at the start address.</param>
+        </member>
+        <member name="M:AgaveRobotics.Servos.SyncWriteParameter.AddParameter(System.Int32)">
+            <summary>
+            Add a parameter value to the WriteData instruction.
+            </summary>
+            <param name="value">Integer value.  If the address requires a high and low byte the 
+            value is split into two bytes; otherwise only the low byte is used.</param>
+        </member>
+        <member name="M:AgaveRobotics.Servos.SyncWriteParameter.ToByteArray">
+            <summary>
+            The ToByteArray method overrides the base ToByteArray method.  
+            ToByteArray creates an array of bytes that represents
+            a serialized dynamixel command.  
+            </summary>
+            <returns>Serialized dynamixel command (byte[])</returns>
+        </member>
+        <member name="P:AgaveRobotics.Servos.SyncWriteParameter.Id">
+            <summary>
+            Get Set the Dynamixel ID
+            </summary>
+        </member>
+        <member name="P:AgaveRobotics.Servos.SyncWriteParameter.Paramters">
+            <summary>
+            Get Set the geberic list of byte parameters
+            </summary>
+        </member>
+        <member name="T:AgaveRobotics.Servos.PingBuilder">
+            <summary>
+            Provides a custom constructor and method to build a dynamixel Ping instruction.
+            </summary>
+        </member>
+        <member name="M:AgaveRobotics.Servos.PingBuilder.#ctor(System.Byte)">
+            <summary>
+            Initializes a new instance of the PingBuilder class with the specified 
+            Dynmixel ID
+            </summary>
+            <param name="id">Dynamixel Id to ping</param>
+        </member>
+        <member name="M:AgaveRobotics.Servos.PingBuilder.ToByteArray">
+            <summary>
+            The ToByteArray method overrides the base ToByteArray method.  
+            ToByteArray creates an array of bytes that represents
+            a serialized dynamixel command.  
+            </summary>
+            <returns>Serialized dynamixel command (byte[])</returns>
+        </member>
+        <member name="T:AgaveRobotics.Servos.ActionBuilder">
+            <summary>
+            Provides a custom constructor and method to build a dynamixel Action instruction.
+            The Action instruction executes cached RegWrite instruictions.
+            </summary>
+        </member>
+        <member name="M:AgaveRobotics.Servos.ActionBuilder.#ctor">
+            <summary>
+            Initializes a new instance of the ActionBuilder class useing the broadcast ID 0xFE.
+            </summary>
+        </member>
+        <member name="M:AgaveRobotics.Servos.ActionBuilder.ToByteArray">
+            <summary>
+            The ToByteArray method overrides the base ToByteArray method.  
+            ToByteArray creates an array of bytes that represents
+            a serialized dynamixel command.  
+            </summary>
+            <returns>Serialized dynamixel command (byte[])</returns>
+        </member>
+        <member name="T:AgaveRobotics.Servos.ResetBuilder">
+            <summary>
+            Provides a custom constructor and method to build a dynamixel ResetBuilder instruction.
+            </summary>
+        </member>
+        <member name="M:AgaveRobotics.Servos.ResetBuilder.#ctor(System.Byte)">
+            <summary>
+            Initializes a new instance of the ResetBuilder class useing the broadcast ID 0xFE.
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="M:AgaveRobotics.Servos.ResetBuilder.ToByteArray">
+            <summary>
+            The ToByteArray method overrides the base ToByteArray method.  
+            ToByteArray creates an array of bytes that represents
+            a serialized dynamixel command.  
+            </summary>
+            <returns>Serialized dynamixel command (byte[])</returns>
+        </member>
+    </members>
+</doc>

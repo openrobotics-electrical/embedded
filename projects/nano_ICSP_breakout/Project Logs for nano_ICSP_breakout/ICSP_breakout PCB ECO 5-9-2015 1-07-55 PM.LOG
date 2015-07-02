@@ -1,0 +1,6 @@
+Added Component: Designator=P3(HDR1X4_LGE1.0)
+Added Pin To Net: NetName=NetP1_3 Pin=P3-1
+Added Pin To Net: NetName=NetP2_2 Pin=P3-2
+Added Pin To Net: NetName=NetP2_3 Pin=P3-3
+Added Pin To Net: NetName=NetP1_1 Pin=P3-4
+Added Member To Class: ClassName=ICSP_breakout Member=Component P3 C-Hdr1x4

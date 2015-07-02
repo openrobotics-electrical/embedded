@@ -1,0 +1,5 @@
+C:\Documents and Settings\Michael Gebhard\My Documents\Visual Studio 2008\Projects\Dynamixel\Dynamixel\bin\Release\Dynamixel.dll
+C:\Documents and Settings\Michael Gebhard\My Documents\Visual Studio 2008\Projects\Dynamixel\Dynamixel\bin\Release\Dynamixel.pdb
+C:\Documents and Settings\Michael Gebhard\My Documents\Visual Studio 2008\Projects\Dynamixel\Dynamixel\obj\Release\ResolveAssemblyReference.cache
+C:\Documents and Settings\Michael Gebhard\My Documents\Visual Studio 2008\Projects\Dynamixel\Dynamixel\obj\Release\Dynamixel.dll
+C:\Documents and Settings\Michael Gebhard\My Documents\Visual Studio 2008\Projects\Dynamixel\Dynamixel\obj\Release\Dynamixel.pdb
