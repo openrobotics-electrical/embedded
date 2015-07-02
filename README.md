@@ -1,7 +1,7 @@
 #open_robotics_embedded<br>
 Seriously any questions get at me max@theprogrammingclub.com<br>
 ###Organization of this repo<br>
-&nbsp;&nbsp;<a href="../../tree/master/the_plan/">**the_plan**</a> outlines philosophy, long-term goals, and specifications<br>
+&nbsp;&nbsp;<a href="../../tree/master/the_plan/">**the_plan/**</a> outlines philosophy, long-term goals, and specifications<br>
 &nbsp;&nbsp;<a href="../../tree/master/documents/">**documents/**</a> has IC pinouts, device information<br>
 &nbsp;&nbsp;<a href="../../tree/master/libraries/">**libraries/**</a> holds usefuls source code that is not project-specific and device symbols/footprints<br>
 &nbsp;&nbsp;<a href="../../tree/master/projects/">**projects/**</a> contains subfolders, each one dedicated to a single project<br>
