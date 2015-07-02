@@ -1,11 +1,12 @@
 #open_robotics_embedded<br>
 Seriously any questions get at me max@theprogrammingclub.com<br>
 ###Organization of this repo<br>
-&nbsp;&nbsp;<a href="../../tree/master/doc/">**doc/**</a> has IC pinouts, device information<br>
+&nbsp;&nbsp;<a href="../../tree/master/the_plan/">**the_plan**</a> outlines philosophy, long-term goals, and specifications<br>
+&nbsp;&nbsp;<a href="../../tree/master/documents/">**documents/**</a> has IC pinouts, device information<br>
 &nbsp;&nbsp;<a href="../../tree/master/libraries/">**libraries/**</a> holds usefuls source code that is not project-specific and device symbols/footprints<br>
 &nbsp;&nbsp;<a href="../../tree/master/projects/">**projects/**</a> contains subfolders, each one dedicated to a single project<br>
-&nbsp;&nbsp;&nbsp;&nbsp;each project subfolder is meant to correspond 1-to-1 with a physical module<br>
-&nbsp;&nbsp;&nbsp;&nbsp;module-specific schematics, PCB files, project source code, and other info go in these<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Each project subfolder is meant to correspond 1-to-1 with a physical module<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Module-specific schematics, PCB files, project source code, and other info go in these<br>
 ###How to program a module<br>
 ####Using USB-serial with Arduino IDE<br>
 &nbsp;&nbsp;Retrieve the latest version of this repository<br>
