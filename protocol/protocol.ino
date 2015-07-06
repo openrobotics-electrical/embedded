@@ -3,6 +3,8 @@
 
 #include <Wire.h>
 
+enum MESSAGE_TYPE { UINT32_T = 4, FLOAT32_T = 4, CHAR = 1 };
+
 typedef struct wireData WireData;
 
 struct wireData {
