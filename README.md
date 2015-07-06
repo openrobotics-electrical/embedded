@@ -1,21 +1,20 @@
-# open_robotics_embedded
-Drive motor and turntable controller for OpenRobotics.ca<br>
+#open_robotics_embedded<br>
 Seriously any questions get at me max@theprogrammingclub.com<br>
-###Things you need to be effective here:<br>
-git:<br>
-&nbsp;&nbsp;<a href="https://windows.github.com/">Windows install</a><br>
-&nbsp;&nbsp;<a href="http://git-scm.com/download/linux">Linux/Unix install</a><br>
-Arduino IDE (more advanced users use Atmel studio as below):<br>
-&nbsp;&nbsp;http://www.arduino.cc/en/Main/Software<br>
-Our Trello page for task-tracking:<br>
-&nbsp;&nbsp;https://trello.com/openrobotics<br>
-Slack is helpful for communication:<br>
-&nbsp;&nbsp;https://opbots.slack.com/<br>
-###About the repo<br>
-We program in a mix of Arduino and CPP over USB and using ICSP, usually using avrdude.exe to program<br>
-http://www.atmel.com/microsite/atmel_studio6 is used as a dev environment with the Visual Micro extension<br>
-<br>
-For serial programming in a non-Arduino project:<br>
+###Organization of this repo<br>
+&nbsp;&nbsp;<a href="../../tree/master/the_plan/">**the_plan/**</a> outlines philosophy, long-term goals, and specifications<br>
+&nbsp;&nbsp;<a href="../../tree/master/documents/">**documents/**</a> has IC pinouts, device information<br>
+&nbsp;&nbsp;<a href="../../tree/master/libraries/">**libraries/**</a> holds usefuls source code that is not project-specific and device symbols/footprints<br>
+&nbsp;&nbsp;<a href="../../tree/master/projects/">**projects/**</a> contains subfolders, each one dedicated to a single project<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Each project subfolder is meant to correspond 1-to-1 with a physical module<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Module-specific schematics, PCB files, project source code, and other info go in these<br>
+###How to program a module<br>
+####Using USB-serial with Arduino IDE<br>
+&nbsp;&nbsp;Retrieve the latest version of this repository<br>
+&nbsp;&nbsp;Find the folder of the module you want to program<br>
+&nbsp;&nbsp;Open the .ino file in Arduino<br>
+&nbsp;&nbsp;Select the appropriate board and serial port from the **Tools** dropdown<br>
+&nbsp;&nbsp;Hit upload
+####Setting up Atmel Studio for programming over USB-serial<br>
 &nbsp;&nbsp;Select Tools -> External tools<br>
 &nbsp;&nbsp;&nbsp;&nbsp;Choose Add<br>
 &nbsp;&nbsp;&nbsp;&nbsp;Set Title to 'Serial Program'<br>
@@ -25,6 +24,18 @@ For serial programming in a non-Arduino project:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Example: <code>-C"C:\Program Files (x86)\Arduino\hardware\tools\avr\etc\avrdude.conf" -patmega328p -carduino -P\\.\COM16 -b57600 -U flash:w:"$(ProjectDir)Debug\$(ItemFileName).hex":i -v</code><br>
 &nbsp;&nbsp;&nbsp;&nbsp;Click ok<br>
 &nbsp;&nbsp;&nbsp;&nbsp;Now to program, select Tools -> Serial Program<br>
+####COMING SOMETIME IN 2015<br>
+&nbsp;&nbsp;A more in-depth guide to programming using AVRdude and ICSP, see some links at the end of this README for now<br>
+<br>
+###Tools<br>
+**git**<br>
+&nbsp;&nbsp;<a href="https://windows.github.com/">Windows install</a><br>
+&nbsp;&nbsp;<a href="http://git-scm.com/download/linux">Linux/Unix install</a><br>
+**Arduino IDE**<br>
+&nbsp;&nbsp;http://www.arduino.cc/en/Main/Software<br>
+**Atmel Studio** (Windows or Linux/UNIX with a VM)<br>
+&nbsp;&nbsp;http://www.atmel.com/microsite/atmel_studio6<br>
+&nbsp;&nbsp;You will want to install the Visual Micro extension<br>
 <br>
 Email me! max@theprogrammingclub.com<br>
 I want to make this documentation effective<br>
@@ -40,7 +51,7 @@ In case of Git conflicts: <br>
 <code>  git checkout -b [some name that indicates this branch is screwed up]</code><br>
 &nbsp;&nbsp;Initiate a pull request on github.com<br>
 <br>
-###Helpful links/tips for ICSP(In-Circuit Serial Programming<br>
+###Helpful links/tips for ICSP(In-Circuit Serial Programming)<br>
 &nbsp;&nbsp;<a href="http://playground.arduino.cc/Code/MegaISP">Arduino MegaISP</a><br>
 &nbsp;&nbsp;<a href="https://learn.sparkfun.com/tutorials/installing-an-arduino-bootloader">Installing a bootloader</a><br>
 &nbsp;&nbsp;<a href="/usr/local/CrossPack-AVR-20131216/manual/gettingstarted.html">Programming with mac OS X</a><br>
