@@ -2,16 +2,9 @@
 #define DEVICE_NAME bjkb 
 
 #include <Wire.h>
+#include "communication_protocol.h"
 #include "attribute.h"
-
-typedef enum STATUS { 
-
-  WAITING_FOR_ADDRESS,
-  SENDING,
-  RECEIVING,
-  IDLING 
-
-} STATUS;
+#include <math.h>
 
 typedef struct wireData {
   
@@ -22,11 +15,18 @@ typedef struct wireData {
 } WireData;
 
 WireData wData = { false, 0x55 };
+char request = 0;
+bool newData = false;
+
+Attribute x(1, "x axis", UINT32_T); 
+Attribute y(2, "y axis", UINT32_T);
+Attribute z(3, "z axis", UINT32_T);
 
 void setup() {
   
   DDRB = DDRB | 0x20;
   pinMode(13, OUTPUT);
+  pinMode(analogInputToDigitalPin(3), INPUT);
 
   sprintf(wData.name16, "ultrasounds      ");
   
@@ -35,11 +35,13 @@ void setup() {
   Wire.onReceive(receiveEvent);
   
   Serial.begin(115200);
+  Wire.begin();
+  
+  add(&x);
+  add(&y);
+  add(&z);
 }
  
-uint8_t request = '!';
-boolean newData = false;
-
 void requestEvent() {
 
   if(request == 0) {
@@ -67,89 +69,26 @@ void receiveEvent(int args) {
     newData = true;
 }
 
-STATUS rx_status = IDLING, next_rx_status = IDLING;
-STATUS tx_status = IDLING, next_tx_status = IDLING;
-
-Attribute test(1, "TESTING", UINT32_T);
-Attribute test2(2, "float test", FLOAT32_T);
-
-Attribute getAttribute(int handle) {
-	if(handle == 1) return test;
-	else if(handle == 2) return test2;
-}
-
-void serialize(uint32_t u, byte *dataBuffer) {
-	memcpy(dataBuffer, &u, sizeof u);
-}
-
-void serialize(float f, byte *dataBuffer) {
-	memcpy(dataBuffer, &f, sizeof f);
-}
-
-char lastChar = '!';
-uint32_t count = -200;
-bool debug = false;
-int index = 0;
-int setAddress = 0;
-int getAddress = 0;
-uint8_t inputBuffer[BUFFER_LENGTH];
-
-void flash() {
-	PORTB = PINB ^ 0x20;
-}
+int32_t count = 0;
 
 void loop() {
 
-	if(Serial.available() > 0) {
-	  	  	
-		index %= BUFFER_LENGTH;
-		lastChar = (char)Serial.read();
-		serialize(count, test.data);
-		serialize(32.5f / (count + 1), test2.data);
-
-		if(tx_status == WAITING_FOR_ADDRESS) {
-			
-			digitalWrite(13, 1);
-			count++;
-			getAddress = (int)lastChar;
-			while(!Serial) {};
-			Serial.write(getAttribute(getAddress).data, 4);
-			next_tx_status = IDLING;
-			digitalWrite(13, 0);
-			
-		} else {
-
-			switch(rx_status) {
-			
-				case RECEIVING:
-					getAttribute(setAddress).data[index++] = (byte)lastChar;
-				
-					if(index == getAttribute(setAddress).messageType) {
-					
-						index = 0;
-						next_rx_status = IDLING;
-						getAttribute(setAddress).newDataAvailable(true);
-					}
-					break;
-
-				case WAITING_FOR_ADDRESS:
-					setAddress = (int)lastChar;
-					next_rx_status = RECEIVING;
-					break;
-			
-				case IDLING:
-					if(lastChar == 'g') {
-						next_tx_status = WAITING_FOR_ADDRESS;
-					} else if(lastChar = 's') {
-						next_rx_status = WAITING_FOR_ADDRESS;
-					}
-					break;
-			}
-		}
-		
-		tx_status = next_tx_status;
-		rx_status = next_rx_status;
-	}
+	/*
+	test.load((int32_t)analogRead(0));
+	test2.load(0.5f);
+	*/
+	
+	debug(String(count++));
+	
+	x.load((int32_t)analogRead(0) - 343);
+	delayMicroseconds(100);
+	poll();
+	y.load((int32_t)analogRead(1) - 339);
+	delayMicroseconds(100);
+	poll();
+	z.load((int32_t)analogRead(2) - 336);
+	delayMicroseconds(100);
+	poll();
 }
 
 
