@@ -1,0 +1,25 @@
+Added Pin To Net: NetName=NetMCU1_1 Pin=MCU1-1
+Added Pin To Net: NetName=NetMCU1_1 Pin=ModuloX-4
+Added Net: Name=NetMCU1_1
+Added Pin To Net: NetName=NetMCU1_2 Pin=MCU1-2
+Added Pin To Net: NetName=NetMCU1_2 Pin=ModuloX-5
+Added Net: Name=NetMCU1_2
+Added Pin To Net: NetName=NetMCU1_9 Pin=MCU1-9
+Added Pin To Net: NetName=NetMCU1_9 Pin=ModuloX-6
+Added Net: Name=NetMCU1_9
+Added Pin To Net: NetName=NetMCU1_10 Pin=MCU1-10
+Added Pin To Net: NetName=NetMCU1_10 Pin=ModuloX-7
+Added Net: Name=NetMCU1_10
+Added Pin To Net: NetName=NetMCU1_11 Pin=MCU1-11
+Added Pin To Net: NetName=NetMCU1_11 Pin=ModuloX-8
+Added Net: Name=NetMCU1_11
+Added Pin To Net: NetName=NetMCU1_30 Pin=MCU1-30
+Added Pin To Net: NetName=NetMCU1_30 Pin=ModuloX-1
+Added Net: Name=NetMCU1_30
+Added Pin To Net: NetName=NetMCU1_31 Pin=MCU1-31
+Added Pin To Net: NetName=NetMCU1_31 Pin=ModuloX-2
+Added Net: Name=NetMCU1_31
+Added Pin To Net: NetName=NetMCU1_32 Pin=MCU1-32
+Added Pin To Net: NetName=NetMCU1_32 Pin=ModuloX-3
+Added Net: Name=NetMCU1_32
+Added Room: Name=module_rev1

@@ -1,0 +1,16 @@
+---------------------------------------------------------------------------
+NCDrill File Report For: first crack.PcbDoc   7/16/2015  2:10:31 AM
+---------------------------------------------------------------------------
+
+Layer Pair : Top Layer to Bottom Layer
+ASCII RoundHoles File : first crack.TXT
+
+Tool         Hole Size           Hole Type     Hole Count Plated       Tool Travel
+---------------------------------------------------------------------------
+T1        13mil (0.3302mm)         Round          27               3.32 Inch (84.28 mm)
+T2        25mil (0.635mm)          Round          2                0.27 Inch (6.83 mm)
+T3        20mil (0.508mm)          Round          44        NPTH   6.39 Inch (162.30 mm)
+---------------------------------------------------------------------------
+Totals                                            73               9.98 Inch (253.41 mm)
+
+Total Processing Time (hh:mm:ss) : 00:00:00

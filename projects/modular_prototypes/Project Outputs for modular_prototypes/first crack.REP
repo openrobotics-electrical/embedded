@@ -1,0 +1,292 @@
+*************************************************************
+FileName = first crack.GBR
+AutoAperture = True
+*************************************************************
+Generating : Top Layer
+      File : first crack.GTL
+
+    Adding Layer      : Top Layer
+
+    Adding Layer      : Mechanical 1
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D10
+    D11
+    D12
+    D13
+    D14
+    D15
+    D16
+    D17
+    D18
+    D19
+    D20
+    D21
+    D22
+    D23
+*************************************************************
+
+*************************************************************
+Generating : Signal Layer 1
+      File : first crack.G1
+
+    Adding Layer      : Signal Layer 1
+
+    Adding Layer      : Mechanical 1
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D15
+*************************************************************
+
+*************************************************************
+Generating : Signal Layer 2
+      File : first crack.G2
+
+    Adding Layer      : Signal Layer 2
+
+    Adding Layer      : Mechanical 1
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D15
+*************************************************************
+
+*************************************************************
+Generating : Bottom Layer
+      File : first crack.GBL
+
+    Adding Layer      : Bottom Layer
+
+    Adding Layer      : Mechanical 1
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D13
+    D15
+    D16
+    D17
+    D18
+    D19
+    D20
+    D21
+    D22
+    D23
+    D24
+    D25
+    D26
+    D27
+    D28
+*************************************************************
+
+*************************************************************
+Generating : Bottom Pad Master
+      File : first crack.GPB
+
+    Adding Layer      : Bottom Layer
+
+    Adding Layer      : Multi-Layer
+
+    Adding Layer      : Mechanical 1
+
+
+Used DCodes :
+    D15
+    D16
+    D17
+    D18
+    D19
+    D20
+    D21
+    D24
+    D25
+    D26
+    D27
+*************************************************************
+
+*************************************************************
+Generating : Top Pad Master
+      File : first crack.GPT
+
+    Adding Layer      : Top Layer
+
+    Adding Layer      : Multi-Layer
+
+    Adding Layer      : Mechanical 1
+
+
+Used DCodes :
+    D10
+    D11
+    D12
+    D15
+    D16
+    D17
+    D18
+    D19
+    D20
+    D21
+*************************************************************
+
+*************************************************************
+Generating : Top Overlay
+      File : first crack.GTO
+
+    Adding Layer      : Top Overlay
+
+    Adding Layer      : Mechanical 1
+
+
+Used DCodes :
+    D13
+    D15
+    D29
+*************************************************************
+
+*************************************************************
+Generating : Top Paste
+      File : first crack.GTP
+
+    Adding Layer      : Top Paste
+
+    Adding Layer      : Mechanical 1
+
+    Adding Layer      : Top Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D10
+    D11
+    D12
+    D15
+*************************************************************
+
+*************************************************************
+Generating : Top Solder
+      File : first crack.GTS
+
+    Adding Layer      : Top Solder
+
+    Adding Layer      : Mechanical 1
+
+    Adding Layer      : Top Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D15
+    D30
+    D31
+    D32
+    D33
+    D34
+    D35
+    D36
+    D37
+    D38
+    D39
+    D40
+*************************************************************
+
+*************************************************************
+Generating : Bottom Solder
+      File : first crack.GBS
+
+    Adding Layer      : Bottom Solder
+
+    Adding Layer      : Mechanical 1
+
+    Adding Layer      : Bottom Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D15
+    D33
+    D34
+    D35
+    D36
+    D37
+    D38
+    D39
+    D40
+    D41
+    D42
+    D43
+    D44
+*************************************************************
+
+*************************************************************
+Generating : Bottom Paste
+      File : first crack.GBP
+
+    Adding Layer      : Bottom Paste
+
+    Adding Layer      : Mechanical 1
+
+    Adding Layer      : Bottom Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D15
+    D24
+    D25
+    D26
+    D27
+*************************************************************
+
+*************************************************************
+Generating : Bottom Overlay
+      File : first crack.GBO
+
+    Adding Layer      : Bottom Overlay
+
+    Adding Layer      : Mechanical 1
+
+
+Used DCodes :
+    D13
+    D15
+*************************************************************
+
+*************************************************************
+Generating : Keep-Out Layer
+      File : first crack.GKO
+
+    Adding Layer      : Keep-Out Layer
+
+    Adding Layer      : Mechanical 1
+
+
+Used DCodes :
+    D15
+*************************************************************
+
+*************************************************************
+Generating : Mechanical 1
+      File : first crack.GM1
+
+    Adding Layer      : Mechanical 1
+
+    Adding Layer      : Mechanical 1
+
+
+Used DCodes :
+    D15
+*************************************************************
+

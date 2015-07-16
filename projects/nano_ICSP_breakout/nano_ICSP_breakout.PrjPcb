@@ -70,125 +70,6 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=ADDRHESR
 
-[Document3]
-DocumentPath=..\libraries\PartsDatabaseV13p1\Miscellaneous Devices.PcbLib
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=
-
-[Document4]
-DocumentPath=..\libraries\PartsDatabaseV13p1\PartsDatabaseV12.PcbLib
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=YYRIGBKG
-
-[Document5]
-DocumentPath=..\libraries\PartsDatabaseV13p1\PartsDatabaseV12.SchLib
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=
-
-[Document6]
-DocumentPath=..\libraries\Header.PcbLib
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=YDPGEQIY
-
-[Document7]
-DocumentPath=..\libraries\Header.SchLib
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=
-
-[Document8]
-DocumentPath=..\libraries\OpBots.PcbLib
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=QEKYOYLB
-
-[Document9]
-DocumentPath=..\libraries\OpBots.SchLib
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=
-
 [GeneratedDocument1]
 DocumentPath=Project Outputs for nano_ICSP_breakout\ICSP_breakout.DRR
 DItemRevisionGUID=
@@ -202,58 +83,26 @@ DocumentPath=Project Outputs for nano_ICSP_breakout\ICSP_breakout.GBL
 DItemRevisionGUID=
 
 [GeneratedDocument4]
-DocumentPath=Project Outputs for nano_ICSP_breakout\ICSP_breakout.GBS
-DItemRevisionGUID=
-
-[GeneratedDocument5]
-DocumentPath=Project Outputs for nano_ICSP_breakout\ICSP_breakout.GD1
-DItemRevisionGUID=
-
-[GeneratedDocument6]
-DocumentPath=Project Outputs for nano_ICSP_breakout\ICSP_breakout.GG1
-DItemRevisionGUID=
-
-[GeneratedDocument7]
-DocumentPath=Project Outputs for nano_ICSP_breakout\ICSP_breakout.GKO
-DItemRevisionGUID=
-
-[GeneratedDocument8]
 DocumentPath=Project Outputs for nano_ICSP_breakout\ICSP_breakout.GM1
 DItemRevisionGUID=
 
-[GeneratedDocument9]
-DocumentPath=Project Outputs for nano_ICSP_breakout\ICSP_breakout.GPB
-DItemRevisionGUID=
-
-[GeneratedDocument10]
-DocumentPath=Project Outputs for nano_ICSP_breakout\ICSP_breakout.GPT
-DItemRevisionGUID=
-
-[GeneratedDocument11]
+[GeneratedDocument5]
 DocumentPath=Project Outputs for nano_ICSP_breakout\ICSP_breakout.GTL
 DItemRevisionGUID=
 
-[GeneratedDocument12]
-DocumentPath=Project Outputs for nano_ICSP_breakout\ICSP_breakout.GTO
-DItemRevisionGUID=
-
-[GeneratedDocument13]
-DocumentPath=Project Outputs for nano_ICSP_breakout\ICSP_breakout.GTS
-DItemRevisionGUID=
-
-[GeneratedDocument14]
+[GeneratedDocument6]
 DocumentPath=Project Outputs for nano_ICSP_breakout\ICSP_breakout.LDP
 DItemRevisionGUID=
 
-[GeneratedDocument15]
+[GeneratedDocument7]
 DocumentPath=Project Outputs for nano_ICSP_breakout\ICSP_breakout.REP
 DItemRevisionGUID=
 
-[GeneratedDocument16]
+[GeneratedDocument8]
 DocumentPath=Project Outputs for nano_ICSP_breakout\ICSP_breakout.RUL
 DItemRevisionGUID=
 
-[GeneratedDocument17]
+[GeneratedDocument9]
 DocumentPath=Project Outputs for nano_ICSP_breakout\ICSP_breakout.TXT
 DItemRevisionGUID=
 

@@ -1,0 +1,12 @@
+Added Component: Designator=EDGE A(ModX)
+Added Pin To Net: NetName=VCC Pin=EDGE A-1
+Added Pin To Net: NetName=NetEDGE A_2 Pin=EDGE A-2
+Added Pin To Net: NetName=NetEDGE A_3 Pin=EDGE A-3
+Added Pin To Net: NetName=NetEDGE A_4 Pin=EDGE A-4
+Added Pin To Net: NetName=NetEDGE A_5 Pin=EDGE A-5
+Added Pin To Net: NetName=NetEDGE A_6 Pin=EDGE A-6
+Added Pin To Net: NetName=NetEDGE A_7 Pin=EDGE A-7
+Added Pin To Net: NetName=NetEDGE A_8 Pin=EDGE A-8
+Added Pin To Net: NetName=NetEDGE A_9 Pin=EDGE A-9
+Added Pin To Net: NetName=DGND Pin=EDGE A-10
+Added Member To Class: ClassName=module_rev1 Member=Component EDGE A ModuloX edge A
