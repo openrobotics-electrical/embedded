@@ -1,0 +1,10 @@
+Removed Pin From Net: NetName=VCC Pin=Modular8-3
+Removed Pin From Net: NetName=DGND Pin=Modular8-12
+Added Pin To Net: NetName=DGND Pin=Modular8-1
+Added Pin To Net: NetName=VCC Pin=Modular8-10
+Added Pin To Net: NetName=NetModular8_2 Pin=Modular8-2
+Added Pin To Net: NetName=NetModular8_2 Pin=MX1-13
+Added Net: Name=NetModular8_2
+Added Pin To Net: NetName=NetModular8_3 Pin=Modular8-3
+Added Pin To Net: NetName=NetModular8_3 Pin=MX1-12
+Added Net: Name=NetModular8_3

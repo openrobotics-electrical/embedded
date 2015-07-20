@@ -1,12 +1,24 @@
-Output: NC Drill Files
-Type  : NC Drill
-From  : Project [modular_prototypes.PrjPcb]
-   Generated File[first crack.TXT]
-   Generated File[first crack.LDP]
-   Generated File[first crack.DRR]
+Output: Gerber Files
+Type  : Gerber
+From  : Variant [[No Variations]] of Project [modular_prototypes.PrjPcb]
+   Generated File[first crack.GTL]
+   Generated File[first crack.GBL]
+   Generated File[first crack.GPB]
+   Generated File[first crack.GPT]
+   Generated File[first crack.GTO]
+   Generated File[first crack.GTP]
+   Generated File[first crack.GTS]
+   Generated File[first crack.GBS]
+   Generated File[first crack.GBP]
+   Generated File[first crack.GBO]
+   Generated File[first crack.GKO]
+   Generated File[first crack.GM1]
+   Generated File[first crack.RUL]
+   Generated File[first crack.EXTREP]
+   Generated File[first crack.REP]
 
 
-Files Generated   : 3
+Files Generated   : 15
 Documents Printed : 0
 
-Finished Output Generation At 2:10:31 AM On 7/16/2015
+Finished Output Generation At 11:00:53 PM On 7/19/2015

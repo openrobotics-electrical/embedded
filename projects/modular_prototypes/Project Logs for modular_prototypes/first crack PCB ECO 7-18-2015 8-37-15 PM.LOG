@@ -1,0 +1,21 @@
+Removed Pin From Net: NetName=SCK Pin=Modular8-40
+Removed Pin From Net: NetName=MISO Pin=Modular8-41
+Removed Pin From Net: NetName=MOSI Pin=Modular8-42
+Removed Pin From Net: NetName=THRU Pin=Modular8-44
+Removed Pin From Net: NetName=SCL Pin=Modular8-46
+Removed Pin From Net: NetName=SDA Pin=Modular8-47
+Removed Pin From Net: NetName=NetModular8_45 Pin=MX1-30
+Removed Pin From Net: NetName=VCC Pin=R1-2
+Added Pin To Net: NetName=SDA Pin=Modular8-40
+Added Pin To Net: NetName=SCL Pin=Modular8-41
+Added Pin To Net: NetName=SCK Pin=Modular8-42
+Added Pin To Net: NetName=MISO Pin=Modular8-43
+Added Pin To Net: NetName=MOSI Pin=Modular8-44
+Added Pin To Net: NetName=THRU Pin=Modular8-47
+Added Pin To Net: NetName=NetModular8_45 Pin=MX1-29
+Added Pin To Net: NetName=VCC Pin=R1-1
+Added Pin To Net: NetName=NetModular8_45 Pin=R1-2
+Added Pin To Net: NetName=NetModular8_46 Pin=Modular8-46
+Added Pin To Net: NetName=NetModular8_46 Pin=MX1-30
+Added Net: Name=NetModular8_46
+Added Room: Name=module_rev1

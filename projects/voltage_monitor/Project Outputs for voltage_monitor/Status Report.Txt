@@ -1,0 +1,12 @@
+Output: NC Drill Files
+Type  : NC Drill
+From  : Project [voltage_monitor.PrjPcb]
+   Generated File[protoboard.TXT]
+   Generated File[protoboard.LDP]
+   Generated File[protoboard.DRR]
+
+
+Files Generated   : 3
+Documents Printed : 0
+
+Finished Output Generation At 11:40:48 PM On 7/19/2015

@@ -1,0 +1,58 @@
+Added Component: Designator=EDGEA(MODULAR8 VERTICAL PINS)
+Added Component: Designator=EDGEC(MODULAR8 VERTICAL PINS)
+Added Pin To Net: NetName=NetEDGEA_2 Pin=EDGEA-2
+Added Pin To Net: NetName=NetEDGEA_2 Pin=HEADER1-8
+Added Net: Name=NetEDGEA_2
+Added Pin To Net: NetName=NetEDGEA_3 Pin=EDGEA-3
+Added Pin To Net: NetName=NetEDGEA_3 Pin=HEADER1-7
+Added Net: Name=NetEDGEA_3
+Added Pin To Net: NetName=NetEDGEA_4 Pin=EDGEA-4
+Added Pin To Net: NetName=NetEDGEA_4 Pin=HEADER1-6
+Added Net: Name=NetEDGEA_4
+Added Pin To Net: NetName=NetEDGEA_5 Pin=EDGEA-5
+Added Pin To Net: NetName=NetEDGEA_5 Pin=HEADER1-5
+Added Net: Name=NetEDGEA_5
+Added Pin To Net: NetName=NetEDGEA_6 Pin=EDGEA-6
+Added Pin To Net: NetName=NetEDGEA_6 Pin=HEADER1-4
+Added Net: Name=NetEDGEA_6
+Added Pin To Net: NetName=NetEDGEA_7 Pin=EDGEA-7
+Added Pin To Net: NetName=NetEDGEA_7 Pin=HEADER1-3
+Added Net: Name=NetEDGEA_7
+Added Pin To Net: NetName=NetEDGEA_8 Pin=EDGEA-8
+Added Pin To Net: NetName=NetEDGEA_8 Pin=HEADER1-2
+Added Net: Name=NetEDGEA_8
+Added Pin To Net: NetName=NetEDGEA_9 Pin=EDGEA-9
+Added Pin To Net: NetName=NetEDGEA_9 Pin=HEADER1-1
+Added Net: Name=NetEDGEA_9
+Added Pin To Net: NetName=NetEDGEC_1 Pin=EDGEC-1
+Added Pin To Net: NetName=NetEDGEC_1 Pin=HEADER4-8
+Added Net: Name=NetEDGEC_1
+Added Pin To Net: NetName=NetEDGEC_2 Pin=EDGEC-2
+Added Pin To Net: NetName=NetEDGEC_2 Pin=HEADER7-8
+Added Net: Name=NetEDGEC_2
+Added Pin To Net: NetName=NetEDGEC_3 Pin=EDGEC-3
+Added Pin To Net: NetName=NetEDGEC_3 Pin=HEADER7-7
+Added Net: Name=NetEDGEC_3
+Added Pin To Net: NetName=NetEDGEC_4 Pin=EDGEC-4
+Added Pin To Net: NetName=NetEDGEC_4 Pin=HEADER7-6
+Added Net: Name=NetEDGEC_4
+Added Pin To Net: NetName=NetEDGEC_5 Pin=EDGEC-5
+Added Pin To Net: NetName=NetEDGEC_5 Pin=HEADER7-5
+Added Net: Name=NetEDGEC_5
+Added Pin To Net: NetName=NetEDGEC_6 Pin=EDGEC-6
+Added Pin To Net: NetName=NetEDGEC_6 Pin=HEADER7-4
+Added Net: Name=NetEDGEC_6
+Added Pin To Net: NetName=NetEDGEC_7 Pin=EDGEC-7
+Added Pin To Net: NetName=NetEDGEC_7 Pin=HEADER7-3
+Added Net: Name=NetEDGEC_7
+Added Pin To Net: NetName=NetEDGEC_8 Pin=EDGEC-8
+Added Pin To Net: NetName=NetEDGEC_8 Pin=HEADER7-2
+Added Net: Name=NetEDGEC_8
+Added Pin To Net: NetName=NetEDGEC_9 Pin=EDGEC-9
+Added Pin To Net: NetName=NetEDGEC_9 Pin=HEADER7-1
+Added Net: Name=NetEDGEC_9
+Added Pin To Net: NetName=NetEDGEC_10 Pin=EDGEC-10
+Added Pin To Net: NetName=NetEDGEC_10 Pin=HEADER4-1
+Added Net: Name=NetEDGEC_10
+Added Member To Class: ClassName=protoboard Member=Component EDGEA Generic Modular8 edge
+Added Member To Class: ClassName=protoboard Member=Component EDGEC Generic Modular8 edge
