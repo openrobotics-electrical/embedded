@@ -1,26 +1,23 @@
-#define TRIG_A 3
-#define TRIG_B 7
-#define ECHO_A 2
-#define ECHO_B 6
-#define VCC_A 4
-#define VCC_B 8
-#define GND_B 5 
+#define TRIG_1 9
+#define TRIG_2 7
+#define TRIG_3 5
+#define TRIG_4 3
+#define ECHO_1 8
+#define ECHO_2 6
+#define ECHO_3 4
+#define ECHO_4 2
 #define BOARD_LED 13
+#define TIMEOUT_uS 60600 // 10m both ways @ 330m/s sound velocity
 
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
   pinMode(BOARD_LED, OUTPUT);
-  pinMode(VCC_A, OUTPUT);
-  pinMode(VCC_B, OUTPUT);
-  pinMode(GND_B, OUTPUT);
   
-  setUltrasound(TRIG_A, ECHO_A);
-  setUltrasound(TRIG_B, ECHO_B);
-  
-  digitalWrite(VCC_A, HIGH);
-  digitalWrite(VCC_B, HIGH);
-  digitalWrite(GND_B, LOW);
+  setUltrasound(TRIG_1, ECHO_1);
+  setUltrasound(TRIG_2, ECHO_2);
+  setUltrasound(TRIG_3, ECHO_3);
+  setUltrasound(TRIG_4, ECHO_4);
 }
 
 void setUltrasound(int trig, int echo) {
@@ -38,13 +35,19 @@ uint32_t read(int trig, int echo) {
   // printRegisters(temp);
   
   digitalWrite(trig, LOW);
+  delayMicroseconds(10);
   digitalWrite(trig, HIGH);
-  delayMicroseconds(20);
+  delayMicroseconds(50);
   digitalWrite(trig, LOW);
   
-  while(digitalRead(echo) == 0) {};
+  while(digitalRead(echo) == 0 && uCount < TIMEOUT_uS) {
+    delayMicroseconds(1);
+    uCount++;
+  }
   
-  while(digitalRead(echo) == 1) {
+  uCount = 0;
+  
+  while(digitalRead(echo) == 1 && uCount < TIMEOUT_uS) {
     
     delayMicroseconds(1);
     uCount++;
@@ -69,16 +72,21 @@ void serialize(uint32_t u) {
   Serial.write(output, 4);
 }
 
-uint32_t reading_A, reading_B;
+uint32_t readings[4];
 
 void loop() {
   
-  reading_A = read(TRIG_A, ECHO_A);
-  reading_B = read(TRIG_B, ECHO_B);
+  readings[1] = read(TRIG_1, ECHO_1);
+  readings[2] = read(TRIG_2, ECHO_2);
   
+  /*
   Serial.write('#');
   serialize(reading_A);
   serialize(reading_B);
+  */
+  
+  Serial.println(readings[1]);
+  Serial.println(readings[2]);
   
   digitalWrite(BOARD_LED, 1);
   delay(25);
