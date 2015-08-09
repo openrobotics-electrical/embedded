@@ -28,11 +28,13 @@ int main(void)
 		}
 		
 		duty += sign * increment;
+		
 		if (duty > 1) {
 			
 			duty = 1;
 			sign = -1;
 		}
+		
 		if (duty < 0) {
 			
 			duty = 0;
