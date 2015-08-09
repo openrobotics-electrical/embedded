@@ -1,0 +1,162 @@
+Added Component: Designator=C1(0603)
+Added Component: Designator=C2(0603)
+Added Component: Designator=C3(0603)
+Added Component: Designator=C4(0603)
+Added Component: Designator=C5(0603)
+Added Component: Designator=C6(0603)
+Added Component: Designator=L1(0603)
+Added Component: Designator=MCU1(ATmega328p TQFP)
+Added Component: Designator=Modular8(modular8 metric)
+Added Component: Designator=PLANES(0603)
+Added Component: Designator=POW LED(0603)
+Added Component: Designator=R1(0603)
+Added Component: Designator=R2(0603)
+Added Component: Designator=R3(0603)
+Added Component: Designator=SCK LED(0603)
+Added Component: Designator=TERMINATE(0603)
+Added Component: Designator=VREF1(TSOT-23-6)
+Added Component: Designator=XTAL1(XTAL CSM-3X)
+Added Pin To Net: NetName=AGND Pin=C3-1
+Added Pin To Net: NetName=AGND Pin=MCU1-21
+Added Pin To Net: NetName=AGND Pin=Modular8-C_GND
+Added Pin To Net: NetName=AGND Pin=PLANES-1
+Added Pin To Net: NetName=AGND Pin=VREF1-1
+Added Pin To Net: NetName=AGND Pin=VREF1-2
+Added Net: Name=AGND
+Added Pin To Net: NetName=AREF Pin=C6-1
+Added Pin To Net: NetName=AREF Pin=MCU1-20
+Added Pin To Net: NetName=AREF Pin=Modular8-C_ALT2
+Added Pin To Net: NetName=AREF Pin=VREF1-6
+Added Net: Name=AREF
+Added Pin To Net: NetName=AVCC Pin=C3-2
+Added Pin To Net: NetName=AVCC Pin=C6-2
+Added Pin To Net: NetName=AVCC Pin=L1-2
+Added Pin To Net: NetName=AVCC Pin=MCU1-18
+Added Pin To Net: NetName=AVCC Pin=Modular8-C_VCC
+Added Pin To Net: NetName=AVCC Pin=VREF1-4
+Added Net: Name=AVCC
+Added Pin To Net: NetName=DGND Pin=C1-1
+Added Pin To Net: NetName=DGND Pin=C2-2
+Added Pin To Net: NetName=DGND Pin=C4-2
+Added Pin To Net: NetName=DGND Pin=C5-2
+Added Pin To Net: NetName=DGND Pin=MCU1-3
+Added Pin To Net: NetName=DGND Pin=MCU1-5
+Added Pin To Net: NetName=DGND Pin=Modular8-A_GND
+Added Pin To Net: NetName=DGND Pin=Modular8-B_GND
+Added Pin To Net: NetName=DGND Pin=Modular8-D_GND
+Added Pin To Net: NetName=DGND Pin=PLANES-2
+Added Pin To Net: NetName=DGND Pin=POW LED-1
+Added Pin To Net: NetName=DGND Pin=SCK LED-1
+Added Net: Name=DGND
+Added Pin To Net: NetName=MISO Pin=MCU1-16
+Added Pin To Net: NetName=MISO Pin=Modular8-B_4
+Added Net: Name=MISO
+Added Pin To Net: NetName=MOSI Pin=MCU1-15
+Added Pin To Net: NetName=MOSI Pin=Modular8-B_3
+Added Pin To Net: NetName=MOSI Pin=Modular8-D_4
+Added Net: Name=MOSI
+Added Pin To Net: NetName=NetC1_2 Pin=C1-2
+Added Pin To Net: NetName=NetC1_2 Pin=MCU1-7
+Added Pin To Net: NetName=NetC1_2 Pin=XTAL1-1
+Added Net: Name=NetC1_2
+Added Pin To Net: NetName=NetC2_1 Pin=C2-1
+Added Pin To Net: NetName=NetC2_1 Pin=MCU1-8
+Added Pin To Net: NetName=NetC2_1 Pin=XTAL1-2
+Added Net: Name=NetC2_1
+Added Pin To Net: NetName=NetMCU1_1 Pin=MCU1-1
+Added Pin To Net: NetName=NetMCU1_1 Pin=Modular8-A_3
+Added Net: Name=NetMCU1_1
+Added Pin To Net: NetName=NetMCU1_2 Pin=MCU1-2
+Added Pin To Net: NetName=NetMCU1_2 Pin=Modular8-A_4
+Added Net: Name=NetMCU1_2
+Added Pin To Net: NetName=NetMCU1_9 Pin=MCU1-9
+Added Pin To Net: NetName=NetMCU1_9 Pin=Modular8-A_5
+Added Net: Name=NetMCU1_9
+Added Pin To Net: NetName=NetMCU1_10 Pin=MCU1-10
+Added Pin To Net: NetName=NetMCU1_10 Pin=Modular8-A_6
+Added Net: Name=NetMCU1_10
+Added Pin To Net: NetName=NetMCU1_11 Pin=MCU1-11
+Added Pin To Net: NetName=NetMCU1_11 Pin=Modular8-A_7
+Added Net: Name=NetMCU1_11
+Added Pin To Net: NetName=NetMCU1_12 Pin=MCU1-12
+Added Pin To Net: NetName=NetMCU1_12 Pin=Modular8-A_0
+Added Net: Name=NetMCU1_12
+Added Pin To Net: NetName=NetMCU1_13 Pin=MCU1-13
+Added Pin To Net: NetName=NetMCU1_13 Pin=Modular8-A_1
+Added Net: Name=NetMCU1_13
+Added Pin To Net: NetName=NetMCU1_19 Pin=MCU1-19
+Added Pin To Net: NetName=NetMCU1_19 Pin=Modular8-C_6
+Added Net: Name=NetMCU1_19
+Added Pin To Net: NetName=NetMCU1_22 Pin=MCU1-22
+Added Pin To Net: NetName=NetMCU1_22 Pin=Modular8-C_7
+Added Net: Name=NetMCU1_22
+Added Pin To Net: NetName=NetMCU1_23 Pin=MCU1-23
+Added Pin To Net: NetName=NetMCU1_23 Pin=Modular8-C_0
+Added Net: Name=NetMCU1_23
+Added Pin To Net: NetName=NetMCU1_24 Pin=MCU1-24
+Added Pin To Net: NetName=NetMCU1_24 Pin=Modular8-C_1
+Added Net: Name=NetMCU1_24
+Added Pin To Net: NetName=NetMCU1_25 Pin=MCU1-25
+Added Pin To Net: NetName=NetMCU1_25 Pin=Modular8-C_2
+Added Net: Name=NetMCU1_25
+Added Pin To Net: NetName=NetMCU1_26 Pin=MCU1-26
+Added Pin To Net: NetName=NetMCU1_26 Pin=Modular8-C_3
+Added Net: Name=NetMCU1_26
+Added Pin To Net: NetName=NetMCU1_29 Pin=MCU1-29
+Added Pin To Net: NetName=NetMCU1_29 Pin=Modular8-D_5
+Added Pin To Net: NetName=NetMCU1_29 Pin=R1-2
+Added Net: Name=NetMCU1_29
+Added Pin To Net: NetName=NetMCU1_30 Pin=MCU1-30
+Added Pin To Net: NetName=NetMCU1_30 Pin=Modular8-D_6
+Added Net: Name=NetMCU1_30
+Added Pin To Net: NetName=NetMCU1_32 Pin=MCU1-32
+Added Pin To Net: NetName=NetMCU1_32 Pin=Modular8-A_2
+Added Net: Name=NetMCU1_32
+Added Pin To Net: NetName=NetPOW LED_2 Pin=POW LED-2
+Added Pin To Net: NetName=NetPOW LED_2 Pin=R2-2
+Added Net: Name=NetPOW LED_2
+Added Pin To Net: NetName=NetR3_2 Pin=R3-2
+Added Pin To Net: NetName=NetR3_2 Pin=SCK LED-2
+Added Net: Name=NetR3_2
+Added Pin To Net: NetName=PGM Pin=MCU1-14
+Added Pin To Net: NetName=PGM Pin=Modular8-B_2
+Added Net: Name=PGM
+Added Pin To Net: NetName=SCK Pin=MCU1-17
+Added Pin To Net: NetName=SCK Pin=Modular8-B_5
+Added Pin To Net: NetName=SCK Pin=Modular8-D_2
+Added Pin To Net: NetName=SCK Pin=Modular8-D_2
+Added Pin To Net: NetName=SCK Pin=R3-1
+Added Net: Name=SCK
+Added Pin To Net: NetName=SCL Pin=MCU1-28
+Added Pin To Net: NetName=SCL Pin=Modular8-B_6
+Added Pin To Net: NetName=SCL Pin=Modular8-C_5
+Added Pin To Net: NetName=SCL Pin=Modular8-D_1
+Added Net: Name=SCL
+Added Pin To Net: NetName=SDA Pin=MCU1-27
+Added Pin To Net: NetName=SDA Pin=Modular8-B_7
+Added Pin To Net: NetName=SDA Pin=Modular8-C_4
+Added Pin To Net: NetName=SDA Pin=Modular8-D_0
+Added Net: Name=SDA
+Added Pin To Net: NetName=THRU Pin=Modular8-B_0
+Added Pin To Net: NetName=THRU Pin=Modular8-D_7
+Added Pin To Net: NetName=THRU Pin=TERMINATE-1
+Added Net: Name=THRU
+Added Pin To Net: NetName=TX Pin=MCU1-31
+Added Pin To Net: NetName=TX Pin=Modular8-B_1
+Added Pin To Net: NetName=TX Pin=TERMINATE-2
+Added Net: Name=TX
+Added Pin To Net: NetName=VCC Pin=C4-1
+Added Pin To Net: NetName=VCC Pin=C5-1
+Added Pin To Net: NetName=VCC Pin=L1-1
+Added Pin To Net: NetName=VCC Pin=MCU1-4
+Added Pin To Net: NetName=VCC Pin=MCU1-6
+Added Pin To Net: NetName=VCC Pin=Modular8-A_VCC
+Added Pin To Net: NetName=VCC Pin=Modular8-A_VCC
+Added Pin To Net: NetName=VCC Pin=Modular8-B_VCC
+Added Pin To Net: NetName=VCC Pin=Modular8-B_VCC
+Added Pin To Net: NetName=VCC Pin=Modular8-D_VCC
+Added Pin To Net: NetName=VCC Pin=Modular8-D_VCC
+Added Pin To Net: NetName=VCC Pin=R1-1
+Added Pin To Net: NetName=VCC Pin=R2-1
+Added Net: Name=VCC
+Added Class: Name=module_rev2

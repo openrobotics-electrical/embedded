@@ -1,0 +1,144 @@
+Added Component: Designator=1(SO14)
+Added Component: Designator=C1(RADIAL CAP 6.5mm)
+Added Component: Designator=C2(0603)
+Added Component: Designator=C3(0603)
+Added Component: Designator=C4(0603)
+Added Component: Designator=C5(0603)
+Added Component: Designator=C6(0603)
+Added Component: Designator=GND TIE(0603)
+Added Component: Designator=M1(SOICN8 thermal pad)
+Added Component: Designator=M2(SOICN8 thermal pad)
+Added Component: Designator=Modular8(modular8)
+Added Component: Designator=R1(0603)
+Added Component: Designator=R2(0603)
+Added Component: Designator=R3(0603)
+Added Component: Designator=R4(0603)
+Added Component: Designator=R5(0603)
+Added Component: Designator=R6(0603)
+Added Component: Designator=R7(0603)
+Added Component: Designator=R8(0603)
+Added Component: Designator=R9(0603)
+Added Component: Designator=R10(0603)
+Added Component: Designator=R11(0603)
+Added Component: Designator=R12(0603)
+Added Component: Designator=R13(0603)
+Added Component: Designator=R20(0603)
+Added Component: Designator=R21(0603)
+Added Component: Designator=RSENSE1(0603)
+Added Component: Designator=RSENSE2(0603)
+Added Component: Designator=ZD1(SOD-323F)
+Added Pin To Net: NetName=+12V Pin=C1-1
+Added Pin To Net: NetName=+12V Pin=C2-1
+Added Pin To Net: NetName=+12V Pin=C3-1
+Added Pin To Net: NetName=+12V Pin=C4-1
+Added Pin To Net: NetName=+12V Pin=M1-5
+Added Pin To Net: NetName=+12V Pin=M2-5
+Added Pin To Net: NetName=+12V Pin=R1-1
+Added Net: Name=+12V
+Added Pin To Net: NetName=2.048V Pin=1-5
+Added Pin To Net: NetName=2.048V Pin=1-7
+Added Pin To Net: NetName=2.048V Pin=R10-2
+Added Pin To Net: NetName=2.048V Pin=R11-2
+Added Net: Name=2.048V
+Added Pin To Net: NetName=4.096V Pin=1-2
+Added Pin To Net: NetName=4.096V Pin=Modular8-26
+Added Net: Name=4.096V
+Added Pin To Net: NetName=5V Pin=C5-1
+Added Pin To Net: NetName=5V Pin=C6-1
+Added Pin To Net: NetName=5V Pin=Modular8-27
+Added Net: Name=5V
+Added Pin To Net: NetName=AGND Pin=C1-2
+Added Pin To Net: NetName=AGND Pin=C2-2
+Added Pin To Net: NetName=AGND Pin=C3-2
+Added Pin To Net: NetName=AGND Pin=C4-2
+Added Pin To Net: NetName=AGND Pin=C5-2
+Added Pin To Net: NetName=AGND Pin=C6-2
+Added Pin To Net: NetName=AGND Pin=GND TIE-1
+Added Pin To Net: NetName=AGND Pin=GND TIE-2
+Added Pin To Net: NetName=AGND Pin=M1-1
+Added Pin To Net: NetName=AGND Pin=M2-1
+Added Pin To Net: NetName=AGND Pin=Modular8-36
+Added Pin To Net: NetName=AGND Pin=R3-2
+Added Pin To Net: NetName=AGND Pin=R6-2
+Added Pin To Net: NetName=AGND Pin=R7-2
+Added Pin To Net: NetName=AGND Pin=R8-1
+Added Pin To Net: NetName=AGND Pin=R9-1
+Added Pin To Net: NetName=AGND Pin=R21-2
+Added Pin To Net: NetName=AGND Pin=RSENSE1-2
+Added Pin To Net: NetName=AGND Pin=RSENSE2-2
+Added Pin To Net: NetName=AGND Pin=ZD1-1
+Added Net: Name=AGND
+Added Pin To Net: NetName=M1A Pin=M1-6
+Added Net: Name=M1A
+Added Pin To Net: NetName=M1B Pin=M1-8
+Added Net: Name=M1B
+Added Pin To Net: NetName=M2A Pin=M2-6
+Added Net: Name=M2A
+Added Pin To Net: NetName=M2B Pin=M2-8
+Added Net: Name=M2B
+Added Pin To Net: NetName=Net1_1 Pin=1-1
+Added Pin To Net: NetName=Net1_1 Pin=1-3
+Added Pin To Net: NetName=Net1_1 Pin=R20-2
+Added Net: Name=Net1_1
+Added Pin To Net: NetName=Net1_6 Pin=1-6
+Added Pin To Net: NetName=Net1_6 Pin=R20-1
+Added Pin To Net: NetName=Net1_6 Pin=R21-1
+Added Net: Name=Net1_6
+Added Pin To Net: NetName=Net1_8 Pin=1-8
+Added Pin To Net: NetName=Net1_8 Pin=R8-2
+Added Pin To Net: NetName=Net1_8 Pin=R12-1
+Added Net: Name=Net1_8
+Added Pin To Net: NetName=Net1_9 Pin=1-9
+Added Pin To Net: NetName=Net1_9 Pin=R4-2
+Added Pin To Net: NetName=Net1_9 Pin=R10-1
+Added Net: Name=Net1_9
+Added Pin To Net: NetName=Net1_10 Pin=1-10
+Added Pin To Net: NetName=Net1_10 Pin=R6-1
+Added Net: Name=Net1_10
+Added Pin To Net: NetName=Net1_12 Pin=1-12
+Added Pin To Net: NetName=Net1_12 Pin=R7-1
+Added Net: Name=Net1_12
+Added Pin To Net: NetName=Net1_13 Pin=1-13
+Added Pin To Net: NetName=Net1_13 Pin=R5-2
+Added Pin To Net: NetName=Net1_13 Pin=R11-1
+Added Net: Name=Net1_13
+Added Pin To Net: NetName=Net1_14 Pin=1-14
+Added Pin To Net: NetName=Net1_14 Pin=R9-2
+Added Pin To Net: NetName=Net1_14 Pin=R13-1
+Added Net: Name=Net1_14
+Added Pin To Net: NetName=NetM1_2 Pin=M1-2
+Added Pin To Net: NetName=NetM1_2 Pin=Modular8-31
+Added Net: Name=NetM1_2
+Added Pin To Net: NetName=NetM1_3 Pin=M1-3
+Added Pin To Net: NetName=NetM1_3 Pin=Modular8-30
+Added Net: Name=NetM1_3
+Added Pin To Net: NetName=NetM1_4 Pin=M1-4
+Added Pin To Net: NetName=NetM1_4 Pin=M2-4
+Added Pin To Net: NetName=NetM1_4 Pin=R2-2
+Added Pin To Net: NetName=NetM1_4 Pin=R3-1
+Added Net: Name=NetM1_4
+Added Pin To Net: NetName=NetM1_7 Pin=M1-7
+Added Pin To Net: NetName=NetM1_7 Pin=R5-1
+Added Pin To Net: NetName=NetM1_7 Pin=RSENSE2-1
+Added Net: Name=NetM1_7
+Added Pin To Net: NetName=NetM2_2 Pin=M2-2
+Added Pin To Net: NetName=NetM2_2 Pin=Modular8-33
+Added Net: Name=NetM2_2
+Added Pin To Net: NetName=NetM2_3 Pin=M2-3
+Added Pin To Net: NetName=NetM2_3 Pin=Modular8-32
+Added Net: Name=NetM2_3
+Added Pin To Net: NetName=NetM2_7 Pin=M2-7
+Added Pin To Net: NetName=NetM2_7 Pin=R4-1
+Added Pin To Net: NetName=NetM2_7 Pin=RSENSE1-1
+Added Net: Name=NetM2_7
+Added Pin To Net: NetName=NetModular8_28 Pin=Modular8-28
+Added Pin To Net: NetName=NetModular8_28 Pin=R12-2
+Added Net: Name=NetModular8_28
+Added Pin To Net: NetName=NetModular8_29 Pin=Modular8-29
+Added Pin To Net: NetName=NetModular8_29 Pin=R13-2
+Added Net: Name=NetModular8_29
+Added Pin To Net: NetName=NetR1_2 Pin=R1-2
+Added Pin To Net: NetName=NetR1_2 Pin=R2-1
+Added Pin To Net: NetName=NetR1_2 Pin=ZD1-2
+Added Net: Name=NetR1_2
+Added Class: Name=A4950_driver

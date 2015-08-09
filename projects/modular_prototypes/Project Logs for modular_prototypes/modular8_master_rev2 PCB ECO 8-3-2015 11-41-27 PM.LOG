@@ -1,0 +1,9 @@
+Removed Pin From Net: NetName=DGND Pin=POW LED-1
+Removed Pin From Net: NetName=DGND Pin=SCK LED-1
+Removed Pin From Net: NetName=NetR3_2 Pin=SCK LED-2
+Added Pin To Net: NetName=DGND Pin=POW LED-2
+Added Pin To Net: NetName=NetR3_2 Pin=SCK LED-1
+Added Pin To Net: NetName=DGND Pin=SCK LED-2
+Added Pin To Net: NetName=NetPOW LED_1 Pin=POW LED-1
+Added Pin To Net: NetName=NetPOW LED_1 Pin=R2-2
+Added Net: Name=NetPOW LED_1
