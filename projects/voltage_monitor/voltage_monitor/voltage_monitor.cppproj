@@ -42,7 +42,7 @@
     <com_atmel_avrdbg_tool_avrdragon>
       <ToolOptions>
         <InterfaceProperties>
-          <IspClock>25000</IspClock>
+          <IspClock>500000</IspClock>
           <HvppClock>2000</HvppClock>
           <DebugWireClockDiv>2000</DebugWireClockDiv>
         </InterfaceProperties>

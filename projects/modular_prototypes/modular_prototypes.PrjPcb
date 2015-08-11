@@ -37,23 +37,6 @@ PrefsVaultGUID=
 PrefsRevisionGUID=
 
 [Document1]
-DocumentPath=module_rev1.SchDoc
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=YHWVHCMY
-
-[Document2]
 DocumentPath=..\..\libraries\OpBots.PcbLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -69,6 +52,23 @@ ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=QEKYOYLB
+
+[Document2]
+DocumentPath=..\..\libraries\RLC.SchLib
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=XDKMOWEW
 
 [Document3]
 DocumentPath=..\..\libraries\OpBots.SchLib
@@ -88,7 +88,7 @@ GenerateClassCluster=0
 DocumentUniqueId=BOUAWJUR
 
 [Document4]
-DocumentPath=first crack.PcbDoc
+DocumentPath=modular8_master_rev2.PcbDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -102,10 +102,10 @@ ClassGenCCAutoRoomEnabled=1
 ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
-DocumentUniqueId=DNHYDHKG
+DocumentUniqueId=HLJUBKIO
 
 [Document5]
-DocumentPath=..\..\libraries\RLC.SchLib
+DocumentPath=module_rev2.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
