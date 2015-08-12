@@ -1,0 +1,18 @@
+Added Component: Designator=POW ON(0805 - LED)
+Added Component: Designator=R22(0603)
+Added Component: Designator=R23(0603)
+Added Component: Designator=VCC ON(0805 - LED)
+Added Pin To Net: NetName=+12V Pin=POW ON-2
+Added Pin To Net: NetName=AGND Pin=R22-2
+Added Pin To Net: NetName=PGND Pin=R23-2
+Added Pin To Net: NetName=5V Pin=VCC ON-2
+Added Pin To Net: NetName=NetPOW ON_1 Pin=POW ON-1
+Added Pin To Net: NetName=NetPOW ON_1 Pin=R23-1
+Added Net: Name=NetPOW ON_1
+Added Pin To Net: NetName=NetR22_1 Pin=R22-1
+Added Pin To Net: NetName=NetR22_1 Pin=VCC ON-1
+Added Net: Name=NetR22_1
+Added Member To Class: ClassName=A4950_driver Member=Component POW ON LEDG
+Added Member To Class: ClassName=A4950_driver Member=Component R22 R 680
+Added Member To Class: ClassName=A4950_driver Member=Component R23 R 680
+Added Member To Class: ClassName=A4950_driver Member=Component VCC ON LEDG
