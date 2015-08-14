@@ -9,10 +9,11 @@ Discarded input sections
 
  .data          0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm328p.o
  .bss           0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm328p.o
- .group         0x00000000        0x8 voltage_monitor.o
  .text          0x00000000        0x0 voltage_monitor.o
  .data          0x00000000        0x0 voltage_monitor.o
  .bss           0x00000000        0x0 voltage_monitor.o
+ .text._Z8setBitTohhPVh
+                0x00000000       0x26 voltage_monitor.o
  .text._Z8isBitSethPVh
                 0x00000000       0x26 voltage_monitor.o
  .text          0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
@@ -166,7 +167,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x210
+.text           0x00000000       0xe0
  *(.vectors)
  .vectors       0x00000000       0x68 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm328p.o
                 0x00000000                __vector_default
@@ -251,20 +252,14 @@ END GROUP
  .text.__vector_21
                 0x00000090       0x28 voltage_monitor.o
                 0x00000090                __vector_21
- .text._Z8setBitTohhPVh
-                0x000000b8       0x26 voltage_monitor.o
-                0x000000b8                _Z8setBitTohhPVh
- .text._ZN6Analog13selectChannelEh
-                0x000000de       0x22 voltage_monitor.o
-                0x000000de                _ZN6Analog13selectChannelEh
  .text.startup.main
-                0x00000100      0x10c voltage_monitor.o
-                0x00000100                main
-                0x0000020c                . = ALIGN (0x2)
+                0x000000b8       0x24 voltage_monitor.o
+                0x000000b8                main
+                0x000000dc                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x0000020c        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
-                0x0000020c                _exit
-                0x0000020c                exit
+ .fini9         0x000000dc        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
+                0x000000dc                _exit
+                0x000000dc                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -283,11 +278,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x0000020c        0x4 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
+ .fini0         0x000000dc        0x4 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000210                _etext = .
+                0x000000e0                _etext = .
 
-.data           0x00800100        0x0 load address 0x00000210
+.data           0x00800100        0x0 load address 0x000000e0
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -310,8 +305,8 @@ END GROUP
                 0x00800101                analogHigh
  *(COMMON)
                 0x00800102                PROVIDE (__bss_end, .)
-                0x00000210                __data_load_start = LOADADDR (.data)
-                0x00000210                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x000000e0                __data_load_start = LOADADDR (.data)
+                0x000000e0                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00800102        0x0
                 0x00800102                PROVIDE (__noinit_start, .)

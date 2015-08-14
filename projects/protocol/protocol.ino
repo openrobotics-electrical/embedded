@@ -78,23 +78,9 @@ void loop() {
 	test2.load(0.5f);
 	*/
 	
-	debug(String(count++));
-	
-	delayMicroseconds(100);
-	analogRead(0);
-	x.load((int32_t)analogRead(0) - 343);
-	delayMicroseconds(100);
-	poll();
-	delayMicroseconds(100);
-	analogRead(1);
-	y.load((int32_t)analogRead(1) - 339);
-	delayMicroseconds(100);
-	poll();
-	delayMicroseconds(100);
-	analogRead(0);
-	z.load((int32_t)analogRead(2) - 336);
-	delayMicroseconds(100);
-	poll();
+	DDRB = 0xff;
+	PORTB =~ PINB;
+	delay(200);
 }
 
 

@@ -84,6 +84,12 @@ int main(void)
 	int16_t dutyX, dutyY, dutyZ;
 	uint8_t out;
 	
+	while(1) {
+		
+		PORTB =~ PINB;
+		_delay_ms(100);
+	}
+	
 	sei();
 	
     while(1)

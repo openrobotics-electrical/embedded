@@ -3,11 +3,11 @@ voltage_monitor.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         00000210  00000000  00000000  00000074  2**1
+  0 .text         000000e0  00000000  00000000  00000074  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .bss          00000002  00800100  00800100  00000284  2**0
+  1 .bss          00000002  00800100  00800100  00000154  2**0
                   ALLOC
-  2 .comment      00000030  00000000  00000000  00000284  2**0
+  2 .comment      00000030  00000000  00000000  00000154  2**0
                   CONTENTS, READONLY
 
 Disassembly of section .text:
@@ -61,8 +61,8 @@ Disassembly of section .text:
   7e:	a2 30       	cpi	r26, 0x02	; 2
   80:	b2 07       	cpc	r27, r18
   82:	e1 f7       	brne	.-8      	; 0x7c <.do_clear_bss_loop>
-  84:	0e 94 80 00 	call	0x100	; 0x100 <main>
-  88:	0c 94 06 01 	jmp	0x20c	; 0x20c <_exit>
+  84:	0e 94 5c 00 	call	0xb8	; 0xb8 <main>
+  88:	0c 94 6e 00 	jmp	0xdc	; 0xdc <_exit>
 
 0000008c <__bad_interrupt>:
   8c:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -85,170 +85,28 @@ Disassembly of section .text:
   b4:	1f 90       	pop	r1
   b6:	18 95       	reti
 
-000000b8 <_Z8setBitTohhPVh>:
-  b8:	fa 01       	movw	r30, r20
-  ba:	90 81       	ld	r25, Z
-  bc:	21 e0       	ldi	r18, 0x01	; 1
-  be:	30 e0       	ldi	r19, 0x00	; 0
-  c0:	08 2e       	mov	r0, r24
-  c2:	01 c0       	rjmp	.+2      	; 0xc6 <_Z8setBitTohhPVh+0xe>
-  c4:	22 0f       	add	r18, r18
-  c6:	0a 94       	dec	r0
-  c8:	ea f7       	brpl	.-6      	; 0xc4 <_Z8setBitTohhPVh+0xc>
-  ca:	20 95       	com	r18
-  cc:	29 23       	and	r18, r25
-  ce:	08 2e       	mov	r0, r24
-  d0:	01 c0       	rjmp	.+2      	; 0xd4 <_Z8setBitTohhPVh+0x1c>
-  d2:	66 0f       	add	r22, r22
-  d4:	0a 94       	dec	r0
-  d6:	ea f7       	brpl	.-6      	; 0xd2 <_Z8setBitTohhPVh+0x1a>
-  d8:	26 2b       	or	r18, r22
-  da:	20 83       	st	Z, r18
-  dc:	08 95       	ret
+000000b8 <main>:
+  b8:	8f ef       	ldi	r24, 0xFF	; 255
+  ba:	8a b9       	out	0x0a, r24	; 10
+  bc:	84 b9       	out	0x04, r24	; 4
+  be:	8f e3       	ldi	r24, 0x3F	; 63
+  c0:	87 b9       	out	0x07, r24	; 7
+  c2:	83 b1       	in	r24, 0x03	; 3
+  c4:	80 95       	com	r24
+  c6:	85 b9       	out	0x05, r24	; 5
+  c8:	2f ef       	ldi	r18, 0xFF	; 255
+  ca:	80 e7       	ldi	r24, 0x70	; 112
+  cc:	92 e0       	ldi	r25, 0x02	; 2
+  ce:	21 50       	subi	r18, 0x01	; 1
+  d0:	80 40       	sbci	r24, 0x00	; 0
+  d2:	90 40       	sbci	r25, 0x00	; 0
+  d4:	e1 f7       	brne	.-8      	; 0xce <main+0x16>
+  d6:	00 c0       	rjmp	.+0      	; 0xd8 <main+0x20>
+  d8:	00 00       	nop
+  da:	f3 cf       	rjmp	.-26     	; 0xc2 <main+0xa>
 
-000000de <_ZN6Analog13selectChannelEh>:
-  de:	cf 93       	push	r28
-  e0:	c8 2f       	mov	r28, r24
-  e2:	48 e2       	ldi	r20, 0x28	; 40
-  e4:	50 e0       	ldi	r21, 0x00	; 0
-  e6:	60 e0       	ldi	r22, 0x00	; 0
-  e8:	0e 94 5c 00 	call	0xb8	; 0xb8 <_Z8setBitTohhPVh>
-  ec:	c0 66       	ori	r28, 0x60	; 96
-  ee:	c0 93 7c 00 	sts	0x007C, r28
-  f2:	8b e8       	ldi	r24, 0x8B	; 139
-  f4:	80 93 7a 00 	sts	0x007A, r24
-  f8:	10 92 7b 00 	sts	0x007B, r1
-  fc:	cf 91       	pop	r28
-  fe:	08 95       	ret
+000000dc <_exit>:
+  dc:	f8 94       	cli
 
-00000100 <main>:
- 100:	cf 93       	push	r28
- 102:	df 93       	push	r29
- 104:	1f 92       	push	r1
- 106:	cd b7       	in	r28, 0x3d	; 61
- 108:	de b7       	in	r29, 0x3e	; 62
- 10a:	8f ef       	ldi	r24, 0xFF	; 255
- 10c:	8a b9       	out	0x0a, r24	; 10
- 10e:	84 b9       	out	0x04, r24	; 4
- 110:	8f e3       	ldi	r24, 0x3F	; 63
- 112:	87 b9       	out	0x07, r24	; 7
- 114:	78 94       	sei
- 116:	80 91 00 01 	lds	r24, 0x0100
- 11a:	e8 2e       	mov	r14, r24
- 11c:	f1 2c       	mov	r15, r1
- 11e:	46 e0       	ldi	r20, 0x06	; 6
- 120:	f5 94       	asr	r15
- 122:	e7 94       	ror	r14
- 124:	4a 95       	dec	r20
- 126:	e1 f7       	brne	.-8      	; 0x120 <main+0x20>
- 128:	80 91 01 01 	lds	r24, 0x0101
- 12c:	24 e0       	ldi	r18, 0x04	; 4
- 12e:	82 9f       	mul	r24, r18
- 130:	c0 01       	movw	r24, r0
- 132:	11 24       	eor	r1, r1
- 134:	e8 2a       	or	r14, r24
- 136:	f9 2a       	or	r15, r25
- 138:	52 e0       	ldi	r21, 0x02	; 2
- 13a:	f5 1a       	sub	r15, r21
- 13c:	87 e0       	ldi	r24, 0x07	; 7
- 13e:	0e 94 6f 00 	call	0xde	; 0xde <_ZN6Analog13selectChannelEh>
- 142:	80 91 7a 00 	lds	r24, 0x007A
- 146:	80 64       	ori	r24, 0x40	; 64
- 148:	80 93 7a 00 	sts	0x007A, r24
- 14c:	f7 fe       	sbrs	r15, 7
- 14e:	03 c0       	rjmp	.+6      	; 0x156 <main+0x56>
- 150:	f1 94       	neg	r15
- 152:	e1 94       	neg	r14
- 154:	f1 08       	sbc	r15, r1
- 156:	e0 0e       	add	r14, r16
- 158:	f1 1e       	adc	r15, r17
- 15a:	82 e0       	ldi	r24, 0x02	; 2
- 15c:	e8 26       	eor	r14, r24
- 15e:	ee 0c       	add	r14, r14
- 160:	ff 1c       	adc	r15, r15
- 162:	ee 0c       	add	r14, r14
- 164:	ff 1c       	adc	r15, r15
- 166:	80 e0       	ldi	r24, 0x00	; 0
- 168:	90 e0       	ldi	r25, 0x00	; 0
- 16a:	40 e0       	ldi	r20, 0x00	; 0
- 16c:	8e 15       	cp	r24, r14
- 16e:	9f 05       	cpc	r25, r15
- 170:	14 f4       	brge	.+4      	; 0x176 <main+0x76>
- 172:	40 61       	ori	r20, 0x10	; 16
- 174:	04 c0       	rjmp	.+8      	; 0x17e <main+0x7e>
- 176:	e8 16       	cp	r14, r24
- 178:	f9 06       	cpc	r15, r25
- 17a:	1c f0       	brlt	.+6      	; 0x182 <main+0x82>
- 17c:	4f 7e       	andi	r20, 0xEF	; 239
- 17e:	4f 7d       	andi	r20, 0xDF	; 223
- 180:	01 c0       	rjmp	.+2      	; 0x184 <main+0x84>
- 182:	40 e2       	ldi	r20, 0x20	; 32
- 184:	48 b9       	out	0x08, r20	; 8
- 186:	e5 e3       	ldi	r30, 0x35	; 53
- 188:	ea 95       	dec	r30
- 18a:	f1 f7       	brne	.-4      	; 0x188 <main+0x88>
- 18c:	00 00       	nop
- 18e:	01 96       	adiw	r24, 0x01	; 1
- 190:	8f 3f       	cpi	r24, 0xFF	; 255
- 192:	f3 e0       	ldi	r31, 0x03	; 3
- 194:	9f 07       	cpc	r25, r31
- 196:	51 f7       	brne	.-44     	; 0x16c <main+0x6c>
- 198:	80 91 00 01 	lds	r24, 0x0100
- 19c:	90 e0       	ldi	r25, 0x00	; 0
- 19e:	26 e0       	ldi	r18, 0x06	; 6
- 1a0:	95 95       	asr	r25
- 1a2:	87 95       	ror	r24
- 1a4:	2a 95       	dec	r18
- 1a6:	e1 f7       	brne	.-8      	; 0x1a0 <main+0xa0>
- 1a8:	20 91 01 01 	lds	r18, 0x0101
- 1ac:	54 e0       	ldi	r21, 0x04	; 4
- 1ae:	25 9f       	mul	r18, r21
- 1b0:	90 01       	movw	r18, r0
- 1b2:	11 24       	eor	r1, r1
- 1b4:	82 2b       	or	r24, r18
- 1b6:	93 2b       	or	r25, r19
- 1b8:	92 50       	subi	r25, 0x02	; 2
- 1ba:	97 ff       	sbrs	r25, 7
- 1bc:	03 c0       	rjmp	.+6      	; 0x1c4 <main+0xc4>
- 1be:	91 95       	neg	r25
- 1c0:	81 95       	neg	r24
- 1c2:	91 09       	sbc	r25, r1
- 1c4:	8c 01       	movw	r16, r24
- 1c6:	86 e0       	ldi	r24, 0x06	; 6
- 1c8:	49 83       	std	Y+1, r20	; 0x01
- 1ca:	0e 94 6f 00 	call	0xde	; 0xde <_ZN6Analog13selectChannelEh>
- 1ce:	80 91 7a 00 	lds	r24, 0x007A
- 1d2:	80 64       	ori	r24, 0x40	; 64
- 1d4:	80 93 7a 00 	sts	0x007A, r24
- 1d8:	80 e0       	ldi	r24, 0x00	; 0
- 1da:	90 e0       	ldi	r25, 0x00	; 0
- 1dc:	49 81       	ldd	r20, Y+1	; 0x01
- 1de:	8e 15       	cp	r24, r14
- 1e0:	9f 05       	cpc	r25, r15
- 1e2:	14 f4       	brge	.+4      	; 0x1e8 <main+0xe8>
- 1e4:	40 61       	ori	r20, 0x10	; 16
- 1e6:	04 c0       	rjmp	.+8      	; 0x1f0 <main+0xf0>
- 1e8:	e8 16       	cp	r14, r24
- 1ea:	f9 06       	cpc	r15, r25
- 1ec:	1c f0       	brlt	.+6      	; 0x1f4 <main+0xf4>
- 1ee:	4f 7e       	andi	r20, 0xEF	; 239
- 1f0:	4f 7d       	andi	r20, 0xDF	; 223
- 1f2:	01 c0       	rjmp	.+2      	; 0x1f6 <main+0xf6>
- 1f4:	40 e2       	ldi	r20, 0x20	; 32
- 1f6:	48 b9       	out	0x08, r20	; 8
- 1f8:	e5 e3       	ldi	r30, 0x35	; 53
- 1fa:	ea 95       	dec	r30
- 1fc:	f1 f7       	brne	.-4      	; 0x1fa <main+0xfa>
- 1fe:	00 00       	nop
- 200:	01 96       	adiw	r24, 0x01	; 1
- 202:	8f 3f       	cpi	r24, 0xFF	; 255
- 204:	f3 e0       	ldi	r31, 0x03	; 3
- 206:	9f 07       	cpc	r25, r31
- 208:	51 f7       	brne	.-44     	; 0x1de <main+0xde>
- 20a:	85 cf       	rjmp	.-246    	; 0x116 <main+0x16>
-
-0000020c <_exit>:
- 20c:	f8 94       	cli
-
-0000020e <__stop_program>:
- 20e:	ff cf       	rjmp	.-2      	; 0x20e <__stop_program>
+000000de <__stop_program>:
+  de:	ff cf       	rjmp	.-2      	; 0xde <__stop_program>
