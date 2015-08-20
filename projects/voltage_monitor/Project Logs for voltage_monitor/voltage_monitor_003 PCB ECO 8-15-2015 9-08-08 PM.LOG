@@ -1,0 +1,5 @@
+Removed Pin From Net: NetName=AREF Pin=Modular8-C_V1
+Removed Pin From Net: NetName=VCC Pin=Modular8-C_V2
+Change Component Designator: OldDesignator=16x 1x NewDesignator=HEADER1
+Added Pin To Net: NetName=VCC Pin=Modular8-C_V1
+Added Pin To Net: NetName=AREF Pin=Modular8-C_V2

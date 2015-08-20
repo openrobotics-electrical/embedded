@@ -1,0 +1,12 @@
+Removed Pin From Net: NetName=NetR3_1 Pin=RX-1
+Removed Pin From Net: NetName=VCC Pin=RX-2
+Removed Pin From Net: NetName=NetR4_1 Pin=TX-1
+Removed Pin From Net: NetName=VCC Pin=TX-2
+Change Component Designator: OldDesignator=AX-12 NewDesignator=J1
+Change Component Designator: OldDesignator=I2C NewDesignator=J3
+Change Component Designator: OldDesignator=VREG/VUSB NewDesignator=VUSB/VREG
+Added Pin To Net: NetName=VCC Pin=RX-1
+Added Pin To Net: NetName=NetR3_1 Pin=RX-2
+Added Pin To Net: NetName=VCC Pin=TX-1
+Added Pin To Net: NetName=NetR4_1 Pin=TX-2
+Added Pin To Net: NetName=SLEEP# Pin=U1-12

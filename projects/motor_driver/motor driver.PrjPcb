@@ -37,7 +37,7 @@ PrefsVaultGUID=
 PrefsRevisionGUID=
 
 [Document1]
-DocumentPath=..\motor driver\A4950_driver.SchDoc
+DocumentPath=A4950_driver.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -88,23 +88,6 @@ GenerateClassCluster=0
 DocumentUniqueId=BOUAWJUR
 
 [Document4]
-DocumentPath=..\motor driver\motor driver.OutJob
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=
-
-[Document5]
 DocumentPath=motor driver.OutJob
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -121,7 +104,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
-[Document6]
+[Document5]
 DocumentPath=..\..\libraries\RLC.SchLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -138,8 +121,8 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
-[Document7]
-DocumentPath=motor_driver_rev1.PcbDoc
+[Document6]
+DocumentPath=motor_driver_002.PcbDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -164,6 +147,18 @@ DocumentPath=Project Outputs for motor driver\A4950_driver.CSV
 DItemRevisionGUID=
 
 [GeneratedDocument3]
+DocumentPath=Project Outputs for motor driver\motor_driver_002.EXTREP
+DItemRevisionGUID=
+
+[GeneratedDocument4]
+DocumentPath=Project Outputs for motor driver\motor_driver_002.REP
+DItemRevisionGUID=
+
+[GeneratedDocument5]
+DocumentPath=Project Outputs for motor driver\motor_driver_002.RUL
+DItemRevisionGUID=
+
+[GeneratedDocument6]
 DocumentPath=..\..\libraries\OpBots.cmp
 DItemRevisionGUID=
 
@@ -438,10 +433,10 @@ OutputDocumentPath4=
 OutputVariantName4=[No Variations]
 OutputDefault4=0
 PageOptions4=Record=PageOptions|CenterHorizontal=True|CenterVertical=True|PrintScale=1.00|XCorrection=1.00|YCorrection=1.00|PrintKind=1|BorderSize=5000000|LeftOffset=0|BottomOffset=0|Orientation=2|PaperLength=1000|PaperWidth=1000|Scale=100|PaperSource=7|PrintQuality=-3|MediaType=1|DitherType=10|PrintScaleMode=1|PaperKind=Letter|PaperIndex=1
-OutputType5=Gerber
-OutputName5=Gerber Files
+OutputType5=Test Points
+OutputName5=Test Point Report
 OutputDocumentPath5=
-OutputVariantName5=[No Variations]
+OutputVariantName5=
 OutputDefault5=0
 OutputType6=Mask
 OutputName6=Solder/Paste Mask Prints
@@ -465,11 +460,13 @@ OutputDocumentPath9=
 OutputVariantName9=
 OutputDefault9=0
 PageOptions9=Record=PageOptions|CenterHorizontal=True|CenterVertical=True|PrintScale=1.00|XCorrection=1.00|YCorrection=1.00|PrintKind=1|BorderSize=5000000|LeftOffset=0|BottomOffset=0|Orientation=2|PaperLength=1000|PaperWidth=1000|Scale=100|PaperSource=7|PrintQuality=-3|MediaType=1|DitherType=10|PrintScaleMode=1|PaperKind=Letter|PaperIndex=1
-OutputType10=Test Points
-OutputName10=Test Point Report
+OutputType10=Gerber
+OutputName10=Gerber Files
 OutputDocumentPath10=
-OutputVariantName10=
+OutputVariantName10=[No Variations]
 OutputDefault10=0
+Configuration10_Name1=OutputConfigurationParameter1
+Configuration10_Item1=AddToAllLayerClasses.Set= |AddToAllPlots.Set=SerializeLayerHash.Version~2,ClassName~TLayerToBoolean|CentrePlots=False|DrillDrawingSymbol=GraphicsSymbol|DrillDrawingSymbolSize=500000|EmbeddedApertures=True|FilmBorderSize=10000000|FilmXSize=200000000|FilmYSize=160000000|FlashAllFills=False|FlashPadShapes=True|G54OnApertureChange=False|GenerateDRCRulesFile=True|GenerateReliefShapes=True|GerberUnit=Imperial|IncludeUnconnectedMidLayerPads=False|LayerClassesMirror.Set= |LayerClassesPlot.Set= |LeadingAndTrailingZeroesMode=SuppressLeadingZeroes|MaxApertureSize=2500000|MinusApertureTolerance=50|Mirror.Set=SerializeLayerHash.Version~2,ClassName~TLayerToBoolean|MirrorDrillDrawingPlots=False|MirrorDrillGuidePlots=False|NoRegularPolygons=True|NumberOfDecimals=4|OptimizeChangeLocationCommands=True|OriginPosition=Relative|Panelize=False|Plot.Set=SerializeLayerHash.Version~2,ClassName~TLayerToBoolean|PlotPositivePlaneLayers=False|PlotUsedDrillDrawingLayerPairs=False|PlotUsedDrillGuideLayerPairs=False|PlusApertureTolerance=50|Record=GerberView|SoftwareArcs=False|Sorted=False
 
 [OutputGroup6]
 Name=Report Outputs

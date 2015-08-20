@@ -1,0 +1,9 @@
+Added Component: Designator=H1(3x2 THRU HOLES 0.1" PITCH)
+Added Pin To Net: NetName=MISO Pin=H1-1
+Added Pin To Net: NetName=VCC Pin=H1-2
+Added Pin To Net: NetName=SCK Pin=H1-3
+Added Pin To Net: NetName=MOSI Pin=H1-4
+Added Pin To Net: NetName=NetMCU1_29 Pin=H1-5
+Added Pin To Net: NetName=DGND Pin=H1-6
+Change Net Name : Old Net Name=NetMCU1_29 New Net Name=R\S\T\
+Added Member To Class: ClassName=module_rev2 Member=Component H1 3x2 ICSP header

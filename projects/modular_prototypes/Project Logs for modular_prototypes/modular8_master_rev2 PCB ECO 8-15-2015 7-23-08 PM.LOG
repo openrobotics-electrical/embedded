@@ -1,0 +1,6 @@
+Removed Pin From Net: NetName=NetR3_2 Pin=SCK LED-1
+Removed Pin From Net: NetName=DGND Pin=SCK LED-2
+Change Component DesignItemId : Designator=SCK LED Old DesignItemId=LEDG New DesignItemId=LEDY
+Change Component Comment : Designator=SCK LED Old Comment=LEDG New Comment=LEDY
+Added Pin To Net: NetName=DGND Pin=SCK LED-1
+Added Pin To Net: NetName=NetR3_2 Pin=SCK LED-2

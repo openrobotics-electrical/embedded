@@ -1,0 +1,22 @@
+Added Pin To Net: NetName=NetJ8_1 Pin=J8-1
+Added Pin To Net: NetName=NetJ8_1 Pin=J8-2
+Added Pin To Net: NetName=NetJ8_1 Pin=J8-3
+Added Pin To Net: NetName=NetJ8_1 Pin=J8-4
+Added Pin To Net: NetName=NetJ8_1 Pin=J10-1
+Added Pin To Net: NetName=NetJ8_1 Pin=J10-2
+Added Pin To Net: NetName=NetJ8_1 Pin=J10-3
+Added Pin To Net: NetName=NetJ8_1 Pin=J10-4
+Added Pin To Net: NetName=NetJ8_1 Pin=Modular8-A_V2
+Added Pin To Net: NetName=NetJ8_1 Pin=Modular8-C_V1
+Added Net: Name=NetJ8_1
+Added Pin To Net: NetName=VA Pin=J7-1
+Added Pin To Net: NetName=VA Pin=J7-2
+Added Pin To Net: NetName=VA Pin=J7-3
+Added Pin To Net: NetName=VA Pin=J7-4
+Added Pin To Net: NetName=VA Pin=J9-1
+Added Pin To Net: NetName=VA Pin=J9-2
+Added Pin To Net: NetName=VA Pin=J9-3
+Added Pin To Net: NetName=VA Pin=J9-4
+Added Pin To Net: NetName=VA Pin=Modular8-A_V1
+Added Pin To Net: NetName=VA Pin=Modular8-C_V2
+Added Net: Name=VA

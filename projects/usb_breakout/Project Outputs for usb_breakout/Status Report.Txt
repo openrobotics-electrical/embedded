@@ -1,0 +1,23 @@
+Output: Gerber Files
+Type  : Gerber
+From  : Variant [[No Variations]] of Project [usb_breakout.PrjPcb]
+   Generated File[usb_breakout_004.GTL]
+   Generated File[usb_breakout_004.GBL]
+   Generated File[usb_breakout_004.GPB]
+   Generated File[usb_breakout_004.GPT]
+   Generated File[usb_breakout_004.GTO]
+   Generated File[usb_breakout_004.GTP]
+   Generated File[usb_breakout_004.GTS]
+   Generated File[usb_breakout_004.GBS]
+   Generated File[usb_breakout_004.GBP]
+   Generated File[usb_breakout_004.GBO]
+   Generated File[usb_breakout_004.GM1]
+   Generated File[usb_breakout_004.RUL]
+   Generated File[usb_breakout_004.EXTREP]
+   Generated File[usb_breakout_004.REP]
+
+
+Files Generated   : 14
+Documents Printed : 0
+
+Finished Output Generation At 12:56:00 AM On 8/19/2015

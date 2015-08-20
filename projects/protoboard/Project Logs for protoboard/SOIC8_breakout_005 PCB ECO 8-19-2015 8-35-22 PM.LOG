@@ -1,0 +1,10 @@
+Added Pin To Net: NetName=NetModular8_A_GND Pin=Modular8-A_GND
+Added Pin To Net: NetName=NetModular8_A_GND Pin=Modular8-C_GND
+Added Net: Name=NetModular8_A_GND
+Added Pin To Net: NetName=NetModular8_A_V1 Pin=Modular8-A_V1
+Added Pin To Net: NetName=NetModular8_A_V1 Pin=Modular8-C_V1
+Added Net: Name=NetModular8_A_V1
+Added Pin To Net: NetName=NetModular8_A_V2 Pin=Modular8-A_V2
+Added Pin To Net: NetName=NetModular8_A_V2 Pin=Modular8-C_V2
+Added Net: Name=NetModular8_A_V2
+Added Room: Name=SOIC8_breakout

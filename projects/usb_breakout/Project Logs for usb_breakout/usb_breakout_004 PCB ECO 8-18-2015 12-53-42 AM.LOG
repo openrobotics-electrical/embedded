@@ -1,0 +1,3 @@
+Change Component Footprint: Designator=J1 Old Footprint=3x1 THRU HOLES 0.1" PITCH New Footprint=DYNAMIXEL 3-PIN
+Change Component Designator: OldDesignator=VREG/VUSB NewDesignator=VUSB/VREG
+Added Pin To Net: NetName=SLEEP# Pin=U1-12

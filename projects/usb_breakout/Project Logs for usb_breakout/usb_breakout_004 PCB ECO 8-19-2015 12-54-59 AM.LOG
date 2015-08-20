@@ -1,0 +1,2 @@
+Change Component Designator: OldDesignator=DYNAMIXEL NewDesignator=J1
+Added Pin To Net: NetName=SLEEP# Pin=U1-12

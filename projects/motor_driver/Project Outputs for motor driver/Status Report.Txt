@@ -1,9 +1,23 @@
-Output: Bill of Materials
-Type  : BOM
+Output: Gerber Files
+Type  : Gerber
 From  : Variant [[No Variations]] of Project [motor driver.PrjPcb]
+   Generated File[motor_driver_002.GTL]
+   Generated File[motor_driver_002.GBL]
+   Generated File[motor_driver_002.GPB]
+   Generated File[motor_driver_002.GPT]
+   Generated File[motor_driver_002.GTO]
+   Generated File[motor_driver_002.GTP]
+   Generated File[motor_driver_002.GTS]
+   Generated File[motor_driver_002.GBS]
+   Generated File[motor_driver_002.GBP]
+   Generated File[motor_driver_002.GBO]
+   Generated File[motor_driver_002.GM1]
+   Generated File[motor_driver_002.RUL]
+   Generated File[motor_driver_002.EXTREP]
+   Generated File[motor_driver_002.REP]
 
 
-Files Generated   : 0
+Files Generated   : 14
 Documents Printed : 0
 
-Finished Output Generation At 1:53:04 PM On 8/1/2015
+Finished Output Generation At 12:42:34 AM On 8/19/2015

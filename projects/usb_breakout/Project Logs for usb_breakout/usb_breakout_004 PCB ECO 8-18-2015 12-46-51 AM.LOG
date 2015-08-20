@@ -1,0 +1,8 @@
+Change Component Footprint: Designator=Modular8 Old Footprint=modular8 metric New Footprint=modular8 edge D flipped
+Added Component: Designator=J3(4x1 THRU HOLES 0.1" PITCH)
+Added Pin To Net: NetName=VCC Pin=J3-1
+Added Pin To Net: NetName=GND Pin=J3-2
+Added Pin To Net: NetName=NetJ3_3 Pin=J3-3
+Added Pin To Net: NetName=NetJ3_4 Pin=J3-4
+Added Pin To Net: NetName=VCC Pin=U1-12
+Added Member To Class: ClassName=usb_breakout_rev_1 Member=Component J3 I2C header

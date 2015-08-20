@@ -1,0 +1,15 @@
+Removed Pin From Net: NetName=DGND Pin=POW LED-2
+Removed Pin From Net: NetName=NetR3_2 Pin=SCK LED-1
+Removed Pin From Net: NetName=DGND Pin=SCK LED-2
+Change Component DesignItemId : Designator=POW LED Old DesignItemId=LEDR New DesignItemId=LEDG
+Change Component DesignItemId : Designator=SCK LED Old DesignItemId=LEDR New DesignItemId=LEDG
+Change Component Footprint: Designator=POW LED Old Footprint=0603 - LED New Footprint=0805 - LED
+Change Component Footprint: Designator=SCK LED Old Footprint=0603 - LED New Footprint=0805 - LED
+Change Component Comment : Designator=POW LED Old Comment=LEDR New Comment=LEDG
+Change Component Comment : Designator=SCK LED Old Comment=LEDR New Comment=LEDG
+Added Pin To Net: NetName=DGND Pin=POW LED-1
+Added Pin To Net: NetName=DGND Pin=SCK LED-1
+Added Pin To Net: NetName=NetR3_2 Pin=SCK LED-2
+Added Pin To Net: NetName=NetPOW LED_2 Pin=POW LED-2
+Added Pin To Net: NetName=NetPOW LED_2 Pin=R2-2
+Added Net: Name=NetPOW LED_2

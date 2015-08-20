@@ -1,0 +1,97 @@
+Added Component: Designator=J1(8x1 THRU HOLES 0.1" PITCH)
+Added Component: Designator=J2(8x1 THRU HOLES 0.1" PITCH)
+Added Component: Designator=J3(8x1 THRU HOLES 0.1" PITCH)
+Added Component: Designator=J4(8x1 THRU HOLES 0.1" PITCH)
+Added Component: Designator=J5(8x1 THRU HOLES 0.1" PITCH)
+Added Component: Designator=J6(8x1 THRU HOLES 0.1" PITCH)
+Added Component: Designator=Modular8(modular8 edges A & C)
+Added Component: Designator=(SOIC8)
+Added Pin To Net: NetName=Net_1 Pin=-1
+Added Pin To Net: NetName=Net_1 Pin=J2-1
+Added Pin To Net: NetName=Net_1 Pin=J3-1
+Added Pin To Net: NetName=Net_1 Pin=J4-1
+Added Net: Name=Net_1
+Added Pin To Net: NetName=Net_2 Pin=-2
+Added Pin To Net: NetName=Net_2 Pin=J2-2
+Added Pin To Net: NetName=Net_2 Pin=J3-2
+Added Pin To Net: NetName=Net_2 Pin=J4-2
+Added Net: Name=Net_2
+Added Pin To Net: NetName=Net_3 Pin=-3
+Added Pin To Net: NetName=Net_3 Pin=J2-3
+Added Pin To Net: NetName=Net_3 Pin=J3-3
+Added Pin To Net: NetName=Net_3 Pin=J4-3
+Added Net: Name=Net_3
+Added Pin To Net: NetName=Net_4 Pin=-4
+Added Pin To Net: NetName=Net_4 Pin=J2-4
+Added Pin To Net: NetName=Net_4 Pin=J3-4
+Added Pin To Net: NetName=Net_4 Pin=J4-4
+Added Net: Name=Net_4
+Added Pin To Net: NetName=Net_5 Pin=-5
+Added Pin To Net: NetName=Net_5 Pin=J2-5
+Added Pin To Net: NetName=Net_5 Pin=J3-5
+Added Pin To Net: NetName=Net_5 Pin=J4-5
+Added Net: Name=Net_5
+Added Pin To Net: NetName=Net_6 Pin=-6
+Added Pin To Net: NetName=Net_6 Pin=J2-6
+Added Pin To Net: NetName=Net_6 Pin=J3-6
+Added Pin To Net: NetName=Net_6 Pin=J4-6
+Added Net: Name=Net_6
+Added Pin To Net: NetName=Net_7 Pin=-7
+Added Pin To Net: NetName=Net_7 Pin=J2-7
+Added Pin To Net: NetName=Net_7 Pin=J3-7
+Added Pin To Net: NetName=Net_7 Pin=J4-7
+Added Net: Name=Net_7
+Added Pin To Net: NetName=Net_8 Pin=-8
+Added Pin To Net: NetName=Net_8 Pin=J2-8
+Added Pin To Net: NetName=Net_8 Pin=J3-8
+Added Pin To Net: NetName=Net_8 Pin=J4-8
+Added Net: Name=Net_8
+Added Pin To Net: NetName=NetJ1_1 Pin=J1-1
+Added Pin To Net: NetName=NetJ1_1 Pin=Modular8-A_0
+Added Net: Name=NetJ1_1
+Added Pin To Net: NetName=NetJ1_2 Pin=J1-2
+Added Pin To Net: NetName=NetJ1_2 Pin=Modular8-A_1
+Added Net: Name=NetJ1_2
+Added Pin To Net: NetName=NetJ1_3 Pin=J1-3
+Added Pin To Net: NetName=NetJ1_3 Pin=Modular8-A_2
+Added Net: Name=NetJ1_3
+Added Pin To Net: NetName=NetJ1_4 Pin=J1-4
+Added Pin To Net: NetName=NetJ1_4 Pin=Modular8-A_3
+Added Net: Name=NetJ1_4
+Added Pin To Net: NetName=NetJ1_5 Pin=J1-5
+Added Pin To Net: NetName=NetJ1_5 Pin=Modular8-A_4
+Added Net: Name=NetJ1_5
+Added Pin To Net: NetName=NetJ1_6 Pin=J1-6
+Added Pin To Net: NetName=NetJ1_6 Pin=Modular8-A_5
+Added Net: Name=NetJ1_6
+Added Pin To Net: NetName=NetJ1_7 Pin=J1-7
+Added Pin To Net: NetName=NetJ1_7 Pin=Modular8-A_6
+Added Net: Name=NetJ1_7
+Added Pin To Net: NetName=NetJ1_8 Pin=J1-8
+Added Pin To Net: NetName=NetJ1_8 Pin=Modular8-A_7
+Added Net: Name=NetJ1_8
+Added Pin To Net: NetName=NetJ6_1 Pin=J6-1
+Added Pin To Net: NetName=NetJ6_1 Pin=Modular8-C_0
+Added Net: Name=NetJ6_1
+Added Pin To Net: NetName=NetJ6_2 Pin=J6-2
+Added Pin To Net: NetName=NetJ6_2 Pin=Modular8-C_1
+Added Net: Name=NetJ6_2
+Added Pin To Net: NetName=NetJ6_3 Pin=J6-3
+Added Pin To Net: NetName=NetJ6_3 Pin=Modular8-C_2
+Added Net: Name=NetJ6_3
+Added Pin To Net: NetName=NetJ6_4 Pin=J6-4
+Added Pin To Net: NetName=NetJ6_4 Pin=Modular8-C_3
+Added Net: Name=NetJ6_4
+Added Pin To Net: NetName=NetJ6_5 Pin=J6-5
+Added Pin To Net: NetName=NetJ6_5 Pin=Modular8-C_4
+Added Net: Name=NetJ6_5
+Added Pin To Net: NetName=NetJ6_6 Pin=J6-6
+Added Pin To Net: NetName=NetJ6_6 Pin=Modular8-C_5
+Added Net: Name=NetJ6_6
+Added Pin To Net: NetName=NetJ6_7 Pin=J6-7
+Added Pin To Net: NetName=NetJ6_7 Pin=Modular8-C_6
+Added Net: Name=NetJ6_7
+Added Pin To Net: NetName=NetJ6_8 Pin=J6-8
+Added Pin To Net: NetName=NetJ6_8 Pin=Modular8-C_7
+Added Net: Name=NetJ6_8
+Added Class: Name=SOIC8_breakout

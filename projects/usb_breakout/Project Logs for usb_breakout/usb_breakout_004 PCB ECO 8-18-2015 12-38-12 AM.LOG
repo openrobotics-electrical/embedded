@@ -1,0 +1,154 @@
+Added Component: Designator=BUFF POW(0603)
+Added Component: Designator=C1(0603)
+Added Component: Designator=C2(0603)
+Added Component: Designator=C3(0603)
+Added Component: Designator=C4(0603)
+Added Component: Designator=C5(0603)
+Added Component: Designator=C6(0603)
+Added Component: Designator=C7(0603)
+Added Component: Designator=C8(0603)
+Added Component: Designator=C9(0603)
+Added Component: Designator=C10(0603)
+Added Component: Designator=FB1(0603)
+Added Component: Designator=J1(3x1 THRU HOLES 0.1" PITCH)
+Added Component: Designator=J2(DC JACK 2.1MM SMT)
+Added Component: Designator=Modular8(modular8 metric)
+Added Component: Designator=R1(0603)
+Added Component: Designator=R2(0603)
+Added Component: Designator=R3(0603)
+Added Component: Designator=R4(0603)
+Added Component: Designator=R6(0603)
+Added Component: Designator=R7(0603)
+Added Component: Designator=RXLED(0805 - LED)
+Added Component: Designator=TXLED(0805 - LED)
+Added Component: Designator=U1(SSOP28)
+Added Component: Designator=U2(MSOP8)
+Added Component: Designator=U3(MSOP8)
+Added Component: Designator=USB1(USB MINI)
+Added Component: Designator=VREG1(SOT-23-3)
+Added Component: Designator=VUSB/VREG(3x1 THRU HOLES 0.1" PITCH)
+Added Pin To Net: NetName=GND Pin=C1-2
+Added Pin To Net: NetName=GND Pin=C2-2
+Added Pin To Net: NetName=GND Pin=C3-2
+Added Pin To Net: NetName=GND Pin=C4-2
+Added Pin To Net: NetName=GND Pin=C5-2
+Added Pin To Net: NetName=GND Pin=C6-2
+Added Pin To Net: NetName=GND Pin=C7-2
+Added Pin To Net: NetName=GND Pin=C9-1
+Added Pin To Net: NetName=GND Pin=C10-2
+Added Pin To Net: NetName=GND Pin=J1-1
+Added Pin To Net: NetName=GND Pin=J2-2
+Added Pin To Net: NetName=GND Pin=Modular8-D_GND
+Added Pin To Net: NetName=GND Pin=U1-7
+Added Pin To Net: NetName=GND Pin=U1-18
+Added Pin To Net: NetName=GND Pin=U1-21
+Added Pin To Net: NetName=GND Pin=U1-25
+Added Pin To Net: NetName=GND Pin=U1-26
+Added Pin To Net: NetName=GND Pin=U2-4
+Added Pin To Net: NetName=GND Pin=U3-4
+Added Pin To Net: NetName=GND Pin=USB1-4
+Added Pin To Net: NetName=GND Pin=VREG1-1
+Added Net: Name=GND
+Added Pin To Net: NetName=NetBUFF POW_2 Pin=BUFF POW-2
+Added Pin To Net: NetName=NetBUFF POW_2 Pin=U2-8
+Added Pin To Net: NetName=NetBUFF POW_2 Pin=U3-8
+Added Net: Name=NetBUFF POW_2
+Added Pin To Net: NetName=NetC1_1 Pin=C1-1
+Added Pin To Net: NetName=NetC1_1 Pin=FB1-1
+Added Pin To Net: NetName=NetC1_1 Pin=USB1-1
+Added Net: Name=NetC1_1
+Added Pin To Net: NetName=NetC2_1 Pin=C2-1
+Added Pin To Net: NetName=NetC2_1 Pin=U1-17
+Added Net: Name=NetC2_1
+Added Pin To Net: NetName=NetC5_1 Pin=C5-1
+Added Pin To Net: NetName=NetC5_1 Pin=R1-1
+Added Pin To Net: NetName=NetC5_1 Pin=USB1-2
+Added Net: Name=NetC5_1
+Added Pin To Net: NetName=NetC6_1 Pin=C6-1
+Added Pin To Net: NetName=NetC6_1 Pin=R2-1
+Added Pin To Net: NetName=NetC6_1 Pin=USB1-3
+Added Net: Name=NetC6_1
+Added Pin To Net: NetName=NetC8_1 Pin=C8-1
+Added Pin To Net: NetName=NetC8_1 Pin=U1-2
+Added Net: Name=NetC8_1
+Added Pin To Net: NetName=NetC8_2 Pin=C8-2
+Added Pin To Net: NetName=NetC8_2 Pin=Modular8-D_7
+Added Net: Name=NetC8_2
+Added Pin To Net: NetName=NetC9_2 Pin=C9-2
+Added Pin To Net: NetName=NetC9_2 Pin=VREG1-2
+Added Pin To Net: NetName=NetC9_2 Pin=VUSB/VREG-3
+Added Net: Name=NetC9_2
+Added Pin To Net: NetName=NetC10_1 Pin=C10-1
+Added Pin To Net: NetName=NetC10_1 Pin=J1-2
+Added Pin To Net: NetName=NetC10_1 Pin=J2-1
+Added Pin To Net: NetName=NetC10_1 Pin=J2-1
+Added Pin To Net: NetName=NetC10_1 Pin=VREG1-3
+Added Net: Name=NetC10_1
+Added Pin To Net: NetName=NetJ1_3 Pin=J1-3
+Added Pin To Net: NetName=NetJ1_3 Pin=R7-2
+Added Pin To Net: NetName=NetJ1_3 Pin=U2-2
+Added Pin To Net: NetName=NetJ1_3 Pin=U2-3
+Added Pin To Net: NetName=NetJ1_3 Pin=U3-2
+Added Pin To Net: NetName=NetJ1_3 Pin=U3-3
+Added Net: Name=NetJ1_3
+Added Pin To Net: NetName=NetJ3_3 Pin=Modular8-D_2
+Added Net: Name=NetJ3_3
+Added Pin To Net: NetName=NetJ3_4 Pin=Modular8-D_3
+Added Net: Name=NetJ3_4
+Added Pin To Net: NetName=NetModular8_D_0 Pin=Modular8-D_0
+Added Pin To Net: NetName=NetModular8_D_0 Pin=U1-1
+Added Pin To Net: NetName=NetModular8_D_0 Pin=U2-5
+Added Pin To Net: NetName=NetModular8_D_0 Pin=U3-6
+Added Net: Name=NetModular8_D_0
+Added Pin To Net: NetName=NetModular8_D_1 Pin=Modular8-D_1
+Added Pin To Net: NetName=NetModular8_D_1 Pin=R6-2
+Added Pin To Net: NetName=NetModular8_D_1 Pin=U1-4
+Added Pin To Net: NetName=NetModular8_D_1 Pin=U2-6
+Added Pin To Net: NetName=NetModular8_D_1 Pin=U3-5
+Added Net: Name=NetModular8_D_1
+Added Pin To Net: NetName=NetModular8_D_4 Pin=Modular8-D_4
+Added Pin To Net: NetName=NetModular8_D_4 Pin=U3-1
+Added Pin To Net: NetName=NetModular8_D_4 Pin=U3-7
+Added Net: Name=NetModular8_D_4
+Added Pin To Net: NetName=NetR1_2 Pin=R1-2
+Added Pin To Net: NetName=NetR1_2 Pin=U1-9
+Added Net: Name=NetR1_2
+Added Pin To Net: NetName=NetR2_2 Pin=R2-2
+Added Pin To Net: NetName=NetR2_2 Pin=U1-8
+Added Net: Name=NetR2_2
+Added Pin To Net: NetName=NetR3_1 Pin=R3-1
+Added Pin To Net: NetName=NetR3_1 Pin=RXLED-1
+Added Net: Name=NetR3_1
+Added Pin To Net: NetName=NetR4_1 Pin=R4-1
+Added Pin To Net: NetName=NetR4_1 Pin=TXLED-1
+Added Net: Name=NetR4_1
+Added Pin To Net: NetName=RXLED# Pin=R3-2
+Added Pin To Net: NetName=RXLED# Pin=U1-22
+Added Net: Name=RXLED#
+Added Pin To Net: NetName=SLEEP# Pin=U1-12
+Added Net: Name=SLEEP#
+Added Pin To Net: NetName=TXDEN Pin=U1-13
+Added Pin To Net: NetName=TXDEN Pin=U2-1
+Added Pin To Net: NetName=TXDEN Pin=U2-7
+Added Net: Name=TXDEN
+Added Pin To Net: NetName=TXLED# Pin=R4-2
+Added Pin To Net: NetName=TXLED# Pin=U1-23
+Added Net: Name=TXLED#
+Added Pin To Net: NetName=VCC Pin=C3-1
+Added Pin To Net: NetName=VCC Pin=C4-1
+Added Pin To Net: NetName=VCC Pin=C7-1
+Added Pin To Net: NetName=VCC Pin=FB1-2
+Added Pin To Net: NetName=VCC Pin=R6-1
+Added Pin To Net: NetName=VCC Pin=R7-1
+Added Pin To Net: NetName=VCC Pin=RXLED-2
+Added Pin To Net: NetName=VCC Pin=TXLED-2
+Added Pin To Net: NetName=VCC Pin=U1-3
+Added Pin To Net: NetName=VCC Pin=U1-12
+Added Pin To Net: NetName=VCC Pin=VUSB/VREG-1
+Added Net: Name=VCC
+Added Pin To Net: NetName=VCHIP Pin=BUFF POW-1
+Added Pin To Net: NetName=VCHIP Pin=Modular8-D_V1
+Added Pin To Net: NetName=VCHIP Pin=Modular8-D_V2
+Added Pin To Net: NetName=VCHIP Pin=VUSB/VREG-2
+Added Net: Name=VCHIP
+Added Class: Name=usb_breakout_rev_1

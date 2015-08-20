@@ -1,0 +1,13 @@
+Removed Pin From Net: NetName=VCC Pin=J3-1
+Removed Pin From Net: NetName=GND Pin=J3-2
+Removed Member From Class: ClassName=usb_breakout_rev_1 Member=J3
+Change Component Designator: OldDesignator=BUFFPOW NewDesignator=BUFF POW
+Added Component: Designator=ARD PGM(2x1 THRU HOLES 0.1" PITCH)
+Added Pin To Net: NetName=VCC Pin=U1-12
+Added Pin To Net: NetName=NetARD PGM_1 Pin=ARD PGM-1
+Added Pin To Net: NetName=NetARD PGM_1 Pin=Modular8-D_7
+Added Net: Name=NetARD PGM_1
+Added Pin To Net: NetName=NetARD PGM_2 Pin=ARD PGM-2
+Added Pin To Net: NetName=NetARD PGM_2 Pin=C8-2
+Added Net: Name=NetARD PGM_2
+Added Member To Class: ClassName=usb_breakout_rev_1 Member=Component ARD PGM 2x1

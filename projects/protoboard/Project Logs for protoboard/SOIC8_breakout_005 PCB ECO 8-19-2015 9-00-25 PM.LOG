@@ -1,0 +1,6 @@
+Change Net Name : Old Net Name=NetModular8_A_GND New Net Name=GND
+Added Pin To Net: NetName=VCC Pin=Modular8-A_V1
+Added Pin To Net: NetName=VCC Pin=Modular8-A_V2
+Added Pin To Net: NetName=VCC Pin=Modular8-C_V1
+Added Pin To Net: NetName=VCC Pin=Modular8-C_V2
+Added Net: Name=VCC

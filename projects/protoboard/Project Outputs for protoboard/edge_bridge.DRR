@@ -1,0 +1,16 @@
+---------------------------------------------------------------------------
+NCDrill File Report For: edge_bridge.PcbDoc   8/19/2015  11:09:38 PM
+---------------------------------------------------------------------------
+
+Layer Pair : Top Layer to Bottom Layer
+ASCII RoundHoles File : edge_bridge.TXT
+
+Tool         Hole Size           Hole Type     Hole Count Plated       Tool Travel
+---------------------------------------------------------------------------
+T1        31.5mil (0.8001mm)       Round          10               0.87 Inch (22.00 mm)
+T2        88.6mil (2.25044mm)      Round          1                0.00 Inch (0.00 mm)
+T3        88.6mil (2.25044mm)      Round          2         NPTH   1.26 Inch (32.00 mm)
+---------------------------------------------------------------------------
+Totals                                            13               2.13 Inch (54.00 mm)
+
+Total Processing Time (hh:mm:ss) : 00:00:00

@@ -1,0 +1,4 @@
+Added Component: Designator=ZD1(SOD-323F)
+Added Pin To Net: NetName=VCC Pin=ZD1-1
+Added Pin To Net: NetName=GND Pin=ZD1-2
+Added Member To Class: ClassName=voltage_monitor_rev_1 Member=Component ZD1 Zener 5.1V

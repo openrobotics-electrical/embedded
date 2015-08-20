@@ -1,0 +1,2 @@
+Change Component Designator: OldDesignator=POWER NewDesignator=VCC
+Change Net Name : Old Net Name=NetPOWER_1 New Net Name=NetR3_1
