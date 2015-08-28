@@ -1,12 +1,9 @@
-Output: NC Drill Files
-Type  : NC Drill
-From  : Project [modular_prototypes.PrjPcb]
-   Generated File[modular8_master_001.TXT]
-   Generated File[modular8_master_001.LDP]
-   Generated File[modular8_master_001.DRR]
+Output: Bill of Materials
+Type  : BOM
+From  : Variant [[No Variations]] of Project [modular_prototypes.PrjPcb]
 
 
-Files Generated   : 3
+Files Generated   : 0
 Documents Printed : 0
 
-Finished Output Generation At 11:05:14 PM On 8/18/2015
+Finished Output Generation At 9:26:03 PM On 8/27/2015

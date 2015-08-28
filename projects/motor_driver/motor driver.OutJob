@@ -2,9 +2,9 @@
 Version=1.0
 
 [PublishSettings]
-OutputFilePath2=C:\Users\Maxim\Documents\GitHub\open_robotics_embedded\projects\motor driver\.PDF
+OutputFilePath2=C:\Users\Maxim\Documents\GitHub\open_robotics_embedded\projects\motor_driver\.PDF
 ReleaseManaged2=0
-OutputBasePath2=C:\Users\Maxim\Documents\GitHub\open_robotics_embedded\projects\motor driver\
+OutputBasePath2=C:\Users\Maxim\Documents\GitHub\open_robotics_embedded\projects\motor_driver\
 OutputPathMedia2=
 OutputPathMediaValue2=
 OutputPathOutputer2=[Output Type]
@@ -79,7 +79,7 @@ WmvVideoCodecName4=Windows Media Video V7
 WmvQuality4=80
 
 [GeneratedFilesSettings]
-RelativeOutputPath2=C:\Users\Maxim\Documents\GitHub\open_robotics_embedded\projects\motor driver\.PDF
+RelativeOutputPath2=C:\Users\Maxim\Documents\GitHub\open_robotics_embedded\projects\motor_driver\.PDF
 OpenOutputs2=1
 RelativeOutputPath3=
 OpenOutputs3=1
