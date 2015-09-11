@@ -17,8 +17,6 @@
 #include <util/delay.h>
 #include <math.h>
 
-uint8_t analogHigh, analogLow;
-
 ISR(ADC_vect) {
 	
 	analogLow = ADCL;
@@ -35,15 +33,15 @@ bool isBitSet(uint8_t bit, volatile uint8_t *reg) {
 
 class Analog {
 	
-	/*	class last edited April 29th, 2015	*/
+private:
 	
-	public:
+	volatile uint8_t analogHigh, analogLow;
 	
-	//------STATIC FUNCTIONS
+public:
 	
 	static void selectChannel (uint8_t n) {
 		
-		setBitTo(n, 0, &PORTC);
+		DDRC = _BV(n) & ~DDRC;
 		ADMUX  = 0b01100000 | n; // port n ADC selected
 		ADCSRA = 0b10001011; // on, 2x clock
 		ADCSRB = 0b00000000; // free running
@@ -54,25 +52,6 @@ class Analog {
 	static bool conversionComplete () { return isBitSet(ADSC, &ADCSRA)? false : true; }
 	
 	static uint16_t getValue () { return ((analogHigh << 2) | (analogLow >> 6)); }
-	
-	static void test () {
-		
-		// selects PORTC0 (Nano: A0) and outputs ADC value
-		
-		sei(); // enable interrupts
-		char str[20];
-		
-		while(1) {
-			
-			Analog::selectChannel(0);
-			Analog::startConversion();
-			
-			// may need some setup time if only calling once
-			
-			// sprintf(str, "ADC value: %u\n", Analog::getValue());
-			// USART_Send_string(str);
-		}
-	}
 };
 
 int main(void)
