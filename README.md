@@ -1,5 +1,5 @@
 #open_robotics_embedded<br>
-Seriously any questions get at me max@theprogrammingclub.com<br>
+Seriously any questions get at me max.prokopenko@gmail.com<br>
 ###Organization of this repo<br>
 &nbsp;&nbsp;<a href="../../tree/master/the_plan/">**the_plan/**</a> outlines philosophy, long-term goals, and specifications<br>
 &nbsp;&nbsp;<a href="../../tree/master/documents/">**documents/**</a> has IC pinouts, device information<br>
