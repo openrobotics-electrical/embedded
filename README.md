@@ -57,13 +57,11 @@ In case of Git conflicts: <br>
 &nbsp;&nbsp;<a href="https://www.obdev.at/products/crosspack/index.html">Programming with mac OS X</a><br>
 <br>
 &nbsp;&nbsp;Example Makefile settings (OS X):<br>
-<code>
-    DEVICE     = atmega328p
-    CLOCK      = 14745600
-    PROGRAMMER = -c avrisp -b 19200 -U flash:w:main.hex -P /dev/tty.usbserial-A600bTaM -v 
-    OBJECTS    = main.o
-    FUSES      = -U efuse:w:0x05:m hfuse:w:0xd6:m -U lfuse:w:0xff:m
-</code><br>
+<code>    DEVICE     = atmega328p</code><br>
+<code>    CLOCK      = 14745600</code><br>
+<code>    PROGRAMMER = -c avrisp -b 19200 -U flash:w:main.hex -P /dev/tty.usbserial-A600bTaM -v</code><br> 
+<code>    OBJECTS    = main.o</code><br>
+<code>    FUSES      = -U efuse:w:0x05:m hfuse:w:0xd6:m -U lfuse:w:0xff:m</code><br>
 &nbsp;&nbsp;Similar command-line invocation of avrdude, without fuses:<br>
 <code>    avrdude -c avrisp -b 19200 -U flash:w:main.hex -P /dev/tty.usbserial-AL0151UO</code><br>
 <br>
