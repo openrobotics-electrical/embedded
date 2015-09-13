@@ -54,12 +54,17 @@ In case of Git conflicts: <br>
 ###Helpful links/tips for ICSP(In-Circuit Serial Programming)<br>
 &nbsp;&nbsp;<a href="http://playground.arduino.cc/Code/MegaISP">Arduino MegaISP</a><br>
 &nbsp;&nbsp;<a href="https://learn.sparkfun.com/tutorials/installing-an-arduino-bootloader">Installing a bootloader</a><br>
-&nbsp;&nbsp;<a href="/usr/local/CrossPack-AVR-20131216/manual/gettingstarted.html">Programming with mac OS X</a><br>
+&nbsp;&nbsp;<a href="https://www.obdev.at/products/crosspack/index.html">Programming with mac OS X</a><br>
 <br>
 &nbsp;&nbsp;Example Makefile settings (OS X):<br>
-<code>    PROGRAMMER = -c avrisp -b 19200 -U flash:w:main.hex -P /dev/tty.usbserial-A600bTaM -v</code><br>
-<br>
-&nbsp;&nbsp;Similar command-line invocation of avrdude:<br>
+<code>
+    DEVICE     = atmega328p
+    CLOCK      = 14745600
+    PROGRAMMER = -c avrisp -b 19200 -U flash:w:main.hex -P /dev/tty.usbserial-A600bTaM -v 
+    OBJECTS    = main.o
+    FUSES      = -U efuse:w:0x05:m hfuse:w:0xd6:m -U lfuse:w:0xff:m
+</code><br>
+&nbsp;&nbsp;Similar command-line invocation of avrdude, without fuses:<br>
 <code>    avrdude -c avrisp -b 19200 -U flash:w:main.hex -P /dev/tty.usbserial-AL0151UO</code><br>
 <br>
 &nbsp;&nbsp;If you are receiving stk500 errors when attempting to program via ICSP try holding down the RESET button of the programmer (or Arduino as ISP) right before you program<br>
