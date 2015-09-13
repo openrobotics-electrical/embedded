@@ -59,6 +59,9 @@ In case of Git conflicts: <br>
 &nbsp;&nbsp;Example Makefile settings (OS X):<br>
 <code>    PROGRAMMER = -c avrisp -b 19200 -U flash:w:main.hex -P /dev/tty.usbserial-A600bTaM -v</code><br>
 <br>
+&nbsp;&nbsp;Similar command-line invocation of avrdude:<br>
+<code>    avrdude -c avrisp -b 19200 -U flash:w:main.hex -P /dev/tty.usbserial-AL0151UO</code><br>
+<br>
 &nbsp;&nbsp;If you are receiving stk500 errors when attempting to program via ICSP try holding down the RESET button of the programmer (or Arduino as ISP) right before you program<br>
 <br>
 
