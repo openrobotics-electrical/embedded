@@ -55,6 +55,7 @@ In case of Git conflicts: <br>
 &nbsp;&nbsp;<a href="http://playground.arduino.cc/Code/MegaISP">Arduino MegaISP</a><br>
 &nbsp;&nbsp;<a href="https://learn.sparkfun.com/tutorials/installing-an-arduino-bootloader">Installing a bootloader</a><br>
 &nbsp;&nbsp;<a href="https://www.obdev.at/products/crosspack/index.html">Programming with mac OS X</a><br>
+&nbsp;&nbsp;<a href="http://blog.allthingsgeek.com/article/index/index/id/27#.Vfd-CBFVhBe">Bootloader flashing</a><br>
 <br>
 &nbsp;&nbsp;Example Makefile settings (OS X):<br>
 <code>    DEVICE     = atmega328p</code><br>
