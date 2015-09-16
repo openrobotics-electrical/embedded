@@ -28,7 +28,7 @@ PowerPortNamesTakePriority=0
 PushECOToAnnotationFile=1
 DItemRevisionGUID=
 ReportSuppressedErrorsInMessages=0
-OutputPath=Project Outputs for dynamixel adaptor
+OutputPath=
 LogFolderPath=
 ManagedProjectGUID=
 
@@ -151,7 +151,7 @@ SCH_HasExpandLogicalToPhysicalSheets=-1
 SaveSettingsToOutJob=-1
 
 [Generic_EDE]
-OutputDir=Project Outputs for dynamixel adaptor
+OutputDir=
 
 [OutputGroup1]
 Name=Netlist Outputs
