@@ -22,6 +22,7 @@ extern "C" void __cxa_pure_virtual() {;}
 //
 //
 void motors_enable(bool on);
+void set_PWM(float M1, float M2);
 
 #include "C:\Program Files (x86)\Arduino\hardware\arduino\avr\variants\mega\pins_arduino.h" 
 #include "C:\Program Files (x86)\Arduino\hardware\arduino\avr\cores\arduino\arduino.h"

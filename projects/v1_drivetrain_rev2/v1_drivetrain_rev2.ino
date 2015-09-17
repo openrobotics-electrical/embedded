@@ -21,31 +21,32 @@ void setup()
 	M2A_DDR = EN1A | IN1A;
 	M2B_DDR = EN2B | IN2B;
 	
-	M1_output = -0.1f;
-	M2_output = 0.55f;
+	set_PWM(0.1f, 0.1f);
 	motors_enable(true);
 }
 
 void loop()
 {
-	M1A_PORT = M1A_PORT ^ EN1A;
+	static uint8_t time = 0;
+	time = time > time_steps? 0 : time + 1;
 	
-	static float time = 0; // range 0 to 1
-	time = time > 1? 0 : time + 0.01f; // 100 time steps
-	
-	// set motor 1 PWM
-	M1A_PORT = time < M1_output? M1A_PORT & ~IN1A : M1A_PORT | IN1A;
+	// set motor outputs
+	M1A_PORT = time <  M1_output? M1A_PORT | IN1A : M1A_PORT & ~IN1A;
 	M1B_PORT = time < -M1_output? M1B_PORT | IN1B : M1B_PORT & ~IN1B;
-	
-	// set motor 2 PWM
-	M2A_PORT = time < M2_output? M2A_PORT | IN2A : M2A_PORT & ~IN2A;
+	M2A_PORT = time <  M2_output? M2A_PORT | IN2A : M2A_PORT & ~IN2A;
 	M2B_PORT = time < -M2_output? M2B_PORT | IN2B : M2B_PORT & ~IN2B;
 }
 
 void motors_enable(bool on) 
 {	
-	M1A_PORT = on? EN1A : 0;
-	M1B_PORT = on? EN1B : 0;
-	M2A_PORT = on? EN2A : 0;
-	M2B_PORT = on? EN2B : 0;
+	M1A_PORT = on? EN1A | M1A_PORT : EN1A & ~M1A_PORT;
+	M1B_PORT = on? EN1B | M1B_PORT : EN1A & ~M1B_PORT;
+	M2A_PORT = on? EN2A | M2A_PORT : EN1A & ~M2A_PORT;
+	M2B_PORT = on? EN2B | M2B_PORT : EN1A & ~M2B_PORT;
+}
+
+void set_PWM(float M1, float M2) // range -1.0f to 1.0f
+{	
+	M1_output = M1 * time_steps;
+	M2_output = M2 * time_steps;
 }
