@@ -15,7 +15,7 @@ bool M1_direction, M2_direction;
 #define M1B_PORT PORTL
 #define M1B_DDR DDRL
 #define M1B_PIN PINL
-const uint8_t EN1A = _BV(0), EN1B = _BV(6), IN1A = _BV(2), IN1B = _BV(4);
+const uint8_t EN1A = 1 << 0, EN1B = 1 << 6, IN1A = 1 << 2, IN1B = 1 << 4;
 
 // setup Motor 2 definitions and variables
 #define M2A_PORT PORTL
@@ -24,11 +24,11 @@ const uint8_t EN1A = _BV(0), EN1B = _BV(6), IN1A = _BV(2), IN1B = _BV(4);
 #define M2B_PORT PORTB
 #define M2B_DDR DDRB
 #define M2B_PIN PINB
-const uint8_t EN2A = _BV(0), EN2B = _BV(2), IN2A = _BV(2), IN2B = _BV(0);
+const uint8_t EN2A = 1 << 0, EN2B = 1 << 2, IN2A = 1 << 2, IN2B = 1 << 0;
 
 // PWM pins
 #define PWM_PORT PORTH
 #define PWM_DDR DDRH
-const uint8_t PWM1 = _BV(3), PWM2 = _BV(4);
+const uint8_t PWM1 = 1 << 3, PWM2 = 1 << 4;
 
 #endif

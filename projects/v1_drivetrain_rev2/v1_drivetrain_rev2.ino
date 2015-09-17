@@ -97,8 +97,9 @@ volatile uint16_t s_count = 0;
 
 void loop()
 {
-	if(received_flag) {
-		
+	if(received_flag) 
+	{
+		// just jerking around here
 		uint8_t input_value = (uint8_t)input_string[0] - '0';
 		set_PWM(0, (input_value * 1.3333 + 5) / 20.0f);
 		chars_received = 0;
