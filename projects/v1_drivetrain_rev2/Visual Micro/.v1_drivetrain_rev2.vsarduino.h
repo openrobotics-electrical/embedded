@@ -19,6 +19,10 @@
 #define ARDUINO_ARCH_AVR
 extern "C" void __cxa_pure_virtual() {;}
 
+void onReceived(volatile char* s, uint8_t char_count);
+void serialEvent();
+void serial_init();
+void serial_transmit(char* s, uint8_t char_count);
 //
 //
 void motors_enable(bool on);
