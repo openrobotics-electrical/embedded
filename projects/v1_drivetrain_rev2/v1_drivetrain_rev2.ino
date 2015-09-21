@@ -17,29 +17,35 @@
 volatile char* transmitting;
 volatile uint8_t chars_left = 0, chars_sent = 0;
 
-volatile char input_string[256];
+volatile char input_stream[256];
 volatile uint8_t chars_read = 0, chars_received = 0;
 volatile bool received_flag = false;
+volatile bool delimiter_found = false;
+volatile bool address_selected = false;
 
-void onReceived(volatile char* s, uint8_t char_count) 
-{
-	received_flag = true;
-}
+volatile char in;
 
-void serialEvent()
-{
-	while (Serial.available())
+ISR(USART_RX_vect) {}
+	
+void serialEvent() {
+	
+	while(Serial.available()) 
 	{
-		volatile char in = (volatile char)Serial.read();
-		input_string[chars_read] = in;
-		chars_read++;
-
-		if (true) // in == '\n')
+		in = Serial.read();
+	
+		if(delimiter_found)
 		{
-			onReceived(input_string, chars_read);
-			chars_read = 0;
-			chars_received = chars_read;
+			input_stream[chars_read] = in;
+			chars_read++;
+
+			if (chars_read == 3)
+			{
+				received_flag = true;
+				chars_read = 0;
+				delimiter_found = false;
+			}
 		}
+		else delimiter_found = (in == '@');	
 	}
 }
 
@@ -49,7 +55,7 @@ ISR(USART_TX_vect) {
 		
 		UDR0 = transmitting[chars_sent++];
 		
-		} else {
+	} else {
 		
 		chars_sent = 0;
 	}
@@ -60,7 +66,7 @@ void serial_init() {
 	UBRR0H = 0;
 	UBRR0L = 16; // BAUD 115200
 	UCSR0A = _BV(U2X0);
-	UCSR0B = _BV(TXCIE0) | _BV(RXEN0) | _BV(TXEN0);
+	UCSR0B = _BV(TXCIE0) /*| _BV(RXCIE0) */| _BV(RXEN0) | _BV(TXEN0);
 	UCSR0C = _BV(UCSZ01) | _BV(UCSZ00);
 }
 
@@ -76,7 +82,7 @@ void serial_transmit(char* s, uint8_t char_count) {
 
 void setup()
 {
-	Serial.begin(115200);
+	Serial.begin(57600);
 	// serial_init();
 	// sei();
 	
@@ -88,7 +94,7 @@ void setup()
 	PWM_DDR = PWM1 | PWM2;
 	PWM_PORT = PWM1 | PWM2;
 	
-	set_PWM(0.0f, 0.1f);
+	set_PWM(0.0f, 0.0f);
 	motors_enable(true);
 }
 
@@ -99,9 +105,7 @@ void loop()
 {
 	if(received_flag) 
 	{
-		// just jerking around here
-		uint8_t input_value = (uint8_t)input_string[0] - '0';
-		set_PWM(0, (input_value * 1.3333 + 5) / 20.0f);
+		set_PWM(0.01f * input_stream[2], 0.01f * input_stream[1]);
 		chars_received = 0;
 		received_flag = false;
 	}
@@ -116,7 +120,7 @@ void loop()
 	M2A_PORT =  M2_direction? M2A_PORT | IN2A : M2A_PORT & ~IN2A;
 	M2B_PORT = !M2_direction? M2B_PORT | IN2B : M2B_PORT & ~IN2B;
 	
-	_delay_us(10);
+	_delay_us(5);
 }
 
 void motors_enable(bool on) 
