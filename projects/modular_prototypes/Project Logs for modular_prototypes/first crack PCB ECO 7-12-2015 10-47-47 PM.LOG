@@ -1,8 +1,0 @@
-Added Component: Designator=EDGE A(ModuloX edge)
-Added Component: Designator=EDGE B(ModuloX edge)
-Added Component: Designator=EDGE C(ModuloX edge)
-Added Component: Designator=EDGE D(ModuloX edge)
-Added Member To Class: ClassName=module_rev1 Member=Component EDGE A ModuloX edge A
-Added Member To Class: ClassName=module_rev1 Member=Component EDGE B ModuloX edge B
-Added Member To Class: ClassName=module_rev1 Member=Component EDGE C ModuloX edge C
-Added Member To Class: ClassName=module_rev1 Member=Component EDGE D ModuloX edge D

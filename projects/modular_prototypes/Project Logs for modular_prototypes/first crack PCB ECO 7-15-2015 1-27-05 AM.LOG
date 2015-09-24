@@ -1,8 +1,0 @@
-Removed Pin From Net: NetName=SCK Pin=ModuloX-9
-Removed Pin From Net: NetName=SCL Pin=ModuloX-15
-Removed Pin From Net: NetName=SDA Pin=ModuloX-16
-Removed Pin From Net: NetName=SCK Pin=ModuloX-25
-Removed Pin From Net: NetName=NetMCU1_29 Pin=ModuloX-28
-Removed Pin From Net: NetName=SCL Pin=ModuloX-31
-Removed Pin From Net: NetName=SDA Pin=ModuloX-32
-Removed Member From Class: ClassName=module_rev1 Member=ModuloX

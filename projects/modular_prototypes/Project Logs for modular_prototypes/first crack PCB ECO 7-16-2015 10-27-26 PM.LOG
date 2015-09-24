@@ -1,4 +1,0 @@
-Change Component Footprint: Designator=PLANES Old Footprint= New Footprint=0603 JUMPER
-Change Component Footprint: Designator=TERMINATE Old Footprint= New Footprint=0603 JUMPER
-Change Component Kind : Designator=TERMINATE Old Kind=Standard New Kind=Jumper
-Change Component Kind : Designator=PLANES Old Kind=Standard New Kind=Jumper

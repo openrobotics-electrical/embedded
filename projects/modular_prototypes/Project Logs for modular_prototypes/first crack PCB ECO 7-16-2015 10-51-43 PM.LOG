@@ -1,7 +1,0 @@
-Removed Pin From Net: NetName=DGND Pin=ModuloX-35
-Removed Pin From Net: NetName=DGND Pin=ModuloX-35
-Removed Pin From Net: NetName=DGND Pin=ModuloX-35
-Change Component Footprint: Designator=TERMINATE Old Footprint=0603 JUMPER New Footprint=0603
-Added Pin To Net: NetName=DGND Pin=ModuloX-34
-Added Pin To Net: NetName=DGND Pin=ModuloX-34
-Added Pin To Net: NetName=DGND Pin=ModuloX-34

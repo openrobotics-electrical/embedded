@@ -1,6 +1,0 @@
-Change Component Footprint: Designator=ModuloX Old Footprint= New Footprint=ModX
-Added Pin To Net: NetName=NetMCU1_24 Pin=ModuloX-20
-Added Pin To Net: NetName=NetMCU1_26 Pin=ModuloX-22
-Added Pin To Net: NetName=SCL Pin=ModuloX-24
-Added Pin To Net: NetName=AVCC Pin=ModuloX-36
-Added Pin To Net: NetName=AGND Pin=ModuloX-37

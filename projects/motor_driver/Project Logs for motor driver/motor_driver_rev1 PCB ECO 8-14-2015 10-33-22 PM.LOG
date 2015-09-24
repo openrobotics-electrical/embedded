@@ -1,9 +1,0 @@
-Removed Pin From Net: NetName=4.096V Pin=Modular8-A_ALT2
-Removed Pin From Net: NetName=5V Pin=Modular8-A_VCC
-Removed Pin From Net: NetName=5V Pin=Modular8-A_VCC
-Change Component Footprint: Designator=Modular8 Old Footprint= New Footprint=modular8 metric power
-Change Component Designator: OldDesignator=PLANES NewDesignator=GND TIE
-Change Component Designator: OldDesignator=POW NewDesignator=POW ON
-Change Component Designator: OldDesignator=VCC NewDesignator=VCC ON
-Added Pin To Net: NetName=5V Pin=Modular8-A_V1
-Added Pin To Net: NetName=4.096V Pin=Modular8-A_V2

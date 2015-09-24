@@ -1,8 +1,0 @@
-Added Component: Designator=J7(4x1 THRU HOLES 0.1" PITCH)
-Added Component: Designator=J8(4x1 THRU HOLES 0.1" PITCH)
-Added Component: Designator=J9(4x1 THRU HOLES 0.1" PITCH)
-Added Component: Designator=J10(4x1 THRU HOLES 0.1" PITCH)
-Added Member To Class: ClassName=SOIC8_breakout Member=Component J7 4x1
-Added Member To Class: ClassName=SOIC8_breakout Member=Component J8 4x1
-Added Member To Class: ClassName=SOIC8_breakout Member=Component J9 4x1
-Added Member To Class: ClassName=SOIC8_breakout Member=Component J10 4x1

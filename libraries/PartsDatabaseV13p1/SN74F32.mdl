@@ -1,3 +1,0 @@
-*Texas Instruments
-*SN74F32: FAST Quad 2-in OR
-.MODEL SN74F32 xsimcode(file="{MODEL_PATH}FAST.SCB" func=f32 {mntymx})

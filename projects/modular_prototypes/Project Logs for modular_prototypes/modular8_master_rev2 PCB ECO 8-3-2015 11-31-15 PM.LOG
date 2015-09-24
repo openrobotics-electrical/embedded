@@ -1,8 +1,0 @@
-Removed Pin From Net: NetName=AREF Pin=C6-1
-Removed Pin From Net: NetName=VCC Pin=L1-1
-Removed Pin From Net: NetName=AVCC Pin=L1-2
-Change Component DesignItemId : Designator=C6 Old DesignItemId=C 0.1uF 25V New DesignItemId=C 1uF 25V
-Change Component Comment : Designator=C6 Old Comment=C 0.1uF 25V New Comment=C 1uF 25V
-Added Pin To Net: NetName=AGND Pin=C6-1
-Added Pin To Net: NetName=AVCC Pin=L1-1
-Added Pin To Net: NetName=VCC Pin=L1-2

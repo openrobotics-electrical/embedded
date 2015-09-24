@@ -1,8 +1,0 @@
-Added Pin To Net: NetName=NetEDGEA_1 Pin=EDGEA-1
-Added Pin To Net: NetName=NetEDGEA_1 Pin=EDGEC-1
-Added Pin To Net: NetName=NetEDGEA_1 Pin=HEADER4-8
-Added Net: Name=NetEDGEA_1
-Added Pin To Net: NetName=NetEDGEA_10 Pin=EDGEA-10
-Added Pin To Net: NetName=NetEDGEA_10 Pin=EDGEC-10
-Added Pin To Net: NetName=NetEDGEA_10 Pin=HEADER4-1
-Added Net: Name=NetEDGEA_10

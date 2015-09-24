@@ -1,4 +1,0 @@
-Removed Pin From Net: NetName=AREF Pin=Modular8-C_ALT2
-Change Component Designator: OldDesignator=POWER NewDesignator=POW LED
-Change Component Designator: OldDesignator=SCK NewDesignator=SCK LED
-Added Pin To Net: NetName=AREF Pin=Modular8-C_ALT1

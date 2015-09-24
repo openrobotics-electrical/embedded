@@ -1,8 +1,0 @@
-Removed Pin From Net: NetName=AREF Pin=Modular8-A_V1
-Removed Pin From Net: NetName=VCC Pin=Modular8-A_V2
-Removed Pin From Net: NetName=VCC Pin=Modular8-C_V1
-Removed Pin From Net: NetName=AREF Pin=Modular8-C_V2
-Added Pin To Net: NetName=VCC Pin=Modular8-A_V1
-Added Pin To Net: NetName=AREF Pin=Modular8-A_V2
-Added Pin To Net: NetName=AREF Pin=Modular8-C_V1
-Added Pin To Net: NetName=VCC Pin=Modular8-C_V2

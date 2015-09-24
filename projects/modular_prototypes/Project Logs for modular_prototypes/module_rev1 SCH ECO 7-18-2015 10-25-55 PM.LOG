@@ -1,8 +1,0 @@
-Change Pin Designator/Name:  Old Designator=MX1-1 Old Name=PD3 New Designator =PB0/CLK0 New Name=12
-Change Pin Designator/Name:  Old Designator=MX1-2 Old Name=PD4 New Designator =PD2 New Name=32
-Change Pin Designator/Name:  Old Designator=MX1-9 Old Name=PD5 New Designator =PD3 New Name=1
-Change Pin Designator/Name:  Old Designator=MX1-10 Old Name=PD6/AIN0 New Designator =PD4 New Name=2
-Change Pin Designator/Name:  Old Designator=MX1-11 Old Name=PD7/AIN1 New Designator =PD5 New Name=9
-Change Pin Designator/Name:  Old Designator=MX1-12 Old Name=PB0/CLK0 New Designator =PD6/AIN0 New Name=10
-Change Pin Designator/Name:  Old Designator=MX1-13 Old Name=PB1/OC1A New Designator =PD7/AIN1 New Name=11
-Change Pin Designator/Name:  Old Designator=MX1-32 Old Name=PD2 New Designator =PB1/OC1A New Name=13

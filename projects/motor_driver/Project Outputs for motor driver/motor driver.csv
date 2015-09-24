@@ -1,8 +1,0 @@
-Description,Designator,Footprint,LibRef,Quantity,R,C
-
-"","C1, C2, C3, C4, C5, C6","0603","Capacitor","6","","10uF, 10uF, 0.1uF, 0.1uF, 0.1uF, 0.1uF"
-"","GND TIE, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R20, R21, RSENSE1, RSENSE2","0603","Resistor","18","0, 10k, 10k, 330, 10k, 10k, 10k, 10k, 100k, 100k, 100k, 100k, 100k, 100k, 100k, 100k, 0.02, 0.02",""
-"","M1, M2","","A4950","2","",""
-"","Modular8","modular8","Modular8","1","",""
-"","U1","","LM324DT","1","",""
-"","ZD1","","Zener","1","",""

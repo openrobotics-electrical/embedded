@@ -1,6 +1,0 @@
-Change Component Designator: OldDesignator=ICSP NewDesignator=H1
-Change Component Designator: OldDesignator=POW NewDesignator=POW LED
-Added Component: Designator=R3(0603)
-Added Pin To Net: NetName=SCK Pin=R3-1
-Added Pin To Net: NetName=NetR3_2 Pin=R3-2
-Added Member To Class: ClassName=module_rev2 Member=Component R3 R 680

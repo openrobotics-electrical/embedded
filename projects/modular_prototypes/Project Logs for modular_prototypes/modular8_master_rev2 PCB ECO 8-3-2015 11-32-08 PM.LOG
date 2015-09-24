@@ -1,5 +1,0 @@
-Added Component: Designator=VREF1(SOT-23-3)
-Added Pin To Net: NetName=AREF Pin=VREF1-1
-Added Pin To Net: NetName=AGND Pin=VREF1-2
-Added Pin To Net: NetName=AVCC Pin=VREF1-3
-Added Member To Class: ClassName=module_rev2 Member=Component VREF1 AD1584BRTZ

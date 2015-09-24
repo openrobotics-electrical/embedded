@@ -1,4 +1,0 @@
-Added Component: Designator=R2(0603)
-Added Pin To Net: NetName=DGND Pin=R2-1
-Added Pin To Net: NetName=AGND Pin=R2-2
-Added Member To Class: ClassName=module_rev1 Member=Component R2 Resistor
