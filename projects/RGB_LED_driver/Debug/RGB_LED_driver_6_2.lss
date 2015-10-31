@@ -1,0 +1,408 @@
+
+RGB_LED_driver_6_2.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000008  00800100  00000278  0000030c  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         00000278  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .bss          0000001b  00800108  00800108  00000314  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  00000314  2**0
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000050  00000000  00000000  00000344  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   000002cf  00000000  00000000  00000394  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 00000186  00000000  00000000  00000663  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   00000192  00000000  00000000  000007e9  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  000000f0  00000000  00000000  0000097c  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    0000026c  00000000  00000000  00000a6c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    0000023d  00000000  00000000  00000cd8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000058  00000000  00000000  00000f15  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 34 00 	jmp	0x68	; 0x68 <__ctors_end>
+   4:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+   8:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+   c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  10:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  14:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  18:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  1c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  20:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  24:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  28:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  2c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  30:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  34:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  38:	0c 94 ce 00 	jmp	0x19c	; 0x19c <__vector_14>
+  3c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  40:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  44:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  48:	0c 94 7f 00 	jmp	0xfe	; 0xfe <__vector_18>
+  4c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  50:	0c 94 53 00 	jmp	0xa6	; 0xa6 <__vector_20>
+  54:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  58:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  5c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  60:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  64:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+
+00000068 <__ctors_end>:
+  68:	11 24       	eor	r1, r1
+  6a:	1f be       	out	0x3f, r1	; 63
+  6c:	cf ef       	ldi	r28, 0xFF	; 255
+  6e:	d8 e0       	ldi	r29, 0x08	; 8
+  70:	de bf       	out	0x3e, r29	; 62
+  72:	cd bf       	out	0x3d, r28	; 61
+
+00000074 <__do_copy_data>:
+  74:	11 e0       	ldi	r17, 0x01	; 1
+  76:	a0 e0       	ldi	r26, 0x00	; 0
+  78:	b1 e0       	ldi	r27, 0x01	; 1
+  7a:	e8 e7       	ldi	r30, 0x78	; 120
+  7c:	f2 e0       	ldi	r31, 0x02	; 2
+  7e:	02 c0       	rjmp	.+4      	; 0x84 <__do_copy_data+0x10>
+  80:	05 90       	lpm	r0, Z+
+  82:	0d 92       	st	X+, r0
+  84:	a8 30       	cpi	r26, 0x08	; 8
+  86:	b1 07       	cpc	r27, r17
+  88:	d9 f7       	brne	.-10     	; 0x80 <__do_copy_data+0xc>
+
+0000008a <__do_clear_bss>:
+  8a:	21 e0       	ldi	r18, 0x01	; 1
+  8c:	a8 e0       	ldi	r26, 0x08	; 8
+  8e:	b1 e0       	ldi	r27, 0x01	; 1
+  90:	01 c0       	rjmp	.+2      	; 0x94 <.do_clear_bss_start>
+
+00000092 <.do_clear_bss_loop>:
+  92:	1d 92       	st	X+, r1
+
+00000094 <.do_clear_bss_start>:
+  94:	a3 32       	cpi	r26, 0x23	; 35
+  96:	b2 07       	cpc	r27, r18
+  98:	e1 f7       	brne	.-8      	; 0x92 <.do_clear_bss_loop>
+  9a:	0e 94 fb 00 	call	0x1f6	; 0x1f6 <main>
+  9e:	0c 94 3a 01 	jmp	0x274	; 0x274 <_exit>
+
+000000a2 <__bad_interrupt>:
+  a2:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+000000a6 <__vector_20>:
+
+#define RX_BUFFER_SIZE 16
+volatile char receiving[16];
+volatile uint8_t rx_index = 0, rx_head = 0, chars_unread = 0;
+
+ISR(USART_TX_vect) {
+  a6:	1f 92       	push	r1
+  a8:	0f 92       	push	r0
+  aa:	0f b6       	in	r0, 0x3f	; 63
+  ac:	0f 92       	push	r0
+  ae:	11 24       	eor	r1, r1
+  b0:	8f 93       	push	r24
+  b2:	9f 93       	push	r25
+  b4:	ef 93       	push	r30
+  b6:	ff 93       	push	r31
+	
+	if(chars_left-- > 0) {	
+  b8:	80 91 20 01 	lds	r24, 0x0120
+  bc:	9f ef       	ldi	r25, 0xFF	; 255
+  be:	98 0f       	add	r25, r24
+  c0:	90 93 20 01 	sts	0x0120, r25
+  c4:	88 23       	and	r24, r24
+  c6:	81 f0       	breq	.+32     	; 0xe8 <__vector_20+0x42>
+		UDR0 = transmitting[chars_sent++];	
+  c8:	e0 91 21 01 	lds	r30, 0x0121
+  cc:	f0 91 22 01 	lds	r31, 0x0122
+  d0:	80 91 1f 01 	lds	r24, 0x011F
+  d4:	91 e0       	ldi	r25, 0x01	; 1
+  d6:	98 0f       	add	r25, r24
+  d8:	90 93 1f 01 	sts	0x011F, r25
+  dc:	e8 0f       	add	r30, r24
+  de:	f1 1d       	adc	r31, r1
+  e0:	80 81       	ld	r24, Z
+  e2:	80 93 c6 00 	sts	0x00C6, r24
+  e6:	02 c0       	rjmp	.+4      	; 0xec <__vector_20+0x46>
+	} else {
+		chars_sent = 0;
+  e8:	10 92 1f 01 	sts	0x011F, r1
+	}
+}
+  ec:	ff 91       	pop	r31
+  ee:	ef 91       	pop	r30
+  f0:	9f 91       	pop	r25
+  f2:	8f 91       	pop	r24
+  f4:	0f 90       	pop	r0
+  f6:	0f be       	out	0x3f, r0	; 63
+  f8:	0f 90       	pop	r0
+  fa:	1f 90       	pop	r1
+  fc:	18 95       	reti
+
+000000fe <__vector_18>:
+
+bool flag = false;
+
+ISR(USART_RX_vect) {
+  fe:	1f 92       	push	r1
+ 100:	0f 92       	push	r0
+ 102:	0f b6       	in	r0, 0x3f	; 63
+ 104:	0f 92       	push	r0
+ 106:	11 24       	eor	r1, r1
+ 108:	8f 93       	push	r24
+ 10a:	9f 93       	push	r25
+ 10c:	ef 93       	push	r30
+ 10e:	ff 93       	push	r31
+	
+	UCSR0A &= ~_BV(RXC0); // clear flag
+ 110:	e0 ec       	ldi	r30, 0xC0	; 192
+ 112:	f0 e0       	ldi	r31, 0x00	; 0
+ 114:	80 81       	ld	r24, Z
+ 116:	8f 77       	andi	r24, 0x7F	; 127
+ 118:	80 83       	st	Z, r24
+	receiving[rx_index] = UDR0;
+ 11a:	e0 91 0e 01 	lds	r30, 0x010E
+ 11e:	f0 e0       	ldi	r31, 0x00	; 0
+ 120:	80 91 c6 00 	lds	r24, 0x00C6
+ 124:	e1 5f       	subi	r30, 0xF1	; 241
+ 126:	fe 4f       	sbci	r31, 0xFE	; 254
+ 128:	80 83       	st	Z, r24
+	rx_index = (rx_index + 1) % RX_BUFFER_SIZE;
+ 12a:	80 91 0e 01 	lds	r24, 0x010E
+ 12e:	90 e0       	ldi	r25, 0x00	; 0
+ 130:	01 96       	adiw	r24, 0x01	; 1
+ 132:	8f 70       	andi	r24, 0x0F	; 15
+ 134:	90 78       	andi	r25, 0x80	; 128
+ 136:	80 93 0e 01 	sts	0x010E, r24
+	chars_unread++;
+ 13a:	80 91 0d 01 	lds	r24, 0x010D
+ 13e:	8f 5f       	subi	r24, 0xFF	; 255
+ 140:	80 93 0d 01 	sts	0x010D, r24
+	PORTB = ~PORTB;
+ 144:	85 b1       	in	r24, 0x05	; 5
+ 146:	80 95       	com	r24
+ 148:	85 b9       	out	0x05, r24	; 5
+}
+ 14a:	ff 91       	pop	r31
+ 14c:	ef 91       	pop	r30
+ 14e:	9f 91       	pop	r25
+ 150:	8f 91       	pop	r24
+ 152:	0f 90       	pop	r0
+ 154:	0f be       	out	0x3f, r0	; 63
+ 156:	0f 90       	pop	r0
+ 158:	1f 90       	pop	r1
+ 15a:	18 95       	reti
+
+0000015c <_Z11serial_initv>:
+
+void serial_init() {
+	
+	UBRR0H = 0;
+ 15c:	10 92 c5 00 	sts	0x00C5, r1
+	UBRR0L = 16; // BAUD 115200
+ 160:	80 e1       	ldi	r24, 0x10	; 16
+ 162:	80 93 c4 00 	sts	0x00C4, r24
+	UCSR0A = _BV(U2X0);
+ 166:	82 e0       	ldi	r24, 0x02	; 2
+ 168:	80 93 c0 00 	sts	0x00C0, r24
+	UCSR0B = _BV(TXCIE0) | _BV(RXCIE0) | _BV(RXEN0) | _BV(TXEN0);
+ 16c:	88 ed       	ldi	r24, 0xD8	; 216
+ 16e:	80 93 c1 00 	sts	0x00C1, r24
+	UCSR0C = _BV(UCSZ01) | _BV(UCSZ00);
+ 172:	86 e0       	ldi	r24, 0x06	; 6
+ 174:	80 93 c2 00 	sts	0x00C2, r24
+ 178:	08 95       	ret
+
+0000017a <_Z15serial_transmitPch>:
+
+void serial_transmit(char* s, uint8_t char_count) {
+	
+	// sends between 1 and 255 chars
+	
+	transmitting = s;
+ 17a:	90 93 22 01 	sts	0x0122, r25
+ 17e:	80 93 21 01 	sts	0x0121, r24
+	UDR0 = s[0];
+ 182:	fc 01       	movw	r30, r24
+ 184:	80 81       	ld	r24, Z
+ 186:	80 93 c6 00 	sts	0x00C6, r24
+	chars_left = char_count - 1;
+ 18a:	61 50       	subi	r22, 0x01	; 1
+ 18c:	60 93 20 01 	sts	0x0120, r22
+	chars_sent++;
+ 190:	80 91 1f 01 	lds	r24, 0x011F
+ 194:	8f 5f       	subi	r24, 0xFF	; 255
+ 196:	80 93 1f 01 	sts	0x011F, r24
+ 19a:	08 95       	ret
+
+0000019c <__vector_14>:
+#include <serial.h>
+
+uint8_t r, g, b;
+uint8_t PWM_count;
+
+ISR(TIMER0_COMPA_vect) {
+ 19c:	1f 92       	push	r1
+ 19e:	0f 92       	push	r0
+ 1a0:	0f b6       	in	r0, 0x3f	; 63
+ 1a2:	0f 92       	push	r0
+ 1a4:	11 24       	eor	r1, r1
+ 1a6:	2f 93       	push	r18
+ 1a8:	8f 93       	push	r24
+ 1aa:	9f 93       	push	r25
+
+	PWM_count++;
+ 1ac:	80 91 08 01 	lds	r24, 0x0108
+ 1b0:	8f 5f       	subi	r24, 0xFF	; 255
+ 1b2:	80 93 08 01 	sts	0x0108, r24
+	uint8_t output = 0;
+	
+	if(r > PWM_count) BITSET(output, 3);
+ 1b6:	90 91 0b 01 	lds	r25, 0x010B
+ 1ba:	89 17       	cp	r24, r25
+ 1bc:	10 f4       	brcc	.+4      	; 0x1c2 <__vector_14+0x26>
+ 1be:	98 e0       	ldi	r25, 0x08	; 8
+ 1c0:	01 c0       	rjmp	.+2      	; 0x1c4 <__vector_14+0x28>
+		else BITCLR(output, 3);
+ 1c2:	90 e0       	ldi	r25, 0x00	; 0
+	if(b > PWM_count) BITSET(output, 4);
+ 1c4:	20 91 09 01 	lds	r18, 0x0109
+ 1c8:	82 17       	cp	r24, r18
+ 1ca:	10 f4       	brcc	.+4      	; 0x1d0 <__vector_14+0x34>
+ 1cc:	90 61       	ori	r25, 0x10	; 16
+ 1ce:	01 c0       	rjmp	.+2      	; 0x1d2 <__vector_14+0x36>
+		else BITCLR(output, 4);
+ 1d0:	9f 7e       	andi	r25, 0xEF	; 239
+	if(g > PWM_count) BITSET(output, 2);
+ 1d2:	20 91 0a 01 	lds	r18, 0x010A
+ 1d6:	82 17       	cp	r24, r18
+ 1d8:	18 f4       	brcc	.+6      	; 0x1e0 <__vector_14+0x44>
+ 1da:	89 2f       	mov	r24, r25
+ 1dc:	84 60       	ori	r24, 0x04	; 4
+ 1de:	02 c0       	rjmp	.+4      	; 0x1e4 <__vector_14+0x48>
+		else BITCLR(output, 2);
+ 1e0:	89 2f       	mov	r24, r25
+ 1e2:	8b 7f       	andi	r24, 0xFB	; 251
+
+	PORTD = output;
+ 1e4:	8b b9       	out	0x0b, r24	; 11
+}
+ 1e6:	9f 91       	pop	r25
+ 1e8:	8f 91       	pop	r24
+ 1ea:	2f 91       	pop	r18
+ 1ec:	0f 90       	pop	r0
+ 1ee:	0f be       	out	0x3f, r0	; 63
+ 1f0:	0f 90       	pop	r0
+ 1f2:	1f 90       	pop	r1
+ 1f4:	18 95       	reti
+
+000001f6 <main>:
+
+int main(void) {
+ 1f6:	cf 93       	push	r28
+ 1f8:	df 93       	push	r29
+ 1fa:	cd b7       	in	r28, 0x3d	; 61
+ 1fc:	de b7       	in	r29, 0x3e	; 62
+ 1fe:	27 97       	sbiw	r28, 0x07	; 7
+ 200:	0f b6       	in	r0, 0x3f	; 63
+ 202:	f8 94       	cli
+ 204:	de bf       	out	0x3e, r29	; 62
+ 206:	0f be       	out	0x3f, r0	; 63
+ 208:	cd bf       	out	0x3d, r28	; 61
+
+	serial_init();
+ 20a:	0e 94 ae 00 	call	0x15c	; 0x15c <_Z11serial_initv>
+	
+	if (flag == true) {
+ 20e:	80 91 0c 01 	lds	r24, 0x010C
+ 212:	88 23       	and	r24, r24
+ 214:	29 f0       	breq	.+10     	; 0x220 <main+0x2a>
+	
+		flag = false;
+ 216:	10 92 0c 01 	sts	0x010C, r1
+		PORTB = ~PORTB;
+ 21a:	85 b1       	in	r24, 0x05	; 5
+ 21c:	80 95       	com	r24
+ 21e:	85 b9       	out	0x05, r24	; 5
+	}
+
+	DDRB = 0xff;
+ 220:	8f ef       	ldi	r24, 0xFF	; 255
+ 222:	84 b9       	out	0x04, r24	; 4
+	DDRD = 0xff; // PORTD as outputs
+ 224:	8a b9       	out	0x0a, r24	; 10
+	
+	TCCR0A = (1 << WGM01); // CTC mode
+ 226:	92 e0       	ldi	r25, 0x02	; 2
+ 228:	94 bd       	out	0x24, r25	; 36
+	TCCR0B =  PRESCALER_1024; // PRESCALER_8 default;
+ 22a:	25 e0       	ldi	r18, 0x05	; 5
+ 22c:	25 bd       	out	0x25, r18	; 37
+	OCR0A = TIMER_COUNT; // calculated above to give 4/663 of a second
+ 22e:	2d e5       	ldi	r18, 0x5D	; 93
+ 230:	27 bd       	out	0x27, r18	; 39
+	TIMSK0 = _BV(OCIE1A); // enable timer interrupt
+ 232:	90 93 6e 00 	sts	0x006E, r25
+	
+	r = 255;
+ 236:	80 93 0b 01 	sts	0x010B, r24
+	g = 160;
+ 23a:	80 ea       	ldi	r24, 0xA0	; 160
+ 23c:	80 93 0a 01 	sts	0x010A, r24
+	b = 25;
+ 240:	89 e1       	ldi	r24, 0x19	; 25
+ 242:	80 93 09 01 	sts	0x0109, r24
+	
+	sei(); // set interrupts
+ 246:	78 94       	sei
+	
+    while(1) {
+	
+		if(chars_unread > 3) {
+			
+			char message[] = "got em";
+ 248:	17 e0       	ldi	r17, 0x07	; 7
+	
+	sei(); // set interrupts
+	
+    while(1) {
+	
+		if(chars_unread > 3) {
+ 24a:	80 91 0d 01 	lds	r24, 0x010D
+ 24e:	84 30       	cpi	r24, 0x04	; 4
+ 250:	e0 f3       	brcs	.-8      	; 0x24a <main+0x54>
+			
+			char message[] = "got em";
+ 252:	e0 e0       	ldi	r30, 0x00	; 0
+ 254:	f1 e0       	ldi	r31, 0x01	; 1
+ 256:	de 01       	movw	r26, r28
+ 258:	11 96       	adiw	r26, 0x01	; 1
+ 25a:	81 2f       	mov	r24, r17
+ 25c:	01 90       	ld	r0, Z+
+ 25e:	0d 92       	st	X+, r0
+ 260:	8a 95       	dec	r24
+ 262:	e1 f7       	brne	.-8      	; 0x25c <main+0x66>
+			serial_transmit(message, 6);
+ 264:	66 e0       	ldi	r22, 0x06	; 6
+ 266:	ce 01       	movw	r24, r28
+ 268:	01 96       	adiw	r24, 0x01	; 1
+ 26a:	0e 94 bd 00 	call	0x17a	; 0x17a <_Z15serial_transmitPch>
+			chars_unread = 0;
+ 26e:	10 92 0d 01 	sts	0x010D, r1
+ 272:	eb cf       	rjmp	.-42     	; 0x24a <main+0x54>
+
+00000274 <_exit>:
+ 274:	f8 94       	cli
+
+00000276 <__stop_program>:
+ 276:	ff cf       	rjmp	.-2      	; 0x276 <__stop_program>

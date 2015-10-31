@@ -1,0 +1,83 @@
+/*
+ * RGB_LED_driver.cpp
+ *
+ * Created: 8/24/2015 10:44:05 PM
+ *  Author: Maxim
+ */ 
+
+// #define F_CPU 14745600
+#define F_CPU 16000000
+
+#define PRESCALER_1		0b001;
+#define PRESCALER_8		0b010;
+#define PRESCALER_64	0b011;
+#define PRESCALER_256	0b100;
+#define PRESCALER_1024	0b101;
+
+#ifndef _BV
+#define _BV(x) (1 << (x)) 
+#endif
+#define BITSET(x, y) ((x) |= (_BV(y)))
+#define BITCLR(x, y) ((x) &= ~(_BV(y)))
+
+#define COUNTS_PER_REVOLUTION 663
+#define TIMER_COUNT 93 // F_CPU / (2 * 256 * COUNTS_PER_REVOLUTION) - 1
+#define MOTOR_PIN _BV(PORTD3)
+
+#include <avr/io.h>
+#include <avr/interrupt.h>
+#include <stdlib.h>
+#include <serial.h>
+
+uint8_t r, g, b;
+uint8_t PWM_count;
+
+ISR(TIMER0_COMPA_vect) {
+
+	PWM_count++;
+	uint8_t output = 0;
+	
+	if(r > PWM_count) BITSET(output, 3);
+		else BITCLR(output, 3);
+	if(b > PWM_count) BITSET(output, 4);
+		else BITCLR(output, 4);
+	if(g > PWM_count) BITSET(output, 2);
+		else BITCLR(output, 2);
+
+	PORTD = output;
+}
+
+int main(void) {
+
+	serial_init();
+	
+	if (flag == true) {
+	
+		flag = false;
+		PORTB = ~PORTB;
+	}
+
+	DDRB = 0xff;
+	DDRD = 0xff; // PORTD as outputs
+	
+	TCCR0A = (1 << WGM01); // CTC mode
+	TCCR0B =  PRESCALER_1024; // PRESCALER_8 default;
+	OCR0A = TIMER_COUNT; // calculated above to give 4/663 of a second
+	TIMSK0 = _BV(OCIE1A); // enable timer interrupt
+	
+	r = 255;
+	g = 160;
+	b = 25;
+	
+	sei(); // set interrupts
+	
+    while(1) {
+	
+		if(chars_unread > 3) {
+			
+			char message[] = "got em";
+			serial_transmit(message, 6);
+			chars_unread = 0;
+		}
+	}
+}
