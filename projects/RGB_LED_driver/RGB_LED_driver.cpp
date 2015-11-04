@@ -27,9 +27,15 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <stdlib.h>
-#include <serial.h>
+#include <s3p.h>
 
-uint8_t r, g, b;
+struct data
+{
+	uint8_t r;
+	uint8_t g;
+	uint8_t b;
+} colors;
+	
 uint8_t PWM_count;
 
 ISR(TIMER0_COMPA_vect) {
@@ -37,11 +43,11 @@ ISR(TIMER0_COMPA_vect) {
 	PWM_count++;
 	uint8_t output = 0;
 	
-	if(r > PWM_count) BITSET(output, 3);
+	if(colors.r > PWM_count) BITSET(output, 3);
 		else BITCLR(output, 3);
-	if(b > PWM_count) BITSET(output, 4);
+	if(colors.b > PWM_count) BITSET(output, 4);
 		else BITCLR(output, 4);
-	if(g > PWM_count) BITSET(output, 2);
+	if(colors.g > PWM_count) BITSET(output, 2);
 		else BITCLR(output, 2);
 
 	PORTD = output;
@@ -49,7 +55,7 @@ ISR(TIMER0_COMPA_vect) {
 
 int main(void) {
 
-	// serial_init();
+	s3p_init();
 
 	DDRB = 0xff;
 	DDRD = 0xff; // PORTD as outputs
@@ -57,11 +63,13 @@ int main(void) {
 	TCCR0A = (1 << WGM01); // CTC mode
 	TCCR0B =  PRESCALER_8; // PRESCALER_8 default;
 	OCR0A = TIMER_COUNT; // calculated above to give 4/663 of a second
-	TIMSK0 = _BV(OCIE1A); // enable timer interrupt
+	// TIMSK0 = _BV(OCIE1A); // enable timer interrupt
 	
-	r = 255;
-	g = 160;
-	b = 25;
+	s3p_send_input_to(&colors, sizeof(colors));
+	
+	colors.r = 255;
+	colors.g = 160;
+	colors.b = 32;
 	
 	sei(); // set interrupts
 	
@@ -74,5 +82,11 @@ int main(void) {
 			chars_unread = 0;
 		}
 		*/
+		char tick_msg[] = "TICK\n";
+		char tock_msg[] = "TOCK\n";
+		_delay_ms(500);
+		s3p_transmit(tick_msg, sizeof(tick_msg));
+		_delay_ms(500);
+		s3p_transmit(tock_msg, sizeof(tock_msg));
 	}
 }
