@@ -49,19 +49,13 @@ ISR(TIMER0_COMPA_vect) {
 
 int main(void) {
 
-	serial_init();
-	
-	if (flag == true) {
-	
-		flag = false;
-		PORTB = ~PORTB;
-	}
+	// serial_init();
 
 	DDRB = 0xff;
 	DDRD = 0xff; // PORTD as outputs
 	
 	TCCR0A = (1 << WGM01); // CTC mode
-	TCCR0B =  PRESCALER_1024; // PRESCALER_8 default;
+	TCCR0B =  PRESCALER_8; // PRESCALER_8 default;
 	OCR0A = TIMER_COUNT; // calculated above to give 4/663 of a second
 	TIMSK0 = _BV(OCIE1A); // enable timer interrupt
 	
@@ -72,12 +66,13 @@ int main(void) {
 	sei(); // set interrupts
 	
     while(1) {
-	
+	/*
 		if(chars_unread > 3) {
 			
 			char message[] = "got em";
 			serial_transmit(message, 6);
 			chars_unread = 0;
 		}
+		*/
 	}
 }
