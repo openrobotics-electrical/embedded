@@ -18,8 +18,19 @@ Discarded input sections
                 0x00000000        0xe RGB_LED_driver.o
  .text._Z21s3p_copy_input_bufferv
                 0x00000000       0x32 RGB_LED_driver.o
- .bss.memory_index
+ .text._Z13soft_transmitPch
+                0x00000000        0x2 RGB_LED_driver.o
+ .data.current_bit
                 0x00000000        0x1 RGB_LED_driver.o
+ .data.test     0x00000000        0x1 RGB_LED_driver.o
+ .bss.PWM_count
+                0x00000000        0x1 RGB_LED_driver.o
+ .bss.chars_unread
+                0x00000000        0x1 RGB_LED_driver.o
+ .bss.rx_head   0x00000000        0x1 RGB_LED_driver.o
+ .bss.rx_index  0x00000000        0x1 RGB_LED_driver.o
+ .bss.receiving
+                0x00000000       0x10 RGB_LED_driver.o
  .bss.address_found
                 0x00000000        0x1 RGB_LED_driver.o
  .bss.delimiter_found
@@ -29,12 +40,6 @@ Discarded input sections
                 0x00000000       0x80 RGB_LED_driver.o
  .bss.data_register_in
                 0x00000000       0x80 RGB_LED_driver.o
- .bss.chars_unread
-                0x00000000        0x1 RGB_LED_driver.o
- .bss.rx_head   0x00000000        0x1 RGB_LED_driver.o
- .bss.rx_index  0x00000000        0x1 RGB_LED_driver.o
- .bss.receiving
-                0x00000000       0x10 RGB_LED_driver.o
  .text          0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
  .data          0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
  .bss           0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
@@ -202,7 +207,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x2ba
+.text           0x00000000      0x338
  *(.vectors)
  .vectors       0x00000000       0x68 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm328p.o
                 0x00000000                __vector_default
@@ -271,7 +276,6 @@ END GROUP
                 0x000000a2                __vector_11
                 0x000000a2                __vector_13
                 0x000000a2                __vector_17
-                0x000000a2                __vector_19
                 0x000000a2                __vector_7
                 0x000000a2                __vector_5
                 0x000000a2                __vector_4
@@ -284,28 +288,49 @@ END GROUP
                 0x000000a2                __vector_16
                 0x000000a6                . = ALIGN (0x2)
  *(.text.*)
+ .text._Z33s3p_buffer_empty_interrupt_enablev
+                0x000000a6        0xc RGB_LED_driver.o
+                0x000000a6                _Z33s3p_buffer_empty_interrupt_enablev
+ .text._Z34s3p_buffer_empty_interrupt_disablev
+                0x000000b2        0xc RGB_LED_driver.o
+                0x000000b2                _Z34s3p_buffer_empty_interrupt_disablev
+ .text._Z32s3p_tx_complete_interrupt_enablev
+                0x000000be        0xc RGB_LED_driver.o
+                0x000000be                _Z32s3p_tx_complete_interrupt_enablev
+ .text._Z33s3p_tx_complete_interrupt_disablev
+                0x000000ca        0xc RGB_LED_driver.o
+                0x000000ca                _Z33s3p_tx_complete_interrupt_disablev
+ .text._Z13s3p_TX_enablev
+                0x000000d6       0x10 RGB_LED_driver.o
+                0x000000d6                _Z13s3p_TX_enablev
+ .text._Z14s3p_TX_disablev
+                0x000000e6        0xe RGB_LED_driver.o
+                0x000000e6                _Z14s3p_TX_disablev
  .text.__vector_20
-                0x000000a6       0x58 RGB_LED_driver.o
-                0x000000a6                __vector_20
- .text._Z8s3p_initv
-                0x000000fe       0x1e RGB_LED_driver.o
-                0x000000fe                _Z8s3p_initv
- .text._Z12s3p_transmitPch
-                0x0000011c       0x22 RGB_LED_driver.o
-                0x0000011c                _Z12s3p_transmitPch
+                0x000000f4       0x52 RGB_LED_driver.o
+                0x000000f4                __vector_20
  .text.__vector_18
-                0x0000013e       0x74 RGB_LED_driver.o
-                0x0000013e                __vector_18
+                0x00000146       0x6a RGB_LED_driver.o
+                0x00000146                __vector_18
+ .text.__vector_19
+                0x000001b0       0x84 RGB_LED_driver.o
+                0x000001b0                __vector_19
+ .text._Z8s3p_initv
+                0x00000234       0x26 RGB_LED_driver.o
+                0x00000234                _Z8s3p_initv
+ .text._Z12s3p_transmitPch
+                0x0000025a       0x38 RGB_LED_driver.o
+                0x0000025a                _Z12s3p_transmitPch
  .text.__vector_14
-                0x000001b2       0x5a RGB_LED_driver.o
-                0x000001b2                __vector_14
- .text.main     0x0000020c       0xaa RGB_LED_driver.o
-                0x0000020c                main
-                0x000002b6                . = ALIGN (0x2)
+                0x00000292       0x1e RGB_LED_driver.o
+                0x00000292                __vector_14
+ .text.main     0x000002b0       0x84 RGB_LED_driver.o
+                0x000002b0                main
+                0x00000334                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x000002b6        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
-                0x000002b6                _exit
-                0x000002b6                exit
+ .fini9         0x00000334        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
+                0x00000334                _exit
+                0x00000334                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -324,58 +349,58 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x000002b6        0x4 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
+ .fini0         0x00000334        0x4 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x000002ba                _etext = .
+                0x00000338                _etext = .
 
-.data           0x00800100        0xc load address 0x000002ba
+.data           0x00800100        0xe load address 0x00000338
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
  *(.rodata)
  *(.rodata*)
  .rodata.str1.1
-                0x00800100        0xc RGB_LED_driver.o
+                0x00800100        0xe RGB_LED_driver.o
  *(.gnu.linkonce.d*)
-                0x0080010c                . = ALIGN (0x2)
-                0x0080010c                _edata = .
-                0x0080010c                PROVIDE (__data_end, .)
+                0x0080010e                . = ALIGN (0x2)
+                0x0080010e                _edata = .
+                0x0080010e                PROVIDE (__data_end, .)
 
-.bss            0x0080010c        0xb
-                0x0080010c                PROVIDE (__bss_start, .)
+.bss            0x0080010e        0xb
+                0x0080010e                PROVIDE (__bss_start, .)
  *(.bss)
  *(.bss*)
- .bss.PWM_count
-                0x0080010c        0x1 RGB_LED_driver.o
-                0x0080010c                PWM_count
- .bss.colors    0x0080010d        0x3 RGB_LED_driver.o
-                0x0080010d                colors
- .bss.memory_size
-                0x00800110        0x1 RGB_LED_driver.o
-                0x00800110                memory_size
- .bss.memory_location
-                0x00800111        0x2 RGB_LED_driver.o
-                0x00800111                memory_location
- .bss.chars_sent
-                0x00800113        0x1 RGB_LED_driver.o
-                0x00800113                chars_sent
+ .bss.colors    0x0080010e        0x3 RGB_LED_driver.o
+                0x0080010e                colors
+ .bss.chars_to_send
+                0x00800111        0x1 RGB_LED_driver.o
+                0x00800111                chars_to_send
  .bss.chars_left
-                0x00800114        0x1 RGB_LED_driver.o
-                0x00800114                chars_left
+                0x00800112        0x1 RGB_LED_driver.o
+                0x00800112                chars_left
  .bss.transmitting
-                0x00800115        0x2 RGB_LED_driver.o
-                0x00800115                transmitting
+                0x00800113        0x2 RGB_LED_driver.o
+                0x00800113                transmitting
+ .bss.memory_size
+                0x00800115        0x1 RGB_LED_driver.o
+                0x00800115                memory_size
+ .bss.memory_index
+                0x00800116        0x1 RGB_LED_driver.o
+                0x00800116                memory_index
+ .bss.memory_location
+                0x00800117        0x2 RGB_LED_driver.o
+                0x00800117                memory_location
  *(COMMON)
-                0x00800117                PROVIDE (__bss_end, .)
-                0x000002ba                __data_load_start = LOADADDR (.data)
-                0x000002c6                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00800119                PROVIDE (__bss_end, .)
+                0x00000338                __data_load_start = LOADADDR (.data)
+                0x00000346                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x00800117        0x0
-                0x00800117                PROVIDE (__noinit_start, .)
+.noinit         0x00800119        0x0
+                0x00800119                PROVIDE (__noinit_start, .)
  *(.noinit*)
-                0x00800117                PROVIDE (__noinit_end, .)
-                0x00800117                _end = .
-                0x00800117                PROVIDE (__heap_start, .)
+                0x00800119                PROVIDE (__noinit_end, .)
+                0x00800119                _end = .
+                0x00800119                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
  *(.eeprom*)
@@ -434,38 +459,38 @@ END GROUP
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000       0x58
+.debug_aranges  0x00000000       0x98
  *(.debug_aranges)
  .debug_aranges
-                0x00000000       0x58 RGB_LED_driver.o
+                0x00000000       0x98 RGB_LED_driver.o
 
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000      0x52e
+.debug_info     0x00000000      0x649
  *(.debug_info .gnu.linkonce.wi.*)
- .debug_info    0x00000000      0x52e RGB_LED_driver.o
+ .debug_info    0x00000000      0x649 RGB_LED_driver.o
 
-.debug_abbrev   0x00000000      0x24e
+.debug_abbrev   0x00000000      0x27a
  *(.debug_abbrev)
- .debug_abbrev  0x00000000      0x24e RGB_LED_driver.o
+ .debug_abbrev  0x00000000      0x27a RGB_LED_driver.o
 
-.debug_line     0x00000000      0x239
+.debug_line     0x00000000      0x2b9
  *(.debug_line .debug_line.* .debug_line_end)
- .debug_line    0x00000000      0x239 RGB_LED_driver.o
+ .debug_line    0x00000000      0x2b9 RGB_LED_driver.o
 
-.debug_frame    0x00000000      0x138
+.debug_frame    0x00000000      0x204
  *(.debug_frame)
- .debug_frame   0x00000000      0x138 RGB_LED_driver.o
+ .debug_frame   0x00000000      0x204 RGB_LED_driver.o
 
-.debug_str      0x00000000      0x37f
+.debug_str      0x00000000      0x52d
  *(.debug_str)
- .debug_str     0x00000000      0x37f RGB_LED_driver.o
-                                0x3bd (size before relaxing)
+ .debug_str     0x00000000      0x52d RGB_LED_driver.o
+                                0x56b (size before relaxing)
 
-.debug_loc      0x00000000      0x2b1
+.debug_loc      0x00000000      0x374
  *(.debug_loc)
- .debug_loc     0x00000000      0x2b1 RGB_LED_driver.o
+ .debug_loc     0x00000000      0x374 RGB_LED_driver.o
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -485,9 +510,9 @@ END GROUP
 .debug_pubtypes
  *(.debug_pubtypes)
 
-.debug_ranges   0x00000000       0x48
+.debug_ranges   0x00000000       0x88
  *(.debug_ranges)
- .debug_ranges  0x00000000       0x48 RGB_LED_driver.o
+ .debug_ranges  0x00000000       0x88 RGB_LED_driver.o
 
 .debug_macro
  *(.debug_macro)

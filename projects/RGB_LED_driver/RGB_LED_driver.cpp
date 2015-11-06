@@ -20,9 +20,7 @@
 #define BITSET(x, y) ((x) |= (_BV(y)))
 #define BITCLR(x, y) ((x) &= ~(_BV(y)))
 
-#define COUNTS_PER_REVOLUTION 663
-#define TIMER_COUNT 93 // F_CPU / (2 * 256 * COUNTS_PER_REVOLUTION) - 1
-#define MOTOR_PIN _BV(PORTD3)
+#define FAKEBAUD 31
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
@@ -38,31 +36,31 @@ struct data
 	
 uint8_t PWM_count;
 
-ISR(TIMER0_COMPA_vect) {
+uint8_t test = 'U';
+uint8_t current_bit = 1;
 
-	PWM_count++;
-	uint8_t output = 0;
+void soft_transmit(char* s, uint8_t char_count) {
 	
-	if(colors.r > PWM_count) BITSET(output, 3);
-		else BITCLR(output, 3);
-	if(colors.b > PWM_count) BITSET(output, 4);
-		else BITCLR(output, 4);
-	if(colors.g > PWM_count) BITSET(output, 2);
-		else BITCLR(output, 2);
-
-	PORTD = output;
+	// TIMSK0 = _BV(OCIE1A); // start timer0
+	// PORTD = 0;
 }
 
-int main(void) {
+ISR(TIMER0_COMPA_vect) {
+	
+	PORTD = _BV(6);
+	PORTD = 0;
+}
 
+int main(void) 
+{
 	s3p_init();
 
 	DDRB = 0xff;
 	DDRD = 0xff; // PORTD as outputs
 	
-	TCCR0A = (1 << WGM01); // CTC mode
-	TCCR0B =  PRESCALER_8; // PRESCALER_8 default;
-	OCR0A = TIMER_COUNT; // calculated above to give 4/663 of a second
+	TCCR0A = _BV(WGM01); // CTC mode
+	TCCR0B =  PRESCALER_1;
+	OCR0A =	1;
 	// TIMSK0 = _BV(OCIE1A); // enable timer interrupt
 	
 	s3p_send_input_to(&colors, sizeof(colors));
@@ -73,20 +71,15 @@ int main(void) {
 	
 	sei(); // set interrupts
 	
-    while(1) {
-	/*
-		if(chars_unread > 3) {
-			
-			char message[] = "got em";
-			serial_transmit(message, 6);
-			chars_unread = 0;
-		}
-		*/
-		char tick_msg[] = "TICK\n";
-		char tock_msg[] = "TOCK\n";
-		_delay_ms(500);
+	BITSET(PORTD, 6);
+	
+    while(1)	
+	{
+		char tick_msg[] = "@RGB123456789";
+		char tock_msg[] = "TOCK";
+		_delay_us(100);
 		s3p_transmit(tick_msg, sizeof(tick_msg));
-		_delay_ms(500);
-		s3p_transmit(tock_msg, sizeof(tock_msg));
+		_delay_us(100);
+		// soft_transmit(tock_msg, sizeof(tock_msg));
 	}
 }
