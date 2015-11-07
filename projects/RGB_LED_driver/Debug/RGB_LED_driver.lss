@@ -3,29 +3,29 @@ RGB_LED_driver.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         00000006  00800100  00000330  000003c4  2**0
+  0 .data         00000006  00800100  000002e2  00000376  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         00000330  00000000  00000000  00000094  2**1
+  1 .text         000002e2  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .bss          0000000b  00800106  00800106  000003ca  2**0
+  2 .bss          00000008  00800106  00800106  0000037c  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  000003ca  2**0
+  3 .comment      00000030  00000000  00000000  0000037c  2**0
                   CONTENTS, READONLY
-  4 .debug_aranges 00000098  00000000  00000000  000003fa  2**0
+  4 .debug_aranges 00000068  00000000  00000000  000003ac  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   00000606  00000000  00000000  00000492  2**0
+  5 .debug_info   00000427  00000000  00000000  00000414  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 00000259  00000000  00000000  00000a98  2**0
+  6 .debug_abbrev 00000221  00000000  00000000  0000083b  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   0000029c  00000000  00000000  00000cf1  2**0
+  7 .debug_line   00000222  00000000  00000000  00000a5c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  0000022c  00000000  00000000  00000f90  2**2
+  8 .debug_frame  000001a4  00000000  00000000  00000c80  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    0000052d  00000000  00000000  000011bc  2**0
+  9 .debug_str    00000353  00000000  00000000  00000e24  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    000003bc  00000000  00000000  000016e9  2**0
+ 10 .debug_loc    00000335  00000000  00000000  00001177  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000088  00000000  00000000  00001aa5  2**0
+ 11 .debug_ranges 00000058  00000000  00000000  000014ac  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -45,13 +45,13 @@ Disassembly of section .text:
   2c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
   30:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
   34:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-  38:	0c 94 40 01 	jmp	0x280	; 0x280 <__vector_14>
+  38:	0c 94 20 01 	jmp	0x240	; 0x240 <__vector_14>
   3c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
   40:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
   44:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-  48:	0c 94 a0 00 	jmp	0x140	; 0x140 <__vector_18>
-  4c:	0c 94 d2 00 	jmp	0x1a4	; 0x1a4 <__vector_19>
-  50:	0c 94 7a 00 	jmp	0xf4	; 0xf4 <__vector_20>
+  48:	0c 94 8b 00 	jmp	0x116	; 0x116 <__vector_18>
+  4c:	0c 94 bd 00 	jmp	0x17a	; 0x17a <__vector_19>
+  50:	0c 94 62 00 	jmp	0xc4	; 0xc4 <__vector_20>
   54:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
   58:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
   5c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
@@ -70,8 +70,8 @@ Disassembly of section .text:
   74:	11 e0       	ldi	r17, 0x01	; 1
   76:	a0 e0       	ldi	r26, 0x00	; 0
   78:	b1 e0       	ldi	r27, 0x01	; 1
-  7a:	e0 e3       	ldi	r30, 0x30	; 48
-  7c:	f3 e0       	ldi	r31, 0x03	; 3
+  7a:	e2 ee       	ldi	r30, 0xE2	; 226
+  7c:	f2 e0       	ldi	r31, 0x02	; 2
   7e:	02 c0       	rjmp	.+4      	; 0x84 <__do_copy_data+0x10>
   80:	05 90       	lpm	r0, Z+
   82:	0d 92       	st	X+, r0
@@ -89,482 +89,409 @@ Disassembly of section .text:
   92:	1d 92       	st	X+, r1
 
 00000094 <.do_clear_bss_start>:
-  94:	a1 31       	cpi	r26, 0x11	; 17
+  94:	ae 30       	cpi	r26, 0x0E	; 14
   96:	b2 07       	cpc	r27, r18
   98:	e1 f7       	brne	.-8      	; 0x92 <.do_clear_bss_loop>
-  9a:	0e 94 6b 01 	call	0x2d6	; 0x2d6 <main>
-  9e:	0c 94 96 01 	jmp	0x32c	; 0x32c <_exit>
+  9a:	0e 94 4b 01 	call	0x296	; 0x296 <main>
+  9e:	0c 94 6f 01 	jmp	0x2de	; 0x2de <_exit>
 
 000000a2 <__bad_interrupt>:
   a2:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
 
-000000a6 <_Z33s3p_buffer_empty_interrupt_enablev>:
-volatile char receiving[16];
-volatile uint8_t rx_index = 0, rx_head = 0, chars_unread = 0;
+000000a6 <_Z13s3p_TX_enablev>:
 
-void s3p_buffer_empty_interrupt_enable()
-{
-	UCSR0B |= _BV(UDRIE0);
-  a6:	e1 ec       	ldi	r30, 0xC1	; 193
-  a8:	f0 e0       	ldi	r31, 0x00	; 0
-  aa:	80 81       	ld	r24, Z
-  ac:	80 62       	ori	r24, 0x20	; 32
-  ae:	80 83       	st	Z, r24
-  b0:	08 95       	ret
-
-000000b2 <_Z34s3p_buffer_empty_interrupt_disablev>:
-}
-
-void s3p_buffer_empty_interrupt_disable()
-{
-	UCSR0B &= ~_BV(UDRIE0);
-  b2:	e1 ec       	ldi	r30, 0xC1	; 193
-  b4:	f0 e0       	ldi	r31, 0x00	; 0
-  b6:	80 81       	ld	r24, Z
-  b8:	8f 7d       	andi	r24, 0xDF	; 223
-  ba:	80 83       	st	Z, r24
-  bc:	08 95       	ret
-
-000000be <_Z32s3p_tx_complete_interrupt_enablev>:
-}
-
-void s3p_tx_complete_interrupt_enable()
-{
-	UCSR0B |= _BV(TXCIE0);
-  be:	e1 ec       	ldi	r30, 0xC1	; 193
-  c0:	f0 e0       	ldi	r31, 0x00	; 0
-  c2:	80 81       	ld	r24, Z
-  c4:	80 64       	ori	r24, 0x40	; 64
-  c6:	80 83       	st	Z, r24
-  c8:	08 95       	ret
-
-000000ca <_Z33s3p_TX_complete_interrupt_disablev>:
-}
-
-void s3p_TX_complete_interrupt_disable()
-{
-	UCSR0B &= ~_BV(TXCIE0);
-  ca:	e1 ec       	ldi	r30, 0xC1	; 193
-  cc:	f0 e0       	ldi	r31, 0x00	; 0
-  ce:	80 81       	ld	r24, Z
-  d0:	8f 7b       	andi	r24, 0xBF	; 191
-  d2:	80 83       	st	Z, r24
-  d4:	08 95       	ret
-
-000000d6 <_Z13s3p_TX_enablev>:
-}
+#define TXDEN_PIN _BV(3)
 
 void s3p_TX_enable() 
 { 
-	UCSR0B |= _BV(TXEN0);
-  d6:	e1 ec       	ldi	r30, 0xC1	; 193
-  d8:	f0 e0       	ldi	r31, 0x00	; 0
-  da:	80 81       	ld	r24, Z
-  dc:	88 60       	ori	r24, 0x08	; 8
-  de:	80 83       	st	Z, r24
-	PORTB |= 4; 
-  e0:	2a 9a       	sbi	0x05, 2	; 5
-  e2:	08 95       	ret
+	UCSR0B |= _BV(TXEN0); // TX pin enabled
+  a6:	e1 ec       	ldi	r30, 0xC1	; 193
+  a8:	f0 e0       	ldi	r31, 0x00	; 0
+  aa:	80 81       	ld	r24, Z
+  ac:	88 60       	ori	r24, 0x08	; 8
+  ae:	80 83       	st	Z, r24
+	PORTB |= TXDEN_PIN;
+  b0:	2b 9a       	sbi	0x05, 3	; 5
+  b2:	08 95       	ret
 
-000000e4 <_Z14s3p_TX_disablev>:
+000000b4 <_Z14s3p_TX_disablev>:
 }
 
 void s3p_TX_disable() 
 { 	
-	PORTB &= ~4; 
-  e4:	2a 98       	cbi	0x05, 2	; 5
-	UCSR0B &= ~_BV(TXEN0);
-  e6:	e1 ec       	ldi	r30, 0xC1	; 193
-  e8:	f0 e0       	ldi	r31, 0x00	; 0
-  ea:	80 81       	ld	r24, Z
-  ec:	87 7f       	andi	r24, 0xF7	; 247
-  ee:	80 83       	st	Z, r24
+	PORTB &= ~TXDEN_PIN;
+  b4:	2b 98       	cbi	0x05, 3	; 5
+	UCSR0B &= ~_BV(TXEN0); // TX pin disabled
+  b6:	e1 ec       	ldi	r30, 0xC1	; 193
+  b8:	f0 e0       	ldi	r31, 0x00	; 0
+  ba:	80 81       	ld	r24, Z
+  bc:	87 7f       	andi	r24, 0xF7	; 247
+  be:	80 83       	st	Z, r24
 	PORTD |= _BV(1);
-  f0:	59 9a       	sbi	0x0b, 1	; 11
-  f2:	08 95       	ret
+  c0:	59 9a       	sbi	0x0b, 1	; 11
+  c2:	08 95       	ret
 
-000000f4 <__vector_20>:
+000000c4 <__vector_20>:
 }
 
 ISR(USART_TX_vect)
 {
-  f4:	1f 92       	push	r1
-  f6:	0f 92       	push	r0
-  f8:	0f b6       	in	r0, 0x3f	; 63
-  fa:	0f 92       	push	r0
-  fc:	11 24       	eor	r1, r1
-  fe:	2f 93       	push	r18
- 100:	3f 93       	push	r19
- 102:	4f 93       	push	r20
- 104:	5f 93       	push	r21
- 106:	6f 93       	push	r22
- 108:	7f 93       	push	r23
- 10a:	8f 93       	push	r24
- 10c:	9f 93       	push	r25
- 10e:	af 93       	push	r26
- 110:	bf 93       	push	r27
- 112:	ef 93       	push	r30
- 114:	ff 93       	push	r31
+  c4:	1f 92       	push	r1
+  c6:	0f 92       	push	r0
+  c8:	0f b6       	in	r0, 0x3f	; 63
+  ca:	0f 92       	push	r0
+  cc:	11 24       	eor	r1, r1
+  ce:	2f 93       	push	r18
+  d0:	3f 93       	push	r19
+  d2:	4f 93       	push	r20
+  d4:	5f 93       	push	r21
+  d6:	6f 93       	push	r22
+  d8:	7f 93       	push	r23
+  da:	8f 93       	push	r24
+  dc:	9f 93       	push	r25
+  de:	af 93       	push	r26
+  e0:	bf 93       	push	r27
+  e2:	ef 93       	push	r30
+  e4:	ff 93       	push	r31
 	s3p_TX_disable();
- 116:	0e 94 72 00 	call	0xe4	; 0xe4 <_Z14s3p_TX_disablev>
-	s3p_TX_complete_interrupt_disable();
- 11a:	0e 94 65 00 	call	0xca	; 0xca <_Z33s3p_TX_complete_interrupt_disablev>
+  e6:	0e 94 5a 00 	call	0xb4	; 0xb4 <_Z14s3p_TX_disablev>
+	UCSR0B &= ~_BV(TXCIE0); // disables TX complete interrupt
+  ea:	e1 ec       	ldi	r30, 0xC1	; 193
+  ec:	f0 e0       	ldi	r31, 0x00	; 0
+  ee:	80 81       	ld	r24, Z
+  f0:	8f 7b       	andi	r24, 0xBF	; 191
+  f2:	80 83       	st	Z, r24
 }
- 11e:	ff 91       	pop	r31
- 120:	ef 91       	pop	r30
- 122:	bf 91       	pop	r27
- 124:	af 91       	pop	r26
- 126:	9f 91       	pop	r25
- 128:	8f 91       	pop	r24
- 12a:	7f 91       	pop	r23
- 12c:	6f 91       	pop	r22
- 12e:	5f 91       	pop	r21
- 130:	4f 91       	pop	r20
- 132:	3f 91       	pop	r19
- 134:	2f 91       	pop	r18
- 136:	0f 90       	pop	r0
- 138:	0f be       	out	0x3f, r0	; 63
- 13a:	0f 90       	pop	r0
- 13c:	1f 90       	pop	r1
- 13e:	18 95       	reti
+  f4:	ff 91       	pop	r31
+  f6:	ef 91       	pop	r30
+  f8:	bf 91       	pop	r27
+  fa:	af 91       	pop	r26
+  fc:	9f 91       	pop	r25
+  fe:	8f 91       	pop	r24
+ 100:	7f 91       	pop	r23
+ 102:	6f 91       	pop	r22
+ 104:	5f 91       	pop	r21
+ 106:	4f 91       	pop	r20
+ 108:	3f 91       	pop	r19
+ 10a:	2f 91       	pop	r18
+ 10c:	0f 90       	pop	r0
+ 10e:	0f be       	out	0x3f, r0	; 63
+ 110:	0f 90       	pop	r0
+ 112:	1f 90       	pop	r1
+ 114:	18 95       	reti
 
-00000140 <__vector_18>:
+00000116 <__vector_18>:
 
 ISR(USART_RX_vect) 
 {	
- 140:	1f 92       	push	r1
- 142:	0f 92       	push	r0
- 144:	0f b6       	in	r0, 0x3f	; 63
- 146:	0f 92       	push	r0
- 148:	11 24       	eor	r1, r1
- 14a:	2f 93       	push	r18
- 14c:	8f 93       	push	r24
- 14e:	9f 93       	push	r25
- 150:	ef 93       	push	r30
- 152:	ff 93       	push	r31
- 154:	cf 93       	push	r28
- 156:	df 93       	push	r29
- 158:	00 d0       	rcall	.+0      	; 0x15a <__vector_18+0x1a>
- 15a:	cd b7       	in	r28, 0x3d	; 61
- 15c:	de b7       	in	r29, 0x3e	; 62
+ 116:	1f 92       	push	r1
+ 118:	0f 92       	push	r0
+ 11a:	0f b6       	in	r0, 0x3f	; 63
+ 11c:	0f 92       	push	r0
+ 11e:	11 24       	eor	r1, r1
+ 120:	2f 93       	push	r18
+ 122:	8f 93       	push	r24
+ 124:	9f 93       	push	r25
+ 126:	ef 93       	push	r30
+ 128:	ff 93       	push	r31
+ 12a:	cf 93       	push	r28
+ 12c:	df 93       	push	r29
+ 12e:	00 d0       	rcall	.+0      	; 0x130 <__vector_18+0x1a>
+ 130:	cd b7       	in	r28, 0x3d	; 61
+ 132:	de b7       	in	r29, 0x3e	; 62
 	char received = UDR0; // clears flag
- 15e:	20 91 c6 00 	lds	r18, 0x00C6
+ 134:	20 91 c6 00 	lds	r18, 0x00C6
 	
 	char delimiter[] = "@";
- 162:	80 e4       	ldi	r24, 0x40	; 64
- 164:	90 e0       	ldi	r25, 0x00	; 0
- 166:	9a 83       	std	Y+2, r25	; 0x02
- 168:	89 83       	std	Y+1, r24	; 0x01
+ 138:	80 e4       	ldi	r24, 0x40	; 64
+ 13a:	90 e0       	ldi	r25, 0x00	; 0
+ 13c:	9a 83       	std	Y+2, r25	; 0x02
+ 13e:	89 83       	std	Y+1, r24	; 0x01
 	
 	if(memory_index < sizeof(delimiter)) 
- 16a:	80 91 0e 01 	lds	r24, 0x010E
- 16e:	82 30       	cpi	r24, 0x02	; 2
- 170:	58 f4       	brcc	.+22     	; 0x188 <__vector_18+0x48>
+ 140:	80 91 0d 01 	lds	r24, 0x010D
+ 144:	82 30       	cpi	r24, 0x02	; 2
+ 146:	58 f4       	brcc	.+22     	; 0x15e <__vector_18+0x48>
 	{
 		memory_index = (received == delimiter[memory_index])? memory_index + 1 : 0;	
- 172:	fe 01       	movw	r30, r28
- 174:	e8 0f       	add	r30, r24
- 176:	f1 1d       	adc	r31, r1
- 178:	91 81       	ldd	r25, Z+1	; 0x01
- 17a:	92 13       	cpse	r25, r18
- 17c:	02 c0       	rjmp	.+4      	; 0x182 <__vector_18+0x42>
- 17e:	8f 5f       	subi	r24, 0xFF	; 255
- 180:	01 c0       	rjmp	.+2      	; 0x184 <__vector_18+0x44>
- 182:	80 e0       	ldi	r24, 0x00	; 0
- 184:	80 93 0e 01 	sts	0x010E, r24
+ 148:	fe 01       	movw	r30, r28
+ 14a:	e8 0f       	add	r30, r24
+ 14c:	f1 1d       	adc	r31, r1
+ 14e:	91 81       	ldd	r25, Z+1	; 0x01
+ 150:	92 13       	cpse	r25, r18
+ 152:	02 c0       	rjmp	.+4      	; 0x158 <__vector_18+0x42>
+ 154:	8f 5f       	subi	r24, 0xFF	; 255
+ 156:	01 c0       	rjmp	.+2      	; 0x15a <__vector_18+0x44>
+ 158:	80 e0       	ldi	r24, 0x00	; 0
+ 15a:	80 93 0d 01 	sts	0x010D, r24
 	} 
 	else
 	{
 		
 	}
 }
- 188:	0f 90       	pop	r0
- 18a:	0f 90       	pop	r0
- 18c:	df 91       	pop	r29
- 18e:	cf 91       	pop	r28
- 190:	ff 91       	pop	r31
- 192:	ef 91       	pop	r30
- 194:	9f 91       	pop	r25
- 196:	8f 91       	pop	r24
- 198:	2f 91       	pop	r18
- 19a:	0f 90       	pop	r0
- 19c:	0f be       	out	0x3f, r0	; 63
- 19e:	0f 90       	pop	r0
- 1a0:	1f 90       	pop	r1
- 1a2:	18 95       	reti
+ 15e:	0f 90       	pop	r0
+ 160:	0f 90       	pop	r0
+ 162:	df 91       	pop	r29
+ 164:	cf 91       	pop	r28
+ 166:	ff 91       	pop	r31
+ 168:	ef 91       	pop	r30
+ 16a:	9f 91       	pop	r25
+ 16c:	8f 91       	pop	r24
+ 16e:	2f 91       	pop	r18
+ 170:	0f 90       	pop	r0
+ 172:	0f be       	out	0x3f, r0	; 63
+ 174:	0f 90       	pop	r0
+ 176:	1f 90       	pop	r1
+ 178:	18 95       	reti
 
-000001a4 <__vector_19>:
+0000017a <__vector_19>:
 
 ISR(USART_UDRE_vect)
 {
- 1a4:	1f 92       	push	r1
- 1a6:	0f 92       	push	r0
- 1a8:	0f b6       	in	r0, 0x3f	; 63
- 1aa:	0f 92       	push	r0
- 1ac:	11 24       	eor	r1, r1
- 1ae:	2f 93       	push	r18
- 1b0:	3f 93       	push	r19
- 1b2:	4f 93       	push	r20
- 1b4:	5f 93       	push	r21
- 1b6:	6f 93       	push	r22
- 1b8:	7f 93       	push	r23
- 1ba:	8f 93       	push	r24
- 1bc:	9f 93       	push	r25
- 1be:	af 93       	push	r26
- 1c0:	bf 93       	push	r27
- 1c2:	ef 93       	push	r30
- 1c4:	ff 93       	push	r31
+ 17a:	1f 92       	push	r1
+ 17c:	0f 92       	push	r0
+ 17e:	0f b6       	in	r0, 0x3f	; 63
+ 180:	0f 92       	push	r0
+ 182:	11 24       	eor	r1, r1
+ 184:	8f 93       	push	r24
+ 186:	9f 93       	push	r25
+ 188:	ef 93       	push	r30
+ 18a:	ff 93       	push	r31
 	UDR0 = transmitting[chars_to_send - chars_left];
- 1c6:	e0 91 09 01 	lds	r30, 0x0109
- 1ca:	80 91 0a 01 	lds	r24, 0x010A
- 1ce:	f0 e0       	ldi	r31, 0x00	; 0
- 1d0:	e8 1b       	sub	r30, r24
- 1d2:	f1 09       	sbc	r31, r1
- 1d4:	80 91 0b 01 	lds	r24, 0x010B
- 1d8:	90 91 0c 01 	lds	r25, 0x010C
- 1dc:	e8 0f       	add	r30, r24
- 1de:	f9 1f       	adc	r31, r25
- 1e0:	80 81       	ld	r24, Z
- 1e2:	80 93 c6 00 	sts	0x00C6, r24
+ 18c:	e0 91 09 01 	lds	r30, 0x0109
+ 190:	80 91 0a 01 	lds	r24, 0x010A
+ 194:	f0 e0       	ldi	r31, 0x00	; 0
+ 196:	e8 1b       	sub	r30, r24
+ 198:	f1 09       	sbc	r31, r1
+ 19a:	80 91 0b 01 	lds	r24, 0x010B
+ 19e:	90 91 0c 01 	lds	r25, 0x010C
+ 1a2:	e8 0f       	add	r30, r24
+ 1a4:	f9 1f       	adc	r31, r25
+ 1a6:	80 81       	ld	r24, Z
+ 1a8:	80 93 c6 00 	sts	0x00C6, r24
 	chars_left--;
- 1e6:	80 91 0a 01 	lds	r24, 0x010A
- 1ea:	81 50       	subi	r24, 0x01	; 1
- 1ec:	80 93 0a 01 	sts	0x010A, r24
+ 1ac:	80 91 0a 01 	lds	r24, 0x010A
+ 1b0:	81 50       	subi	r24, 0x01	; 1
+ 1b2:	80 93 0a 01 	sts	0x010A, r24
 	
 	if(chars_left == 1) 
- 1f0:	80 91 0a 01 	lds	r24, 0x010A
- 1f4:	81 30       	cpi	r24, 0x01	; 1
- 1f6:	21 f4       	brne	.+8      	; 0x200 <__vector_19+0x5c>
+ 1b6:	80 91 0a 01 	lds	r24, 0x010A
+ 1ba:	81 30       	cpi	r24, 0x01	; 1
+ 1bc:	41 f4       	brne	.+16     	; 0x1ce <__vector_19+0x54>
 	{
-		s3p_buffer_empty_interrupt_disable();
- 1f8:	0e 94 59 00 	call	0xb2	; 0xb2 <_Z34s3p_buffer_empty_interrupt_disablev>
-		s3p_tx_complete_interrupt_enable();
- 1fc:	0e 94 5f 00 	call	0xbe	; 0xbe <_Z32s3p_tx_complete_interrupt_enablev>
+		UCSR0B &= ~_BV(UDRIE0);  // disable buffer empty interrupt
+ 1be:	e1 ec       	ldi	r30, 0xC1	; 193
+ 1c0:	f0 e0       	ldi	r31, 0x00	; 0
+ 1c2:	80 81       	ld	r24, Z
+ 1c4:	8f 7d       	andi	r24, 0xDF	; 223
+ 1c6:	80 83       	st	Z, r24
+		UCSR0B |= _BV(TXCIE0); // enables TX complete interrupt
+ 1c8:	80 81       	ld	r24, Z
+ 1ca:	80 64       	ori	r24, 0x40	; 64
+ 1cc:	80 83       	st	Z, r24
 	}
 }
- 200:	ff 91       	pop	r31
- 202:	ef 91       	pop	r30
- 204:	bf 91       	pop	r27
- 206:	af 91       	pop	r26
- 208:	9f 91       	pop	r25
- 20a:	8f 91       	pop	r24
- 20c:	7f 91       	pop	r23
- 20e:	6f 91       	pop	r22
- 210:	5f 91       	pop	r21
- 212:	4f 91       	pop	r20
- 214:	3f 91       	pop	r19
- 216:	2f 91       	pop	r18
- 218:	0f 90       	pop	r0
- 21a:	0f be       	out	0x3f, r0	; 63
- 21c:	0f 90       	pop	r0
- 21e:	1f 90       	pop	r1
- 220:	18 95       	reti
+ 1ce:	ff 91       	pop	r31
+ 1d0:	ef 91       	pop	r30
+ 1d2:	9f 91       	pop	r25
+ 1d4:	8f 91       	pop	r24
+ 1d6:	0f 90       	pop	r0
+ 1d8:	0f be       	out	0x3f, r0	; 63
+ 1da:	0f 90       	pop	r0
+ 1dc:	1f 90       	pop	r1
+ 1de:	18 95       	reti
 
-00000222 <_Z8s3p_initv>:
-	}
-}
+000001e0 <_Z8s3p_initv>:
 
 void s3p_init() {
 	
 	DDRC = 0xff;
- 222:	8f ef       	ldi	r24, 0xFF	; 255
- 224:	87 b9       	out	0x07, r24	; 7
+ 1e0:	8f ef       	ldi	r24, 0xFF	; 255
+ 1e2:	87 b9       	out	0x07, r24	; 7
 	DDRB = 0xff;
- 226:	84 b9       	out	0x04, r24	; 4
+ 1e4:	84 b9       	out	0x04, r24	; 4
 	
 	PORTD |= _BV(1);
- 228:	59 9a       	sbi	0x0b, 1	; 11
+ 1e6:	59 9a       	sbi	0x0b, 1	; 11
 	
 	UBRR0H = 0;
- 22a:	10 92 c5 00 	sts	0x00C5, r1
+ 1e8:	10 92 c5 00 	sts	0x00C5, r1
 	UBRR0L = 1; // 1Mbaud
- 22e:	81 e0       	ldi	r24, 0x01	; 1
- 230:	80 93 c4 00 	sts	0x00C4, r24
+ 1ec:	81 e0       	ldi	r24, 0x01	; 1
+ 1ee:	80 93 c4 00 	sts	0x00C4, r24
 	UCSR0A = _BV(U2X0);
- 234:	82 e0       	ldi	r24, 0x02	; 2
- 236:	80 93 c0 00 	sts	0x00C0, r24
+ 1f2:	82 e0       	ldi	r24, 0x02	; 2
+ 1f4:	80 93 c0 00 	sts	0x00C0, r24
 	UCSR0B = /*_BV(RXCIE0) |*/ _BV(RXEN0) | _BV(TXEN0);
- 23a:	88 e1       	ldi	r24, 0x18	; 24
- 23c:	80 93 c1 00 	sts	0x00C1, r24
+ 1f8:	88 e1       	ldi	r24, 0x18	; 24
+ 1fa:	80 93 c1 00 	sts	0x00C1, r24
 	UCSR0C = _BV(UCSZ01) | _BV(UCSZ00);
- 240:	86 e0       	ldi	r24, 0x06	; 6
- 242:	80 93 c2 00 	sts	0x00C2, r24
- 246:	08 95       	ret
+ 1fe:	86 e0       	ldi	r24, 0x06	; 6
+ 200:	80 93 c2 00 	sts	0x00C2, r24
+ 204:	08 95       	ret
 
-00000248 <_Z12s3p_transmitPch>:
+00000206 <_Z12s3p_transmitPch>:
 }
 
 void s3p_transmit(char* s, uint8_t char_count) {
- 248:	cf 93       	push	r28
- 24a:	df 93       	push	r29
- 24c:	ec 01       	movw	r28, r24
-	
+ 206:	cf 93       	push	r28
+ 208:	df 93       	push	r29
+ 20a:	ec 01       	movw	r28, r24
 	// sends between 1 and 255 chars
 	// uses USART_TX and USART_UDRE interrupts to advance through chars
 	
-	PORTD = _BV(6) | _BV(1);
- 24e:	82 e4       	ldi	r24, 0x42	; 66
- 250:	8b b9       	out	0x0b, r24	; 11
-	
+	#define TX_PIN 1
+		
 	transmitting = s;
- 252:	d0 93 0c 01 	sts	0x010C, r29
- 256:	c0 93 0b 01 	sts	0x010B, r28
+ 20c:	90 93 0c 01 	sts	0x010C, r25
+ 210:	80 93 0b 01 	sts	0x010B, r24
 	chars_to_send = char_count;
- 25a:	60 93 09 01 	sts	0x0109, r22
+ 214:	60 93 09 01 	sts	0x0109, r22
 	chars_left = chars_to_send - 1;
- 25e:	80 91 09 01 	lds	r24, 0x0109
- 262:	81 50       	subi	r24, 0x01	; 1
- 264:	80 93 0a 01 	sts	0x010A, r24
+ 218:	80 91 09 01 	lds	r24, 0x0109
+ 21c:	81 50       	subi	r24, 0x01	; 1
+ 21e:	80 93 0a 01 	sts	0x010A, r24
 	
 	s3p_TX_enable();
- 268:	0e 94 6b 00 	call	0xd6	; 0xd6 <_Z13s3p_TX_enablev>
-	UDR0 = s[0];
- 26c:	88 81       	ld	r24, Y
- 26e:	80 93 c6 00 	sts	0x00C6, r24
-	s3p_buffer_empty_interrupt_enable();
- 272:	0e 94 53 00 	call	0xa6	; 0xa6 <_Z33s3p_buffer_empty_interrupt_enablev>
+ 222:	0e 94 53 00 	call	0xa6	; 0xa6 <_Z13s3p_TX_enablev>
+	UDR0 = s[0]; // start transmission of first char
+ 226:	88 81       	ld	r24, Y
+ 228:	80 93 c6 00 	sts	0x00C6, r24
+	UCSR0B |= _BV(UDRIE0); // enable buffer empty interrupt
+ 22c:	e1 ec       	ldi	r30, 0xC1	; 193
+ 22e:	f0 e0       	ldi	r31, 0x00	; 0
+ 230:	80 81       	ld	r24, Z
+ 232:	80 62       	ori	r24, 0x20	; 32
+ 234:	80 83       	st	Z, r24
 	
-	PORTD = _BV(1);
- 276:	82 e0       	ldi	r24, 0x02	; 2
- 278:	8b b9       	out	0x0b, r24	; 11
+	PORTD = _BV(TX_PIN);
+ 236:	82 e0       	ldi	r24, 0x02	; 2
+ 238:	8b b9       	out	0x0b, r24	; 11
 }
- 27a:	df 91       	pop	r29
- 27c:	cf 91       	pop	r28
- 27e:	08 95       	ret
+ 23a:	df 91       	pop	r29
+ 23c:	cf 91       	pop	r28
+ 23e:	08 95       	ret
 
-00000280 <__vector_14>:
+00000240 <__vector_14>:
 }
 
 char tick_msg[] = "@RGB";
 char tock_msg[] = "TOCK";
 
 ISR(TIMER0_COMPA_vect) {
- 280:	1f 92       	push	r1
- 282:	0f 92       	push	r0
- 284:	0f b6       	in	r0, 0x3f	; 63
- 286:	0f 92       	push	r0
- 288:	11 24       	eor	r1, r1
- 28a:	2f 93       	push	r18
- 28c:	3f 93       	push	r19
- 28e:	4f 93       	push	r20
- 290:	5f 93       	push	r21
- 292:	6f 93       	push	r22
- 294:	7f 93       	push	r23
- 296:	8f 93       	push	r24
- 298:	9f 93       	push	r25
- 29a:	af 93       	push	r26
- 29c:	bf 93       	push	r27
- 29e:	ef 93       	push	r30
- 2a0:	ff 93       	push	r31
+ 240:	1f 92       	push	r1
+ 242:	0f 92       	push	r0
+ 244:	0f b6       	in	r0, 0x3f	; 63
+ 246:	0f 92       	push	r0
+ 248:	11 24       	eor	r1, r1
+ 24a:	2f 93       	push	r18
+ 24c:	3f 93       	push	r19
+ 24e:	4f 93       	push	r20
+ 250:	5f 93       	push	r21
+ 252:	6f 93       	push	r22
+ 254:	7f 93       	push	r23
+ 256:	8f 93       	push	r24
+ 258:	9f 93       	push	r25
+ 25a:	af 93       	push	r26
+ 25c:	bf 93       	push	r27
+ 25e:	ef 93       	push	r30
+ 260:	ff 93       	push	r31
 	
 	PORTB ^= 2;
- 2a2:	95 b1       	in	r25, 0x05	; 5
- 2a4:	82 e0       	ldi	r24, 0x02	; 2
- 2a6:	89 27       	eor	r24, r25
- 2a8:	85 b9       	out	0x05, r24	; 5
+ 262:	95 b1       	in	r25, 0x05	; 5
+ 264:	82 e0       	ldi	r24, 0x02	; 2
+ 266:	89 27       	eor	r24, r25
+ 268:	85 b9       	out	0x05, r24	; 5
 	s3p_transmit(tick_msg, sizeof(tick_msg));
- 2aa:	65 e0       	ldi	r22, 0x05	; 5
- 2ac:	80 e0       	ldi	r24, 0x00	; 0
- 2ae:	91 e0       	ldi	r25, 0x01	; 1
- 2b0:	0e 94 24 01 	call	0x248	; 0x248 <_Z12s3p_transmitPch>
+ 26a:	65 e0       	ldi	r22, 0x05	; 5
+ 26c:	80 e0       	ldi	r24, 0x00	; 0
+ 26e:	91 e0       	ldi	r25, 0x01	; 1
+ 270:	0e 94 03 01 	call	0x206	; 0x206 <_Z12s3p_transmitPch>
 }
- 2b4:	ff 91       	pop	r31
- 2b6:	ef 91       	pop	r30
- 2b8:	bf 91       	pop	r27
- 2ba:	af 91       	pop	r26
- 2bc:	9f 91       	pop	r25
- 2be:	8f 91       	pop	r24
- 2c0:	7f 91       	pop	r23
- 2c2:	6f 91       	pop	r22
- 2c4:	5f 91       	pop	r21
- 2c6:	4f 91       	pop	r20
- 2c8:	3f 91       	pop	r19
- 2ca:	2f 91       	pop	r18
- 2cc:	0f 90       	pop	r0
- 2ce:	0f be       	out	0x3f, r0	; 63
- 2d0:	0f 90       	pop	r0
- 2d2:	1f 90       	pop	r1
- 2d4:	18 95       	reti
+ 274:	ff 91       	pop	r31
+ 276:	ef 91       	pop	r30
+ 278:	bf 91       	pop	r27
+ 27a:	af 91       	pop	r26
+ 27c:	9f 91       	pop	r25
+ 27e:	8f 91       	pop	r24
+ 280:	7f 91       	pop	r23
+ 282:	6f 91       	pop	r22
+ 284:	5f 91       	pop	r21
+ 286:	4f 91       	pop	r20
+ 288:	3f 91       	pop	r19
+ 28a:	2f 91       	pop	r18
+ 28c:	0f 90       	pop	r0
+ 28e:	0f be       	out	0x3f, r0	; 63
+ 290:	0f 90       	pop	r0
+ 292:	1f 90       	pop	r1
+ 294:	18 95       	reti
 
-000002d6 <main>:
+00000296 <main>:
 
 int main(void) 
 {
 	s3p_init();
- 2d6:	0e 94 11 01 	call	0x222	; 0x222 <_Z8s3p_initv>
+ 296:	0e 94 f0 00 	call	0x1e0	; 0x1e0 <_Z8s3p_initv>
 
 	DDRB = 0xff;
- 2da:	8f ef       	ldi	r24, 0xFF	; 255
- 2dc:	84 b9       	out	0x04, r24	; 4
+ 29a:	8f ef       	ldi	r24, 0xFF	; 255
+ 29c:	84 b9       	out	0x04, r24	; 4
 	DDRD = 0xff; // PORTD as outputs
- 2de:	8a b9       	out	0x0a, r24	; 10
+ 29e:	8a b9       	out	0x0a, r24	; 10
 	
 	TCCR0A = _BV(WGM01); // CTC mode
- 2e0:	22 e0       	ldi	r18, 0x02	; 2
- 2e2:	24 bd       	out	0x24, r18	; 36
+ 2a0:	92 e0       	ldi	r25, 0x02	; 2
+ 2a2:	94 bd       	out	0x24, r25	; 36
 	TCCR0B =  PRESCALER_64;
- 2e4:	93 e0       	ldi	r25, 0x03	; 3
- 2e6:	95 bd       	out	0x25, r25	; 37
+ 2a4:	23 e0       	ldi	r18, 0x03	; 3
+ 2a6:	25 bd       	out	0x25, r18	; 37
 	OCR0A =	49;
- 2e8:	31 e3       	ldi	r19, 0x31	; 49
- 2ea:	37 bd       	out	0x27, r19	; 39
+ 2a8:	21 e3       	ldi	r18, 0x31	; 49
+ 2aa:	27 bd       	out	0x27, r18	; 39
 	TIMSK0 = _BV(OCIE1A); // enable timer interrupt
- 2ec:	20 93 6e 00 	sts	0x006E, r18
-	}
-}
-
-void s3p_send_input_to(void* memory, uint8_t size)
-{
-	memory_location = (uint8_t*)memory;
- 2f0:	e6 e0       	ldi	r30, 0x06	; 6
- 2f2:	f1 e0       	ldi	r31, 0x01	; 1
- 2f4:	f0 93 10 01 	sts	0x0110, r31
- 2f8:	e0 93 0f 01 	sts	0x010F, r30
-	memory_size = size;
- 2fc:	90 93 0d 01 	sts	0x010D, r25
-	
-	s3p_send_input_to(&colors, sizeof(colors));
+ 2ac:	90 93 6e 00 	sts	0x006E, r25
 	
 	colors.r = 255;
- 300:	80 83       	st	Z, r24
+ 2b0:	80 93 06 01 	sts	0x0106, r24
 	colors.g = 160;
- 302:	80 ea       	ldi	r24, 0xA0	; 160
- 304:	80 93 07 01 	sts	0x0107, r24
+ 2b4:	80 ea       	ldi	r24, 0xA0	; 160
+ 2b6:	80 93 07 01 	sts	0x0107, r24
 	colors.b = 32;
- 308:	80 e2       	ldi	r24, 0x20	; 32
- 30a:	80 93 08 01 	sts	0x0108, r24
+ 2ba:	80 e2       	ldi	r24, 0x20	; 32
+ 2bc:	80 93 08 01 	sts	0x0108, r24
 	
 	sei(); // set interrupts
- 30e:	78 94       	sei
+ 2c0:	78 94       	sei
 	
 	BITSET(PORTD, 6);
- 310:	5e 9a       	sbi	0x0b, 6	; 11
+ 2c2:	5e 9a       	sbi	0x0b, 6	; 11
 	
     while(1)	
 	{
 		PORTD = PORTD + 1;
- 312:	8b b1       	in	r24, 0x0b	; 11
- 314:	8f 5f       	subi	r24, 0xFF	; 255
- 316:	8b b9       	out	0x0b, r24	; 11
+ 2c4:	8b b1       	in	r24, 0x0b	; 11
+ 2c6:	8f 5f       	subi	r24, 0xFF	; 255
+ 2c8:	8b b9       	out	0x0b, r24	; 11
 	#else
 		//round up by default
 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
 	#endif
 
 	__builtin_avr_delay_cycles(__ticks_dc);
- 318:	2f ef       	ldi	r18, 0xFF	; 255
- 31a:	80 e7       	ldi	r24, 0x70	; 112
- 31c:	92 e0       	ldi	r25, 0x02	; 2
- 31e:	21 50       	subi	r18, 0x01	; 1
- 320:	80 40       	sbci	r24, 0x00	; 0
- 322:	90 40       	sbci	r25, 0x00	; 0
- 324:	e1 f7       	brne	.-8      	; 0x31e <main+0x48>
- 326:	00 c0       	rjmp	.+0      	; 0x328 <main+0x52>
- 328:	00 00       	nop
- 32a:	f3 cf       	rjmp	.-26     	; 0x312 <main+0x3c>
+ 2ca:	2f ef       	ldi	r18, 0xFF	; 255
+ 2cc:	80 e7       	ldi	r24, 0x70	; 112
+ 2ce:	92 e0       	ldi	r25, 0x02	; 2
+ 2d0:	21 50       	subi	r18, 0x01	; 1
+ 2d2:	80 40       	sbci	r24, 0x00	; 0
+ 2d4:	90 40       	sbci	r25, 0x00	; 0
+ 2d6:	e1 f7       	brne	.-8      	; 0x2d0 <main+0x3a>
+ 2d8:	00 c0       	rjmp	.+0      	; 0x2da <main+0x44>
+ 2da:	00 00       	nop
+ 2dc:	f3 cf       	rjmp	.-26     	; 0x2c4 <main+0x2e>
 
-0000032c <_exit>:
- 32c:	f8 94       	cli
+000002de <_exit>:
+ 2de:	f8 94       	cli
 
-0000032e <__stop_program>:
- 32e:	ff cf       	rjmp	.-2      	; 0x32e <__stop_program>
+000002e0 <__stop_program>:
+ 2e0:	ff cf       	rjmp	.-2      	; 0x2e0 <__stop_program>

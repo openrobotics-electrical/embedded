@@ -11,12 +11,6 @@
 #include <avr/interrupt.h>
 #include <util/delay.h>
 
-void s3p_transmit(char* s, uint8_t char_count);
-
-uint8_t data_register_in[128];
-uint8_t data_register_out[128];
-uint8_t address;
-
 bool delimiter_found, address_found;
 uint8_t* memory_location;
 uint8_t memory_index;
@@ -25,47 +19,25 @@ uint8_t memory_size;
 volatile char* transmitting;
 volatile uint8_t chars_left = 0, chars_to_send = 0;
 
-#define RX_BUFFER_SIZE 16
-volatile char receiving[16];
-volatile uint8_t rx_index = 0, rx_head = 0, chars_unread = 0;
-
-void s3p_buffer_empty_interrupt_enable()
-{
-	UCSR0B |= _BV(UDRIE0);
-}
-
-void s3p_buffer_empty_interrupt_disable()
-{
-	UCSR0B &= ~_BV(UDRIE0);
-}
-
-void s3p_tx_complete_interrupt_enable()
-{
-	UCSR0B |= _BV(TXCIE0);
-}
-
-void s3p_TX_complete_interrupt_disable()
-{
-	UCSR0B &= ~_BV(TXCIE0);
-}
+#define TXDEN_PIN _BV(3)
 
 void s3p_TX_enable() 
 { 
-	UCSR0B |= _BV(TXEN0);
-	PORTB |= 4; 
+	UCSR0B |= _BV(TXEN0); // TX pin enabled
+	PORTB |= TXDEN_PIN;
 }
 
 void s3p_TX_disable() 
 { 	
-	PORTB &= ~4; 
-	UCSR0B &= ~_BV(TXEN0);
+	PORTB &= ~TXDEN_PIN;
+	UCSR0B &= ~_BV(TXEN0); // TX pin disabled
 	PORTD |= _BV(1);
 }
 
 ISR(USART_TX_vect)
 {
 	s3p_TX_disable();
-	s3p_TX_complete_interrupt_disable();
+	UCSR0B &= ~_BV(TXCIE0); // disables TX complete interrupt
 }
 
 ISR(USART_RX_vect) 
@@ -91,20 +63,8 @@ ISR(USART_UDRE_vect)
 	
 	if(chars_left == 1) 
 	{
-		s3p_buffer_empty_interrupt_disable();
-		s3p_tx_complete_interrupt_enable();
-	}
-}
-
-void s3p_send_input_to(void* memory, uint8_t size)
-{
-	memory_location = (uint8_t*)memory;
-	memory_size = size;
-};
-
-void s3p_copy_input_buffer() {
-	for(uint8_t i = 0; i < memory_size; i++) {
-		memory_location[i] = data_register_in[i];
+		UCSR0B &= ~_BV(UDRIE0);  // disable buffer empty interrupt
+		UCSR0B |= _BV(TXCIE0); // enables TX complete interrupt
 	}
 }
 
@@ -127,17 +87,17 @@ void s3p_transmit(char* s, uint8_t char_count) {
 	// sends between 1 and 255 chars
 	// uses USART_TX and USART_UDRE interrupts to advance through chars
 	
-	PORTD = _BV(6) | _BV(1);
-	
+	#define TX_PIN 1
+		
 	transmitting = s;
 	chars_to_send = char_count;
 	chars_left = chars_to_send - 1;
 	
 	s3p_TX_enable();
-	UDR0 = s[0];
-	s3p_buffer_empty_interrupt_enable();
+	UDR0 = s[0]; // start transmission of first char
+	UCSR0B |= _BV(UDRIE0); // enable buffer empty interrupt
 	
-	PORTD = _BV(1);
+	PORTD = _BV(TX_PIN);
 }
 
 #endif

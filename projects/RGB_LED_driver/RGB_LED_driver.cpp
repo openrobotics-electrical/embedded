@@ -20,8 +20,6 @@
 #define BITSET(x, y) ((x) |= (_BV(y)))
 #define BITCLR(x, y) ((x) &= ~(_BV(y)))
 
-#define FAKEBAUD 31
-
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <stdlib.h>
@@ -65,8 +63,6 @@ int main(void)
 	TCCR0B =  PRESCALER_64;
 	OCR0A =	49;
 	TIMSK0 = _BV(OCIE1A); // enable timer interrupt
-	
-	s3p_send_input_to(&colors, sizeof(colors));
 	
 	colors.r = 255;
 	colors.g = 160;
