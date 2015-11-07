@@ -44,52 +44,32 @@ void s3p_tx_complete_interrupt_enable()
 	UCSR0B |= _BV(TXCIE0);
 }
 
-void s3p_tx_complete_interrupt_disable()
+void s3p_TX_complete_interrupt_disable()
 {
 	UCSR0B &= ~_BV(TXCIE0);
 }
 
 void s3p_TX_enable() 
 { 
-	PORTB = 1; 
 	UCSR0B |= _BV(TXEN0);
+	PORTB |= 4; 
 }
 
 void s3p_TX_disable() 
 { 	
-	PORTB = 0; 
+	PORTB &= ~4; 
 	UCSR0B &= ~_BV(TXEN0);
+	PORTD |= _BV(1);
 }
 
 ISR(USART_TX_vect)
 {
-	PORTC = 2;
-	
 	s3p_TX_disable();
-	s3p_tx_complete_interrupt_disable();
-	
-	PORTC = 0;
+	s3p_TX_complete_interrupt_disable();
 }
-
-/*
-ISR(USART_TX_vect) 
-{
-	UDR0 = transmitting[chars_sent];
-		
-	if(chars_left == 1) {
-		s3p_TX_disable();
-		chars_sent = 0;
-	}
-	
-	chars_sent++;	
-	chars_left--;
-}
-*/
 
 ISR(USART_RX_vect) 
 {	
-	PORTC = 2;
-	
 	char received = UDR0; // clears flag
 	
 	char delimiter[] = "@";
@@ -102,15 +82,10 @@ ISR(USART_RX_vect)
 	{
 		
 	}
-
-	PORTC = 0;
 }
 
 ISR(USART_UDRE_vect)
 {
-	PORTC = 1;
-	
-	// s3p_buffer_empty_interrupt_disable();
 	UDR0 = transmitting[chars_to_send - chars_left];
 	chars_left--;
 	
@@ -119,8 +94,6 @@ ISR(USART_UDRE_vect)
 		s3p_buffer_empty_interrupt_disable();
 		s3p_tx_complete_interrupt_enable();
 	}
-	
-	PORTC = 0;
 }
 
 void s3p_send_input_to(void* memory, uint8_t size)
@@ -143,10 +116,9 @@ void s3p_init() {
 	PORTD |= _BV(1);
 	
 	UBRR0H = 0;
-	UBRR0L = 1;
+	UBRR0L = 1; // 1Mbaud
 	UCSR0A = _BV(U2X0);
 	UCSR0B = /*_BV(RXCIE0) |*/ _BV(RXEN0) | _BV(TXEN0);
-	// UCSR0B |= _BV(TXCIE0);
 	UCSR0C = _BV(UCSZ01) | _BV(UCSZ00);
 }
 

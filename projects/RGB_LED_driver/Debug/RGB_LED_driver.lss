@@ -3,29 +3,29 @@ RGB_LED_driver.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         0000000e  00800100  00000338  000003cc  2**0
+  0 .data         00000006  00800100  00000330  000003c4  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         00000338  00000000  00000000  00000094  2**1
+  1 .text         00000330  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .bss          0000000b  0080010e  0080010e  000003da  2**0
+  2 .bss          0000000b  00800106  00800106  000003ca  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  000003da  2**0
+  3 .comment      00000030  00000000  00000000  000003ca  2**0
                   CONTENTS, READONLY
-  4 .debug_aranges 00000098  00000000  00000000  0000040a  2**0
+  4 .debug_aranges 00000098  00000000  00000000  000003fa  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   00000649  00000000  00000000  000004a2  2**0
+  5 .debug_info   00000606  00000000  00000000  00000492  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 0000027a  00000000  00000000  00000aeb  2**0
+  6 .debug_abbrev 00000259  00000000  00000000  00000a98  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   000002b9  00000000  00000000  00000d65  2**0
+  7 .debug_line   0000029c  00000000  00000000  00000cf1  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  00000204  00000000  00000000  00001020  2**2
+  8 .debug_frame  0000022c  00000000  00000000  00000f90  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    0000052d  00000000  00000000  00001224  2**0
+  9 .debug_str    0000052d  00000000  00000000  000011bc  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    00000374  00000000  00000000  00001751  2**0
+ 10 .debug_loc    000003bc  00000000  00000000  000016e9  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000088  00000000  00000000  00001ac5  2**0
+ 11 .debug_ranges 00000088  00000000  00000000  00001aa5  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -45,12 +45,12 @@ Disassembly of section .text:
   2c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
   30:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
   34:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-  38:	0c 94 49 01 	jmp	0x292	; 0x292 <__vector_14>
+  38:	0c 94 40 01 	jmp	0x280	; 0x280 <__vector_14>
   3c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
   40:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
   44:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-  48:	0c 94 a3 00 	jmp	0x146	; 0x146 <__vector_18>
-  4c:	0c 94 d8 00 	jmp	0x1b0	; 0x1b0 <__vector_19>
+  48:	0c 94 a0 00 	jmp	0x140	; 0x140 <__vector_18>
+  4c:	0c 94 d2 00 	jmp	0x1a4	; 0x1a4 <__vector_19>
   50:	0c 94 7a 00 	jmp	0xf4	; 0xf4 <__vector_20>
   54:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
   58:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
@@ -70,18 +70,18 @@ Disassembly of section .text:
   74:	11 e0       	ldi	r17, 0x01	; 1
   76:	a0 e0       	ldi	r26, 0x00	; 0
   78:	b1 e0       	ldi	r27, 0x01	; 1
-  7a:	e8 e3       	ldi	r30, 0x38	; 56
+  7a:	e0 e3       	ldi	r30, 0x30	; 48
   7c:	f3 e0       	ldi	r31, 0x03	; 3
   7e:	02 c0       	rjmp	.+4      	; 0x84 <__do_copy_data+0x10>
   80:	05 90       	lpm	r0, Z+
   82:	0d 92       	st	X+, r0
-  84:	ae 30       	cpi	r26, 0x0E	; 14
+  84:	a6 30       	cpi	r26, 0x06	; 6
   86:	b1 07       	cpc	r27, r17
   88:	d9 f7       	brne	.-10     	; 0x80 <__do_copy_data+0xc>
 
 0000008a <__do_clear_bss>:
   8a:	21 e0       	ldi	r18, 0x01	; 1
-  8c:	ae e0       	ldi	r26, 0x0E	; 14
+  8c:	a6 e0       	ldi	r26, 0x06	; 6
   8e:	b1 e0       	ldi	r27, 0x01	; 1
   90:	01 c0       	rjmp	.+2      	; 0x94 <.do_clear_bss_start>
 
@@ -89,11 +89,11 @@ Disassembly of section .text:
   92:	1d 92       	st	X+, r1
 
 00000094 <.do_clear_bss_start>:
-  94:	a9 31       	cpi	r26, 0x19	; 25
+  94:	a1 31       	cpi	r26, 0x11	; 17
   96:	b2 07       	cpc	r27, r18
   98:	e1 f7       	brne	.-8      	; 0x92 <.do_clear_bss_loop>
-  9a:	0e 94 58 01 	call	0x2b0	; 0x2b0 <main>
-  9e:	0c 94 9a 01 	jmp	0x334	; 0x334 <_exit>
+  9a:	0e 94 6b 01 	call	0x2d6	; 0x2d6 <main>
+  9e:	0c 94 96 01 	jmp	0x32c	; 0x32c <_exit>
 
 000000a2 <__bad_interrupt>:
   a2:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -138,10 +138,10 @@ void s3p_tx_complete_interrupt_enable()
   c6:	80 83       	st	Z, r24
   c8:	08 95       	ret
 
-000000ca <_Z33s3p_tx_complete_interrupt_disablev>:
+000000ca <_Z33s3p_TX_complete_interrupt_disablev>:
 }
 
-void s3p_tx_complete_interrupt_disable()
+void s3p_TX_complete_interrupt_disable()
 {
 	UCSR0B &= ~_BV(TXCIE0);
   ca:	e1 ec       	ldi	r30, 0xC1	; 193
@@ -156,30 +156,31 @@ void s3p_tx_complete_interrupt_disable()
 
 void s3p_TX_enable() 
 { 
-	PORTB = 1; 
-  d6:	81 e0       	ldi	r24, 0x01	; 1
-  d8:	85 b9       	out	0x05, r24	; 5
 	UCSR0B |= _BV(TXEN0);
-  da:	e1 ec       	ldi	r30, 0xC1	; 193
-  dc:	f0 e0       	ldi	r31, 0x00	; 0
-  de:	80 81       	ld	r24, Z
-  e0:	88 60       	ori	r24, 0x08	; 8
-  e2:	80 83       	st	Z, r24
-  e4:	08 95       	ret
+  d6:	e1 ec       	ldi	r30, 0xC1	; 193
+  d8:	f0 e0       	ldi	r31, 0x00	; 0
+  da:	80 81       	ld	r24, Z
+  dc:	88 60       	ori	r24, 0x08	; 8
+  de:	80 83       	st	Z, r24
+	PORTB |= 4; 
+  e0:	2a 9a       	sbi	0x05, 2	; 5
+  e2:	08 95       	ret
 
-000000e6 <_Z14s3p_TX_disablev>:
+000000e4 <_Z14s3p_TX_disablev>:
 }
 
 void s3p_TX_disable() 
 { 	
-	PORTB = 0; 
-  e6:	15 b8       	out	0x05, r1	; 5
+	PORTB &= ~4; 
+  e4:	2a 98       	cbi	0x05, 2	; 5
 	UCSR0B &= ~_BV(TXEN0);
-  e8:	e1 ec       	ldi	r30, 0xC1	; 193
-  ea:	f0 e0       	ldi	r31, 0x00	; 0
-  ec:	80 81       	ld	r24, Z
-  ee:	87 7f       	andi	r24, 0xF7	; 247
-  f0:	80 83       	st	Z, r24
+  e6:	e1 ec       	ldi	r30, 0xC1	; 193
+  e8:	f0 e0       	ldi	r31, 0x00	; 0
+  ea:	80 81       	ld	r24, Z
+  ec:	87 7f       	andi	r24, 0xF7	; 247
+  ee:	80 83       	st	Z, r24
+	PORTD |= _BV(1);
+  f0:	59 9a       	sbi	0x0b, 1	; 11
   f2:	08 95       	ret
 
 000000f4 <__vector_20>:
@@ -204,390 +205,366 @@ ISR(USART_TX_vect)
  110:	bf 93       	push	r27
  112:	ef 93       	push	r30
  114:	ff 93       	push	r31
-	PORTC = 2;
- 116:	82 e0       	ldi	r24, 0x02	; 2
- 118:	88 b9       	out	0x08, r24	; 8
-	
 	s3p_TX_disable();
- 11a:	0e 94 73 00 	call	0xe6	; 0xe6 <_Z14s3p_TX_disablev>
-	s3p_tx_complete_interrupt_disable();
- 11e:	0e 94 65 00 	call	0xca	; 0xca <_Z33s3p_tx_complete_interrupt_disablev>
-	
-	PORTC = 0;
- 122:	18 b8       	out	0x08, r1	; 8
+ 116:	0e 94 72 00 	call	0xe4	; 0xe4 <_Z14s3p_TX_disablev>
+	s3p_TX_complete_interrupt_disable();
+ 11a:	0e 94 65 00 	call	0xca	; 0xca <_Z33s3p_TX_complete_interrupt_disablev>
 }
- 124:	ff 91       	pop	r31
- 126:	ef 91       	pop	r30
- 128:	bf 91       	pop	r27
- 12a:	af 91       	pop	r26
- 12c:	9f 91       	pop	r25
- 12e:	8f 91       	pop	r24
- 130:	7f 91       	pop	r23
- 132:	6f 91       	pop	r22
- 134:	5f 91       	pop	r21
- 136:	4f 91       	pop	r20
- 138:	3f 91       	pop	r19
- 13a:	2f 91       	pop	r18
- 13c:	0f 90       	pop	r0
- 13e:	0f be       	out	0x3f, r0	; 63
- 140:	0f 90       	pop	r0
- 142:	1f 90       	pop	r1
- 144:	18 95       	reti
+ 11e:	ff 91       	pop	r31
+ 120:	ef 91       	pop	r30
+ 122:	bf 91       	pop	r27
+ 124:	af 91       	pop	r26
+ 126:	9f 91       	pop	r25
+ 128:	8f 91       	pop	r24
+ 12a:	7f 91       	pop	r23
+ 12c:	6f 91       	pop	r22
+ 12e:	5f 91       	pop	r21
+ 130:	4f 91       	pop	r20
+ 132:	3f 91       	pop	r19
+ 134:	2f 91       	pop	r18
+ 136:	0f 90       	pop	r0
+ 138:	0f be       	out	0x3f, r0	; 63
+ 13a:	0f 90       	pop	r0
+ 13c:	1f 90       	pop	r1
+ 13e:	18 95       	reti
 
-00000146 <__vector_18>:
-	chars_left--;
-}
-*/
+00000140 <__vector_18>:
 
 ISR(USART_RX_vect) 
 {	
- 146:	1f 92       	push	r1
- 148:	0f 92       	push	r0
- 14a:	0f b6       	in	r0, 0x3f	; 63
- 14c:	0f 92       	push	r0
- 14e:	11 24       	eor	r1, r1
- 150:	2f 93       	push	r18
- 152:	8f 93       	push	r24
- 154:	9f 93       	push	r25
- 156:	ef 93       	push	r30
- 158:	ff 93       	push	r31
- 15a:	cf 93       	push	r28
- 15c:	df 93       	push	r29
- 15e:	00 d0       	rcall	.+0      	; 0x160 <__vector_18+0x1a>
- 160:	cd b7       	in	r28, 0x3d	; 61
- 162:	de b7       	in	r29, 0x3e	; 62
-	PORTC = 2;
- 164:	82 e0       	ldi	r24, 0x02	; 2
- 166:	88 b9       	out	0x08, r24	; 8
-	
+ 140:	1f 92       	push	r1
+ 142:	0f 92       	push	r0
+ 144:	0f b6       	in	r0, 0x3f	; 63
+ 146:	0f 92       	push	r0
+ 148:	11 24       	eor	r1, r1
+ 14a:	2f 93       	push	r18
+ 14c:	8f 93       	push	r24
+ 14e:	9f 93       	push	r25
+ 150:	ef 93       	push	r30
+ 152:	ff 93       	push	r31
+ 154:	cf 93       	push	r28
+ 156:	df 93       	push	r29
+ 158:	00 d0       	rcall	.+0      	; 0x15a <__vector_18+0x1a>
+ 15a:	cd b7       	in	r28, 0x3d	; 61
+ 15c:	de b7       	in	r29, 0x3e	; 62
 	char received = UDR0; // clears flag
- 168:	20 91 c6 00 	lds	r18, 0x00C6
+ 15e:	20 91 c6 00 	lds	r18, 0x00C6
 	
 	char delimiter[] = "@";
- 16c:	80 e4       	ldi	r24, 0x40	; 64
- 16e:	90 e0       	ldi	r25, 0x00	; 0
- 170:	9a 83       	std	Y+2, r25	; 0x02
- 172:	89 83       	std	Y+1, r24	; 0x01
+ 162:	80 e4       	ldi	r24, 0x40	; 64
+ 164:	90 e0       	ldi	r25, 0x00	; 0
+ 166:	9a 83       	std	Y+2, r25	; 0x02
+ 168:	89 83       	std	Y+1, r24	; 0x01
 	
 	if(memory_index < sizeof(delimiter)) 
- 174:	80 91 16 01 	lds	r24, 0x0116
- 178:	82 30       	cpi	r24, 0x02	; 2
- 17a:	58 f4       	brcc	.+22     	; 0x192 <__vector_18+0x4c>
+ 16a:	80 91 0e 01 	lds	r24, 0x010E
+ 16e:	82 30       	cpi	r24, 0x02	; 2
+ 170:	58 f4       	brcc	.+22     	; 0x188 <__vector_18+0x48>
 	{
 		memory_index = (received == delimiter[memory_index])? memory_index + 1 : 0;	
- 17c:	fe 01       	movw	r30, r28
- 17e:	e8 0f       	add	r30, r24
- 180:	f1 1d       	adc	r31, r1
- 182:	91 81       	ldd	r25, Z+1	; 0x01
- 184:	92 13       	cpse	r25, r18
- 186:	02 c0       	rjmp	.+4      	; 0x18c <__vector_18+0x46>
- 188:	8f 5f       	subi	r24, 0xFF	; 255
- 18a:	01 c0       	rjmp	.+2      	; 0x18e <__vector_18+0x48>
- 18c:	80 e0       	ldi	r24, 0x00	; 0
- 18e:	80 93 16 01 	sts	0x0116, r24
+ 172:	fe 01       	movw	r30, r28
+ 174:	e8 0f       	add	r30, r24
+ 176:	f1 1d       	adc	r31, r1
+ 178:	91 81       	ldd	r25, Z+1	; 0x01
+ 17a:	92 13       	cpse	r25, r18
+ 17c:	02 c0       	rjmp	.+4      	; 0x182 <__vector_18+0x42>
+ 17e:	8f 5f       	subi	r24, 0xFF	; 255
+ 180:	01 c0       	rjmp	.+2      	; 0x184 <__vector_18+0x44>
+ 182:	80 e0       	ldi	r24, 0x00	; 0
+ 184:	80 93 0e 01 	sts	0x010E, r24
+	} 
 	else
 	{
 		
 	}
-
-	PORTC = 0;
- 192:	18 b8       	out	0x08, r1	; 8
 }
- 194:	0f 90       	pop	r0
- 196:	0f 90       	pop	r0
- 198:	df 91       	pop	r29
- 19a:	cf 91       	pop	r28
- 19c:	ff 91       	pop	r31
- 19e:	ef 91       	pop	r30
- 1a0:	9f 91       	pop	r25
- 1a2:	8f 91       	pop	r24
- 1a4:	2f 91       	pop	r18
- 1a6:	0f 90       	pop	r0
- 1a8:	0f be       	out	0x3f, r0	; 63
- 1aa:	0f 90       	pop	r0
- 1ac:	1f 90       	pop	r1
- 1ae:	18 95       	reti
+ 188:	0f 90       	pop	r0
+ 18a:	0f 90       	pop	r0
+ 18c:	df 91       	pop	r29
+ 18e:	cf 91       	pop	r28
+ 190:	ff 91       	pop	r31
+ 192:	ef 91       	pop	r30
+ 194:	9f 91       	pop	r25
+ 196:	8f 91       	pop	r24
+ 198:	2f 91       	pop	r18
+ 19a:	0f 90       	pop	r0
+ 19c:	0f be       	out	0x3f, r0	; 63
+ 19e:	0f 90       	pop	r0
+ 1a0:	1f 90       	pop	r1
+ 1a2:	18 95       	reti
 
-000001b0 <__vector_19>:
+000001a4 <__vector_19>:
 
 ISR(USART_UDRE_vect)
 {
- 1b0:	1f 92       	push	r1
- 1b2:	0f 92       	push	r0
- 1b4:	0f b6       	in	r0, 0x3f	; 63
- 1b6:	0f 92       	push	r0
- 1b8:	11 24       	eor	r1, r1
- 1ba:	2f 93       	push	r18
- 1bc:	3f 93       	push	r19
- 1be:	4f 93       	push	r20
- 1c0:	5f 93       	push	r21
- 1c2:	6f 93       	push	r22
- 1c4:	7f 93       	push	r23
- 1c6:	8f 93       	push	r24
- 1c8:	9f 93       	push	r25
- 1ca:	af 93       	push	r26
- 1cc:	bf 93       	push	r27
- 1ce:	ef 93       	push	r30
- 1d0:	ff 93       	push	r31
-	PORTC = 1;
- 1d2:	81 e0       	ldi	r24, 0x01	; 1
- 1d4:	88 b9       	out	0x08, r24	; 8
-	
-	// s3p_buffer_empty_interrupt_disable();
+ 1a4:	1f 92       	push	r1
+ 1a6:	0f 92       	push	r0
+ 1a8:	0f b6       	in	r0, 0x3f	; 63
+ 1aa:	0f 92       	push	r0
+ 1ac:	11 24       	eor	r1, r1
+ 1ae:	2f 93       	push	r18
+ 1b0:	3f 93       	push	r19
+ 1b2:	4f 93       	push	r20
+ 1b4:	5f 93       	push	r21
+ 1b6:	6f 93       	push	r22
+ 1b8:	7f 93       	push	r23
+ 1ba:	8f 93       	push	r24
+ 1bc:	9f 93       	push	r25
+ 1be:	af 93       	push	r26
+ 1c0:	bf 93       	push	r27
+ 1c2:	ef 93       	push	r30
+ 1c4:	ff 93       	push	r31
 	UDR0 = transmitting[chars_to_send - chars_left];
- 1d6:	e0 91 11 01 	lds	r30, 0x0111
- 1da:	80 91 12 01 	lds	r24, 0x0112
- 1de:	f0 e0       	ldi	r31, 0x00	; 0
- 1e0:	e8 1b       	sub	r30, r24
- 1e2:	f1 09       	sbc	r31, r1
- 1e4:	80 91 13 01 	lds	r24, 0x0113
- 1e8:	90 91 14 01 	lds	r25, 0x0114
- 1ec:	e8 0f       	add	r30, r24
- 1ee:	f9 1f       	adc	r31, r25
- 1f0:	80 81       	ld	r24, Z
- 1f2:	80 93 c6 00 	sts	0x00C6, r24
+ 1c6:	e0 91 09 01 	lds	r30, 0x0109
+ 1ca:	80 91 0a 01 	lds	r24, 0x010A
+ 1ce:	f0 e0       	ldi	r31, 0x00	; 0
+ 1d0:	e8 1b       	sub	r30, r24
+ 1d2:	f1 09       	sbc	r31, r1
+ 1d4:	80 91 0b 01 	lds	r24, 0x010B
+ 1d8:	90 91 0c 01 	lds	r25, 0x010C
+ 1dc:	e8 0f       	add	r30, r24
+ 1de:	f9 1f       	adc	r31, r25
+ 1e0:	80 81       	ld	r24, Z
+ 1e2:	80 93 c6 00 	sts	0x00C6, r24
 	chars_left--;
- 1f6:	80 91 12 01 	lds	r24, 0x0112
- 1fa:	81 50       	subi	r24, 0x01	; 1
- 1fc:	80 93 12 01 	sts	0x0112, r24
+ 1e6:	80 91 0a 01 	lds	r24, 0x010A
+ 1ea:	81 50       	subi	r24, 0x01	; 1
+ 1ec:	80 93 0a 01 	sts	0x010A, r24
 	
 	if(chars_left == 1) 
- 200:	80 91 12 01 	lds	r24, 0x0112
- 204:	81 30       	cpi	r24, 0x01	; 1
- 206:	21 f4       	brne	.+8      	; 0x210 <__vector_19+0x60>
+ 1f0:	80 91 0a 01 	lds	r24, 0x010A
+ 1f4:	81 30       	cpi	r24, 0x01	; 1
+ 1f6:	21 f4       	brne	.+8      	; 0x200 <__vector_19+0x5c>
 	{
 		s3p_buffer_empty_interrupt_disable();
- 208:	0e 94 59 00 	call	0xb2	; 0xb2 <_Z34s3p_buffer_empty_interrupt_disablev>
+ 1f8:	0e 94 59 00 	call	0xb2	; 0xb2 <_Z34s3p_buffer_empty_interrupt_disablev>
 		s3p_tx_complete_interrupt_enable();
- 20c:	0e 94 5f 00 	call	0xbe	; 0xbe <_Z32s3p_tx_complete_interrupt_enablev>
+ 1fc:	0e 94 5f 00 	call	0xbe	; 0xbe <_Z32s3p_tx_complete_interrupt_enablev>
 	}
-	
-	PORTC = 0;
- 210:	18 b8       	out	0x08, r1	; 8
 }
- 212:	ff 91       	pop	r31
- 214:	ef 91       	pop	r30
- 216:	bf 91       	pop	r27
- 218:	af 91       	pop	r26
- 21a:	9f 91       	pop	r25
- 21c:	8f 91       	pop	r24
- 21e:	7f 91       	pop	r23
- 220:	6f 91       	pop	r22
- 222:	5f 91       	pop	r21
- 224:	4f 91       	pop	r20
- 226:	3f 91       	pop	r19
- 228:	2f 91       	pop	r18
- 22a:	0f 90       	pop	r0
- 22c:	0f be       	out	0x3f, r0	; 63
- 22e:	0f 90       	pop	r0
- 230:	1f 90       	pop	r1
- 232:	18 95       	reti
+ 200:	ff 91       	pop	r31
+ 202:	ef 91       	pop	r30
+ 204:	bf 91       	pop	r27
+ 206:	af 91       	pop	r26
+ 208:	9f 91       	pop	r25
+ 20a:	8f 91       	pop	r24
+ 20c:	7f 91       	pop	r23
+ 20e:	6f 91       	pop	r22
+ 210:	5f 91       	pop	r21
+ 212:	4f 91       	pop	r20
+ 214:	3f 91       	pop	r19
+ 216:	2f 91       	pop	r18
+ 218:	0f 90       	pop	r0
+ 21a:	0f be       	out	0x3f, r0	; 63
+ 21c:	0f 90       	pop	r0
+ 21e:	1f 90       	pop	r1
+ 220:	18 95       	reti
 
-00000234 <_Z8s3p_initv>:
+00000222 <_Z8s3p_initv>:
 	}
 }
 
 void s3p_init() {
 	
 	DDRC = 0xff;
- 234:	8f ef       	ldi	r24, 0xFF	; 255
- 236:	87 b9       	out	0x07, r24	; 7
+ 222:	8f ef       	ldi	r24, 0xFF	; 255
+ 224:	87 b9       	out	0x07, r24	; 7
 	DDRB = 0xff;
- 238:	84 b9       	out	0x04, r24	; 4
+ 226:	84 b9       	out	0x04, r24	; 4
 	
 	PORTD |= _BV(1);
- 23a:	59 9a       	sbi	0x0b, 1	; 11
+ 228:	59 9a       	sbi	0x0b, 1	; 11
 	
 	UBRR0H = 0;
- 23c:	10 92 c5 00 	sts	0x00C5, r1
-	UBRR0L = 1;
- 240:	81 e0       	ldi	r24, 0x01	; 1
- 242:	80 93 c4 00 	sts	0x00C4, r24
+ 22a:	10 92 c5 00 	sts	0x00C5, r1
+	UBRR0L = 1; // 1Mbaud
+ 22e:	81 e0       	ldi	r24, 0x01	; 1
+ 230:	80 93 c4 00 	sts	0x00C4, r24
 	UCSR0A = _BV(U2X0);
- 246:	82 e0       	ldi	r24, 0x02	; 2
- 248:	80 93 c0 00 	sts	0x00C0, r24
+ 234:	82 e0       	ldi	r24, 0x02	; 2
+ 236:	80 93 c0 00 	sts	0x00C0, r24
 	UCSR0B = /*_BV(RXCIE0) |*/ _BV(RXEN0) | _BV(TXEN0);
- 24c:	88 e1       	ldi	r24, 0x18	; 24
- 24e:	80 93 c1 00 	sts	0x00C1, r24
-	// UCSR0B |= _BV(TXCIE0);
+ 23a:	88 e1       	ldi	r24, 0x18	; 24
+ 23c:	80 93 c1 00 	sts	0x00C1, r24
 	UCSR0C = _BV(UCSZ01) | _BV(UCSZ00);
- 252:	86 e0       	ldi	r24, 0x06	; 6
- 254:	80 93 c2 00 	sts	0x00C2, r24
- 258:	08 95       	ret
+ 240:	86 e0       	ldi	r24, 0x06	; 6
+ 242:	80 93 c2 00 	sts	0x00C2, r24
+ 246:	08 95       	ret
 
-0000025a <_Z12s3p_transmitPch>:
+00000248 <_Z12s3p_transmitPch>:
 }
 
 void s3p_transmit(char* s, uint8_t char_count) {
- 25a:	cf 93       	push	r28
- 25c:	df 93       	push	r29
- 25e:	ec 01       	movw	r28, r24
+ 248:	cf 93       	push	r28
+ 24a:	df 93       	push	r29
+ 24c:	ec 01       	movw	r28, r24
 	
 	// sends between 1 and 255 chars
 	// uses USART_TX and USART_UDRE interrupts to advance through chars
 	
 	PORTD = _BV(6) | _BV(1);
- 260:	82 e4       	ldi	r24, 0x42	; 66
- 262:	8b b9       	out	0x0b, r24	; 11
+ 24e:	82 e4       	ldi	r24, 0x42	; 66
+ 250:	8b b9       	out	0x0b, r24	; 11
 	
 	transmitting = s;
- 264:	d0 93 14 01 	sts	0x0114, r29
- 268:	c0 93 13 01 	sts	0x0113, r28
+ 252:	d0 93 0c 01 	sts	0x010C, r29
+ 256:	c0 93 0b 01 	sts	0x010B, r28
 	chars_to_send = char_count;
- 26c:	60 93 11 01 	sts	0x0111, r22
+ 25a:	60 93 09 01 	sts	0x0109, r22
 	chars_left = chars_to_send - 1;
- 270:	80 91 11 01 	lds	r24, 0x0111
- 274:	81 50       	subi	r24, 0x01	; 1
- 276:	80 93 12 01 	sts	0x0112, r24
+ 25e:	80 91 09 01 	lds	r24, 0x0109
+ 262:	81 50       	subi	r24, 0x01	; 1
+ 264:	80 93 0a 01 	sts	0x010A, r24
 	
 	s3p_TX_enable();
- 27a:	0e 94 6b 00 	call	0xd6	; 0xd6 <_Z13s3p_TX_enablev>
+ 268:	0e 94 6b 00 	call	0xd6	; 0xd6 <_Z13s3p_TX_enablev>
 	UDR0 = s[0];
- 27e:	88 81       	ld	r24, Y
- 280:	80 93 c6 00 	sts	0x00C6, r24
+ 26c:	88 81       	ld	r24, Y
+ 26e:	80 93 c6 00 	sts	0x00C6, r24
 	s3p_buffer_empty_interrupt_enable();
- 284:	0e 94 53 00 	call	0xa6	; 0xa6 <_Z33s3p_buffer_empty_interrupt_enablev>
+ 272:	0e 94 53 00 	call	0xa6	; 0xa6 <_Z33s3p_buffer_empty_interrupt_enablev>
 	
 	PORTD = _BV(1);
- 288:	82 e0       	ldi	r24, 0x02	; 2
- 28a:	8b b9       	out	0x0b, r24	; 11
+ 276:	82 e0       	ldi	r24, 0x02	; 2
+ 278:	8b b9       	out	0x0b, r24	; 11
 }
- 28c:	df 91       	pop	r29
- 28e:	cf 91       	pop	r28
- 290:	08 95       	ret
+ 27a:	df 91       	pop	r29
+ 27c:	cf 91       	pop	r28
+ 27e:	08 95       	ret
 
-00000292 <__vector_14>:
-	
-	// TIMSK0 = _BV(OCIE1A); // start timer0
-	// PORTD = 0;
+00000280 <__vector_14>:
 }
+
+char tick_msg[] = "@RGB";
+char tock_msg[] = "TOCK";
 
 ISR(TIMER0_COMPA_vect) {
- 292:	1f 92       	push	r1
- 294:	0f 92       	push	r0
- 296:	0f b6       	in	r0, 0x3f	; 63
- 298:	0f 92       	push	r0
- 29a:	11 24       	eor	r1, r1
- 29c:	8f 93       	push	r24
+ 280:	1f 92       	push	r1
+ 282:	0f 92       	push	r0
+ 284:	0f b6       	in	r0, 0x3f	; 63
+ 286:	0f 92       	push	r0
+ 288:	11 24       	eor	r1, r1
+ 28a:	2f 93       	push	r18
+ 28c:	3f 93       	push	r19
+ 28e:	4f 93       	push	r20
+ 290:	5f 93       	push	r21
+ 292:	6f 93       	push	r22
+ 294:	7f 93       	push	r23
+ 296:	8f 93       	push	r24
+ 298:	9f 93       	push	r25
+ 29a:	af 93       	push	r26
+ 29c:	bf 93       	push	r27
+ 29e:	ef 93       	push	r30
+ 2a0:	ff 93       	push	r31
 	
-	PORTD = _BV(6);
- 29e:	80 e4       	ldi	r24, 0x40	; 64
- 2a0:	8b b9       	out	0x0b, r24	; 11
-	PORTD = 0;
- 2a2:	1b b8       	out	0x0b, r1	; 11
+	PORTB ^= 2;
+ 2a2:	95 b1       	in	r25, 0x05	; 5
+ 2a4:	82 e0       	ldi	r24, 0x02	; 2
+ 2a6:	89 27       	eor	r24, r25
+ 2a8:	85 b9       	out	0x05, r24	; 5
+	s3p_transmit(tick_msg, sizeof(tick_msg));
+ 2aa:	65 e0       	ldi	r22, 0x05	; 5
+ 2ac:	80 e0       	ldi	r24, 0x00	; 0
+ 2ae:	91 e0       	ldi	r25, 0x01	; 1
+ 2b0:	0e 94 24 01 	call	0x248	; 0x248 <_Z12s3p_transmitPch>
 }
- 2a4:	8f 91       	pop	r24
- 2a6:	0f 90       	pop	r0
- 2a8:	0f be       	out	0x3f, r0	; 63
- 2aa:	0f 90       	pop	r0
- 2ac:	1f 90       	pop	r1
- 2ae:	18 95       	reti
+ 2b4:	ff 91       	pop	r31
+ 2b6:	ef 91       	pop	r30
+ 2b8:	bf 91       	pop	r27
+ 2ba:	af 91       	pop	r26
+ 2bc:	9f 91       	pop	r25
+ 2be:	8f 91       	pop	r24
+ 2c0:	7f 91       	pop	r23
+ 2c2:	6f 91       	pop	r22
+ 2c4:	5f 91       	pop	r21
+ 2c6:	4f 91       	pop	r20
+ 2c8:	3f 91       	pop	r19
+ 2ca:	2f 91       	pop	r18
+ 2cc:	0f 90       	pop	r0
+ 2ce:	0f be       	out	0x3f, r0	; 63
+ 2d0:	0f 90       	pop	r0
+ 2d2:	1f 90       	pop	r1
+ 2d4:	18 95       	reti
 
-000002b0 <main>:
+000002d6 <main>:
 
 int main(void) 
 {
- 2b0:	cf 93       	push	r28
- 2b2:	df 93       	push	r29
- 2b4:	cd b7       	in	r28, 0x3d	; 61
- 2b6:	de b7       	in	r29, 0x3e	; 62
- 2b8:	2e 97       	sbiw	r28, 0x0e	; 14
- 2ba:	0f b6       	in	r0, 0x3f	; 63
- 2bc:	f8 94       	cli
- 2be:	de bf       	out	0x3e, r29	; 62
- 2c0:	0f be       	out	0x3f, r0	; 63
- 2c2:	cd bf       	out	0x3d, r28	; 61
 	s3p_init();
- 2c4:	0e 94 1a 01 	call	0x234	; 0x234 <_Z8s3p_initv>
+ 2d6:	0e 94 11 01 	call	0x222	; 0x222 <_Z8s3p_initv>
 
 	DDRB = 0xff;
- 2c8:	8f ef       	ldi	r24, 0xFF	; 255
- 2ca:	84 b9       	out	0x04, r24	; 4
+ 2da:	8f ef       	ldi	r24, 0xFF	; 255
+ 2dc:	84 b9       	out	0x04, r24	; 4
 	DDRD = 0xff; // PORTD as outputs
- 2cc:	8a b9       	out	0x0a, r24	; 10
+ 2de:	8a b9       	out	0x0a, r24	; 10
 	
 	TCCR0A = _BV(WGM01); // CTC mode
- 2ce:	92 e0       	ldi	r25, 0x02	; 2
- 2d0:	94 bd       	out	0x24, r25	; 36
-	TCCR0B =  PRESCALER_1;
- 2d2:	91 e0       	ldi	r25, 0x01	; 1
- 2d4:	95 bd       	out	0x25, r25	; 37
-	OCR0A =	1;
- 2d6:	97 bd       	out	0x27, r25	; 39
-	PORTC = 0;
+ 2e0:	22 e0       	ldi	r18, 0x02	; 2
+ 2e2:	24 bd       	out	0x24, r18	; 36
+	TCCR0B =  PRESCALER_64;
+ 2e4:	93 e0       	ldi	r25, 0x03	; 3
+ 2e6:	95 bd       	out	0x25, r25	; 37
+	OCR0A =	49;
+ 2e8:	31 e3       	ldi	r19, 0x31	; 49
+ 2ea:	37 bd       	out	0x27, r19	; 39
+	TIMSK0 = _BV(OCIE1A); // enable timer interrupt
+ 2ec:	20 93 6e 00 	sts	0x006E, r18
+	}
 }
 
 void s3p_send_input_to(void* memory, uint8_t size)
 {
 	memory_location = (uint8_t*)memory;
- 2d8:	ee e0       	ldi	r30, 0x0E	; 14
- 2da:	f1 e0       	ldi	r31, 0x01	; 1
- 2dc:	f0 93 18 01 	sts	0x0118, r31
- 2e0:	e0 93 17 01 	sts	0x0117, r30
+ 2f0:	e6 e0       	ldi	r30, 0x06	; 6
+ 2f2:	f1 e0       	ldi	r31, 0x01	; 1
+ 2f4:	f0 93 10 01 	sts	0x0110, r31
+ 2f8:	e0 93 0f 01 	sts	0x010F, r30
 	memory_size = size;
- 2e4:	93 e0       	ldi	r25, 0x03	; 3
- 2e6:	90 93 15 01 	sts	0x0115, r25
-	// TIMSK0 = _BV(OCIE1A); // enable timer interrupt
+ 2fc:	90 93 0d 01 	sts	0x010D, r25
 	
 	s3p_send_input_to(&colors, sizeof(colors));
 	
 	colors.r = 255;
- 2ea:	80 83       	st	Z, r24
+ 300:	80 83       	st	Z, r24
 	colors.g = 160;
- 2ec:	80 ea       	ldi	r24, 0xA0	; 160
- 2ee:	80 93 0f 01 	sts	0x010F, r24
+ 302:	80 ea       	ldi	r24, 0xA0	; 160
+ 304:	80 93 07 01 	sts	0x0107, r24
 	colors.b = 32;
- 2f2:	80 e2       	ldi	r24, 0x20	; 32
- 2f4:	80 93 10 01 	sts	0x0110, r24
+ 308:	80 e2       	ldi	r24, 0x20	; 32
+ 30a:	80 93 08 01 	sts	0x0108, r24
 	
 	sei(); // set interrupts
- 2f8:	78 94       	sei
+ 30e:	78 94       	sei
 	
 	BITSET(PORTD, 6);
- 2fa:	5e 9a       	sbi	0x0b, 6	; 11
+ 310:	5e 9a       	sbi	0x0b, 6	; 11
 	
     while(1)	
 	{
-		char tick_msg[] = "@RGB123456789";
- 2fc:	1e e0       	ldi	r17, 0x0E	; 14
- 2fe:	e0 e0       	ldi	r30, 0x00	; 0
- 300:	f1 e0       	ldi	r31, 0x01	; 1
- 302:	de 01       	movw	r26, r28
- 304:	11 96       	adiw	r26, 0x01	; 1
- 306:	81 2f       	mov	r24, r17
- 308:	01 90       	ld	r0, Z+
- 30a:	0d 92       	st	X+, r0
- 30c:	8a 95       	dec	r24
- 30e:	e1 f7       	brne	.-8      	; 0x308 <main+0x58>
+		PORTD = PORTD + 1;
+ 312:	8b b1       	in	r24, 0x0b	; 11
+ 314:	8f 5f       	subi	r24, 0xFF	; 255
+ 316:	8b b9       	out	0x0b, r24	; 11
 	#else
 		//round up by default
 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
 	#endif
 
 	__builtin_avr_delay_cycles(__ticks_dc);
- 310:	8f e8       	ldi	r24, 0x8F	; 143
- 312:	91 e0       	ldi	r25, 0x01	; 1
- 314:	01 97       	sbiw	r24, 0x01	; 1
- 316:	f1 f7       	brne	.-4      	; 0x314 <main+0x64>
- 318:	00 c0       	rjmp	.+0      	; 0x31a <main+0x6a>
- 31a:	00 00       	nop
-		char tock_msg[] = "TOCK";
-		_delay_us(100);
-		s3p_transmit(tick_msg, sizeof(tick_msg));
- 31c:	61 2f       	mov	r22, r17
- 31e:	ce 01       	movw	r24, r28
- 320:	01 96       	adiw	r24, 0x01	; 1
- 322:	0e 94 2d 01 	call	0x25a	; 0x25a <_Z12s3p_transmitPch>
- 326:	8f e8       	ldi	r24, 0x8F	; 143
- 328:	91 e0       	ldi	r25, 0x01	; 1
- 32a:	01 97       	sbiw	r24, 0x01	; 1
- 32c:	f1 f7       	brne	.-4      	; 0x32a <main+0x7a>
- 32e:	00 c0       	rjmp	.+0      	; 0x330 <main+0x80>
- 330:	00 00       	nop
- 332:	e5 cf       	rjmp	.-54     	; 0x2fe <main+0x4e>
+ 318:	2f ef       	ldi	r18, 0xFF	; 255
+ 31a:	80 e7       	ldi	r24, 0x70	; 112
+ 31c:	92 e0       	ldi	r25, 0x02	; 2
+ 31e:	21 50       	subi	r18, 0x01	; 1
+ 320:	80 40       	sbci	r24, 0x00	; 0
+ 322:	90 40       	sbci	r25, 0x00	; 0
+ 324:	e1 f7       	brne	.-8      	; 0x31e <main+0x48>
+ 326:	00 c0       	rjmp	.+0      	; 0x328 <main+0x52>
+ 328:	00 00       	nop
+ 32a:	f3 cf       	rjmp	.-26     	; 0x312 <main+0x3c>
 
-00000334 <_exit>:
- 334:	f8 94       	cli
+0000032c <_exit>:
+ 32c:	f8 94       	cli
 
-00000336 <__stop_program>:
- 336:	ff cf       	rjmp	.-2      	; 0x336 <__stop_program>
+0000032e <__stop_program>:
+ 32e:	ff cf       	rjmp	.-2      	; 0x32e <__stop_program>

@@ -45,10 +45,13 @@ void soft_transmit(char* s, uint8_t char_count) {
 	// PORTD = 0;
 }
 
+char tick_msg[] = "@RGB";
+char tock_msg[] = "TOCK";
+
 ISR(TIMER0_COMPA_vect) {
 	
-	PORTD = _BV(6);
-	PORTD = 0;
+	PORTB ^= 2;
+	s3p_transmit(tick_msg, sizeof(tick_msg));
 }
 
 int main(void) 
@@ -59,9 +62,9 @@ int main(void)
 	DDRD = 0xff; // PORTD as outputs
 	
 	TCCR0A = _BV(WGM01); // CTC mode
-	TCCR0B =  PRESCALER_1;
-	OCR0A =	1;
-	// TIMSK0 = _BV(OCIE1A); // enable timer interrupt
+	TCCR0B =  PRESCALER_64;
+	OCR0A =	49;
+	TIMSK0 = _BV(OCIE1A); // enable timer interrupt
 	
 	s3p_send_input_to(&colors, sizeof(colors));
 	
@@ -75,11 +78,7 @@ int main(void)
 	
     while(1)	
 	{
-		char tick_msg[] = "@RGB123456789";
-		char tock_msg[] = "TOCK";
-		_delay_us(100);
-		s3p_transmit(tick_msg, sizeof(tick_msg));
-		_delay_us(100);
-		// soft_transmit(tock_msg, sizeof(tock_msg));
+		PORTD = PORTD + 1;
+		_delay_ms(50);
 	}
 }
