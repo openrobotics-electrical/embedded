@@ -18,20 +18,23 @@ uint8_t memory_size;
 
 volatile char* transmitting;
 volatile uint8_t chars_left = 0, chars_to_send = 0;
-
-#define TXDEN_PIN _BV(3)
+	
+#define TX_PIN 1
+#define TX_PORT PORTD
+#define TXDEN_PIN 3
+#define TXDEN_PORT PORTB
 
 void s3p_TX_enable() 
 { 
 	UCSR0B |= _BV(TXEN0); // TX pin enabled
-	PORTB |= TXDEN_PIN;
+	TXDEN_PORT |= _BV(TXDEN_PIN);
 }
 
 void s3p_TX_disable() 
 { 	
-	PORTB &= ~TXDEN_PIN;
+	TXDEN_PORT &= ~TXDEN_PIN;
 	UCSR0B &= ~_BV(TXEN0); // TX pin disabled
-	PORTD |= _BV(1);
+	TX_PORT |= _BV(TX_PIN);
 }
 
 ISR(USART_TX_vect)
@@ -86,8 +89,6 @@ void s3p_transmit(char* s, uint8_t char_count) {
 	
 	// sends between 1 and 255 chars
 	// uses USART_TX and USART_UDRE interrupts to advance through chars
-	
-	#define TX_PIN 1
 		
 	transmitting = s;
 	chars_to_send = char_count;
@@ -97,7 +98,7 @@ void s3p_transmit(char* s, uint8_t char_count) {
 	UDR0 = s[0]; // start transmission of first char
 	UCSR0B |= _BV(UDRIE0); // enable buffer empty interrupt
 	
-	PORTD = _BV(TX_PIN);
+	TX_PORT = _BV(TX_PIN);
 }
 
 #endif
