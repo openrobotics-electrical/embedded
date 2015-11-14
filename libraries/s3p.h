@@ -7,35 +7,45 @@
  * Author: Maxim
  */ 
 
+/*
+
+S3P = SSSP = (S)uper-(S)imple (S)erial (P)rotocol
+
+This is an in-progress communication protocol
+Uses interrupts to transmit and receive at up to 1 Mbps
+Checks received data against a preset delimiter
+Right now just echoes first three chars after delimiter
+Will in future take user input/output memory blocks as arguments
+
+*/
+
+#include <modular8.h>
 #include <avr/io.h>
 #include <avr/interrupt.h>
-#include <util/delay.h>
 
-bool delimiter_found, address_found;
-uint8_t* memory_location;
+uint8_t* memory_location; // points to user memory
 uint8_t memory_index;
 uint8_t memory_size;
 
 volatile char* transmitting;
 volatile uint8_t chars_left = 0, chars_to_send = 0;
 	
+void s3p_transmit(char* s, uint8_t char_count);
+	
 #define TX_PIN 1
 #define TX_PORT PORTD
-#define TXDEN_PIN 3
+#define RX_PIN 0
+#define RX_PORT PORTD
+#define TXDEN_PIN 2
 #define TXDEN_PORT PORTB
 
-void s3p_TX_enable() 
-{ 
-	UCSR0B |= _BV(TXEN0); // TX pin enabled
-	TXDEN_PORT |= _BV(TXDEN_PIN);
-}
+#define s3p_TX_enable()\
+	UCSR0B |= _BV(TXEN0);\
+	TXDEN_PORT |= _BV(TXDEN_PIN); /* RS485 enable */\
 
-void s3p_TX_disable() 
-{ 	
-	TXDEN_PORT &= ~TXDEN_PIN;
-	UCSR0B &= ~_BV(TXEN0); // TX pin disabled
-	TX_PORT |= _BV(TX_PIN);
-}
+#define s3p_TX_disable()\
+	TXDEN_PORT &= ~_BV(TXDEN_PIN); /* RS485 disable */\
+	UCSR0B &= ~_BV(TXEN0); /* enable USART TX */\
 
 ISR(USART_TX_vect)
 {
@@ -43,19 +53,30 @@ ISR(USART_TX_vect)
 	UCSR0B &= ~_BV(TXCIE0); // disables TX complete interrupt
 }
 
+char delimiter[] = "@RGB";
+uint8_t delimiter_length = sizeof(delimiter) - 1;
+
+char input[8];
+uint8_t input_index, input_size = 3;
+
 ISR(USART_RX_vect) 
 {	
 	char received = UDR0; // clears flag
 	
-	char delimiter[] = "@";
-	
-	if(memory_index < sizeof(delimiter)) 
+	if(memory_index < delimiter_length) 
 	{
 		memory_index = (received == delimiter[memory_index])? memory_index + 1 : 0;	
 	} 
-	else
+	else if(input_index < input_size)
 	{
-		
+		input[input_index] = received;
+		input_index++;
+ 	}
+	if(input_index == input_size)
+	{
+		memory_index = 0;
+		input_index = 0;
+		s3p_transmit(input, 3);
 	}
 }
 
@@ -73,16 +94,14 @@ ISR(USART_UDRE_vect)
 
 void s3p_init() {
 	
-	DDRC = 0xff;
-	DDRB = 0xff;
+	DDRB |= _BV(TXDEN_PIN) + _BV(5);
+	PORTB &= ~_BV(TXDEN_PIN);
 	
-	PORTD |= _BV(1);
-	
-	UBRR0H = 0;
-	UBRR0L = 1; // 1Mbaud
-	UCSR0A = _BV(U2X0);
-	UCSR0B = /*_BV(RXCIE0) |*/ _BV(RXEN0) | _BV(TXEN0);
-	UCSR0C = _BV(UCSZ01) | _BV(UCSZ00);
+	UBRR0H = 0; 
+	UBRR0L = 7; // 250000 baud
+	UCSR0A = _BV(U2X0); // double speed UART
+	UCSR0B = _BV(RXCIE0) | _BV(RXEN0) | _BV(TXEN0); // receive interrupt, RX/TX enable
+	UCSR0C = _BV(UCSZ01) | _BV(UCSZ00); // 8-bit data, no parity, 1 stop bit
 }
 
 void s3p_transmit(char* s, uint8_t char_count) {
@@ -91,14 +110,12 @@ void s3p_transmit(char* s, uint8_t char_count) {
 	// uses USART_TX and USART_UDRE interrupts to advance through chars
 		
 	transmitting = s;
-	chars_to_send = char_count;
+	chars_to_send = char_count + 1;
 	chars_left = chars_to_send - 1;
 	
 	s3p_TX_enable();
 	UDR0 = s[0]; // start transmission of first char
 	UCSR0B |= _BV(UDRIE0); // enable buffer empty interrupt
-	
-	TX_PORT = _BV(TX_PIN);
 }
 
 #endif

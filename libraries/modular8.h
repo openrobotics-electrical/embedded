@@ -10,21 +10,31 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 
-#define BMASK 0b00000011
-#define DMASK 0b11111100
+#define BMASK			0b00000011
+#define DMASK			0b11111100
 
-void set_digital_bus(uint8_t out) {
+#define PRESCALER_1		0b001
+#define PRESCALER_8		0b010
+#define PRESCALER_64	0b011
+#define PRESCALER_256	0b100
+#define PRESCALER_1024	0b101
+
+#ifndef _BV
+#define _BV(x) (1 << (x))
+#endif
+
+void modular8_set_digital_bus(uint8_t out) {
 	
 	PORTD = out & DMASK;
 	PORTB = out & BMASK;
 }
 
-uint8_t get_digital_bus() {
+uint8_t modular8_get_digital_bus() {
 	
 	return (PIND & DMASK) | (PINB & BMASK);
 }
 
-void set_digital_bus_direction(uint8_t dir) {
+void modular8_set_digital_bus_direction(uint8_t dir) {
 	
 	DDRD = dir & DMASK;
 	DDRB = dir & BMASK;
