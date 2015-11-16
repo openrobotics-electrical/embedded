@@ -28,7 +28,8 @@ ISR(TIMER0_COMPA_vect) {
 
 ISR(TIMER1_COMPA_vect) {
 	
-	// s3p_transmit(tick_msg, sizeof(tick_msg));
+	// static char tock_message[] = "eyyeah!";
+	// s3p_transmit(tock_message, sizeof(tock_message));
 }
 
 int main(void) 
@@ -54,6 +55,6 @@ int main(void)
 	
     while(1)	
 	{
-		
+		// idle
 	}
 }

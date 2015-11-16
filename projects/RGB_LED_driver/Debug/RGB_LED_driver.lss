@@ -384,7 +384,8 @@ ISR(TIMER1_COMPA_vect) {
  25a:	0f 92       	push	r0
  25c:	11 24       	eor	r1, r1
 	
-	// s3p_transmit(tick_msg, sizeof(tick_msg));
+	// static char tock_message[] = "eyyeah!";
+	// s3p_transmit(tock_message, sizeof(tock_message));
 }
  25e:	0f 90       	pop	r0
  260:	0f be       	out	0x3f, r0	; 63
