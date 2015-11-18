@@ -30,7 +30,14 @@ uint8_t memory_size;
 volatile char* transmitting;
 volatile uint8_t chars_left = 0, chars_to_send = 0;
 	
-void s3p_transmit(char* s, uint8_t char_count);
+void s3p_init();
+void s3p_setbuffers(
+		volatile void* in,
+		uint8_t in_size,
+		volatile void* out,
+		uint8_t out_size
+	);
+void s3p_transmit(volatile void* s, uint8_t char_count);
 	
 #define TX_PIN 1
 #define TX_PORT PORTD
@@ -56,8 +63,11 @@ ISR(USART_TX_vect)
 char delimiter[] = "@RGB";
 uint8_t delimiter_length = sizeof(delimiter) - 1;
 
-char input[8];
-uint8_t input_index, input_size = 3;
+char* input;
+uint8_t input_index, input_size;
+
+char* output;
+uint8_t output_imdex, output_size;
 
 ISR(USART_RX_vect) 
 {	
@@ -76,7 +86,7 @@ ISR(USART_RX_vect)
 	{
 		memory_index = 0;
 		input_index = 0;
-		s3p_transmit(input, 3);
+		s3p_transmit(output, output_size);
 	}
 }
 
@@ -104,18 +114,38 @@ void s3p_init() {
 	UCSR0C = _BV(UCSZ01) | _BV(UCSZ00); // 8-bit data, no parity, 1 stop bit
 }
 
-void s3p_transmit(char* s, uint8_t char_count) {
+void s3p_transmit(volatile void* s, uint8_t char_count) {
 	
 	// sends between 1 and 255 chars
 	// uses USART_TX and USART_UDRE interrupts to advance through chars
 		
-	transmitting = s;
-	chars_to_send = char_count + 1;
+	transmitting = (char*)s;
+	chars_to_send = char_count;
 	chars_left = chars_to_send - 1;
 	
 	s3p_TX_enable();
-	UDR0 = s[0]; // start transmission of first char
-	UCSR0B |= _BV(UDRIE0); // enable buffer empty interrupt
+	UDR0 = transmitting[0]; // start transmission of first char
+	if (chars_left > 0)
+	{
+		UCSR0B |= _BV(UDRIE0); // enable buffer empty interrupt
+	}
+	else
+	{
+		UCSR0B |= _BV(TXCIE0); // enables TX complete interrupt
+	}
+}
+
+void s3p_setbuffers(
+		volatile void* in,
+		uint8_t in_size,
+		volatile void* out,
+		uint8_t out_size
+	)
+{
+	input = (char*)in;
+	input_size = in_size;
+	output = (char*)out;
+	output_size = out_size;
 }
 
 #endif

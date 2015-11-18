@@ -13,12 +13,17 @@
 #include <modular8.h>
 #include <s3p.h>
 
-struct data
+volatile struct data_in
 {
 	uint8_t r;
 	uint8_t g;
 	uint8_t b;
-} colors;
+} Data_in;
+
+volatile struct data_out
+{
+	uint8_t test;
+} Data_out;
 
 ISR(TIMER0_COMPA_vect) {
 	
@@ -28,13 +33,16 @@ ISR(TIMER0_COMPA_vect) {
 
 ISR(TIMER1_COMPA_vect) {
 	
-	// static char tock_message[] = "eyyeah!";
-	// s3p_transmit(tock_message, sizeof(tock_message));
+	/*
+	static char tock_message[] = "TOCK";
+	s3p_transmit(tock_message, sizeof(tock_message));
+	*/
 }
 
 int main(void) 
 {
 	s3p_init();
+	s3p_setbuffers(&Data_in, sizeof(Data_in), &Data_out, 1);
 	
 	TCCR0A = _BV(WGM01); // CTC mode
 	TCCR0B =  PRESCALER_1024;
@@ -47,14 +55,17 @@ int main(void)
 	OCR1AL = 0x00;
 	TIMSK1 = _BV(OCIE1A); // enable timer interrupt
 	
-	colors.r = 255;
-	colors.g = 160;
-	colors.b = 32;
+	Data_in.r = 255;
+	Data_in.g = 160;
+	Data_in.b = 32;
+	Data_out.test = 0x42;
 	
 	sei(); // set interrupts
 	
+	int i = 0;
+	
     while(1)	
 	{
-		// idle
+		Data_out.test = i++;
 	}
 }
