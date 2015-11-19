@@ -3,29 +3,29 @@ RGB_LED_driver.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         00000006  00800100  00000302  00000396  2**0
+  0 .data         00000006  00800100  000003a8  0000043c  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         00000302  00000000  00000000  00000094  2**1
+  1 .text         000003a8  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .bss          00000010  00800106  00800106  0000039c  2**0
+  2 .bss          00000016  00800106  00800106  00000442  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  0000039c  2**0
+  3 .comment      00000030  00000000  00000000  00000442  2**0
                   CONTENTS, READONLY
-  4 .debug_aranges 00000078  00000000  00000000  000003cc  2**0
+  4 .debug_aranges 00000080  00000000  00000000  00000472  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   0000046c  00000000  00000000  00000444  2**0
+  5 .debug_info   00000635  00000000  00000000  000004f2  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 000001e8  00000000  00000000  000008b0  2**0
+  6 .debug_abbrev 000002d4  00000000  00000000  00000b27  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   000001f7  00000000  00000000  00000a98  2**0
+  7 .debug_line   000002d5  00000000  00000000  00000dfb  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  00000170  00000000  00000000  00000c90  2**2
+  8 .debug_frame  00000190  00000000  00000000  000010d0  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    000003bb  00000000  00000000  00000e00  2**0
+  9 .debug_str    00000515  00000000  00000000  00001260  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    00000280  00000000  00000000  000011bb  2**0
+ 10 .debug_loc    000002a8  00000000  00000000  00001775  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000068  00000000  00000000  0000143b  2**0
+ 11 .debug_ranges 00000088  00000000  00000000  00001a1d  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -42,17 +42,17 @@ Disassembly of section .text:
   20:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
   24:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
   28:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-  2c:	0c 94 3f 01 	jmp	0x27e	; 0x27e <__vector_11>
+  2c:	0c 94 53 01 	jmp	0x2a6	; 0x2a6 <__vector_11>
   30:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
   34:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-  38:	0c 94 35 01 	jmp	0x26a	; 0x26a <__vector_14>
+  38:	0c 94 49 01 	jmp	0x292	; 0x292 <__vector_14>
   3c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
   40:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
   44:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
   48:	0c 94 da 00 	jmp	0x1b4	; 0x1b4 <__vector_18>
   4c:	0c 94 6c 00 	jmp	0xd8	; 0xd8 <__vector_19>
   50:	0c 94 53 00 	jmp	0xa6	; 0xa6 <__vector_20>
-  54:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  54:	0c 94 35 01 	jmp	0x26a	; 0x26a <__vector_21>
   58:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
   5c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
   60:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
@@ -70,7 +70,7 @@ Disassembly of section .text:
   74:	11 e0       	ldi	r17, 0x01	; 1
   76:	a0 e0       	ldi	r26, 0x00	; 0
   78:	b1 e0       	ldi	r27, 0x01	; 1
-  7a:	e2 e0       	ldi	r30, 0x02	; 2
+  7a:	e8 ea       	ldi	r30, 0xA8	; 168
   7c:	f3 e0       	ldi	r31, 0x03	; 3
   7e:	02 c0       	rjmp	.+4      	; 0x84 <__do_copy_data+0x10>
   80:	05 90       	lpm	r0, Z+
@@ -89,11 +89,11 @@ Disassembly of section .text:
   92:	1d 92       	st	X+, r1
 
 00000094 <.do_clear_bss_start>:
-  94:	a6 31       	cpi	r26, 0x16	; 22
+  94:	ac 31       	cpi	r26, 0x1C	; 28
   96:	b2 07       	cpc	r27, r18
   98:	e1 f7       	brne	.-8      	; 0x92 <.do_clear_bss_loop>
-  9a:	0e 94 49 01 	call	0x292	; 0x292 <main>
-  9e:	0c 94 7f 01 	jmp	0x2fe	; 0x2fe <_exit>
+  9a:	0e 94 5d 01 	call	0x2ba	; 0x2ba <main>
+  9e:	0c 94 d2 01 	jmp	0x3a4	; 0x3a4 <_exit>
 
 000000a2 <__bad_interrupt>:
   a2:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -151,26 +151,26 @@ ISR(USART_UDRE_vect)
   e6:	ef 93       	push	r30
   e8:	ff 93       	push	r31
 	UDR0 = transmitting[chars_to_send - chars_left];
-  ea:	e0 91 11 01 	lds	r30, 0x0111
-  ee:	80 91 12 01 	lds	r24, 0x0112
+  ea:	e0 91 17 01 	lds	r30, 0x0117
+  ee:	80 91 18 01 	lds	r24, 0x0118
   f2:	f0 e0       	ldi	r31, 0x00	; 0
   f4:	e8 1b       	sub	r30, r24
   f6:	f1 09       	sbc	r31, r1
-  f8:	80 91 13 01 	lds	r24, 0x0113
-  fc:	90 91 14 01 	lds	r25, 0x0114
+  f8:	80 91 19 01 	lds	r24, 0x0119
+  fc:	90 91 1a 01 	lds	r25, 0x011A
  100:	e8 0f       	add	r30, r24
  102:	f9 1f       	adc	r31, r25
  104:	80 81       	ld	r24, Z
  106:	80 93 c6 00 	sts	0x00C6, r24
 	chars_left--;
- 10a:	80 91 12 01 	lds	r24, 0x0112
+ 10a:	80 91 18 01 	lds	r24, 0x0118
  10e:	81 50       	subi	r24, 0x01	; 1
- 110:	80 93 12 01 	sts	0x0112, r24
+ 110:	80 93 18 01 	sts	0x0118, r24
 	
-	if(chars_left == 1) 
- 114:	80 91 12 01 	lds	r24, 0x0112
- 118:	81 30       	cpi	r24, 0x01	; 1
- 11a:	41 f4       	brne	.+16     	; 0x12c <__vector_19+0x54>
+	if(chars_left == 0) 
+ 114:	80 91 18 01 	lds	r24, 0x0118
+ 118:	81 11       	cpse	r24, r1
+ 11a:	08 c0       	rjmp	.+16     	; 0x12c <__vector_19+0x54>
 	{
 		UCSR0B &= ~_BV(UDRIE0);  // disable buffer empty interrupt
  11c:	e1 ec       	ldi	r30, 0xC1	; 193
@@ -228,14 +228,14 @@ void s3p_transmit(volatile void* s, uint8_t char_count) {
 	// uses USART_TX and USART_UDRE interrupts to advance through chars
 		
 	transmitting = (char*)s;
- 164:	90 93 14 01 	sts	0x0114, r25
- 168:	80 93 13 01 	sts	0x0113, r24
+ 164:	90 93 1a 01 	sts	0x011A, r25
+ 168:	80 93 19 01 	sts	0x0119, r24
 	chars_to_send = char_count;
- 16c:	60 93 11 01 	sts	0x0111, r22
+ 16c:	60 93 17 01 	sts	0x0117, r22
 	chars_left = chars_to_send - 1;
- 170:	80 91 11 01 	lds	r24, 0x0111
+ 170:	80 91 17 01 	lds	r24, 0x0117
  174:	81 50       	subi	r24, 0x01	; 1
- 176:	80 93 12 01 	sts	0x0112, r24
+ 176:	80 93 18 01 	sts	0x0118, r24
 	
 	s3p_TX_enable();
  17a:	e1 ec       	ldi	r30, 0xC1	; 193
@@ -245,12 +245,12 @@ void s3p_transmit(volatile void* s, uint8_t char_count) {
  182:	80 83       	st	Z, r24
  184:	2a 9a       	sbi	0x05, 2	; 5
 	UDR0 = transmitting[0]; // start transmission of first char
- 186:	e0 91 13 01 	lds	r30, 0x0113
- 18a:	f0 91 14 01 	lds	r31, 0x0114
+ 186:	e0 91 19 01 	lds	r30, 0x0119
+ 18a:	f0 91 1a 01 	lds	r31, 0x011A
  18e:	80 81       	ld	r24, Z
  190:	80 93 c6 00 	sts	0x00C6, r24
 	if (chars_left > 0)
- 194:	80 91 12 01 	lds	r24, 0x0112
+ 194:	80 91 18 01 	lds	r24, 0x0118
  198:	88 23       	and	r24, r24
  19a:	31 f0       	breq	.+12     	; 0x1a8 <_Z12s3p_transmitPVvh+0x44>
 	{
@@ -275,7 +275,7 @@ void s3p_transmit(volatile void* s, uint8_t char_count) {
 000001b4 <__vector_18>:
 
 char* output;
-uint8_t output_imdex, output_size;
+uint8_t output_index, output_size;
 
 ISR(USART_RX_vect) 
 {	
@@ -300,7 +300,7 @@ ISR(USART_RX_vect)
  1d6:	20 91 c6 00 	lds	r18, 0x00C6
 	
 	if(memory_index < delimiter_length) 
- 1da:	80 91 15 01 	lds	r24, 0x0115
+ 1da:	80 91 1b 01 	lds	r24, 0x011B
  1de:	90 91 00 01 	lds	r25, 0x0100
  1e2:	89 17       	cp	r24, r25
  1e4:	68 f4       	brcc	.+26     	; 0x200 <__vector_18+0x4c>
@@ -316,40 +316,40 @@ ISR(USART_RX_vect)
  1f4:	8f 5f       	subi	r24, 0xFF	; 255
  1f6:	01 c0       	rjmp	.+2      	; 0x1fa <__vector_18+0x46>
  1f8:	80 e0       	ldi	r24, 0x00	; 0
- 1fa:	80 93 15 01 	sts	0x0115, r24
+ 1fa:	80 93 1b 01 	sts	0x011B, r24
  1fe:	12 c0       	rjmp	.+36     	; 0x224 <__vector_18+0x70>
 	} 
 	else if(input_index < input_size)
- 200:	80 91 0e 01 	lds	r24, 0x010E
- 204:	90 91 0d 01 	lds	r25, 0x010D
+ 200:	80 91 14 01 	lds	r24, 0x0114
+ 204:	90 91 13 01 	lds	r25, 0x0113
  208:	89 17       	cp	r24, r25
  20a:	60 f4       	brcc	.+24     	; 0x224 <__vector_18+0x70>
 	{
 		input[input_index] = received;
- 20c:	e0 91 0f 01 	lds	r30, 0x010F
- 210:	f0 91 10 01 	lds	r31, 0x0110
+ 20c:	e0 91 15 01 	lds	r30, 0x0115
+ 210:	f0 91 16 01 	lds	r31, 0x0116
  214:	e8 0f       	add	r30, r24
  216:	f1 1d       	adc	r31, r1
  218:	20 83       	st	Z, r18
 		input_index++;
- 21a:	80 91 0e 01 	lds	r24, 0x010E
+ 21a:	80 91 14 01 	lds	r24, 0x0114
  21e:	8f 5f       	subi	r24, 0xFF	; 255
- 220:	80 93 0e 01 	sts	0x010E, r24
+ 220:	80 93 14 01 	sts	0x0114, r24
  	}
 	if(input_index == input_size)
- 224:	90 91 0e 01 	lds	r25, 0x010E
- 228:	80 91 0d 01 	lds	r24, 0x010D
+ 224:	90 91 14 01 	lds	r25, 0x0114
+ 228:	80 91 13 01 	lds	r24, 0x0113
  22c:	98 13       	cpse	r25, r24
  22e:	0c c0       	rjmp	.+24     	; 0x248 <__vector_18+0x94>
 	{
 		memory_index = 0;
- 230:	10 92 15 01 	sts	0x0115, r1
+ 230:	10 92 1b 01 	sts	0x011B, r1
 		input_index = 0;
- 234:	10 92 0e 01 	sts	0x010E, r1
+ 234:	10 92 14 01 	sts	0x0114, r1
 		s3p_transmit(output, output_size);
- 238:	60 91 0a 01 	lds	r22, 0x010A
- 23c:	80 91 0b 01 	lds	r24, 0x010B
- 240:	90 91 0c 01 	lds	r25, 0x010C
+ 238:	60 91 10 01 	lds	r22, 0x0110
+ 23c:	80 91 11 01 	lds	r24, 0x0111
+ 240:	90 91 12 01 	lds	r25, 0x0112
  244:	0e 94 b2 00 	call	0x164	; 0x164 <_Z12s3p_transmitPVvh>
 	}
 }
@@ -371,128 +371,255 @@ ISR(USART_RX_vect)
  266:	1f 90       	pop	r1
  268:	18 95       	reti
 
-0000026a <__vector_14>:
-volatile struct data_out
-{
-	uint8_t test;
-} Data_out;
+0000026a <__vector_21>:
+};
 
-ISR(TIMER0_COMPA_vect) {
+volatile uint8_t Analog::analogHigh = 0;
+volatile uint8_t Analog::analogLow = 0;
+
+ISR(ADC_vect) {
  26a:	1f 92       	push	r1
  26c:	0f 92       	push	r0
  26e:	0f b6       	in	r0, 0x3f	; 63
  270:	0f 92       	push	r0
  272:	11 24       	eor	r1, r1
+ 274:	8f 93       	push	r24
 	
-	// PORTB = ~PORTB;
-	// s3p_transmit(tick_msg, sizeof(tick_msg));
+	Analog::analogLow = ADCL;
+ 276:	80 91 78 00 	lds	r24, 0x0078
+ 27a:	80 93 0e 01 	sts	0x010E, r24
+	Analog::analogHigh = ADCH;
+ 27e:	80 91 79 00 	lds	r24, 0x0079
+ 282:	80 93 0f 01 	sts	0x010F, r24
 }
- 274:	0f 90       	pop	r0
- 276:	0f be       	out	0x3f, r0	; 63
- 278:	0f 90       	pop	r0
- 27a:	1f 90       	pop	r1
- 27c:	18 95       	reti
-
-0000027e <__vector_11>:
-
-ISR(TIMER1_COMPA_vect) {
- 27e:	1f 92       	push	r1
- 280:	0f 92       	push	r0
- 282:	0f b6       	in	r0, 0x3f	; 63
- 284:	0f 92       	push	r0
- 286:	11 24       	eor	r1, r1
-	
-	/*
-	static char tock_message[] = "TOCK";
-	s3p_transmit(tock_message, sizeof(tock_message));
-	*/
-}
+ 286:	8f 91       	pop	r24
  288:	0f 90       	pop	r0
  28a:	0f be       	out	0x3f, r0	; 63
  28c:	0f 90       	pop	r0
  28e:	1f 90       	pop	r1
  290:	18 95       	reti
 
-00000292 <main>:
+00000292 <__vector_14>:
+	uint8_t g;
+	uint8_t b;
+	uint16_t test;
+} Data_out;
+
+ISR(TIMER0_COMPA_vect) {
+ 292:	1f 92       	push	r1
+ 294:	0f 92       	push	r0
+ 296:	0f b6       	in	r0, 0x3f	; 63
+ 298:	0f 92       	push	r0
+ 29a:	11 24       	eor	r1, r1
+	
+	// PORTB = ~PORTB;
+	// s3p_transmit(tick_msg, sizeof(tick_msg));
+}
+ 29c:	0f 90       	pop	r0
+ 29e:	0f be       	out	0x3f, r0	; 63
+ 2a0:	0f 90       	pop	r0
+ 2a2:	1f 90       	pop	r1
+ 2a4:	18 95       	reti
+
+000002a6 <__vector_11>:
+
+ISR(TIMER1_COMPA_vect) {
+ 2a6:	1f 92       	push	r1
+ 2a8:	0f 92       	push	r0
+ 2aa:	0f b6       	in	r0, 0x3f	; 63
+ 2ac:	0f 92       	push	r0
+ 2ae:	11 24       	eor	r1, r1
+	
+	/*
+	static char tock_message[] = "TOCK";
+	s3p_transmit(tock_message, sizeof(tock_message));
+	*/
+}
+ 2b0:	0f 90       	pop	r0
+ 2b2:	0f be       	out	0x3f, r0	; 63
+ 2b4:	0f 90       	pop	r0
+ 2b6:	1f 90       	pop	r1
+ 2b8:	18 95       	reti
+
+000002ba <main>:
+	
+	volatile static uint8_t analogHigh, analogLow;
+	
+	static void selectChannel (uint8_t n) {
+		
+		DDRC = DDRC & ~_BV(n);
+ 2ba:	38 98       	cbi	0x07, 0	; 7
+		ADMUX  = _BV(REFS0) | n; // AREF = AVCC
+ 2bc:	80 e4       	ldi	r24, 0x40	; 64
+ 2be:	80 93 7c 00 	sts	0x007C, r24
+		//ADMUX  = n; // uses AREF voltage, channel n selected
+		ADCSRA = _BV(ADEN) | _BV(ADIE) | 0b111; // on, interrupt enabled, 1/128 clock
+ 2c2:	8f e8       	ldi	r24, 0x8F	; 143
+ 2c4:	80 93 7a 00 	sts	0x007A, r24
+		ADCSRB = 0; // free running
+ 2c8:	10 92 7b 00 	sts	0x007B, r1
 
 int main(void) 
 {
+	Analog::selectChannel(0);
+	
 	s3p_init();
- 292:	0e 94 9f 00 	call	0x13e	; 0x13e <_Z8s3p_initv>
+ 2cc:	0e 94 9f 00 	call	0x13e	; 0x13e <_Z8s3p_initv>
 		uint8_t in_size,
 		volatile void* out,
 		uint8_t out_size
 	)
 {
 	input = (char*)in;
- 296:	e7 e0       	ldi	r30, 0x07	; 7
- 298:	f1 e0       	ldi	r31, 0x01	; 1
- 29a:	f0 93 10 01 	sts	0x0110, r31
- 29e:	e0 93 0f 01 	sts	0x010F, r30
+ 2d0:	eb e0       	ldi	r30, 0x0B	; 11
+ 2d2:	f1 e0       	ldi	r31, 0x01	; 1
+ 2d4:	f0 93 16 01 	sts	0x0116, r31
+ 2d8:	e0 93 15 01 	sts	0x0115, r30
 	input_size = in_size;
- 2a2:	83 e0       	ldi	r24, 0x03	; 3
- 2a4:	80 93 0d 01 	sts	0x010D, r24
+ 2dc:	83 e0       	ldi	r24, 0x03	; 3
+ 2de:	80 93 13 01 	sts	0x0113, r24
 	output = (char*)out;
- 2a8:	86 e0       	ldi	r24, 0x06	; 6
- 2aa:	91 e0       	ldi	r25, 0x01	; 1
- 2ac:	90 93 0c 01 	sts	0x010C, r25
- 2b0:	80 93 0b 01 	sts	0x010B, r24
+ 2e2:	a6 e0       	ldi	r26, 0x06	; 6
+ 2e4:	b1 e0       	ldi	r27, 0x01	; 1
+ 2e6:	b0 93 12 01 	sts	0x0112, r27
+ 2ea:	a0 93 11 01 	sts	0x0111, r26
 	output_size = out_size;
- 2b4:	81 e0       	ldi	r24, 0x01	; 1
- 2b6:	80 93 0a 01 	sts	0x010A, r24
-	s3p_setbuffers(&Data_in, sizeof(Data_in), &Data_out, 1);
+ 2ee:	85 e0       	ldi	r24, 0x05	; 5
+ 2f0:	80 93 10 01 	sts	0x0110, r24
+	s3p_setbuffers(&Data_in, sizeof(data_in), &Data_out, sizeof(data_out));
 	
 	TCCR0A = _BV(WGM01); // CTC mode
- 2ba:	92 e0       	ldi	r25, 0x02	; 2
- 2bc:	94 bd       	out	0x24, r25	; 36
+ 2f4:	92 e0       	ldi	r25, 0x02	; 2
+ 2f6:	94 bd       	out	0x24, r25	; 36
 	TCCR0B =  PRESCALER_1024;
- 2be:	85 e0       	ldi	r24, 0x05	; 5
- 2c0:	85 bd       	out	0x25, r24	; 37
+ 2f8:	85 bd       	out	0x25, r24	; 37
 	OCR0A =	249;	
- 2c2:	89 ef       	ldi	r24, 0xF9	; 249
- 2c4:	87 bd       	out	0x27, r24	; 39
+ 2fa:	89 ef       	ldi	r24, 0xF9	; 249
+ 2fc:	87 bd       	out	0x27, r24	; 39
 	//TIMSK0 = _BV(OCIE0A); // enable timer interrupt
 	
 	TCCR1A = 0;
- 2c6:	10 92 80 00 	sts	0x0080, r1
+ 2fe:	10 92 80 00 	sts	0x0080, r1
 	TCCR1B = _BV(WGM12) | PRESCALER_1024; // CTC mode
- 2ca:	8d e0       	ldi	r24, 0x0D	; 13
- 2cc:	80 93 81 00 	sts	0x0081, r24
+ 302:	8d e0       	ldi	r24, 0x0D	; 13
+ 304:	80 93 81 00 	sts	0x0081, r24
 	OCR1AH = 0x20;
- 2d0:	80 e2       	ldi	r24, 0x20	; 32
- 2d2:	80 93 89 00 	sts	0x0089, r24
+ 308:	80 e2       	ldi	r24, 0x20	; 32
+ 30a:	80 93 89 00 	sts	0x0089, r24
 	OCR1AL = 0x00;
- 2d6:	10 92 88 00 	sts	0x0088, r1
+ 30e:	10 92 88 00 	sts	0x0088, r1
 	TIMSK1 = _BV(OCIE1A); // enable timer interrupt
- 2da:	90 93 6f 00 	sts	0x006F, r25
+ 312:	90 93 6f 00 	sts	0x006F, r25
 	
 	Data_in.r = 255;
- 2de:	9f ef       	ldi	r25, 0xFF	; 255
- 2e0:	90 83       	st	Z, r25
+ 316:	9f ef       	ldi	r25, 0xFF	; 255
+ 318:	90 83       	st	Z, r25
 	Data_in.g = 160;
- 2e2:	90 ea       	ldi	r25, 0xA0	; 160
- 2e4:	90 93 08 01 	sts	0x0108, r25
+ 31a:	90 ea       	ldi	r25, 0xA0	; 160
+ 31c:	90 93 0c 01 	sts	0x010C, r25
 	Data_in.b = 32;
- 2e8:	80 93 09 01 	sts	0x0109, r24
-	Data_out.test = 0x42;
- 2ec:	82 e4       	ldi	r24, 0x42	; 66
- 2ee:	80 93 06 01 	sts	0x0106, r24
+ 320:	80 93 0d 01 	sts	0x010D, r24
+	Data_out.r = Data_in.r;
+ 324:	80 81       	ld	r24, Z
+ 326:	8c 93       	st	X, r24
 	
 	sei(); // set interrupts
- 2f2:	78 94       	sei
- 2f4:	80 e0       	ldi	r24, 0x00	; 0
+ 328:	78 94       	sei
+	}
 	
-	int i = 0;
+	static void startConversion () { ADCSRA = _BV(ADSC) | ADCSRA; }
+ 32a:	ea e7       	ldi	r30, 0x7A	; 122
+ 32c:	f0 e0       	ldi	r31, 0x00	; 0
 	
     while(1)	
 	{
-		Data_out.test = i++;
- 2f6:	80 93 06 01 	sts	0x0106, r24
- 2fa:	8f 5f       	subi	r24, 0xFF	; 255
- 2fc:	fc cf       	rjmp	.-8      	; 0x2f6 <main+0x64>
+		Analog::startConversion();
+		_delay_ms(100);
+		Data_out.test = Analog::getValue();
+ 32e:	0f 2e       	mov	r0, r31
+ 330:	f9 e0       	ldi	r31, 0x09	; 9
+ 332:	ef 2e       	mov	r14, r31
+ 334:	f1 e0       	ldi	r31, 0x01	; 1
+ 336:	ff 2e       	mov	r15, r31
+ 338:	f0 2d       	mov	r31, r0
+		
+		Data_out.r = Data_in.r;
+ 33a:	0b e0       	ldi	r16, 0x0B	; 11
+ 33c:	11 e0       	ldi	r17, 0x01	; 1
+ 33e:	bd 01       	movw	r22, r26
+		Data_out.g = Data_in.g;
+ 340:	4c e0       	ldi	r20, 0x0C	; 12
+ 342:	51 e0       	ldi	r21, 0x01	; 1
+ 344:	0f 2e       	mov	r0, r31
+ 346:	f7 e0       	ldi	r31, 0x07	; 7
+ 348:	af 2e       	mov	r10, r31
+ 34a:	f1 e0       	ldi	r31, 0x01	; 1
+ 34c:	bf 2e       	mov	r11, r31
+ 34e:	f0 2d       	mov	r31, r0
+		Data_out.b = Data_in.b;
+ 350:	cd e0       	ldi	r28, 0x0D	; 13
+ 352:	d1 e0       	ldi	r29, 0x01	; 1
+ 354:	0f 2e       	mov	r0, r31
+ 356:	f8 e0       	ldi	r31, 0x08	; 8
+ 358:	8f 2e       	mov	r8, r31
+ 35a:	f1 e0       	ldi	r31, 0x01	; 1
+ 35c:	9f 2e       	mov	r9, r31
+ 35e:	f0 2d       	mov	r31, r0
+ 360:	80 81       	ld	r24, Z
+ 362:	80 64       	ori	r24, 0x40	; 64
+ 364:	80 83       	st	Z, r24
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
 
-000002fe <_exit>:
- 2fe:	f8 94       	cli
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 366:	2f ef       	ldi	r18, 0xFF	; 255
+ 368:	81 ee       	ldi	r24, 0xE1	; 225
+ 36a:	94 e0       	ldi	r25, 0x04	; 4
+ 36c:	21 50       	subi	r18, 0x01	; 1
+ 36e:	80 40       	sbci	r24, 0x00	; 0
+ 370:	90 40       	sbci	r25, 0x00	; 0
+ 372:	e1 f7       	brne	.-8      	; 0x36c <main+0xb2>
+ 374:	00 c0       	rjmp	.+0      	; 0x376 <main+0xbc>
+ 376:	00 00       	nop
+	
+	static bool conversionComplete () { return ADCSRA & _BV(ADSC); }
+	
+	static uint16_t getValue () { return ((Analog::analogHigh << 8)) | (Analog::analogLow); }
+ 378:	d0 90 0f 01 	lds	r13, 0x010F
+ 37c:	80 91 0e 01 	lds	r24, 0x010E
+ 380:	90 e0       	ldi	r25, 0x00	; 0
+ 382:	9d 29       	or	r25, r13
+	
+    while(1)	
+	{
+		Analog::startConversion();
+		_delay_ms(100);
+		Data_out.test = Analog::getValue();
+ 384:	d7 01       	movw	r26, r14
+ 386:	11 96       	adiw	r26, 0x01	; 1
+ 388:	9c 93       	st	X, r25
+ 38a:	8e 93       	st	-X, r24
+		
+		Data_out.r = Data_in.r;
+ 38c:	d8 01       	movw	r26, r16
+ 38e:	8c 91       	ld	r24, X
+ 390:	db 01       	movw	r26, r22
+ 392:	8c 93       	st	X, r24
+		Data_out.g = Data_in.g;
+ 394:	da 01       	movw	r26, r20
+ 396:	8c 91       	ld	r24, X
+ 398:	d5 01       	movw	r26, r10
+ 39a:	8c 93       	st	X, r24
+		Data_out.b = Data_in.b;
+ 39c:	88 81       	ld	r24, Y
+ 39e:	d4 01       	movw	r26, r8
+ 3a0:	8c 93       	st	X, r24
+ 3a2:	de cf       	rjmp	.-68     	; 0x360 <main+0xa6>
 
-00000300 <__stop_program>:
- 300:	ff cf       	rjmp	.-2      	; 0x300 <__stop_program>
+000003a4 <_exit>:
+ 3a4:	f8 94       	cli
+
+000003a6 <__stop_program>:
+ 3a6:	ff cf       	rjmp	.-2      	; 0x3a6 <__stop_program>

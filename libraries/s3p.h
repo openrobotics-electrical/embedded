@@ -67,7 +67,7 @@ char* input;
 uint8_t input_index, input_size;
 
 char* output;
-uint8_t output_imdex, output_size;
+uint8_t output_index, output_size;
 
 ISR(USART_RX_vect) 
 {	
@@ -95,7 +95,7 @@ ISR(USART_UDRE_vect)
 	UDR0 = transmitting[chars_to_send - chars_left];
 	chars_left--;
 	
-	if(chars_left == 1) 
+	if(chars_left == 0) 
 	{
 		UCSR0B &= ~_BV(UDRIE0);  // disable buffer empty interrupt
 		UCSR0B |= _BV(TXCIE0); // enables TX complete interrupt
