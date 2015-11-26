@@ -1,7 +1,7 @@
 Archive member included because of file (symbol)
 
 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
-                              c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm328p.o (exit)
+                              c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm328.o (exit)
 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_copy_data.o)
                               RGB_LED_driver.o (__do_copy_data)
 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_clear_bss.o)
@@ -9,8 +9,8 @@ c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-t
 
 Discarded input sections
 
- .data          0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm328p.o
- .bss           0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm328p.o
+ .data          0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm328.o
+ .bss           0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm328.o
  .text          0x00000000        0x0 RGB_LED_driver.o
  .data          0x00000000        0x0 RGB_LED_driver.o
  .bss           0x00000000        0x0 RGB_LED_driver.o
@@ -92,7 +92,7 @@ user_signatures  0x00850000         0x00000400         rw !x
 Linker script and memory map
 
 Address of section .data set to 0x800100
-LOAD c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm328p.o
+LOAD c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm328.o
 LOAD RGB_LED_driver.o
 START GROUP
 LOAD c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libm.a
@@ -195,9 +195,9 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x3a8
+.text           0x00000000      0x406
  *(.vectors)
- .vectors       0x00000000       0x68 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm328p.o
+ .vectors       0x00000000       0x68 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm328.o
                 0x00000000                __vector_default
                 0x00000000                __vectors
  *(.vectors)
@@ -223,13 +223,13 @@ END GROUP
  SORT(*)(.ctors)
  SORT(*)(.dtors)
  *(.init0)
- .init0         0x00000068        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm328p.o
+ .init0         0x00000068        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm328.o
                 0x00000068                __init
  *(.init0)
  *(.init1)
  *(.init1)
  *(.init2)
- .init2         0x00000068        0xc c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm328p.o
+ .init2         0x00000068        0xc c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm328.o
  *(.init2)
  *(.init3)
  *(.init3)
@@ -248,10 +248,10 @@ END GROUP
  *(.init8)
  *(.init8)
  *(.init9)
- .init9         0x0000009a        0x8 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm328p.o
+ .init9         0x0000009a        0x8 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm328.o
  *(.init9)
  *(.text)
- .text          0x000000a2        0x4 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm328p.o
+ .text          0x000000a2        0x4 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm328.o
                 0x000000a2                __vector_22
                 0x000000a2                __vector_1
                 0x000000a2                __vector_24
@@ -298,13 +298,13 @@ END GROUP
  .text.__vector_11
                 0x000002a6       0x14 RGB_LED_driver.o
                 0x000002a6                __vector_11
- .text.main     0x000002ba       0xea RGB_LED_driver.o
+ .text.main     0x000002ba      0x148 RGB_LED_driver.o
                 0x000002ba                main
-                0x000003a4                . = ALIGN (0x2)
+                0x00000402                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x000003a4        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
-                0x000003a4                _exit
-                0x000003a4                exit
+ .fini9         0x00000402        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
+                0x00000402                _exit
+                0x00000402                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -323,11 +323,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x000003a4        0x4 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
+ .fini0         0x00000402        0x4 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x000003a8                _etext = .
+                0x00000406                _etext = .
 
-.data           0x00800100        0x6 load address 0x000003a8
+.data           0x00800100        0x6 load address 0x00000406
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -385,8 +385,8 @@ END GROUP
                 0x0080011b                memory_index
  *(COMMON)
                 0x0080011c                PROVIDE (__bss_end, .)
-                0x000003a8                __data_load_start = LOADADDR (.data)
-                0x000003ae                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00000406                __data_load_start = LOADADDR (.data)
+                0x0000040c                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x0080011c        0x0
                 0x0080011c                PROVIDE (__noinit_start, .)
@@ -460,30 +460,30 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000      0x635
+.debug_info     0x00000000      0x6ba
  *(.debug_info .gnu.linkonce.wi.*)
- .debug_info    0x00000000      0x635 RGB_LED_driver.o
+ .debug_info    0x00000000      0x6ba RGB_LED_driver.o
 
-.debug_abbrev   0x00000000      0x2d4
+.debug_abbrev   0x00000000      0x2e0
  *(.debug_abbrev)
- .debug_abbrev  0x00000000      0x2d4 RGB_LED_driver.o
+ .debug_abbrev  0x00000000      0x2e0 RGB_LED_driver.o
 
-.debug_line     0x00000000      0x2d5
+.debug_line     0x00000000      0x2d7
  *(.debug_line .debug_line.* .debug_line_end)
- .debug_line    0x00000000      0x2d5 RGB_LED_driver.o
+ .debug_line    0x00000000      0x2d7 RGB_LED_driver.o
 
-.debug_frame    0x00000000      0x190
+.debug_frame    0x00000000      0x1a0
  *(.debug_frame)
- .debug_frame   0x00000000      0x190 RGB_LED_driver.o
+ .debug_frame   0x00000000      0x1a0 RGB_LED_driver.o
 
-.debug_str      0x00000000      0x515
+.debug_str      0x00000000      0x514
  *(.debug_str)
- .debug_str     0x00000000      0x515 RGB_LED_driver.o
-                                0x54e (size before relaxing)
+ .debug_str     0x00000000      0x514 RGB_LED_driver.o
+                                0x54d (size before relaxing)
 
-.debug_loc      0x00000000      0x2a8
+.debug_loc      0x00000000      0x334
  *(.debug_loc)
- .debug_loc     0x00000000      0x2a8 RGB_LED_driver.o
+ .debug_loc     0x00000000      0x334 RGB_LED_driver.o
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -503,9 +503,9 @@ END GROUP
 .debug_pubtypes
  *(.debug_pubtypes)
 
-.debug_ranges   0x00000000       0x88
+.debug_ranges   0x00000000       0x70
  *(.debug_ranges)
- .debug_ranges  0x00000000       0x88 RGB_LED_driver.o
+ .debug_ranges  0x00000000       0x70 RGB_LED_driver.o
 
 .debug_macro
  *(.debug_macro)

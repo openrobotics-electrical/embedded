@@ -16,7 +16,7 @@ class Analog {
 		DDRC = DDRC & ~_BV(n);
 		ADMUX  = _BV(REFS0) | n; // AREF = AVCC
 		//ADMUX  = n; // uses AREF voltage, channel n selected
-		ADCSRA = _BV(ADEN) | _BV(ADIE) | 0b111; // on, interrupt enabled, 1/128 clock
+		ADCSRA = _BV(ADATE) | _BV(ADEN) | _BV(ADIE) | 0b111; // on, interrupt enabled, 1/128 clock
 		ADCSRB = 0; // free running
 	}
 	

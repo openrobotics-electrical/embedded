@@ -49,7 +49,7 @@ int main(void)
 	Analog::selectChannel(0);
 	
 	s3p_init();
-	s3p_setbuffers(&Data_in, sizeof(data_in), &Data_out, sizeof(data_out));
+	s3p_setbuffers(&Data_in, sizeof(Data_in), &Data_out, sizeof(Data_out));
 	
 	TCCR0A = _BV(WGM01); // CTC mode
 	TCCR0B =  PRESCALER_1024;
@@ -65,20 +65,35 @@ int main(void)
 	Data_in.r = 255;
 	Data_in.g = 160;
 	Data_in.b = 32;
-	Data_out.r = Data_in.r;
 	
 	sei(); // set interrupts
 	
-	int i = 0;
+	volatile uint16_t i = 0, j = 0;
+	
+	DDRD = 0xff;
+	DDRC = 0;
+	
+	Analog::startConversion();
 	
     while(1)	
 	{
-		Analog::startConversion();
-		_delay_ms(100);
 		Data_out.test = Analog::getValue();
-		
+	
 		Data_out.r = Data_in.r;
 		Data_out.g = Data_in.g;
 		Data_out.b = Data_in.b;
+		
+		PORTD = 0;
+		_delay_us(20000);
+		PORTD = 0xff;
+		
+		_delay_us(200);
+		
+		for(i = 0; i < Data_out.test; i++)
+		{
+			_delay_us(1);
+		}
+		//_delay_ms(1);	
+		PORTD = 0;
 	}
 }
