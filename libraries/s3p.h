@@ -19,6 +19,8 @@ Will in future take user input/output memory blocks as arguments
 
 */
 
+#define REF(x) &x, sizeof(x)
+
 #include <modular8.h>
 #include <avr/io.h>
 #include <avr/interrupt.h>
@@ -31,6 +33,7 @@ volatile char* transmitting;
 volatile uint8_t chars_left = 0, chars_to_send = 0;
 	
 void s3p_init();
+void s3p_set_delimiter(void* delimiter, uint8_t size);
 void s3p_setbuffers(
 		volatile void* in,
 		uint8_t in_size,
@@ -60,8 +63,8 @@ ISR(USART_TX_vect)
 	UCSR0B &= ~_BV(TXCIE0); // disables TX complete interrupt
 }
 
-char delimiter[] = "@RGB";
-uint8_t delimiter_length = sizeof(delimiter) - 1;
+char* delimiter;
+uint8_t delimiter_size;
 
 char* input;
 uint8_t input_index, input_size;
@@ -73,7 +76,7 @@ ISR(USART_RX_vect)
 {	
 	char received = UDR0; // clears flag
 	
-	if(memory_index < delimiter_length) 
+	if(memory_index < delimiter_size) 
 	{
 		memory_index = (received == delimiter[memory_index])? memory_index + 1 : 0;	
 	} 
@@ -108,7 +111,7 @@ void s3p_init() {
 	PORTB &= ~_BV(TXDEN_PIN);
 	
 	UBRR0H = 0; 
-	UBRR0L = 7; // 250000 baud
+	UBRR0L = 7; // 250000 baud / 2304000 14.7456 MHz clock
 	UCSR0A = _BV(U2X0); // double speed UART
 	UCSR0B = _BV(RXCIE0) | _BV(RXEN0) | _BV(TXEN0); // receive interrupt, RX/TX enable
 	UCSR0C = _BV(UCSZ01) | _BV(UCSZ00); // 8-bit data, no parity, 1 stop bit
@@ -136,16 +139,27 @@ void s3p_transmit(volatile void* s, uint8_t char_count) {
 }
 
 void s3p_setbuffers(
-		volatile void* in,
-		uint8_t in_size,
-		volatile void* out,
+		volatile void* in, 
+		uint8_t in_size, 
+		volatile void* out, 
 		uint8_t out_size
-	)
+		)
 {
 	input = (char*)in;
 	input_size = in_size;
 	output = (char*)out;
 	output_size = out_size;
+}
+
+char test_delimiter[] = "@MAB";
+
+void s3p_set_delimiter(void* delimiter, uint8_t size)
+{
+	delimiter = (char*)delimiter;
+	delimiter_size = size;
+	
+	delimiter = test_delimiter;
+	delimiter_size = 4;
 }
 
 #endif
