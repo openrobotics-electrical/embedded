@@ -23,21 +23,10 @@
 #define _BV(x) (1 << (x))
 #endif
 
-void modular8_set_digital_bus(uint8_t out) {
-	
-	PORTD = out & DMASK;
-	PORTB = out & BMASK;
-}
+void modular8_set_digital_bus(uint8_t out);
 
-uint8_t modular8_get_digital_bus() {
-	
-	return (PIND & DMASK) | (PINB & BMASK);
-}
+uint8_t modular8_get_digital_bus();
 
-void modular8_set_digital_bus_direction(uint8_t dir) {
-	
-	DDRD = dir & DMASK;
-	DDRB = dir & BMASK;
-}
+void modular8_set_digital_bus_direction(uint8_t dir);
 
 #endif

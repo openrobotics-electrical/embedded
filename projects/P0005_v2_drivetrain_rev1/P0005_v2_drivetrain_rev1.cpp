@@ -18,14 +18,16 @@
 #define TIMER_COUNT 93 // F_CPU / (2 * 256 * COUNTS_PER_REVOLUTION) - 1
 #define MOTOR_PIN _BV(PORTD3)
 
-#include <modular8.h>
-#include <analog.h>
-#include <serial.h>
-
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
 #include <stdlib.h>
+#include <stdio.h>
+
+#include <modular8.h>
+#include <Analog.h>
+#include <S3P.h>
+#include "dataStructures.h"
 
 volatile int8_t encoder_count = 0;
 volatile int8_t measured_vel = 0, desired_vel = 0;
@@ -67,10 +69,8 @@ ISR(PCINT0_vect) {
 	PORTD = PIND & ~_BV(PD5);
 }
 
-int main(void) {
-	
-	serial_init();
-	
+int main(void) 
+{
 	DDRB = 0; // PORTB as inputs
 	DDRD = 0xff; // PORTD as outputs
 	
@@ -82,14 +82,38 @@ int main(void) {
 	OCR0A = TIMER_COUNT; // calculated above to give 4/663 of a second
 	TIMSK0 = _BV(OCIE1A); // enable timer interrupt
 	
+	// Sets the buffers to the structs in local "dataStructures.h" and initializes UART
+	S3P::init(DATA_STRUCTURE_REF);
+	S3P::setDelimiter("@V2DT");
+	
 	sei(); // set interrupts
 	
-	char out[3];
+	DDRC = 0x3f;
+	Analog::selectChannel(5);
+	Analog::startConversion();
 	
-    while(1) {
+	#define DELAY 100
+	
+    while(1) 
+	{
+		PORTC = 0x00;
+		_delay_ms(DELAY);
 		
-		if(counted) {
-			
+		sprintf((char*)dataOut.output, "V on: %d\n", Analog::getValue());
+		
+		_delay_ms(DELAY);
+		
+		PORTC = 0x00;
+		_delay_ms(DELAY);
+		
+		sprintf((char*)dataOut.output, "V off: %d\n", Analog::getValue());
+		
+		// S3P::transmit();
+		
+		_delay_ms(DELAY);
+		/*
+		if(counted) 
+		{	
 			PWM_signal += (desired_vel - measured_vel) / 3;
 			if(PWM_signal < 0) PWM_signal = 0;
 			
@@ -101,5 +125,6 @@ int main(void) {
 			
 			counted = false;	
 		}
+		*/
     }
 }
