@@ -12,9 +12,9 @@
 
 volatile struct dataIn
 {
-	uint8_t r;
-	uint8_t g;
-	uint8_t b;
+	uint8_t speed1;
+	uint8_t speed2;
+	uint8_t status;
 } dataIn;
 
 volatile struct dataOut
