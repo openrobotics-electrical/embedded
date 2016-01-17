@@ -19,8 +19,6 @@ Will in future take user input/output memory blocks as arguments
 
 */
 
-#define REF(x) &x, sizeof(x)
-
 #include <modular8.h>
 #include <avr/io.h>
 #include <avr/interrupt.h>
@@ -74,4 +72,4 @@ public:
 	static void setDelimiter(const void* delimiter);
 };
 
-#endif /* S3P_H_ */
+#endif /* S3P_h_ */
