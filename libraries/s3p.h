@@ -39,16 +39,18 @@ TXDEN_PORT &= ~_BV(TXDEN_PIN); /* RS485 disable */\
 UCSR0B &= ~_BV(TXEN0); /* disable USART TX */\
 
 extern char* _S3P_delimiter;
-extern uint8_t _S3P_delimiterLength;
+extern uint8_t _S3P_delimiterSize;
 
 extern char* _S3P_input;
-extern uint8_t _S3P_inputIndex, _S3P_inputSize;
+extern volatile uint8_t _S3P_inputIndex;
+extern uint8_t _S3P_inputSize;
 
 extern char* _S3P_output;
-extern uint8_t _S3P_outputIndex, _S3P_outputSize;
+extern volatile uint8_t _S3P_outputIndex;
+extern uint8_t _S3P_outputSize;
 
-extern uint8_t* _S3P_memoryLocation; // points to user memory
-extern uint8_t _S3P_memoryIndex;
+extern uint8_t* _S3P_memoryLocation;
+extern volatile uint8_t _S3P_memoryIndex;
 extern uint8_t _S3P_memorySize;
 
 extern volatile char* _S3P_transmitting;
@@ -58,6 +60,8 @@ class S3P
 {
 public:	
 	static void init(
+			const void* delimiter,
+			uint8_t delimiterSize,
 			volatile void* in,
 			uint8_t inSize,
 			volatile void* out,
@@ -69,7 +73,7 @@ public:
 			uint8_t out_size);
 	static void transmit(volatile void* toTransmit, uint8_t char_count);
 	static void transmit();
-	static void setDelimiter(const void* delimiter);
+	static void setDelimiter(const void* delimiter, uint8_t delimiterSize);
 };
 
 #endif /* S3P_h_ */

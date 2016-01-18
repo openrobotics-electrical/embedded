@@ -8,7 +8,10 @@
 #ifndef DATASTRUCTURES_H_
 #define DATASTRUCTURES_H_
 
-#define DATA_STRUCTURE_REF &dataIn, sizeof(dataIn), &dataOut, sizeof(dataOut)
+#define REF(x) &x, sizeof(x)
+#define DATA_STRUCTURE_REF &_delimiter, sizeof(_delimiter) - 1, REF(dataIn), REF(dataOut)
+
+const char _delimiter[] = "@V2DT";
 
 volatile struct dataIn
 {

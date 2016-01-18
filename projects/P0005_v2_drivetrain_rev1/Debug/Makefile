@@ -38,6 +38,7 @@ SUBDIRS :=
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
 ../../../libraries/Analog.cpp \
+../../../libraries/modular8.cpp \
 ../../../libraries/S3P.cpp \
 ../P0005_v2_drivetrain_rev1.cpp
 
@@ -50,21 +51,25 @@ ASM_SRCS +=
 
 OBJS +=  \
 Analog.o \
+modular8.o \
 S3P.o \
 P0005_v2_drivetrain_rev1.o
 
 OBJS_AS_ARGS +=  \
 Analog.o \
+modular8.o \
 S3P.o \
 P0005_v2_drivetrain_rev1.o
 
 C_DEPS +=  \
 Analog.d \
+modular8.d \
 S3P.d \
 P0005_v2_drivetrain_rev1.d
 
 C_DEPS_AS_ARGS +=  \
 Analog.d \
+modular8.d \
 S3P.d \
 P0005_v2_drivetrain_rev1.d
 
@@ -82,6 +87,8 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
 
 
 

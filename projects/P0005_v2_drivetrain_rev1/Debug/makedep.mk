@@ -4,6 +4,8 @@
 
 ..\..\libraries\Analog.cpp
 
+..\..\libraries\modular8.cpp
+
 ..\..\libraries\S3P.cpp
 
 P0005_v2_drivetrain_rev1.cpp

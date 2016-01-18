@@ -84,37 +84,29 @@ int main(void)
 	
 	// Sets the buffers to the structs in local "dataStructures.h" and initializes UART
 	S3P::init(DATA_STRUCTURE_REF);
-	S3P::setDelimiter("@V2DT");
 	
 	sei(); // set interrupts
 	
 	DDRC = 0x3f;
+	
+	modular8_set_digital_bus_direction(0xff);
+	
+	dataIn.status = 1;
+	
 	Analog::selectChannel(5);
-	Analog::startConversion();
+	// Analog::startConversion();
 	
 	#define DELAY 100
 	
     while(1) 
 	{
-		PORTC = 0x00;
-		_delay_ms(DELAY);
-		
-		sprintf((char*)dataOut.output, "V on: %d\n", Analog::getValue());
-		
-		_delay_ms(DELAY);
-		
-		PORTC = 0x00;
-		_delay_ms(DELAY);
-		
-		sprintf((char*)dataOut.output, "V off: %d\n", Analog::getValue());
-		
-		// S3P::transmit();
-		
-		_delay_ms(DELAY);
+		// sprintf((char*)dataOut.output, "status:%d", dataIn.status);
+		modular8_set_digital_bus(dataIn.status);
+
 		/*
 		if(counted) 
 		{	
-			PWM_signal += (desired_vel - measured_vel) / 3;
+			PWM_signal += (desired_vel - measured_vel) / 3;s
 			if(PWM_signal < 0) PWM_signal = 0;
 			
 			out[0] = measured_vel < 0? '-' : '+';

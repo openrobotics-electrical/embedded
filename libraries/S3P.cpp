@@ -8,16 +8,18 @@
 #include <S3P.h>
 
 char* _S3P_delimiter;
-uint8_t _S3P_delimiterLength;
+uint8_t _S3P_delimiterSize;
 
 char* _S3P_input;
-uint8_t _S3P_inputIndex = 0, _S3P_inputSize;
+volatile uint8_t _S3P_inputIndex = 0;
+uint8_t _S3P_inputSize;
 
 char* _S3P_output;
-uint8_t _S3P_outputIndex = 0, _S3P_outputSize;
+volatile uint8_t _S3P_outputIndex = 0;
+uint8_t _S3P_outputSize;
 
-uint8_t* _S3P_memoryLocation; // points to user memory
-uint8_t _S3P_memoryIndex = 0;
+uint8_t* _S3P_memoryLocation;
+volatile uint8_t _S3P_memoryIndex = 0;
 uint8_t _S3P_memorySize;
 
 volatile char* _S3P_transmitting;
@@ -33,7 +35,7 @@ ISR(USART_RX_vect)
 {
 	char received = UDR0; // clears flag
 	
-	if(_S3P_memoryIndex < _S3P_delimiterLength)
+	if(_S3P_memoryIndex < _S3P_delimiterSize)
 	{
 		_S3P_memoryIndex = (received == _S3P_delimiter[_S3P_memoryIndex])? 
 			_S3P_memoryIndex + 1 : 0;
@@ -64,11 +66,14 @@ ISR(USART_UDRE_vect)
 }
 
 void S3P::init(
+		const void* delimiter,
+		uint8_t delimiterSize,
 		volatile void* in,
 		uint8_t inSize,
 		volatile void* out,
 		uint8_t outSize)
 {	
+	setDelimiter(delimiter, delimiterSize);
 	setbuffers(in, inSize, out, outSize);
 	
 	DDRB |= _BV(TXDEN_PIN) + _BV(5);
@@ -121,8 +126,8 @@ void S3P::setbuffers(
 	_S3P_outputSize = outSize;
 }
 
-void S3P::setDelimiter(const void* delimiter)
+void S3P::setDelimiter(const void* delimiter, uint8_t delimiterSize)
 {
 	_S3P_delimiter = (char*)delimiter;
-	_S3P_delimiterLength = sizeof(delimiter);
+	_S3P_delimiterSize = delimiterSize;
 }

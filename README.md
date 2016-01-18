@@ -2,11 +2,11 @@
 Seriously any questions get at me max.prokopenko@gmail.com<br>
 ###Organization of this repo<br>
 &nbsp;&nbsp;<a href="../../tree/master/the_plan/">**the_plan/**</a> outlines philosophy, long-term goals, and specifications<br>
-&nbsp;&nbsp;<a href="../../tree/master/documents/">**documents/**</a> has IC pinouts, device information<br>
+&nbsp;&nbsp;<a href="../../tree/master/USB_drivers/">**USB_drivers/**</a> drivers for programmers, interfaces etc.<br>
 &nbsp;&nbsp;<a href="../../tree/master/libraries/">**libraries/**</a> holds usefuls source code that is not project-specific and device symbols/footprints<br>
 &nbsp;&nbsp;<a href="../../tree/master/projects/">**projects/**</a> contains subfolders, each one dedicated to a single project<br>
 &nbsp;&nbsp;&nbsp;&nbsp;Each project subfolder is meant to correspond 1-to-1 with a physical module<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Module-specific schematics, PCB files, project source code, and other info go in these<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Module-specific schematics, PCB filfes, project source code, and other info go in these<br>
 ###How to program a module<br>
 ####Using USB-serial with Arduino IDE<br>
 &nbsp;&nbsp;Retrieve the latest version of this repository<br>
@@ -24,8 +24,7 @@ Seriously any questions get at me max.prokopenko@gmail.com<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Example: <code>-C"C:\Program Files (x86)\Arduino\hardware\tools\avr\etc\avrdude.conf" -patmega328p -carduino -P\\.\COM16 -b57600 -U flash:w:"$(ProjectDir)Debug\$(ItemFileName).hex":i -v</code><br>
 &nbsp;&nbsp;&nbsp;&nbsp;Click ok<br>
 &nbsp;&nbsp;&nbsp;&nbsp;Now to program, select Tools -> Serial Program<br>
-####COMING SOMETIME IN 2015<br>
-&nbsp;&nbsp;A more in-depth guide to programming using AVRdude and ICSP, see some links at the end of this README for now<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.nongnu.org/avrdude/user-manual/avrdude_4.html">**AVRdude manual**</a><br>
 <br>
 ###Tools<br>
 **git**<br>
@@ -36,6 +35,8 @@ Seriously any questions get at me max.prokopenko@gmail.com<br>
 **Atmel Studio** (Windows or Linux/UNIX with a VM)<br>
 &nbsp;&nbsp;http://www.atmel.com/microsite/atmel_studio6<br>
 &nbsp;&nbsp;You will want to install the Visual Micro extension<br>
+**AVRdude**<br>
+&nbsp;&nbsp;http://www.nongnu.org/avrdude<br>
 <br>
 Email me! max@theprogrammingclub.com<br>
 I want to make this documentation effective<br>
