@@ -3,29 +3,29 @@ P0005_v2_drivetrain_rev1.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         00000016  00800100  00000476  0000050a  2**0
+  0 .data         00000016  00800100  00000486  0000051a  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         00000476  00000000  00000000  00000094  2**1
+  1 .text         00000486  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .bss          0000002a  00800116  00800116  00000520  2**0
+  2 .bss          0000002a  00800116  00800116  00000530  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  00000520  2**0
+  3 .comment      00000030  00000000  00000000  00000530  2**0
                   CONTENTS, READONLY
-  4 .debug_aranges 00000100  00000000  00000000  00000550  2**0
+  4 .debug_aranges 00000100  00000000  00000000  00000560  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   00000b5f  00000000  00000000  00000650  2**0
+  5 .debug_info   00000b54  00000000  00000000  00000660  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 000004f2  00000000  00000000  000011af  2**0
+  6 .debug_abbrev 000004f2  00000000  00000000  000011b4  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   000004d0  00000000  00000000  000016a1  2**0
+  7 .debug_line   000004d2  00000000  00000000  000016a6  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  00000280  00000000  00000000  00001b74  2**2
+  8 .debug_frame  00000280  00000000  00000000  00001b78  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    00000662  00000000  00000000  00001df4  2**0
+  9 .debug_str    00000662  00000000  00000000  00001df8  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    0000048c  00000000  00000000  00002456  2**0
+ 10 .debug_loc    0000048c  00000000  00000000  0000245a  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 000000c0  00000000  00000000  000028e2  2**0
+ 11 .debug_ranges 000000c0  00000000  00000000  000028e6  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -70,7 +70,7 @@ Disassembly of section .text:
   74:	11 e0       	ldi	r17, 0x01	; 1
   76:	a0 e0       	ldi	r26, 0x00	; 0
   78:	b1 e0       	ldi	r27, 0x01	; 1
-  7a:	e6 e7       	ldi	r30, 0x76	; 118
+  7a:	e6 e8       	ldi	r30, 0x86	; 134
   7c:	f4 e0       	ldi	r31, 0x04	; 4
   7e:	02 c0       	rjmp	.+4      	; 0x84 <__do_copy_data+0x10>
   80:	05 90       	lpm	r0, Z+
@@ -93,7 +93,7 @@ Disassembly of section .text:
   96:	b2 07       	cpc	r27, r18
   98:	e1 f7       	brne	.-8      	; 0x92 <.do_clear_bss_loop>
   9a:	0e 94 0a 02 	call	0x414	; 0x414 <main>
-  9e:	0c 94 39 02 	jmp	0x472	; 0x472 <_exit>
+  9e:	0c 94 41 02 	jmp	0x482	; 0x482 <_exit>
 
 000000a2 <__bad_interrupt>:
   a2:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -198,7 +198,7 @@ void modular8_set_digital_bus_direction(uint8_t dir)
 
 0000012a <__vector_20>:
 
-volatile char* _S3P_transmitting;
+volatile uint8_t* _S3P_transmitting;
 volatile uint8_t _S3P_charsLeft = 0, _S3P_charsToSend = 0;
 
 ISR(USART_TX_vect)
@@ -211,17 +211,19 @@ ISR(USART_TX_vect)
  134:	8f 93       	push	r24
  136:	ef 93       	push	r30
  138:	ff 93       	push	r31
-	_S3P_TX_DISABLE();
- 13a:	2a 98       	cbi	0x05, 2	; 5
- 13c:	e1 ec       	ldi	r30, 0xC1	; 193
- 13e:	f0 e0       	ldi	r31, 0x00	; 0
- 140:	80 81       	ld	r24, Z
- 142:	87 7f       	andi	r24, 0xF7	; 247
- 144:	80 83       	st	Z, r24
+	DON;
 	UCSR0B &= ~_BV(TXCIE0); // disables TX complete interrupt
+ 13a:	e1 ec       	ldi	r30, 0xC1	; 193
+ 13c:	f0 e0       	ldi	r31, 0x00	; 0
+ 13e:	80 81       	ld	r24, Z
+ 140:	8f 7b       	andi	r24, 0xBF	; 191
+ 142:	80 83       	st	Z, r24
+	_S3P_TX_DISABLE();
+ 144:	2a 98       	cbi	0x05, 2	; 5
  146:	80 81       	ld	r24, Z
- 148:	8f 7b       	andi	r24, 0xBF	; 191
+ 148:	87 7f       	andi	r24, 0xF7	; 247
  14a:	80 83       	st	Z, r24
+	DOFF;
 }
  14c:	ff 91       	pop	r31
  14e:	ef 91       	pop	r30
@@ -233,8 +235,8 @@ ISR(USART_TX_vect)
  15a:	18 95       	reti
 
 0000015c <__vector_19>:
-		S3P::transmit();
 	}
+	DOFF;
 }
 
 ISR(USART_UDRE_vect)
@@ -248,6 +250,7 @@ ISR(USART_UDRE_vect)
  168:	9f 93       	push	r25
  16a:	ef 93       	push	r30
  16c:	ff 93       	push	r31
+	DON;
 	UDR0 = _S3P_transmitting[_S3P_charsToSend - _S3P_charsLeft];
  16e:	e0 91 18 01 	lds	r30, 0x0118
  172:	80 91 19 01 	lds	r24, 0x0119
@@ -281,6 +284,7 @@ ISR(USART_UDRE_vect)
  1ac:	80 64       	ori	r24, 0x40	; 64
  1ae:	80 83       	st	Z, r24
 	}
+	DOFF;
 }
  1b0:	ff 91       	pop	r31
  1b2:	ef 91       	pop	r30
@@ -307,7 +311,7 @@ ISR(USART_UDRE_vect)
 
 void S3P::setDelimiter(const void* delimiter, uint8_t delimiterSize)
 {
-	_S3P_delimiter = (char*)delimiter;
+	_S3P_delimiter = (uint8_t*)delimiter;
  1c8:	90 93 26 01 	sts	0x0126, r25
  1cc:	80 93 25 01 	sts	0x0125, r24
 	_S3P_delimiterSize = delimiterSize;
@@ -317,12 +321,12 @@ void S3P::setDelimiter(const void* delimiter, uint8_t delimiterSize)
 		volatile void* out,
 		uint8_t outSize)
 {
-	_S3P_input = (char*)in;
+	_S3P_input = (volatile uint8_t*)in;
  1d4:	50 93 23 01 	sts	0x0123, r21
  1d8:	40 93 22 01 	sts	0x0122, r20
 	_S3P_inputSize = inSize;
  1dc:	20 93 20 01 	sts	0x0120, r18
-	_S3P_output = (char*)out;
+	_S3P_output = (volatile uint8_t*)out;
  1e0:	10 93 1f 01 	sts	0x011F, r17
  1e4:	00 93 1e 01 	sts	0x011E, r16
 	_S3P_outputSize = outSize;
@@ -360,12 +364,12 @@ void S3P::setDelimiter(const void* delimiter, uint8_t delimiterSize)
  216:	08 95       	ret
 
 00000218 <_ZN3S3P8transmitEPVvh>:
-void S3P::transmit(volatile void* toTransmit, uint8_t charCount) 
 {
+	DON;
 	// sends between 1 and 255 chars
 	// uses USART_TX and USART_UDRE interrupts to advance through chars
 	
-	_S3P_transmitting = (char*)toTransmit;
+	_S3P_transmitting = (volatile uint8_t*)toTransmit;
  218:	90 93 1b 01 	sts	0x011B, r25
  21c:	80 93 1a 01 	sts	0x011A, r24
 	_S3P_charsToSend = charCount;
@@ -413,7 +417,7 @@ void S3P::transmit(volatile void* toTransmit, uint8_t charCount)
  266:	08 95       	ret
 
 00000268 <_ZN3S3P8transmitEv>:
-	}
+	DOFF;
 }
 
 void S3P::transmit()
@@ -427,7 +431,7 @@ void S3P::transmit()
 
 0000027a <__vector_18>:
 	_S3P_TX_DISABLE();
-	UCSR0B &= ~_BV(TXCIE0); // disables TX complete interrupt
+	DOFF;
 }
 
 ISR(USART_RX_vect)
@@ -449,6 +453,7 @@ ISR(USART_RX_vect)
  296:	bf 93       	push	r27
  298:	ef 93       	push	r30
  29a:	ff 93       	push	r31
+	DON;
 	char received = UDR0; // clears flag
  29c:	20 91 c6 00 	lds	r18, 0x00C6
 	
@@ -506,6 +511,7 @@ ISR(USART_RX_vect)
 		S3P::transmit();
  30e:	0e 94 34 01 	call	0x268	; 0x268 <_ZN3S3P8transmitEv>
 	}
+	DOFF;
 }
  312:	ff 91       	pop	r31
  314:	ef 91       	pop	r30
@@ -718,20 +724,30 @@ int main(void)
 	Analog::selectChannel(5);
  460:	85 e0       	ldi	r24, 0x05	; 5
  462:	0e 94 67 00 	call	0xce	; 0xce <_ZN6Analog13selectChannelEh>
+	// Analog::startConversion();
+	
+	dataOut.output[0] = (volatile char)'a';
+ 466:	81 e6       	ldi	r24, 0x61	; 97
+ 468:	80 93 2d 01 	sts	0x012D, r24
+	dataOut.output[15] = (volatile char)'z';
+ 46c:	8a e7       	ldi	r24, 0x7A	; 122
+ 46e:	80 93 3c 01 	sts	0x013C, r24
 	#define DELAY 100
 	
     while(1) 
 	{
 		// sprintf((char*)dataOut.output, "status:%d", dataIn.status);
-		modular8_set_digital_bus(dataIn.status);
- 466:	cf e3       	ldi	r28, 0x3F	; 63
- 468:	d1 e0       	ldi	r29, 0x01	; 1
- 46a:	88 81       	ld	r24, Y
- 46c:	0e 94 7d 00 	call	0xfa	; 0xfa <_Z24modular8_set_digital_bush>
- 470:	fc cf       	rjmp	.-8      	; 0x46a <main+0x56>
+		ATOMIC(modular8_set_digital_bus(dataIn.status));
+ 472:	cf e3       	ldi	r28, 0x3F	; 63
+ 474:	d1 e0       	ldi	r29, 0x01	; 1
+ 476:	f8 94       	cli
+ 478:	88 81       	ld	r24, Y
+ 47a:	0e 94 7d 00 	call	0xfa	; 0xfa <_Z24modular8_set_digital_bush>
+ 47e:	78 94       	sei
+ 480:	fa cf       	rjmp	.-12     	; 0x476 <main+0x62>
 
-00000472 <_exit>:
- 472:	f8 94       	cli
+00000482 <_exit>:
+ 482:	f8 94       	cli
 
-00000474 <__stop_program>:
- 474:	ff cf       	rjmp	.-2      	; 0x474 <__stop_program>
+00000484 <__stop_program>:
+ 484:	ff cf       	rjmp	.-2      	; 0x484 <__stop_program>

@@ -38,22 +38,22 @@ TXDEN_PORT |= _BV(TXDEN_PIN); /* RS485 enable */\
 TXDEN_PORT &= ~_BV(TXDEN_PIN); /* RS485 disable */\
 UCSR0B &= ~_BV(TXEN0); /* disable USART TX */\
 
-extern char* _S3P_delimiter;
+extern uint8_t* _S3P_delimiter;
 extern uint8_t _S3P_delimiterSize;
 
-extern char* _S3P_input;
+extern volatile uint8_t* _S3P_input;
 extern volatile uint8_t _S3P_inputIndex;
 extern uint8_t _S3P_inputSize;
 
-extern char* _S3P_output;
+extern volatile uint8_t* _S3P_output;
 extern volatile uint8_t _S3P_outputIndex;
 extern uint8_t _S3P_outputSize;
 
-extern uint8_t* _S3P_memoryLocation;
+extern volatile uint8_t* _S3P_memoryLocation;
 extern volatile uint8_t _S3P_memoryIndex;
 extern uint8_t _S3P_memorySize;
 
-extern volatile char* _S3P_transmitting;
+extern volatile uint8_t* _S3P_transmitting;
 extern volatile uint8_t _S3P_charsLeft, _S3P_charsToSend;
 
 class S3P

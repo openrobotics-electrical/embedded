@@ -96,12 +96,15 @@ int main(void)
 	Analog::selectChannel(5);
 	// Analog::startConversion();
 	
+	dataOut.output[0] = (volatile char)'a';
+	dataOut.output[15] = (volatile char)'z';
+	
 	#define DELAY 100
 	
     while(1) 
 	{
 		// sprintf((char*)dataOut.output, "status:%d", dataIn.status);
-		modular8_set_digital_bus(dataIn.status);
+		ATOMIC(modular8_set_digital_bus(dataIn.status));
 
 		/*
 		if(counted) 

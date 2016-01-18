@@ -217,7 +217,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x476
+.text           0x00000000      0x486
  *(.vectors)
  .vectors       0x00000000       0x68 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm328p.o
                 0x00000000                __vector_default
@@ -332,13 +332,13 @@ END GROUP
  .text.__vector_3
                 0x000003a8       0x6c P0005_v2_drivetrain_rev1.o
                 0x000003a8                __vector_3
- .text.main     0x00000414       0x5e P0005_v2_drivetrain_rev1.o
+ .text.main     0x00000414       0x6e P0005_v2_drivetrain_rev1.o
                 0x00000414                main
-                0x00000472                . = ALIGN (0x2)
+                0x00000482                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000472        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
-                0x00000472                _exit
-                0x00000472                exit
+ .fini9         0x00000482        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
+                0x00000482                _exit
+                0x00000482                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -357,11 +357,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000472        0x4 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
+ .fini0         0x00000482        0x4 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000476                _etext = .
+                0x00000486                _etext = .
 
-.data           0x00800100       0x16 load address 0x00000476
+.data           0x00800100       0x16 load address 0x00000486
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -442,8 +442,8 @@ END GROUP
                 0x0080013d                dataIn
  *(COMMON)
                 0x00800140                PROVIDE (__bss_end, .)
-                0x00000476                __data_load_start = LOADADDR (.data)
-                0x0000048c                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00000486                __data_load_start = LOADADDR (.data)
+                0x0000049c                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00800140        0x0
                 0x00800140                PROVIDE (__noinit_start, .)
@@ -526,12 +526,12 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000      0xb5f
+.debug_info     0x00000000      0xb54
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x1c9 Analog.o
  .debug_info    0x000001c9       0xe0 modular8.o
- .debug_info    0x000002a9      0x48f S3P.o
- .debug_info    0x00000738      0x427 P0005_v2_drivetrain_rev1.o
+ .debug_info    0x000002a9      0x484 S3P.o
+ .debug_info    0x0000072d      0x427 P0005_v2_drivetrain_rev1.o
 
 .debug_abbrev   0x00000000      0x4f2
  *(.debug_abbrev)
@@ -540,12 +540,12 @@ END GROUP
  .debug_abbrev  0x00000197      0x1db S3P.o
  .debug_abbrev  0x00000372      0x180 P0005_v2_drivetrain_rev1.o
 
-.debug_line     0x00000000      0x4d0
+.debug_line     0x00000000      0x4d2
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x11d Analog.o
  .debug_line    0x0000011d       0xe1 modular8.o
  .debug_line    0x000001fe      0x173 S3P.o
- .debug_line    0x00000371      0x15f P0005_v2_drivetrain_rev1.o
+ .debug_line    0x00000371      0x161 P0005_v2_drivetrain_rev1.o
 
 .debug_frame    0x00000000      0x280
  *(.debug_frame)
