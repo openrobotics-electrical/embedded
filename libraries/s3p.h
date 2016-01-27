@@ -60,6 +60,7 @@ class S3P
 {
 public:	
 	static void init(
+			uint16_t baudrateDivisor,
 			const void* delimiter,
 			uint8_t delimiterSize,
 			volatile void* in,
@@ -71,6 +72,7 @@ public:
 			uint8_t in_size,
 			volatile void* out,
 			uint8_t out_size);
+	static void transmit(const char* toTransmit);
 	static void transmit(volatile void* toTransmit, uint8_t char_count);
 	static void transmit();
 	static void setDelimiter(const void* delimiter, uint8_t delimiterSize);

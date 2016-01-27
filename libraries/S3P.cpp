@@ -6,9 +6,12 @@
  */ 
 
 #include <S3P.h>
+#include <string.h>
 
-#define DON //PORTB |= _BV(5)
-#define DOFF //PORTB &= ~_BV(5)
+#define DON PORTB |= _BV(5)
+#define DOFF PORTB &= ~_BV(5)
+#define D2ON PORTB |= _BV(4)
+#define D2OFF PORTB &= ~_BV(4)
 
 uint8_t* _S3P_delimiter;
 uint8_t _S3P_delimiterSize;
@@ -30,15 +33,20 @@ volatile uint8_t _S3P_charsLeft = 0, _S3P_charsToSend = 0;
 
 ISR(USART_TX_vect)
 {
+	D2OFF;
 	DON;
+	
 	UCSR0B &= ~_BV(TXCIE0); // disables TX complete interrupt
 	_S3P_TX_DISABLE();
+	
 	DOFF;
 }
 
 ISR(USART_RX_vect)
 {
-	DON;
+	D2ON;
+	DOFF;
+	
 	char received = UDR0; // clears flag
 	
 	if(_S3P_memoryIndex < _S3P_delimiterSize)
@@ -55,14 +63,19 @@ ISR(USART_RX_vect)
 	{
 		_S3P_memoryIndex = 0;
 		_S3P_inputIndex = 0;
+		D2ON;
 		S3P::transmit();
+		D2OFF;
 	}
-	DOFF;
+	
+	D2OFF;
 }
 
 ISR(USART_UDRE_vect)
 {
+	D2ON;
 	DON;
+	
 	UDR0 = _S3P_transmitting[_S3P_charsToSend - _S3P_charsLeft];
 	_S3P_charsLeft--;
 	
@@ -71,10 +84,13 @@ ISR(USART_UDRE_vect)
 		UCSR0B &= ~_BV(UDRIE0);  // disable buffer empty interrupt
 		UCSR0B |= _BV(TXCIE0); // enables TX complete interrupt
 	}
+	
+	D2OFF;
 	DOFF;
 }
 
 void S3P::init(
+		uint16_t baudrateDivisor, 
 		const void* delimiter,
 		uint8_t delimiterSize,
 		volatile void* in,
@@ -88,16 +104,20 @@ void S3P::init(
 	DDRB |= _BV(TXDEN_PIN) + _BV(5);
 	PORTB &= ~_BV(TXDEN_PIN);
 	
-	UBRR0H = 0;
-	UBRR0L = 7; // 250000 baud
+	UBRR0H = baudrateDivisor >> 8;
+	UBRR0L = baudrateDivisor;
 	UCSR0A = _BV(U2X0); // Double speed UART
 	UCSR0B = _BV(RXCIE0) | _BV(RXEN0) | _BV(TXEN0); // Receive interrupt, RX/TX enable
 	UCSR0C = _BV(UCSZ01) | _BV(UCSZ00); // 8-bit data, no parity, 1 stop bit
 }
 
+void S3P::transmit(const char* toTransmit)
+{
+	transmit((volatile void*)toTransmit, strlen(toTransmit));
+}
+
 void S3P::transmit(volatile void* toTransmit, uint8_t charCount) 
 {
-	DON;
 	// sends between 1 and 255 chars
 	// uses USART_TX and USART_UDRE interrupts to advance through chars
 	
@@ -117,7 +137,6 @@ void S3P::transmit(volatile void* toTransmit, uint8_t charCount)
 	{
 		UCSR0B |= _BV(TXCIE0); // enables TX complete interrupt
 	}
-	DOFF;
 }
 
 void S3P::transmit()

@@ -14,6 +14,8 @@ Discarded input sections
  .text          0x00000000        0x0 Analog.o
  .data          0x00000000        0x0 Analog.o
  .bss           0x00000000        0x0 Analog.o
+ .text._ZN6Analog17autoTriggerEnableEb
+                0x00000000       0x18 Analog.o
  .text._ZN6Analog15startConversionEv
                 0x00000000        0xc Analog.o
  .text._ZN6Analog14stopConversionEv
@@ -27,6 +29,8 @@ Discarded input sections
  .text          0x00000000        0x0 modular8.o
  .data          0x00000000        0x0 modular8.o
  .bss           0x00000000        0x0 modular8.o
+ .text._Z24modular8_set_digital_bush
+                0x00000000       0x18 modular8.o
  .text._Z24modular8_get_digital_busv
                 0x00000000        0xc modular8.o
  .text          0x00000000        0x0 S3P.o
@@ -217,7 +221,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x486
+.text           0x00000000      0x48e
  *(.vectors)
  .vectors       0x00000000       0x68 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm328p.o
                 0x00000000                __vector_default
@@ -302,43 +306,40 @@ END GROUP
  .text._ZN6Analog13selectChannelEh
                 0x000000ce       0x2c Analog.o
                 0x000000ce                _ZN6Analog13selectChannelEh
- .text._Z24modular8_set_digital_bush
-                0x000000fa       0x18 modular8.o
-                0x000000fa                _Z24modular8_set_digital_bush
  .text._Z34modular8_set_digital_bus_directionh
-                0x00000112       0x18 modular8.o
-                0x00000112                _Z34modular8_set_digital_bus_directionh
+                0x000000fa       0x18 modular8.o
+                0x000000fa                _Z34modular8_set_digital_bus_directionh
  .text.__vector_20
-                0x0000012a       0x32 S3P.o
-                0x0000012a                __vector_20
+                0x00000112       0x38 S3P.o
+                0x00000112                __vector_20
  .text.__vector_19
-                0x0000015c       0x66 S3P.o
-                0x0000015c                __vector_19
+                0x0000014a       0x6e S3P.o
+                0x0000014a                __vector_19
  .text._ZN3S3P4initEPKvhPVvhS3_h
-                0x000001c2       0x56 S3P.o
-                0x000001c2                _ZN3S3P4initEPKvhPVvhS3_h
+                0x000001b8       0x56 S3P.o
+                0x000001b8                _ZN3S3P4initEPKvhPVvhS3_h
  .text._ZN3S3P8transmitEPVvh
-                0x00000218       0x50 S3P.o
-                0x00000218                _ZN3S3P8transmitEPVvh
+                0x0000020e       0x50 S3P.o
+                0x0000020e                _ZN3S3P8transmitEPVvh
  .text._ZN3S3P8transmitEv
-                0x00000268       0x12 S3P.o
-                0x00000268                _ZN3S3P8transmitEv
+                0x0000025e       0x12 S3P.o
+                0x0000025e                _ZN3S3P8transmitEv
  .text.__vector_18
-                0x0000027a       0xba S3P.o
-                0x0000027a                __vector_18
+                0x00000270       0xc4 S3P.o
+                0x00000270                __vector_18
  .text.__vector_14
                 0x00000334       0x74 P0005_v2_drivetrain_rev1.o
                 0x00000334                __vector_14
  .text.__vector_3
                 0x000003a8       0x6c P0005_v2_drivetrain_rev1.o
                 0x000003a8                __vector_3
- .text.main     0x00000414       0x6e P0005_v2_drivetrain_rev1.o
+ .text.main     0x00000414       0x76 P0005_v2_drivetrain_rev1.o
                 0x00000414                main
-                0x00000482                . = ALIGN (0x2)
+                0x0000048a                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000482        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
-                0x00000482                _exit
-                0x00000482                exit
+ .fini9         0x0000048a        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
+                0x0000048a                _exit
+                0x0000048a                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -357,11 +358,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000482        0x4 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
+ .fini0         0x0000048a        0x4 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000486                _etext = .
+                0x0000048e                _etext = .
 
-.data           0x00800100       0x16 load address 0x00000486
+.data           0x00800100       0x16 load address 0x0000048e
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -442,8 +443,8 @@ END GROUP
                 0x0080013d                dataIn
  *(COMMON)
                 0x00800140                PROVIDE (__bss_end, .)
-                0x00000486                __data_load_start = LOADADDR (.data)
-                0x0000049c                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x0000048e                __data_load_start = LOADADDR (.data)
+                0x000004a4                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00800140        0x0
                 0x00800140                PROVIDE (__noinit_start, .)
@@ -512,65 +513,65 @@ END GROUP
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000      0x100
+.debug_aranges  0x00000000      0x108
  *(.debug_aranges)
  .debug_aranges
-                0x00000000       0x48 Analog.o
+                0x00000000       0x50 Analog.o
  .debug_aranges
-                0x00000048       0x30 modular8.o
+                0x00000050       0x30 modular8.o
  .debug_aranges
-                0x00000078       0x58 S3P.o
+                0x00000080       0x58 S3P.o
  .debug_aranges
-                0x000000d0       0x30 P0005_v2_drivetrain_rev1.o
+                0x000000d8       0x30 P0005_v2_drivetrain_rev1.o
 
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000      0xb54
+.debug_info     0x00000000      0xc22
  *(.debug_info .gnu.linkonce.wi.*)
- .debug_info    0x00000000      0x1c9 Analog.o
- .debug_info    0x000001c9       0xe0 modular8.o
- .debug_info    0x000002a9      0x484 S3P.o
- .debug_info    0x0000072d      0x427 P0005_v2_drivetrain_rev1.o
+ .debug_info    0x00000000      0x208 Analog.o
+ .debug_info    0x00000208       0xe0 modular8.o
+ .debug_info    0x000002e8      0x484 S3P.o
+ .debug_info    0x0000076c      0x4b6 P0005_v2_drivetrain_rev1.o
 
-.debug_abbrev   0x00000000      0x4f2
+.debug_abbrev   0x00000000      0x57e
  *(.debug_abbrev)
- .debug_abbrev  0x00000000      0x100 Analog.o
- .debug_abbrev  0x00000100       0x97 modular8.o
- .debug_abbrev  0x00000197      0x1db S3P.o
- .debug_abbrev  0x00000372      0x180 P0005_v2_drivetrain_rev1.o
+ .debug_abbrev  0x00000000      0x10f Analog.o
+ .debug_abbrev  0x0000010f       0x97 modular8.o
+ .debug_abbrev  0x000001a6      0x1db S3P.o
+ .debug_abbrev  0x00000381      0x1fd P0005_v2_drivetrain_rev1.o
 
-.debug_line     0x00000000      0x4d2
+.debug_line     0x00000000      0x57f
  *(.debug_line .debug_line.* .debug_line_end)
- .debug_line    0x00000000      0x11d Analog.o
- .debug_line    0x0000011d       0xe1 modular8.o
- .debug_line    0x000001fe      0x173 S3P.o
- .debug_line    0x00000371      0x161 P0005_v2_drivetrain_rev1.o
+ .debug_line    0x00000000      0x13d Analog.o
+ .debug_line    0x0000013d       0xe1 modular8.o
+ .debug_line    0x0000021e      0x180 S3P.o
+ .debug_line    0x0000039e      0x1e1 P0005_v2_drivetrain_rev1.o
 
-.debug_frame    0x00000000      0x280
+.debug_frame    0x00000000      0x290
  *(.debug_frame)
- .debug_frame   0x00000000       0x84 Analog.o
- .debug_frame   0x00000084       0x44 modular8.o
- .debug_frame   0x000000c8      0x128 S3P.o
- .debug_frame   0x000001f0       0x90 P0005_v2_drivetrain_rev1.o
+ .debug_frame   0x00000000       0x94 Analog.o
+ .debug_frame   0x00000094       0x44 modular8.o
+ .debug_frame   0x000000d8      0x128 S3P.o
+ .debug_frame   0x00000200       0x90 P0005_v2_drivetrain_rev1.o
 
-.debug_str      0x00000000      0x662
+.debug_str      0x00000000      0x6e7
  *(.debug_str)
- .debug_str     0x00000000      0x2d3 Analog.o
-                                0x307 (size before relaxing)
- .debug_str     0x000002d3       0xd9 modular8.o
+ .debug_str     0x00000000      0x30d Analog.o
+                                0x341 (size before relaxing)
+ .debug_str     0x0000030d       0xd9 modular8.o
                                 0x262 (size before relaxing)
- .debug_str     0x000003ac      0x1ed S3P.o
+ .debug_str     0x000003e6      0x1ed S3P.o
                                 0x393 (size before relaxing)
- .debug_str     0x00000599       0xc9 P0005_v2_drivetrain_rev1.o
-                                0x4a0 (size before relaxing)
+ .debug_str     0x000005d3      0x114 P0005_v2_drivetrain_rev1.o
+                                0x4e6 (size before relaxing)
 
-.debug_loc      0x00000000      0x48c
+.debug_loc      0x00000000      0x4c6
  *(.debug_loc)
- .debug_loc     0x00000000       0x5d Analog.o
- .debug_loc     0x0000005d       0x42 modular8.o
- .debug_loc     0x0000009f      0x300 S3P.o
- .debug_loc     0x0000039f       0xed P0005_v2_drivetrain_rev1.o
+ .debug_loc     0x00000000       0x97 Analog.o
+ .debug_loc     0x00000097       0x42 modular8.o
+ .debug_loc     0x000000d9      0x300 S3P.o
+ .debug_loc     0x000003d9       0xed P0005_v2_drivetrain_rev1.o
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -590,12 +591,12 @@ END GROUP
 .debug_pubtypes
  *(.debug_pubtypes)
 
-.debug_ranges   0x00000000       0xc0
+.debug_ranges   0x00000000       0xc8
  *(.debug_ranges)
- .debug_ranges  0x00000000       0x38 Analog.o
- .debug_ranges  0x00000038       0x20 modular8.o
- .debug_ranges  0x00000058       0x48 S3P.o
- .debug_ranges  0x000000a0       0x20 P0005_v2_drivetrain_rev1.o
+ .debug_ranges  0x00000000       0x40 Analog.o
+ .debug_ranges  0x00000040       0x20 modular8.o
+ .debug_ranges  0x00000060       0x48 S3P.o
+ .debug_ranges  0x000000a8       0x20 P0005_v2_drivetrain_rev1.o
 
 .debug_macro
  *(.debug_macro)

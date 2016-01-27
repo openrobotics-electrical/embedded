@@ -1,99 +1,60 @@
 /*
- * RGB_LED_driver.cpp
+ * slowscilloscope.cpp
  *
  * Created: 8/24/2015 10:44:05 PM
  *  Author: Maxim
  */ 
 
-// #define F_CPU 14745600
 #define F_CPU 16000000
+#define BAUD 115200
+#define BAUDRATE_DIVISOR F_CPU/8/BAUD - 1
+// #define F_CPU 16000000
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
 #include <modular8.h>
-#include <s3p.h>
-#include <analog.h>
-
-volatile struct data_in
-{
-	uint8_t r;
-	uint8_t g;
-	uint8_t b;
-} Data_in;
-
-volatile struct data_out
-{
-	uint8_t r;
-	uint8_t g;
-	uint8_t b;
-	uint16_t test;
-} Data_out;
-
-ISR(TIMER0_COMPA_vect) {
-	
-	// PORTB = ~PORTB;
-	// s3p_transmit(tick_msg, sizeof(tick_msg));
-}
-
-ISR(TIMER1_COMPA_vect) {
-	
-	/*
-	static char tock_message[] = "TOCK";
-	s3p_transmit(tock_message, sizeof(tock_message));
-	*/
-}
+#include <S3P.h>
+#include <Analog.h>
+#include "dataStructures.h"
+#include <stdio.h>
+#include <string.h>
 
 int main(void) 
 {
+	S3P::init(BAUDRATE_DIVISOR, DATA_STRUCTURE_REF);
 	Analog::selectChannel(0);
-	
-	s3p_init();
-	s3p_setbuffers(&Data_in, sizeof(Data_in), &Data_out, sizeof(Data_out));
-	
-	TCCR0A = _BV(WGM01); // CTC mode
-	TCCR0B =  PRESCALER_1024;
-	OCR0A =	249;	
-	//TIMSK0 = _BV(OCIE0A); // enable timer interrupt
-	
-	TCCR1A = 0;
-	TCCR1B = _BV(WGM12) | PRESCALER_1024; // CTC mode
-	OCR1AH = 0x20;
-	OCR1AL = 0x00;
-	TIMSK1 = _BV(OCIE1A); // enable timer interrupt
-	
-	Data_in.r = 255;
-	Data_in.g = 160;
-	Data_in.b = 32;
-	
+	Analog::autoTriggerEnable(false);
+	Analog::startConversion();
 	sei(); // set interrupts
 	
-	volatile uint16_t i = 0, j = 0;
-	
-	DDRD = 0xff;
-	DDRC = 0;
-	
-	Analog::startConversion();
+	DDRC = 0x00;
 	
     while(1)	
 	{
-		Data_out.test = Analog::getValue();
-	
-		Data_out.r = Data_in.r;
-		Data_out.g = Data_in.g;
-		Data_out.b = Data_in.b;
-		
-		PORTD = 0;
-		_delay_us(20000);
-		PORTD = 0xff;
-		
-		_delay_us(200);
-		
-		for(i = 0; i < Data_out.test; i++)
+		#define NUMBER_CHANNELS 8
+		for(int i = 0; i < NUMBER_CHANNELS; i++)
 		{
-			_delay_us(1);
+			Analog::selectChannel(i);
+			Analog::startConversion();
+			while(!Analog::newValueAvailable()) 
+			{ 
+				/*do nothing*/
+			}
+			ATOMIC(dataOut.voltage[i] = (uint16_t)Analog::getValue() * 4.882813);
 		}
-		//_delay_ms(1);	
-		PORTD = 0;
+		
+		char message[80];
+		sprintf(message, "%1d.%03d%2d.%03d%2d.%03d%2d.%03d%2d.%03d%2d.%03d%2d.%03d%2d.%03d\n",
+				dataOut.voltage[0] / 1000, dataOut.voltage[0] % 1000,
+				dataOut.voltage[1] / 1000, dataOut.voltage[1] % 1000,
+				dataOut.voltage[2] / 1000, dataOut.voltage[2] % 1000,
+				dataOut.voltage[3] / 1000, dataOut.voltage[3] % 1000,
+				dataOut.voltage[4] / 1000, dataOut.voltage[4] % 1000,
+				dataOut.voltage[5] / 1000, dataOut.voltage[5] % 1000,
+				dataOut.voltage[6] / 1000, dataOut.voltage[6] % 1000,
+				dataOut.voltage[7] / 1000, dataOut.voltage[7] % 1000);
+		S3P::transmit(&message, strlen(message));
+		_delay_ms(100);
 	}
 }

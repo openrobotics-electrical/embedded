@@ -5,8 +5,8 @@
  *  Author: Maxim
  */ 
 
-// #define F_CPU 14745600
-#define F_CPU 16000000
+#define F_CPU 14745600
+// #define F_CPU 16000000
 
 #define PRESCALER_1		0b001
 #define PRESCALER_8		0b010
@@ -71,7 +71,7 @@ ISR(PCINT0_vect) {
 
 int main(void) 
 {
-	DDRB = 0; // PORTB as inputs
+	DDRB = 0xfc;
 	DDRD = 0xff; // PORTD as outputs
 	
 	PCICR = _BV(PCIE0); // allow PCINT0-7 interrupts
@@ -104,8 +104,13 @@ int main(void)
     while(1) 
 	{
 		// sprintf((char*)dataOut.output, "status:%d", dataIn.status);
-		ATOMIC(modular8_set_digital_bus(dataIn.status));
-
+		// ATOMIC(modular8_set_digital_bus(dataIn.status));
+		
+		_delay_ms(DELAY);
+		PORTB = 0;
+		
+		//PORTB = ~PORTB;
+		
 		/*
 		if(counted) 
 		{	
