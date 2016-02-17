@@ -12,7 +12,7 @@
 #define DATA_STRUCTURE_REF &_delimiter, sizeof(_delimiter) - 1, REF(dataIn), REF(dataOut)
 #define ATOMIC(x) cli();x;sei()
 
-const char _delimiter[] = "@V2DT";
+const char _delimiter[] = "@MARM";
 
 volatile struct dataIn
 {

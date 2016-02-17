@@ -54,7 +54,7 @@ int main(void)
 				dataOut.voltage[5] / 1000, dataOut.voltage[5] % 1000,
 				dataOut.voltage[6] / 1000, dataOut.voltage[6] % 1000,
 				dataOut.voltage[7] / 1000, dataOut.voltage[7] % 1000);
-		S3P::transmit(&message, strlen(message));
+		//S3P::transmit(&message, strlen(message));
 		_delay_ms(100);
 	}
 }
