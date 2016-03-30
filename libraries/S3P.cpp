@@ -8,10 +8,10 @@
 #include <S3P.h>
 #include <string.h>
 
-#define DON PORTB |= _BV(5)
-#define DOFF PORTB &= ~_BV(5)
-#define D2ON PORTB |= _BV(4)
-#define D2OFF PORTB &= ~_BV(4)
+#define DON //PORTB |= _BV(5)
+#define DOFF //PORTB &= ~_BV(5)
+#define D2ON //PORTB |= _BV(4)
+#define D2OFF //PORTB &= ~_BV(4)
 
 uint8_t* _S3P_delimiter;
 uint8_t _S3P_delimiterSize;

@@ -22,6 +22,7 @@ volatile struct dataIn
 volatile struct dataOut
 {
 	uint16_t voltage[8];
+	uint8_t test;
 } dataOut;
 
 #endif /* DATASTRUCTURES_H_ */

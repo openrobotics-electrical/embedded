@@ -30,6 +30,8 @@ int main(void)
 	
 	DDRC = 0x00;
 	
+	ATOMIC(dataOut.test = 0);
+	
     while(1)	
 	{
 		#define NUMBER_CHANNELS 8
