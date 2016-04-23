@@ -1,0 +1,4 @@
+$fuse 0 0xF2
+$fuse 1 0xDF
+$fuse 2 0xFF
+$reset p

@@ -6,9 +6,9 @@
  */ 
 
 #define F_CPU 16000000
-#define BAUD 115200
+#define BAUD 57600
 #define BAUDRATE_DIVISOR F_CPU/8/BAUD - 1
-// #define F_CPU 16000000
+#define NUMBER_CHANNELS 8
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
@@ -32,20 +32,30 @@ int main(void)
 	
 	ATOMIC(dataOut.test = 0);
 	
+	uint16_t v_arr[10][NUMBER_CHANNELS];
+	uint16_t v_results[NUMBER_CHANNELS];
+	
     while(1)	
 	{
-		#define NUMBER_CHANNELS 8
-		for(int i = 0; i < NUMBER_CHANNELS; i++)
-		{
-			Analog::selectChannel(i);
-			Analog::startConversion();
-			while(!Analog::newValueAvailable()) 
-			{ 
-				/*do nothing*/
+		for(int i = 0; i < 10; i++) {
+			for(int j = 0; j < NUMBER_CHANNELS; j++) {
+				Analog::selectChannel(j);
+				Analog::startConversion();
+				while(!Analog::newValueAvailable()) 
+				{ 
+					/*do nothing*/
+				}
+				v_arr[i][j] = (uint16_t)Analog::getValue() * 4.882813;
 			}
-			ATOMIC(dataOut.voltage[i] = (uint16_t)Analog::getValue() * 4.882813);
 		}
-		
+		for(int j = 0; j < NUMBER_CHANNELS; j++) {
+			v_results[j] = 0;
+			for(int i = 0; i < 10; i++) {
+				v_results[j] += v_arr[i][j]; 
+			}
+			ATOMIC(dataOut.voltage[j] = (uint16_t)v_results[j] / 10);
+		}
+		/*
 		char message[80];
 		sprintf(message, "%1d.%03d%2d.%03d%2d.%03d%2d.%03d%2d.%03d%2d.%03d%2d.%03d%2d.%03d\n",
 				dataOut.voltage[0] / 1000, dataOut.voltage[0] % 1000,
@@ -56,6 +66,7 @@ int main(void)
 				dataOut.voltage[5] / 1000, dataOut.voltage[5] % 1000,
 				dataOut.voltage[6] / 1000, dataOut.voltage[6] % 1000,
 				dataOut.voltage[7] / 1000, dataOut.voltage[7] % 1000);
+				*/
 		//S3P::transmit(&message, strlen(message));
 		_delay_ms(100);
 	}

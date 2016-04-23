@@ -49,7 +49,7 @@ void Analog::startConversion()
 	
 void Analog::stopConversion() { ADCSRA &= ~_BV(ADSC); }
 	
-bool Analog::conversionComplete() { ADCSRA & _BV(ADSC); }
+bool Analog::conversionComplete() { return ADCSRA & _BV(ADSC); }
 	
 bool Analog::newValueAvailable() { return newValue; }
 	

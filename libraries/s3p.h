@@ -56,8 +56,7 @@ extern uint8_t _S3P_memorySize;
 extern volatile uint8_t* _S3P_transmitting;
 extern volatile uint8_t _S3P_charsLeft, _S3P_charsToSend;
 
-class S3P
-{
+class S3P {
 public:	
 	static void init(
 			uint16_t baudrateDivisor,

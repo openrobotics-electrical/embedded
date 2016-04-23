@@ -7,6 +7,8 @@
 
 #define F_CPU 14745600
 // #define F_CPU 16000000
+#define BAUD 115200
+#define BAUDRATE_DIVISOR F_CPU/8/BAUD - 1
 
 #define PRESCALER_1		0b001
 #define PRESCALER_8		0b010
@@ -83,7 +85,7 @@ int main(void)
 	TIMSK0 = _BV(OCIE1A); // enable timer interrupt
 	
 	// Sets the buffers to the structs in local "dataStructures.h" and initializes UART
-	S3P::init(DATA_STRUCTURE_REF);
+	S3P::init(BAUDRATE_DIVISOR, DATA_STRUCTURE_REF);
 	
 	sei(); // set interrupts
 	
@@ -99,15 +101,21 @@ int main(void)
 	dataOut.output[0] = (volatile char)'a';
 	dataOut.output[15] = (volatile char)'z';
 	
-	#define DELAY 100
+	#define DELAY 10
 	
     while(1) 
 	{
 		// sprintf((char*)dataOut.output, "status:%d", dataIn.status);
-		// ATOMIC(modular8_set_digital_bus(dataIn.status));
-		
+		ATOMIC(modular8_set_digital_bus(dataIn.status));
+
+		PORTC = 0x01;
+		_delay_ms(13);
+		PORTC = 0x02;
+		_delay_ms(16);
+		PORTC = 0x0;
 		_delay_ms(DELAY);
-		PORTB = 0;
+		
+		ATOMIC(dataIn.status++);
 		
 		//PORTB = ~PORTB;
 		
