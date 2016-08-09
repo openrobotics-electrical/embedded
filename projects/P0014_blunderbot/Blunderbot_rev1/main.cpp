@@ -9,43 +9,144 @@
 #include <avr/io.h>
 #include <util/delay.h>
 #include <avr/interrupt.h>
+#include <math.h>
+#include <stdio.h>
+#include "timers.h"
+#include "io_manip.h"
+#include "C:\Users\Maxim\Documents\GitHub\openrobotics\embedded\libraries\serial.h"
 
-volatile uint16_t echo1;
+volatile uint16_t echo1_time;
 
-#define PRESCALER_1 1
-#define PRESCALER_8 2
-#define PRESCALER_64 3
-#define PRESCALER_256 4
-#define PRESCALER_1024 5
+using io_manip::Output;
+using io_manip::Input;
+	
+Output servo_en	(&PORTA, PA0);
+Output tx		(&PORTA, PA1);
+Input  rx		(&PORTA, PA2);
+Output txden	(&PORTA, PA3);
+Output sck		(&PORTA, PA4);
+Output pwm1		(&PORTA, PA5);
+Output pwm2		(&PORTA, PA6);
+Output trig1	(&PORTA, PA7);
+Input  echo1	(&PORTB, PB0);
+Output trig2	(&PORTB, PB1);
+Input  echo2	(&PORTB, PB2);
+// Reset pin on PB3
 
-ISR(PCINT1_vect) 
+using timers::Timer1;
+using timers::Timer2;
+using timers::Prescaler;
+
+Timer1 timer1(Prescaler::PRESCALER_8);
+Timer2 timer2(Prescaler::PRESCALER_8);
+
+
+ISR(PCINT1_vect)
 {
 	cli();
-	if(PINB & (1<<PINB0)) {
-		PORTA |= (1<<PORTA4);
-		TCNT2 = 0;
-		TCCR2B = PRESCALER_8;
+	if(echo1.is_set()) {
+		sck.set();
+		timer2.clear();
+		timer2.start();
 	} else { 
-		PORTA &= ~(1<<PORTA4);
-		TCCR2B = 0;
-		echo1 = TCNT2;
+		sck.clear();
+		timer2.stop();
+		echo1_time = timer2.count();
 	}
 	sei();
+}
+
+class Fixed_point16 {
+public:
+	const int8_t integer;
+	const uint8_t decimal;
+	Fixed_point16(const float f) : integer((int8_t)f), decimal((uint16_t)(f*256.0) % 256) {}	
+	Fixed_point16(Fixed_point16 *fp) : integer(fp->integer), decimal(fp->decimal) {}
+};
+
+typedef Fixed_point16 fp;
+
+uint16_t sample_distance() {
+	if(!echo1.is_set())
+		trig1.set();
+	_delay_us(20);
+	trig1.clear();
+	_delay_ms(100);
+	return echo1_time;
+}
+
+uint16_t multi_sample() {
+	_delay_ms(200);
+	uint16_t t1, t2, t3;
+	uint16_t err1, err2, err3;
+	t1 = sample_distance();
+	t2 = sample_distance();
+	t3 = sample_distance();
+	uint16_t mean = uint16_t((uint32_t)(t1 + t2 + t3) / 3);
+	err1 = (t1 - mean) * (t1 - mean);
+	err2 = (t2 - mean) * (t2 - mean);
+	err3 = (t3 - mean) * (t3 - mean);
+	if (err1 > err2)
+		if (err1 > err3)
+			return (err2 + err3) / 2;
+		else
+			return (err1 + err3) / 2;
+	else
+		if (err2 > err3)
+			return (err1 + err3) / 2;
+		else
+			return (err1 + err2) / 2;
+}
+
+const uint16_t travel_time(150);
+const uint16_t wait_time(150);
+
+void move_right() {
+	OCR1A = 2000;
+	OCR1B = 2000;
+	servo_en.set();
+	_delay_ms(wait_time);
+	timer1.start();
+	_delay_ms(travel_time + 10);
+	timer1.stop();
+	_delay_ms(wait_time);
+	servo_en.clear();
+}
+
+void move_left() {
+	OCR1A = 1100;
+	OCR1B = 1100;
+	servo_en.set();
+	_delay_ms(wait_time);
+	timer1.start();
+	_delay_ms(travel_time);
+	timer1.stop();
+	_delay_ms(wait_time);
+	servo_en.clear();
+}
+
+void move_forward() {
+	OCR1A = 1800;
+	OCR1B = 1100;
+	servo_en.set();
+	_delay_ms(wait_time);
+	timer1.start();
+	_delay_ms(2 * travel_time);
+	timer1.stop();
+	_delay_ms(wait_time);
+	servo_en.clear();
 }
 
 int main(void)
 {
 	OSCCAL0 = 0x47;
 	
-    DDRA = 0xff;
-	DDRB = 0x02;
-	
-	TCCR1A = (1<<COM1B1) | (1<<COM1A1) | (1<<WGM11);
-	TCCR1B = (1<<WGM13) | (1<<WGM12) | PRESCALER_8;
+	fp six_point_5(6.5);
+	fp copy_of(&six_point_5);
+
 	TOCPMSA1 = (1<<TOCC5S0) | (1<<TOCC4S0);
 	TOCPMCOE = (1<<TOCC5OE) | (1<<TOCC4OE);
-	OCR1B = 1500; // PWM1 us
-	OCR1A = 1500; // PWM2 us 
+	
 	ICR1 = 20000; // Period us
 	
 	TCCR2A = 0;
@@ -55,27 +156,47 @@ int main(void)
 	GIMSK = (1<<PCIE1);
 	sei();
 	
-	uint16_t servo_array[] = {1400, 1500, 1600};
+	uint16_t last_distance = 0;
 	
+	serial_init();
     while (1) 
     {
-		if(!(PINB & 1))
-			PORTA |= (1<<PORTA7);
-		_delay_us(20);
-		PORTA &= ~(1<<PORTA7);;
-		_delay_ms(20);
-		uint16_t pulse = echo1 / 3 + 800;
-		pulse = pulse > 2200? 2200 : pulse;
-		pulse = pulse < 800? 800 : pulse;
+		txden.set();
+		char message[16];
+		last_distance = sample_distance();
+		sprintf(message, "%u\n\r", last_distance);
+		serial_transmit(message, sizeof(message));
+		//sck.toggle();
+		//_delay_ms(500);
 		/*
-		//OCR1B = OCR1A = pulse;
-		PORTA |= (1<<PORTA0);
-		_delay_ms(10);
-		TCCR1B |= PRESCALER_8;
-		_delay_ms(80);
-		TCCR1B &= !PRESCALER_8;
-		_delay_ms(10);
-		//PORTA &= ~(1<<PORTA0);
+		uint16_t distance1, distance2, distance3;
+		bool choice1, choice2, choice3;
+		
+		distance1 = multi_sample();
+		move_right();
+		distance2 = multi_sample();
+		move_right();
+		distance3 = multi_sample();
+		
+		choice1 = (distance1 > distance2 && distance1 > distance3);
+		choice2 = (distance2 > distance1 && distance2 > distance3);
+		choice3 = (!choice1 && !choice2);
+		
+		if (choice1) {
+			move_left();
+			move_left();
+			if (distance1 > last_distance)
+				move_forward();
+		}
+		if (choice2) {
+			move_left();
+			if (distance2 > last_distance)
+			move_forward();
+		}
+		if (choice3) {
+			if (distance3 > last_distance)
+			move_forward();
+		} 
 		*/
     }
 }
