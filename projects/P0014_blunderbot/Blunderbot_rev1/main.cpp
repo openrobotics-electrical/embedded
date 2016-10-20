@@ -9,13 +9,13 @@
 #include <avr/io.h>
 #include <util/delay.h>
 #include <avr/interrupt.h>
-#include <math.h>
 #include <stdio.h>
 #include "timers.h"
 #include "io_manip.h"
-#include "C:\Users\Maxim\Documents\GitHub\openrobotics\embedded\libraries\serial.h"
+#include <serial.h>
+#include <string.h>
 
-volatile uint16_t echo1_time;
+volatile uint32_t echo1_time;
 
 using io_manip::Output;
 using io_manip::Input;
@@ -40,9 +40,7 @@ using timers::Prescaler;
 Timer1 timer1(Prescaler::PRESCALER_8);
 Timer2 timer2(Prescaler::PRESCALER_8);
 
-
-ISR(PCINT1_vect)
-{
+ISR(PCINT1_vect) {
 	cli();
 	if(echo1.is_set()) {
 		sck.set();
@@ -51,20 +49,10 @@ ISR(PCINT1_vect)
 	} else { 
 		sck.clear();
 		timer2.stop();
-		echo1_time = timer2.count();
+		echo1_time = (static_cast<uint32_t>(timer2.count()) * 331) / 2000; // ms
 	}
 	sei();
 }
-
-class Fixed_point16 {
-public:
-	const int8_t integer;
-	const uint8_t decimal;
-	Fixed_point16(const float f) : integer((int8_t)f), decimal((uint16_t)(f*256.0) % 256) {}	
-	Fixed_point16(Fixed_point16 *fp) : integer(fp->integer), decimal(fp->decimal) {}
-};
-
-typedef Fixed_point16 fp;
 
 uint16_t sample_distance() {
 	if(!echo1.is_set())
@@ -75,29 +63,7 @@ uint16_t sample_distance() {
 	return echo1_time;
 }
 
-uint16_t multi_sample() {
-	_delay_ms(200);
-	uint16_t t1, t2, t3;
-	uint16_t err1, err2, err3;
-	t1 = sample_distance();
-	t2 = sample_distance();
-	t3 = sample_distance();
-	uint16_t mean = uint16_t((uint32_t)(t1 + t2 + t3) / 3);
-	err1 = (t1 - mean) * (t1 - mean);
-	err2 = (t2 - mean) * (t2 - mean);
-	err3 = (t3 - mean) * (t3 - mean);
-	if (err1 > err2)
-		if (err1 > err3)
-			return (err2 + err3) / 2;
-		else
-			return (err1 + err3) / 2;
-	else
-		if (err2 > err3)
-			return (err1 + err3) / 2;
-		else
-			return (err1 + err2) / 2;
-}
-
+/*
 const uint16_t travel_time(150);
 const uint16_t wait_time(150);
 
@@ -136,13 +102,11 @@ void move_forward() {
 	_delay_ms(wait_time);
 	servo_en.clear();
 }
+*/
+char message[16];
 
-int main(void)
-{
+int main(void) {
 	OSCCAL0 = 0x47;
-	
-	fp six_point_5(6.5);
-	fp copy_of(&six_point_5);
 
 	TOCPMSA1 = (1<<TOCC5S0) | (1<<TOCC4S0);
 	TOCPMCOE = (1<<TOCC5OE) | (1<<TOCC4OE);
@@ -161,12 +125,23 @@ int main(void)
 	serial_init();
     while (1) 
     {
-		txden.set();
-		char message[16];
+		txden.set();		
 		last_distance = sample_distance();
-		sprintf(message, "%u\n\r", last_distance);
-		serial_transmit(message, sizeof(message));
-		//sck.toggle();
+		//for (auto &c : message)
+		//	c = 0;
+		cli();
+		message[0] = (char)((last_distance / 10000) % 10) + '0';
+		message[1] = (char)((last_distance / 1000) % 10) + '0';
+		message[2] = (char)((last_distance / 100) % 10) + '0';
+		message[3] = (char)((last_distance / 10) % 10) + '0';
+		message[4] = (char)(last_distance % 10) + '0';
+		message[5] = '\n';
+		sei();
+		//sprintf(message, "[%u]\n", last_distance);
+		//sprintf(message, "DOPE! yeahh\n");
+		
+		serial_transmit(message, 6);
+		sck.toggle();
 		//_delay_ms(500);
 		/*
 		uint16_t distance1, distance2, distance3;
