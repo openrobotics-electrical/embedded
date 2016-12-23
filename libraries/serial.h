@@ -7,9 +7,6 @@
  * Author: Maxim
  */ 
 
-#include <avr/interrupt.h>
-#include <util/delay.h>
-
 /*
 #if defined (__AVR_ATtiny441__)
 #include <attiny441_config.h>
@@ -28,7 +25,7 @@ const uint8_t RX_BUFFER_SIZE(16);
 volatile char receiving[RX_BUFFER_SIZE];
 volatile uint8_t rx_index(0), rx_head(0), chars_unread(0);
 
-ISR(USART0_TX_vect) {
+ISR(USART_TX_vect) {
 	cli();
 	if (chars_left > 0) {	
 		UDR0 = transmitting[tx_head];	
@@ -38,7 +35,7 @@ ISR(USART0_TX_vect) {
 	sei();
 }
 
-ISR(USART0_RX_vect) {	
+ISR(USART_RX_vect) {	
 	cli();
 	UCSR0A &= ~_BV(RXC0); // clear flag
 	receiving[rx_index] = UDR0;

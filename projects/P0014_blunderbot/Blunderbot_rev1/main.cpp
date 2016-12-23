@@ -33,6 +33,7 @@ Output trig2	(&PORTB, PB1);
 Input  echo2	(&PORTB, PB2);
 // Reset pin on PB3
 
+using timers::Timer0;
 using timers::Timer1;
 using timers::Timer2;
 using timers::Prescaler;
@@ -106,9 +107,11 @@ void move_forward() {
 char message[16];
 
 int main(void) {
-	OSCCAL0 = 0x47;
+	OSCCAL0 = 0x47; // Calibrate 8 MHz on-chip oscillator
 
+	// Route timer1 to PA5 and PA4
 	TOCPMSA1 = (1<<TOCC5S0) | (1<<TOCC4S0);
+	// Enable output compare on PA5 and PA4
 	TOCPMCOE = (1<<TOCC5OE) | (1<<TOCC4OE);
 	
 	ICR1 = 20000; // Period us
