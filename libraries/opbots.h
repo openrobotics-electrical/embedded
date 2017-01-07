@@ -22,8 +22,10 @@ namespace opbots {
 	
 enum ErrorType {
 	NULL_POINTER=1,
-	OVER_VOLTAGE=2,
-	OVER_CURRENT=3
+	OUT_OF_MEMORY=2,
+	BUFFER_OVERFLOW=3,
+	OVER_VOLTAGE=4,
+	OVER_CURRENT=5
 };
 	
 class GPIO {
@@ -69,28 +71,33 @@ public:
 
 class Analog {
 public:
-	volatile static bool newValue;
+	volatile static bool new_value;
 	volatile static uint8_t analogHigh;
-	volatile static uint8_t analogLow;
-	volatile static uint8_t lastChannel;
+	volatile static uint8_t analog_low;
+	volatile static uint8_t last_channel;
 	
-	static void selectChannel(uint8_t n) {
-		DDRC = DDRC & ~_BV(n);
-		ADMUX  = _BV(REFS0) | n; // AREF = AVCC
-		ADCSRA = /*_BV(ADATE) |*/ _BV(ADEN) | _BV(ADIE) | 0b111; // on, interrupt enabled, 1/128 clock
+	static void select_channel(uint8_t n) {
+#ifdef _AVR_ATTINY841_H_INCLUDED
+		//! TODO		
+#endif
+#ifndef _AVR_ATTINY841_H_INCLUDED
+		DDRC = DDRC & ~(1<<n);
+		ADMUX  = (1<<REFS0) | n; // AREF = AVCC
+#endif
+		ADCSRA = 1<<(ADEN) | 1<<(ADIE) | 0b111; // on, interrupt enabled, 1/128 clock
 		ADCSRB = 0; // free running
 	}
-	static void autoTriggerEnable(bool enabled) {
-		ADCSRA = enabled? ADCSRA | _BV(ADATE) : ADCSRA & ~_BV(ADATE);
+	static void auto_trigger_enable(bool enabled) {
+		ADCSRA = enabled? ADCSRA | 1<<(ADATE) : ADCSRA & ~1<<(ADATE);
 	}
-	static void startConversion() {
-		newValue = false;
-		ADCSRA |= _BV(ADSC); 
+	static void start_conversion() {
+		new_value = false;
+		ADCSRA |= 1<<(ADSC); 
 	}
-	static void stopConversion() { ADCSRA &= ~_BV(ADSC); }
-	static bool inline conversionComplete() { return newValue; }
-	static uint16_t inline getValue () { 
-		return ((Analog::analogHigh << 8)) | (Analog::analogLow); 
+	static void stop_conversion() { ADCSRA &= ~1<<(ADSC); }
+	static bool inline conversion_complete() { return new_value; }
+	static uint16_t inline get_value () { 
+		return ((Analog::analogHigh << 8)) | (Analog::analog_low); 
 	}
 	/*
 		EXAMPLE:
@@ -108,88 +115,166 @@ public:
 	*/
 };
 
-volatile bool Analog::newValue = false;
+volatile bool Analog::new_value = false;
 volatile uint8_t Analog::analogHigh = 0;
-volatile uint8_t Analog::analogLow = 0;
-volatile uint8_t Analog::lastChannel = 0; // Channels 0-7 for ATmega328P
+volatile uint8_t Analog::analog_low = 0;
+volatile uint8_t Analog::last_channel = 0; // Channels 0-7 for ATmega328P
 
-const uint8_t TX_BUFFER_SIZE(16);
-const uint8_t RX_BUFFER_SIZE(16);
+template<typename T>
+class SimpleBuffer {
+protected:
+	T* buffer;
+	const uint8_t size;
+	uint8_t head;
+
+public:
+	SimpleBuffer(const uint8_t buffer_size) : size(buffer_size), head(0) {
+		buffer = (T*)malloc(size);
+		if (buffer == nullptr) {
+			//TODO _raise_error(ErrorType::OUT_OF_MEMORY);
+		}
+	}
+	inline void push(T element_copy) {
+		if (head < size) {
+			*(buffer+head) = element_copy;
+		} else {
+			// TODO _raise_error(ErrorType::BUFFER_OVERFLOW);
+		}
+	};
+	inline void set(T* element_array,uint8_t n) {
+		if (n <= size) {
+			memcpy(buffer+head,element_array,n);
+			head = n;
+		} else {
+			// TODO _raise_error(ErrorType::BUFFER_OVERFLOW);
+		}
+	};
+	inline uint8_t count() { return head; }
+	inline T pop() { return buffer[head]; }
+};
+
+const uint8_t TX_BUFFER_SIZE(32);
+const uint8_t RX_BUFFER_SIZE(32);
 
 class Serial {
 public:
 	volatile static char transmitting[];
 	volatile static uint8_t tx_index, tx_head, chars_left;
-	volatile static char receiving[];
-	volatile static uint8_t rx_index, rx_head, chars_unread;
+#ifdef _AVR_ATTINY841_H_INCLUDED
+	static Output* txden[2];
+#endif
+#ifndef _AVR_ATTINY841_H_INCLUDED
+	static Output* txden[1];
+#endif
 	
-	static void init() {
-		UBRR0H = 0;
-		UBRR0L = 16; // BAUD 115200
-		UCSR0A = _BV(U2X0);
-		UCSR0B = _BV(TXCIE0) | _BV(RXCIE0) | _BV(RXEN0) | _BV(TXEN0);
-		UCSR0C = _BV(UCSZ01) | _BV(UCSZ00);
+	static void init(const uint32_t baud_rate, const uint8_t serial_port=0) {
+		uint8_t offset = 0;
+		const uint16_t baud = (F_CPU / 8 / baud_rate) - 1;
+#ifdef _AVR_ATTINY841_H_INCLUDED 
+		if (serial_port == 1) {
+			offset = 0x10;
+		} 
+#endif
+		*(&UBRR0H+offset) = baud / 0xFF;
+		*(&UBRR0L+offset) = baud % 0xFF;
+		*(&UCSR0A+offset) = 1<<(U2X0);
+		*(&UCSR0B+offset) = 1<<(TXCIE0) | 1<<(RXCIE0) | 1<<(RXEN0) | 1<<(TXEN0);
+		*(&UCSR0C+offset) = 1<<(UCSZ01) | 1<<(UCSZ00);
 	}
-	static void transmit(char* s, uint8_t char_count) {
+	template<typename T>
+	static void transmit(T* buffer, uint8_t char_count, const uint8_t serial_port=0) {
 		// sends between 1 and 255 chars if large enough buffer allocated
 		// does not prevent against buffer overwrites, increase
 		// buffer size if needed
 		cli();
+		// TODO optimize all this shit
 		for (uint8_t chars_added(0); chars_added < char_count; chars_added++) {
-			transmitting[tx_index] = s[chars_added];
+			transmitting[tx_index] = buffer[chars_added];
 			tx_index = (tx_index + 1) % TX_BUFFER_SIZE;
-		} 
-		UDR0 = transmitting[tx_head];
+		}
+		if (serial_port == 0) {
+			UDR0 = transmitting[tx_head];
+		}
+#ifdef _AVR_ATTINY841_H_INCLUDED 
+		else if (serial_port == 1) {
+			UDR1 = transmitting[tx_head];
+		}
+#endif
 		tx_head = (tx_head + 1) % TX_BUFFER_SIZE;
 		chars_left += (char_count - 1);
+		if (Serial::txden[serial_port] != nullptr) {
+			Serial::txden[serial_port]->set();
+		}
 		sei();
 	}
-	static char get_char(bool* error_flag) {
-		if (chars_unread > 0) {	
-			*error_flag = false;
-			return 	receiving[rx_head];
-			rx_head = (rx_head + 1) % RX_BUFFER_SIZE;
-			chars_unread--;
+	static void set_txden_pin(Output& txden_pin, const uint8_t serial_port=0) {
+		Serial::txden[serial_port] = &txden_pin;
+	}
+	static inline void service_tx_interrupt(const uint8_t serial_port=0) {
+		cli();
+		if (Serial::chars_left > 0) {
+			if (serial_port == 0) {
+				UDR0 = Serial::transmitting[Serial::tx_head];
+			}
+#ifdef _AVR_ATTINY841_H_INCLUDED 
+			else if (serial_port == 1) {
+				UDR1 = Serial::transmitting[Serial::tx_head];
+			}
+#endif
+			Serial::tx_head = (Serial::tx_head + 1) % TX_BUFFER_SIZE;
+			Serial::chars_left--;
 		} else {
-			*error_flag = true;
-			return '\0';
+			if (Serial::txden[serial_port] != nullptr) {
+				Serial::txden[serial_port]->clear();
+			}
 		}
+		sei();
+	}
+	static inline void service_rx_interrupt(const uint8_t serial_port=0) {
+		cli();
+		if (serial_port == 0) {
+			UCSR0A &= ~(1<<RXC0); // clear flag -- do I need this?
+			PORTB = ~PORTB;
+		} 
+#ifdef _AVR_ATTINY841_H_INCLUDED 
+		else if (serial_port == 1) {
+			UCSR1A &= ~(1<<RXC1); // clear flag -- do I need this?
+		}
+#endif
+		sei();
 	}
 };
 
 volatile char Serial::transmitting[TX_BUFFER_SIZE];
-volatile char Serial::receiving[RX_BUFFER_SIZE];
 volatile uint8_t Serial::tx_index(0), Serial::tx_head(0), Serial::chars_left(0);
-volatile uint8_t Serial::rx_index(0), Serial::rx_head(0), Serial::chars_unread(0);
+Output* Serial::txden[];
+
 } /* end of namespace opbots */
 
 using namespace opbots;
 
 ISR(ADC_vect) {
 	cli();
-	Analog::analogLow = ADCL;
+	Analog::analog_low = ADCL;
 	Analog::analogHigh = ADCH;
-	Analog::newValue = true;
+	Analog::new_value = true;
 	sei();
 };
 
-ISR(USART_TX_vect) {
-	cli();
-	if (Serial::chars_left > 0) {
-		UDR0 = Serial::transmitting[Serial::tx_head];
-		Serial::tx_head = (Serial::tx_head + 1) % TX_BUFFER_SIZE;
-		Serial::chars_left--;
-	}
-	sei();
-};
+#ifdef _AVR_ATTINY841_H_INCLUDED
+ISR(USART0_TX_vect) { Serial::service_tx_interrupt(0); }
+ISR(USART1_TX_vect) { Serial::service_tx_interrupt(1); }
+#endif
+#ifndef _AVR_ATTINY841_H_INCLUDED
+ISR(USART_TX_vect) { Serial::service_tx_interrupt(0); }
+#endif
 
-ISR(USART_RX_vect) {
-	cli();
-	UCSR0A &= ~_BV(RXC0); // clear flag
-	Serial::receiving[Serial::rx_index] = UDR0;
-	Serial::rx_index = (Serial::rx_index + 1) % RX_BUFFER_SIZE;
-	Serial::chars_unread++;
-	sei();
-};
-
+#ifdef _AVR_ATTINY841_H_INCLUDED
+ISR(USART0_RX_vect) { Serial::service_rx_interrupt(0); }
+ISR(USART1_RX_vect) { Serial::service_rx_interrupt(1); }
+#endif
+#ifndef _AVR_ATTINY841_H_INCLUDED
+ISR(USART_RX_vect) { Serial::service_rx_interrupt(0); }
+#endif
+	
 #endif /* OPBOTS_H */
