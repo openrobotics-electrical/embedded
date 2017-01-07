@@ -10,19 +10,20 @@ using namespace opbots;
 
 const uint8_t ERR(0);
 
-Output err_led(&PORTB, PIN0);
 Output enable[] = {
-	Output(&PORTB, PIN0),
-	Output(&PORTC, PIN3),
-	Output(&PORTD, PIN2),
-	Output(&PORTD, PIN4),
-	Output(&PORTC, PIN0),
-	Output(&PORTC, PIN1),
-	Output(&PORTC, PIN2)
+	Output(&PORTB,0),
+	Output(&PORTC,3),
+	Output(&PORTD,2),
+	Output(&PORTD,4),
+	Output(&PORTC,0),
+	Output(&PORTC,1),
+	Output(&PORTC,2)
 };
+Output& err_led(enable[0]);
+Output txden(&PORTD,7);
 // Used by 10-bit resolution ADC
-Input current_pin(&PORTC, PIN7); // 0.2 V per amp
-Input voltage_pin(&PORTC, PIN6); // 0.2 V per volt
+Input current_pin(&PORTC,7); // 0.2 V per amp
+Input voltage_pin(&PORTC,6); // 0.2 V per volt
 
 const uint8_t delay_time(100); // ms interval base for flashing lights
 
@@ -75,26 +76,28 @@ uint32_t watts_raw, watts, centiwatts;
 int main(void) {
 	startup_routine(2);
 	
-	Analog::selectChannel(PIN7);
-	Serial::init();
+	Analog::select_channel(7);
+	Serial::init(115200);
+	Serial::set_txden_pin(txden);
+	err_led.clear();
 	sei(); // Enable interrupts
 	
     while (1) {
 		for (int i=1; i<=6; ++i) enable[i].toggle();
 		
-		Analog::selectChannel(PIN6);
-		Analog::startConversion();
-		while (!Analog::conversionComplete()) { /* idle */ }
-		volts_reading = Analog::getValue();
+		Analog::select_channel(6);
+		Analog::start_conversion();
+		while (!Analog::conversion_complete()) { /* idle */ }
+		volts_reading = Analog::get_value();
 		adc_scale<MAX_ADC_UNITS>(volts_reading, &amps, &centiamps);
 		sprintf(message, "%2u.%02u A\r\n", amps, centiamps);
 		Serial::transmit(message, 10);
 		_delay_ms(500);
 		
-		Analog::selectChannel(PIN7);
-		Analog::startConversion();
-		while (!Analog::conversionComplete()) { /* idle */ }
-		amps_reading = Analog::getValue();
+		Analog::select_channel(7);
+		Analog::start_conversion();
+		while (!Analog::conversion_complete()) { /* idle */ }
+		amps_reading = Analog::get_value();
 		adc_scale<MAX_ADC_UNITS>(amps_reading, &volts, &centivolts);
 		sprintf(message, "%2u.%02u V\r\n", volts, centivolts);
 		Serial::transmit(message, 10);

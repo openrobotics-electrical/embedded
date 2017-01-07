@@ -156,10 +156,6 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\..\..\..\..\libraries\serial.h">
-      <SubType>compile</SubType>
-      <Link>serial.h</Link>
-    </Compile>
     <Compile Include="main.cpp">
       <SubType>compile</SubType>
     </Compile>
