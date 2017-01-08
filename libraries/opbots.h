@@ -6,6 +6,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
+#include <string.h>
 
 /* Basic allocators for classes */
 void * operator new(size_t n) {
@@ -19,7 +20,10 @@ void operator delete(void * p) {
 }
 
 namespace opbots {
-	
+
+void* (*_error_function)(void);
+void* (*_error_led_function)(void);
+
 enum ErrorType {
 	NULL_POINTER=1,
 	OUT_OF_MEMORY=2,
@@ -27,6 +31,24 @@ enum ErrorType {
 	OVER_VOLTAGE=4,
 	OVER_CURRENT=5
 };
+
+void _raise_error(ErrorType error) {
+	cli(); // Disable all interrupts
+	// Disable all power outputs
+	/*
+	for (int i=1; i<=6; ++i) enable[i].clear();
+	// Flash error code on err_led
+	while (1) {
+		for (int i=0; i < uint8_t(error); ++i) {
+			err_led.set();
+			_delay_ms(delay_time);
+			err_led.clear();
+			_delay_ms(5*delay_time);
+		}
+		_delay_ms(10*delay_time);
+	}
+	*/
+}
 	
 class GPIO {
 protected:
@@ -121,50 +143,26 @@ volatile uint8_t Analog::analog_low = 0;
 volatile uint8_t Analog::last_channel = 0; // Channels 0-7 for ATmega328P
 
 template<typename T>
-class SimpleBuffer {
-protected:
+struct SimpleBuffer {
 	T* buffer;
 	const uint8_t size;
 	uint8_t head;
-
-public:
-	SimpleBuffer(const uint8_t buffer_size) : size(buffer_size), head(0) {
+	uint8_t tail;
+	
+	SimpleBuffer(const uint8_t buffer_size) : size(buffer_size) {
 		buffer = (T*)malloc(size);
-		if (buffer == nullptr) {
-			//TODO _raise_error(ErrorType::OUT_OF_MEMORY);
-		}
 	}
-	inline void push(T element_copy) {
-		if (head < size) {
-			*(buffer+head) = element_copy;
-		} else {
-			// TODO _raise_error(ErrorType::BUFFER_OVERFLOW);
-		}
-	};
-	inline void set(T* element_array,uint8_t n) {
-		if (n <= size) {
-			memcpy(buffer+head,element_array,n);
-			head = n;
-		} else {
-			// TODO _raise_error(ErrorType::BUFFER_OVERFLOW);
-		}
-	};
-	inline uint8_t count() { return head; }
-	inline T pop() { return buffer[head]; }
 };
-
-const uint8_t TX_BUFFER_SIZE(32);
-const uint8_t RX_BUFFER_SIZE(32);
 
 class Serial {
 public:
-	volatile static char transmitting[];
-	volatile static uint8_t tx_index, tx_head, chars_left;
 #ifdef _AVR_ATTINY841_H_INCLUDED
 	static Output* txden[2];
 #endif
 #ifndef _AVR_ATTINY841_H_INCLUDED
 	static Output* txden[1];
+	static SimpleBuffer<char> tx[1];
+	static SimpleBuffer<char> rx[1];
 #endif
 	
 	static void init(const uint32_t baud_rate, const uint8_t serial_port=0) {
@@ -178,7 +176,7 @@ public:
 		*(&UBRR0H+offset) = baud / 0xFF;
 		*(&UBRR0L+offset) = baud % 0xFF;
 		*(&UCSR0A+offset) = 1<<(U2X0);
-		*(&UCSR0B+offset) = 1<<(TXCIE0) | 1<<(RXCIE0) | 1<<(RXEN0) | 1<<(TXEN0);
+		*(&UCSR0B+offset) = 1<<(TXCIE0) |/* 1<<(RXCIE0) | 1<<(RXEN0) |*/ 1<<(TXEN0);
 		*(&UCSR0C+offset) = 1<<(UCSZ01) | 1<<(UCSZ00);
 	}
 	template<typename T>
@@ -187,42 +185,49 @@ public:
 		// does not prevent against buffer overwrites, increase
 		// buffer size if needed
 		cli();
-		// TODO optimize all this shit
-		for (uint8_t chars_added(0); chars_added < char_count; chars_added++) {
-			transmitting[tx_index] = buffer[chars_added];
-			tx_index = (tx_index + 1) % TX_BUFFER_SIZE;
+		if (Serial::txden[serial_port] != nullptr) {
+			Serial::txden[serial_port]->set();
 		}
 		if (serial_port == 0) {
-			UDR0 = transmitting[tx_head];
+			if (char_count > tx[0].size) {
+				_raise_error(ErrorType::BUFFER_OVERFLOW);
+			}
+			memcpy(tx[0].buffer, buffer, char_count);
+			tx[0].head = 0;
+			tx[0].tail = char_count;
+			UDR0 = tx[0].buffer[tx[0].head];
 		}
 #ifdef _AVR_ATTINY841_H_INCLUDED 
 		else if (serial_port == 1) {
 			UDR1 = transmitting[tx_head];
 		}
 #endif
-		tx_head = (tx_head + 1) % TX_BUFFER_SIZE;
-		chars_left += (char_count - 1);
-		if (Serial::txden[serial_port] != nullptr) {
-			Serial::txden[serial_port]->set();
-		}
 		sei();
 	}
 	static void set_txden_pin(Output& txden_pin, const uint8_t serial_port=0) {
 		Serial::txden[serial_port] = &txden_pin;
 	}
+	static char empty() {
+		return rx[0].head > 0;
+	} 
+	static char get_char() {
+		if (!empty()) {
+			rx[0].head--;
+			return rx[0].buffer[rx[0].head];
+		}
+	}
 	static inline void service_tx_interrupt(const uint8_t serial_port=0) {
 		cli();
-		if (Serial::chars_left > 0) {
+		if (tx[serial_port].head < tx[serial_port].tail) {
 			if (serial_port == 0) {
-				UDR0 = Serial::transmitting[Serial::tx_head];
+				tx[serial_port].head++;
+				UDR0 = char(tx[serial_port].buffer[tx[serial_port].head]);
 			}
 #ifdef _AVR_ATTINY841_H_INCLUDED 
 			else if (serial_port == 1) {
-				UDR1 = Serial::transmitting[Serial::tx_head];
+				UDR1 = 'x';
 			}
 #endif
-			Serial::tx_head = (Serial::tx_head + 1) % TX_BUFFER_SIZE;
-			Serial::chars_left--;
 		} else {
 			if (Serial::txden[serial_port] != nullptr) {
 				Serial::txden[serial_port]->clear();
@@ -234,6 +239,12 @@ public:
 		cli();
 		if (serial_port == 0) {
 			UCSR0A &= ~(1<<RXC0); // clear flag -- do I need this?
+			if (rx[serial_port].head < rx[serial_port].size) {
+				rx[serial_port].buffer[rx[serial_port].head] = UDR0;
+				rx[serial_port].head++;
+			} else {
+				_raise_error(ErrorType::BUFFER_OVERFLOW);
+			}
 		} 
 #ifdef _AVR_ATTINY841_H_INCLUDED 
 		else if (serial_port == 1) {
@@ -244,9 +255,9 @@ public:
 	}
 };
 
-volatile char Serial::transmitting[TX_BUFFER_SIZE];
-volatile uint8_t Serial::tx_index(0), Serial::tx_head(0), Serial::chars_left(0);
-Output* Serial::txden[];
+SimpleBuffer<char> Serial::tx[] = { SimpleBuffer<char>(32) };
+SimpleBuffer<char> Serial::rx[] = { SimpleBuffer<char>(32) };
+Output* Serial::txden[] = { nullptr };
 
 } /* end of namespace opbots */
 

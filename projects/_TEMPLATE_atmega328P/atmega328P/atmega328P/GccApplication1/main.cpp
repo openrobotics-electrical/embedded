@@ -37,27 +37,11 @@ void startup_routine(int loops=1) {
 	}
 }
 
-void raise_error(ErrorType error) {
-	cli(); // Disable all interrupts
-	// Disable all power outputs
-	for (int i=1; i<=6; ++i) enable[i].clear();
-	// Flash error code on err_led
-	while (1) {
-		for (int i=0; i < uint8_t(error); ++i) {
-			err_led.set();
-			_delay_ms(delay_time);
-			err_led.clear();
-			_delay_ms(5*delay_time);
-		}
-		_delay_ms(10*delay_time);
-	}
-}
-
 template<uint8_t SCALE>
 void inline adc_scale(uint16_t adc_reading, uint16_t *result, uint16_t *result_centis=nullptr) {
 	uint32_t temp_result(adc_reading);
 	if (result == nullptr) {
-		raise_error(ErrorType::NULL_POINTER);
+		_raise_error(ErrorType::NULL_POINTER);
 	}
 	temp_result *= (SCALE*0x10000 / 0x400);
 	if (result_centis != nullptr) {
@@ -67,7 +51,8 @@ void inline adc_scale(uint16_t adc_reading, uint16_t *result, uint16_t *result_c
 	*result = uint16_t(temp_result);
 }
 
-const uint8_t MAX_ADC_UNITS(25);
+const uint8_t MAX_VOLTS(25);
+const uint8_t MAX_AMPS(25);
 char message[16];
 uint16_t volts_reading, volts, centivolts;
 uint16_t amps_reading, amps, centiamps;
@@ -77,28 +62,31 @@ int main(void) {
 	startup_routine(2);
 	
 	Analog::select_channel(7);
-	Serial::init(115200);
 	Serial::set_txden_pin(txden);
+	Serial::init(115200);
 	err_led.clear();
 	sei(); // Enable interrupts
 	
     while (1) {
 		for (int i=1; i<=6; ++i) enable[i].toggle();
-		
 		Analog::select_channel(6);
 		Analog::start_conversion();
-		while (!Analog::conversion_complete()) { /* idle */ }
+		while (!Analog::conversion_complete()) { 
+			// idle
+		}
 		volts_reading = Analog::get_value();
-		adc_scale<MAX_ADC_UNITS>(volts_reading, &amps, &centiamps);
+		adc_scale<MAX_VOLTS>(volts_reading, &amps, &centiamps);
 		sprintf(message, "%2u.%02u A\r\n", amps, centiamps);
 		Serial::transmit(message, 10);
 		_delay_ms(500);
 		
 		Analog::select_channel(7);
 		Analog::start_conversion();
-		while (!Analog::conversion_complete()) { /* idle */ }
+		while (!Analog::conversion_complete()) { 
+			// idle
+		}
 		amps_reading = Analog::get_value();
-		adc_scale<MAX_ADC_UNITS>(amps_reading, &volts, &centivolts);
+		adc_scale<MAX_AMPS>(amps_reading, &volts, &centivolts);
 		sprintf(message, "%2u.%02u V\r\n", volts, centivolts);
 		Serial::transmit(message, 10);
 		_delay_ms(500);
@@ -108,6 +96,7 @@ int main(void) {
 		centiwatts = ((watts_raw % (watts * 1680)) * 3901) >> 16;
 		sprintf(message, "%2lu.%02lu W\r\n", watts, centiwatts);
 		Serial::transmit(message, 10);
+
 		_delay_ms(500);
     }
 }
