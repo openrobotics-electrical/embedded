@@ -69,6 +69,7 @@ int main(void) {
 	
     while (1) {
 		for (int i=1; i<=6; ++i) enable[i].toggle();
+		
 		Analog::select_channel(6);
 		Analog::start_conversion();
 		while (!Analog::conversion_complete()) { 
@@ -96,7 +97,6 @@ int main(void) {
 		centiwatts = ((watts_raw % (watts * 1680)) * 3901) >> 16;
 		sprintf(message, "%2lu.%02lu W\r\n", watts, centiwatts);
 		Serial::transmit(message, 10);
-
 		_delay_ms(500);
     }
 }

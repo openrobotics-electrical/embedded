@@ -121,20 +121,6 @@ public:
 	static uint16_t inline get_value () { 
 		return ((Analog::analogHigh << 8)) | (Analog::analog_low); 
 	}
-	/*
-		EXAMPLE:
-		
-		while(1) 
-		{	
-			Analog::selectChannel(0);
-			sei(); // enables interrupts
-			uint16_t analog_value = Analog::getValue();
-			Analog::startConversion();
-		
-			// do something with analog_value
-			// value will not be valid the first time or two through while loop
-		}
-	*/
 };
 
 volatile bool Analog::new_value = false;
