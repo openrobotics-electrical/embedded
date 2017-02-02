@@ -112,6 +112,14 @@ public:
 	static void auto_trigger_enable(bool enabled) {
 		ADCSRA = enabled? ADCSRA | 1<<(ADATE) : ADCSRA & ~1<<(ADATE);
 	}
+	static uint16_t immediate_read(uint8_t n) {
+		Analog::select_channel(n);
+		Analog::start_conversion();
+		while (!Analog::conversion_complete()) {
+			// idle
+		}
+		return Analog::get_value();
+	}
 	static void start_conversion() {
 		new_value = false;
 		ADCSRA |= 1<<(ADSC); 
@@ -135,9 +143,11 @@ struct SimpleBuffer {
 	uint8_t head;
 	uint8_t tail;
 	
-	SimpleBuffer(const uint8_t buffer_size) : size(buffer_size) {
+	SimpleBuffer(const uint8_t buffer_size) : size(buffer_size), head(0), tail(0) {
 		buffer = (T*)malloc(size);
 	}
+	
+	// TODO destructor
 };
 
 class Serial {
@@ -162,7 +172,7 @@ public:
 		*(&UBRR0H+offset) = baud / 0xFF;
 		*(&UBRR0L+offset) = baud % 0xFF;
 		*(&UCSR0A+offset) = 1<<(U2X0);
-		*(&UCSR0B+offset) = 1<<(TXCIE0) |/* 1<<(RXCIE0) | 1<<(RXEN0) |*/ 1<<(TXEN0);
+		*(&UCSR0B+offset) = 1<<(TXCIE0) | 1<<(RXCIE0) | 1<<(RXEN0) | 1<<(TXEN0);
 		*(&UCSR0C+offset) = 1<<(UCSZ01) | 1<<(UCSZ00);
 	}
 	template<typename T>
@@ -170,9 +180,9 @@ public:
 		// sends between 1 and 255 chars if large enough buffer allocated
 		// does not prevent against buffer overwrites, increase
 		// buffer size if needed
-		cli();
 		if (Serial::txden[serial_port] != nullptr) {
 			Serial::txden[serial_port]->set();
+			UCSR0B = 1<<(TXCIE0) | 1<<(TXEN0);
 		}
 		if (serial_port == 0) {
 			if (char_count > tx[0].size) {
@@ -188,25 +198,28 @@ public:
 			UDR1 = transmitting[tx_head];
 		}
 #endif
-		sei();
 	}
 	static void set_txden_pin(Output& txden_pin, const uint8_t serial_port=0) {
 		Serial::txden[serial_port] = &txden_pin;
 	}
-	static char empty() {
-		return rx[0].head > 0;
+	static bool empty() {
+		return Serial::rx[0].head == 0;
 	} 
-	static char get_char() {
-		if (!empty()) {
+	static char get_char(bool& ok) {
+		if(!Serial::rx[0].head == 0) {
 			rx[0].head--;
+			ok = true;
 			return rx[0].buffer[rx[0].head];
+		} else {
+			ok = false;
+			return '\0';
 		}
 	}
 	static inline void service_tx_interrupt(const uint8_t serial_port=0) {
 		cli();
+		tx[serial_port].head++;
 		if (tx[serial_port].head < tx[serial_port].tail) {
 			if (serial_port == 0) {
-				tx[serial_port].head++;
 				UDR0 = char(tx[serial_port].buffer[tx[serial_port].head]);
 			}
 #ifdef _AVR_ATTINY841_H_INCLUDED 
@@ -217,12 +230,14 @@ public:
 		} else {
 			if (Serial::txden[serial_port] != nullptr) {
 				Serial::txden[serial_port]->clear();
+				UCSR0B = 1<<(RXCIE0) | 1<<(RXEN0);
 			}
 		}
 		sei();
 	}
 	static inline void service_rx_interrupt(const uint8_t serial_port=0) {
 		cli();
+		PORTB ^= 1<<4; // MISO
 		if (serial_port == 0) {
 			UCSR0A &= ~(1<<RXC0); // clear flag -- do I need this?
 			if (rx[serial_port].head < rx[serial_port].size) {
@@ -231,7 +246,7 @@ public:
 			} else {
 				_raise_error(ErrorType::BUFFER_OVERFLOW);
 			}
-		} 
+		}
 #ifdef _AVR_ATTINY841_H_INCLUDED 
 		else if (serial_port == 1) {
 			UCSR1A &= ~(1<<RXC1); // clear flag -- do I need this?
