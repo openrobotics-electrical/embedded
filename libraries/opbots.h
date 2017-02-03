@@ -20,34 +20,37 @@ void operator delete(void * p) {
 }
 
 namespace opbots {
-
-void* (*_error_function)(void);
-void* (*_error_led_function)(void);
+	
+void (*_error_function)(void) = nullptr;
+void (*_error_led_function)(void) = nullptr;
 
 enum ErrorType {
 	NULL_POINTER=1,
 	OUT_OF_MEMORY=2,
-	BUFFER_OVERFLOW=3,
-	OVER_VOLTAGE=4,
-	OVER_CURRENT=5
+	BUFFER_OVERFLOW_TX=3,
+	BUFFER_OVERFLOW_RX=4,
+	OVER_VOLTAGE=5,
+	OVER_CURRENT=6
 };
 
 void _raise_error(ErrorType error) {
-	cli(); // Disable all interrupts
-	// Disable all power outputs
-	/*
-	for (int i=1; i<=6; ++i) enable[i].clear();
-	// Flash error code on err_led
-	while (1) {
-		for (int i=0; i < uint8_t(error); ++i) {
-			err_led.set();
-			_delay_ms(delay_time);
-			err_led.clear();
-			_delay_ms(5*delay_time);
+	cli();
+	uint16_t delay_time(100);
+	if (_error_function != nullptr && _error_led_function != nullptr) {
+		// Call user-defined error function
+		_error_function();	
+		// Flash error code on err_led forever
+		while (1) {
+			for (int i=0; i < uint8_t(error); ++i) {
+				_error_led_function();
+				_delay_ms(delay_time);
+				_error_led_function();
+				_delay_ms(5*delay_time);
+			}
+			_delay_ms(10*delay_time);
 		}
-		_delay_ms(10*delay_time);
 	}
-	*/
+	sei();
 }
 	
 class GPIO {
@@ -99,13 +102,13 @@ public:
 	volatile static uint8_t last_channel;
 	
 	static void select_channel(uint8_t n) {
-#ifdef _AVR_ATTINY841_H_INCLUDED
-		//! TODO		
-#endif
-#ifndef _AVR_ATTINY841_H_INCLUDED
-		DDRC = DDRC & ~(1<<n);
-		ADMUX  = (1<<REFS0) | n; // AREF = AVCC
-#endif
+		#ifdef _AVR_ATTINY841_H_INCLUDED
+			//! TODO		
+		#endif
+		#ifndef _AVR_ATTINY841_H_INCLUDED
+			DDRC = DDRC & ~(1<<n);
+			ADMUX  = (1<<REFS0) | n; // AREF = AVCC
+		#endif
 		ADCSRA = 1<<(ADEN) | 1<<(ADIE) | 0b111; // on, interrupt enabled, 1/128 clock
 		ADCSRB = 0; // free running
 	}
@@ -129,6 +132,22 @@ public:
 	static uint16_t inline get_value () { 
 		return ((Analog::analogHigh << 8)) | (Analog::analog_low); 
 	}
+	// Scales reading from adc to range from 0-SCALE, calculating 100ths as well
+	// E.g. you have a sensor that has a range of 0 to 2 volts, each volt corresponds to 10 pascals of pressure,
+	// Therefore SCALE argument is 50 as the whole ADC range from 0 to 5 volts equates to 0 to 50 pascals
+	template<uint8_t SCALE>
+	static void inline adc_scale(const uint16_t adc_reading, uint16_t *result, uint16_t *result_centis=nullptr) {
+		uint32_t temp_result(adc_reading);
+		if (result == nullptr) {
+			_raise_error(ErrorType::NULL_POINTER);
+		}
+		temp_result *= (SCALE*0x10000 / 0x400);
+		if (result_centis != nullptr) {
+			*result_centis = uint16_t(((temp_result % 0x10000) * 100) >> 16);
+		}
+		temp_result = temp_result >> 16;
+		*result = uint16_t(temp_result);
+	}
 };
 
 volatile bool Analog::new_value = false;
@@ -147,28 +166,26 @@ struct SimpleBuffer {
 		buffer = (T*)malloc(size);
 	}
 	
-	// TODO destructor
+	virtual ~SimpleBuffer() {
+		free(buffer);
+	}
 };
 
 class Serial {
 public:
-#ifdef _AVR_ATTINY841_H_INCLUDED
-	static Output* txden[2];
-#endif
-#ifndef _AVR_ATTINY841_H_INCLUDED
-	static Output* txden[1];
-	static SimpleBuffer<char> tx[1];
-	static SimpleBuffer<char> rx[1];
-#endif
+	#ifdef _AVR_ATTINY841_H_INCLUDED
+		static Output* txden[2];
+	#endif
+	#ifndef _AVR_ATTINY841_H_INCLUDED
+		static Output* txden[1];
+		static SimpleBuffer<char> tx[1];
+		static SimpleBuffer<char> rx[1];
+	#endif
 	
 	static void init(const uint32_t baud_rate, const uint8_t serial_port=0) {
 		uint8_t offset = 0;
 		const uint16_t baud = (F_CPU / 8 / baud_rate) - 1;
-#ifdef _AVR_ATTINY841_H_INCLUDED 
-		if (serial_port == 1) {
-			offset = 0x10;
-		} 
-#endif
+		if (serial_port == 1) offset = 0x10;
 		*(&UBRR0H+offset) = baud / 0xFF;
 		*(&UBRR0L+offset) = baud % 0xFF;
 		*(&UCSR0A+offset) = 1<<(U2X0);
@@ -180,24 +197,24 @@ public:
 		// sends between 1 and 255 chars if large enough buffer allocated
 		// does not prevent against buffer overwrites, increase
 		// buffer size if needed
-		if (Serial::txden[serial_port] != nullptr) {
-			Serial::txden[serial_port]->set();
+		if (txden[serial_port] != nullptr) {
+			txden[serial_port]->set();
 			UCSR0B = 1<<(TXCIE0) | 1<<(TXEN0);
 		}
 		if (serial_port == 0) {
 			if (char_count > tx[0].size) {
-				_raise_error(ErrorType::BUFFER_OVERFLOW);
+				_raise_error(ErrorType::BUFFER_OVERFLOW_TX);
 			}
 			memcpy(tx[0].buffer, buffer, char_count);
 			tx[0].head = 0;
 			tx[0].tail = char_count;
 			UDR0 = tx[0].buffer[tx[0].head];
 		}
-#ifdef _AVR_ATTINY841_H_INCLUDED 
-		else if (serial_port == 1) {
-			UDR1 = transmitting[tx_head];
-		}
-#endif
+		#ifdef _AVR_ATTINY841_H_INCLUDED 
+			else if (serial_port == 1) {
+				UDR1 = transmitting[tx_head];
+			}
+		#endif
 	}
 	static void set_txden_pin(Output& txden_pin, const uint8_t serial_port=0) {
 		Serial::txden[serial_port] = &txden_pin;
@@ -244,7 +261,7 @@ public:
 				rx[serial_port].buffer[rx[serial_port].head] = UDR0;
 				rx[serial_port].head++;
 			} else {
-				_raise_error(ErrorType::BUFFER_OVERFLOW);
+				_raise_error(ErrorType::BUFFER_OVERFLOW_RX);
 			}
 		}
 #ifdef _AVR_ATTINY841_H_INCLUDED 
