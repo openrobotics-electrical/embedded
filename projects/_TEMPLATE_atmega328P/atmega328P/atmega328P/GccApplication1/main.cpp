@@ -39,23 +39,11 @@ Output pwm2b(&PORTD,3);
 // Reset pin
 Input  reset(&PORTC,6);
 
-//Timer1 timer1(Prescaler::PRESCALER_8);
-
-// Flashes err light and power outputs on briefly
-void startup_routine(int loops=1) {	
-	while (--loops >= 0) {
-		for (Output out : enable) {
-			out.set();
-			_delay_ms(50);
-			out.clear();
-		}
-	}
-}
-
 // Turns all power outputs off, pass this function to default _error_function
 void error_function() {
 	for (int i(1); i <= 6; ++i) enable[i].clear();
 }
+
 // Toggles enable[0] corresponding to error led, pass to _error_led_function
 void error_led_function() {
 	enable[0].toggle();
@@ -67,17 +55,6 @@ char message[128];
 uint16_t volts_reading, volts, centivolts;
 uint16_t amps_reading, amps, centiamps;
 uint32_t watts_raw, watts, centiwatts;  
-
-enum State {
-	IDLE,
-	IMMEDIATE,
-	DRUM,
-	RECEIVE,
-	RESPOND,
-	UPDATE_VARIABLES,
-	UPDATE_ADC,
-	__States_sz__
-};
 
 #define NAME "@pdu"
 
@@ -94,7 +71,6 @@ struct OutgoingData {
 
 struct PduData {
 	const char name[sizeof(NAME)];
-	State current_state;
 	uint8_t last_enable_status;
 	uint16_t current_pwm[6];
 	IncomingData incoming;
@@ -103,7 +79,6 @@ struct PduData {
 
 volatile PduData pduData = {
 	NAME,
-	State::UPDATE_VARIABLES, 
 	0x00,
 	{ 0,0,0,0,0,0, },
 	{ 0x3F,0,0,0,0,0,0,0 },
@@ -113,152 +88,127 @@ volatile PduData pduData = {
 void immediate_function(char c);
 void process(char c);
 bool char_available(false);
+char last_char('\0');
 
-void state_idle(volatile PduData* data) {
-	static uint16_t stage(0);
-	data->current_state = State::UPDATE_ADC; // Will update ADC by default
-	
+void inline poll_serial(char& received, bool& available) {
 	cli(); // Pause interrupts while reading available char
-	char c(Serial::get_char(char_available));
+	received = (Serial::get_char(available));
 	sei(); // Re-enable interrupts
-	
-	if (char_available) {
-		if (stage == sizeof(data->name)-1) {
-			process(c);
-			stage = 0;
-		} else {
-			if (c == data->name[stage])
-				stage++;
-			else
+}
+
+// All operating states live in this namespace
+namespace state {
+	void (*current)(volatile PduData*); // Variable holds state for the program
+
+	void update_adc(volatile PduData* data); // Prototype declaration
+
+	void idle(volatile PduData* data) {
+		static uint16_t stage(0);
+		poll_serial(last_char, char_available);
+		current = update_adc; // Will update ADC by default after this if no other states chosen
+		if (char_available) {
+			if (stage == sizeof(data->name)-1) {
+				process(last_char);
 				stage = 0;
-		}
-	}
-}
-
-void state_update_adc(volatile PduData* data) {
-	static bool check_voltage(true);
-	if (check_voltage) {
-		data->outgoing.voltage_reading = Analog::immediate_read(6);
-	} else {
-		data->outgoing.current_reading = Analog::immediate_read(7);
-	}
-	check_voltage = !check_voltage;
-	data->current_state = State::IDLE;
-}
-
-void state_update_variables(volatile PduData* data) {
-	if (data->incoming.enable_status != data->last_enable_status) {
-		for(int i(1); i <= 6; ++i) {
-			if (data->incoming.enable_status & (1<<(i-1))) {
-				enable[i].set();
-				} else {
-				enable[i].clear();
-			}
-		}
-		data->last_enable_status = data->incoming.enable_status;
-	}
-	for(int i(0); i < 6; ++i) {
-		if (data->incoming.pwm_status & (1<<i)) {
-			data->current_pwm[i] = data->incoming.pwm[i];
-		} 
-	}
-	if (data->current_pwm[0] > 0) {
-		TCCR0B |= PRESCALER2_256;
-		OCR0A = data->current_pwm[0]/32;
-	} else {
-		TCCR0B &= ~PRESCALER2_MASK;
-	}
-	if (data->current_pwm[1] > 0) {
-		TCCR0B |= PRESCALER2_256;
-		OCR0B = data->current_pwm[1]/32;
-	} else {
-		TCCR0B &= ~PRESCALER2_MASK;
-	}
-	if (data->current_pwm[2] > 0) {
-		TCCR1B |= PRESCALER1_8;
-		OCR1A = data->current_pwm[2]*2;
-	} else {
-		TCCR1B &= ~PRESCALER1_MASK;
-	}
-	if (data->current_pwm[3] > 0) {
-		TCCR1B |= PRESCALER1_8;
-		OCR1B = data->current_pwm[3]*2;
-	} else {
-		TCCR1B &= ~PRESCALER1_MASK;
-	}
-	data->current_state = State::IDLE;
-}
-
-void state_immediate(volatile PduData* data) {
-	cli(); // Pause interrupts while reading available char
-	char c(Serial::get_char(char_available));
-	sei(); // Re-enable interrupts
-		
-	if (char_available) immediate_function(c);
-}
-
-void state_receive(volatile PduData* data) {
-	cli(); // Pause interrupts while reading available char
-	char c(Serial::get_char(char_available));
-	sei(); // Re-enable interrupts
-	
-	static uint8_t i(0);
-	if (char_available) {
-		((char*)(&(data->incoming)))[i] = c;
-		i++;
-		if (i == sizeof(data->incoming)) {	
-			i = 0;
-			data->current_state = State::UPDATE_VARIABLES;
-		}
-	}
-}
-
-void state_respond(volatile PduData* data) {
-	Serial::transmit((char*)(&(data->outgoing)),sizeof(data->outgoing));
-	data->current_state = State::IDLE;
-}
-
-void state_drum(volatile PduData* data) {
-	const uint8_t vel[] = {
-		2,3,2,3,8,3,2,3,2,3,2,3,8,3,2,3,
-		2,3,2,3,8,3,2,3,2,3,2,3,8,0,8,0
-	};
-	for (int i(0); i < 32; ++i) {
-		state_immediate(data); // Enters this state to poll incoming data
-		for (int j(0); j < 10; ++j) {
-			if (vel[i] > j) {
-				enable[1].set();
 			} else {
-				enable[1].clear();
+				if (last_char == data->name[stage])
+					stage++;
+				else
+					stage = 0;
 			}
-			_delay_ms(10);
 		}
-		_delay_ms(70);
 	}
-}
 
-void (*state_machine[__States_sz__])(volatile PduData*) = {
-	state_idle, 
-	state_immediate, 
-	state_drum,
-	state_receive,
-	state_respond,
-	state_update_variables,
-	state_update_adc
-};
+	void update_adc(volatile PduData* data) {
+		static bool check_voltage(true);
+		if (check_voltage) {
+			data->outgoing.voltage_reading = Analog::immediate_read(6);
+		} else {
+			data->outgoing.current_reading = Analog::immediate_read(7);
+		}
+		check_voltage = !check_voltage;
+		current = idle;
+	}
+
+	void update_variables(volatile PduData* data) {
+		if (data->incoming.enable_status != data->last_enable_status) {
+			for(int i(1); i <= 6; ++i) {
+				if (data->incoming.enable_status & (1<<(i-1))) {
+					enable[i].set();
+					} else {
+					enable[i].clear();
+				}
+			}
+			data->last_enable_status = data->incoming.enable_status;
+		}
+		for(int i(0); i < 6; ++i) {
+			if (data->incoming.pwm_status & (1<<i)) {
+				data->current_pwm[i] = data->incoming.pwm[i];
+			} 
+		}
+		if (data->current_pwm[0] > 0) {
+			TCCR0B |= PRESCALER2_256;
+			OCR0A = data->current_pwm[0]/32;
+		} else {
+			TCCR0B &= ~PRESCALER2_MASK;
+		}
+		if (data->current_pwm[1] > 0) {
+			TCCR0B |= PRESCALER2_256;
+			OCR0B = data->current_pwm[1]/32;
+		} else {
+			TCCR0B &= ~PRESCALER2_MASK;
+		}
+		if (data->current_pwm[2] > 0) {
+			TCCR1B |= PRESCALER1_8;
+			OCR1A = data->current_pwm[2]*2;
+		} else {
+			TCCR1B &= ~PRESCALER1_MASK;
+		}
+		if (data->current_pwm[3] > 0) {
+			TCCR1B |= PRESCALER1_8;
+			OCR1B = data->current_pwm[3]*2;
+		} else {
+			TCCR1B &= ~PRESCALER1_MASK;
+		}
+		current = idle;
+	}
+
+	void immediate(volatile PduData* data) {
+		poll_serial(last_char, char_available);
+		if (char_available) immediate_function(last_char);
+	}
+
+	void receive(volatile PduData* data) {
+		poll_serial(last_char, char_available);
+		static uint8_t i(0);
+		if (char_available) {
+			((char*)(&(data->incoming)))[i] = last_char;
+			i++;
+			if (i == sizeof(data->incoming)) {	
+				i = 0;
+				current = update_variables;
+			}
+		}
+	}
+
+	void respond(volatile PduData* data) {
+		Serial::transmit((char*)(&(data->outgoing)),sizeof(data->outgoing));
+		current = idle;
+	}
+} /* end of namespace state */
 
 void process(char c) {
 	switch(c) {
 		case ':':
-			pduData.current_state = State::RECEIVE;
+			state::current = state::receive;
 			message[0] = 0;
 			break;
 		case '?':
-			pduData.current_state = State::RESPOND;
+			state::current = state::respond;
 			message[0] = 0;
 			break;
 		case '!':
-			pduData.current_state = State::IMMEDIATE;
+			state::current = state::immediate;
 			sprintf(message,
 				"\r\nImmediate mode on\r\n"
 				"---------------\r\n"
@@ -267,9 +217,7 @@ void process(char c) {
 				"[1-6]: toggle enables\r\n"
 			);
 			Serial::transmit(message,strlen(message));
-			while (!Serial::transmission_complete()) {
-				// Wait for first part of message to go out, 128 char buffer size
-			}
+			while (!Serial::transmission_complete()) { /* Wait for first part of message to go out, 128 char buffer size */ }
 			sprintf(message,
 				"[a]  : print current\r\n"
 				"[v]  : print voltage\r\n"
@@ -330,7 +278,7 @@ void immediate_function(char c) {
 			sprintf(message, "%2lu.%02lu W  \r\n", watts, centiwatts);
 			break;
 		case '!':
-			pduData.current_state = State::IDLE;
+			state::current = state::idle;
 			sprintf(message,"Idle mode on\r\n");
 			break;
 		default:
@@ -343,7 +291,6 @@ void immediate_function(char c) {
 int main(void) {
 	_error_function = error_function;
 	_error_led_function = error_led_function;
-	startup_routine(2);
 	
 	TCCR0A = (1<<COM0B1) | (1<<COM0A1) | (1<<WGM01) | (1<<WGM00);
 	TCCR0B = 0;
@@ -360,13 +307,15 @@ int main(void) {
 	
 	OCR2A = 94;
 	OCR2B = 94;
-		 
+	
+	// Setup peripherals and starting state
 	Serial::set_txden_pin(txden);
 	Serial::init(115200);
 	Analog::start_conversion();
+	state::current = state::update_variables;
 	
 	sei(); // Enable interrupts
 	
-    while (1) state_machine[pduData.current_state](&pduData);
+    while (1) state::current(&pduData); // Executes current state function
 }
 
