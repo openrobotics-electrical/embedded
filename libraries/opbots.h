@@ -184,27 +184,35 @@ public:
 	}
 	template<typename T>
 	static void transmit(T* buffer, uint8_t char_count, const uint8_t serial_port=0) {
-		// sends between 1 and 255 chars if large enough buffer allocated
-		// does not prevent against buffer overwrites, increase
-		// buffer size if needed
-		if (txden[serial_port] != nullptr) {
-			txden[serial_port]->set();
-			UCSR0B = 1<<(TXCIE0) | 1<<(TXEN0);
-		}
-		if (serial_port == 0) {
-			if (char_count > tx[0].size) {
-				_raise_error(ErrorType::BUFFER_OVERFLOW_TX);
+		if (char_count > 0) {
+			// sends between 1 and 255 chars if large enough buffer allocated
+			// does not prevent against buffer overwrites, increase
+			// buffer size if needed
+			if (txden[serial_port] != nullptr) {
+				txden[serial_port]->set();
+				UCSR0B = 1<<(TXCIE0) | 1<<(TXEN0);
 			}
-			memcpy(tx[0].buffer, buffer, char_count);
-			tx[0].head = 0;
-			tx[0].tail = char_count;
-			UDR0 = tx[0].buffer[tx[0].head];
+			if (serial_port == 0) {
+				if (char_count > tx[0].size) {
+					_raise_error(ErrorType::BUFFER_OVERFLOW_TX);
+				}
+				memcpy(tx[0].buffer, buffer, char_count);
+				tx[0].head = 0;
+				tx[0].tail = char_count;
+				UDR0 = tx[0].buffer[tx[0].head];
+			}
+			#ifdef _AVR_ATTINY841_H_INCLUDED 
+			else if (serial_port == 1) {
+				UDR1 = transmitting[tx_head];
+			}
+			#endif
 		}
-		#ifdef _AVR_ATTINY841_H_INCLUDED 
-		else if (serial_port == 1) {
-			UDR1 = transmitting[tx_head];
-		}
-		#endif
+	}
+	static bool transmission_complete(const uint8_t serial_port=0) {
+		cli();
+		const bool ret(tx[serial_port].head >= tx[serial_port].tail);
+		sei();
+		return ret;
 	}
 	static void set_txden_pin(Output& txden_pin, const uint8_t serial_port=0) {
 		Serial::txden[serial_port] = &txden_pin;
@@ -383,8 +391,8 @@ public:
 	inline void clear() { TCNT1 = 0; }
 };
 
-SimpleBuffer<char> Serial::tx[] = { SimpleBuffer<char>(32) };
-SimpleBuffer<char> Serial::rx[] = { SimpleBuffer<char>(32) };
+SimpleBuffer<char> Serial::tx[] = { SimpleBuffer<char>(128) };
+SimpleBuffer<char> Serial::rx[] = { SimpleBuffer<char>(64) };
 Output* Serial::txden[] = { nullptr };
 
 } /* end of namespace opbots */
