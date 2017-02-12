@@ -8,21 +8,10 @@
 #include <util/delay.h>
 #include <string.h>
 
-/* Basic allocators for classes */
-void * operator new(size_t n) {
-	void * const p = malloc(n);
-	// TODO: handle p == 0
-	return p;
-}
-
-void operator delete(void * p) {
-	free(p);
-}
-
 namespace opbots {
 	
-void (*_error_function)(void) = nullptr;
-void (*_error_led_function)(void) = nullptr;
+void (*_error_function)(void) = nullptr; // Set by user in app to point to shutdown function
+void (*_error_led_function)(void) = nullptr; // Set by user in app to flash error light
 
 enum ErrorType {
 	NULL_POINTER=1,
@@ -30,7 +19,8 @@ enum ErrorType {
 	BUFFER_OVERFLOW_TX=3,
 	BUFFER_OVERFLOW_RX=4,
 	OVER_VOLTAGE=5,
-	OVER_CURRENT=6
+	OVER_CURRENT=6,
+	TEST=7
 };
 
 void _raise_error(ErrorType error) {
@@ -103,11 +93,11 @@ public:
 	
 	static void select_channel(uint8_t n) {
 		#ifdef _AVR_ATTINY841_H_INCLUDED
-			//! TODO		
+		//! TODO		
 		#endif
 		#ifndef _AVR_ATTINY841_H_INCLUDED
-			DDRC = DDRC & ~(1<<n);
-			ADMUX  = (1<<REFS0) | n; // AREF = AVCC
+		DDRC = DDRC & ~(1<<n);
+		ADMUX  = (1<<REFS0) | n; // AREF = AVCC
 		#endif
 		ADCSRA = 1<<(ADEN) | 1<<(ADIE) | 0b111; // on, interrupt enabled, 1/128 clock
 		ADCSRB = 0; // free running
@@ -166,7 +156,7 @@ struct SimpleBuffer {
 		buffer = (T*)malloc(size);
 	}
 	
-	virtual ~SimpleBuffer() {
+	~SimpleBuffer() {
 		free(buffer);
 	}
 };
@@ -174,12 +164,12 @@ struct SimpleBuffer {
 class Serial {
 public:
 	#ifdef _AVR_ATTINY841_H_INCLUDED
-		static Output* txden[2];
+	static Output* txden[2];
 	#endif
 	#ifndef _AVR_ATTINY841_H_INCLUDED
-		static Output* txden[1];
-		static SimpleBuffer<char> tx[1];
-		static SimpleBuffer<char> rx[1];
+	static Output* txden[1];
+	static SimpleBuffer<char> tx[1];
+	static SimpleBuffer<char> rx[1];
 	#endif
 	
 	static void init(const uint32_t baud_rate, const uint8_t serial_port=0) {
@@ -211,9 +201,9 @@ public:
 			UDR0 = tx[0].buffer[tx[0].head];
 		}
 		#ifdef _AVR_ATTINY841_H_INCLUDED 
-			else if (serial_port == 1) {
-				UDR1 = transmitting[tx_head];
-			}
+		else if (serial_port == 1) {
+			UDR1 = transmitting[tx_head];
+		}
 		#endif
 	}
 	static void set_txden_pin(Output& txden_pin, const uint8_t serial_port=0) {
@@ -239,11 +229,11 @@ public:
 			if (serial_port == 0) {
 				UDR0 = char(tx[serial_port].buffer[tx[serial_port].head]);
 			}
-#ifdef _AVR_ATTINY841_H_INCLUDED 
+			#ifdef _AVR_ATTINY841_H_INCLUDED 
 			else if (serial_port == 1) {
 				UDR1 = 'x';
 			}
-#endif
+			#endif
 		} else {
 			if (Serial::txden[serial_port] != nullptr) {
 				Serial::txden[serial_port]->clear();
@@ -264,13 +254,133 @@ public:
 				_raise_error(ErrorType::BUFFER_OVERFLOW_RX);
 			}
 		}
-#ifdef _AVR_ATTINY841_H_INCLUDED 
+		#ifdef _AVR_ATTINY841_H_INCLUDED 
 		else if (serial_port == 1) {
 			UCSR1A &= ~(1<<RXC1); // clear flag -- do I need this?
 		}
-#endif
+		#endif
 		sei();
 	}
+};
+
+/*
+namespace timers {
+	
+	enum Prescaler {
+		PRESCALER_1 = 1U,
+		PRESCALER_8 = 2U,
+		PRESCALER_64 = 3U,
+		PRESCALER_256 = 4U,
+		PRESCALER_1024 = 5U,
+		PRESCALER_MASK = 7U
+	};
+
+	class GenericTimer {
+		protected:
+		Prescaler prescale;
+		GenericTimer(Prescaler pre) : prescale(pre) {}
+		public:
+		virtual void inline start() = 0;
+		virtual void inline stop() = 0;
+		virtual bool inline is_running() = 0;
+		virtual void inline clear() = 0;
+	};
+
+	class Timer8bit : public GenericTimer {
+		protected:
+		Timer8bit(Prescaler pre) : GenericTimer(pre) {}
+		
+		public:
+		virtual uint8_t inline count() = 0;
+		
+		void inline start() { TCCR0B |= prescale; }
+		void inline stop() { TCCR0B &= ~PRESCALER_MASK; }
+		bool inline is_running() { return TCCR0B &= ~PRESCALER_MASK; }
+		void inline set_output_compare_A(uint8_t oc_A) { OCR0A = oc_A; };
+		void inline set_output_compare_B(uint8_t oc_B) { OCR0B = oc_B; };
+	};
+
+	class Timer16bit : public GenericTimer {
+		protected:
+		Timer16bit(Prescaler pre, volatile uint8_t *const base)
+		: GenericTimer(pre), base_address(base) {}
+		
+		volatile uint8_t *const base_address; // Child classes must initialize this
+
+		public:
+		virtual uint16_t count() = 0;
+
+		void inline start() { *(base_address-1) |= prescale; }
+		void inline stop() { *(base_address-1) &= ~PRESCALER_MASK; }
+		bool inline is_running() { return *(base_address-1) & PRESCALER_MASK > 0; }
+		// TODO implement
+		void inline set_output_compare_A(uint16_t oc_A) { *(base_address-6) = oc_A; };
+		// TODO implement
+		void inline set_output_compare_B(uint16_t oc_B) { *(base_address-8) = oc_B; };
+	};
+
+	class Timer0 : Timer8bit {
+		public:
+		Timer0(Prescaler pre) : Timer8bit(pre) {}
+		uint8_t count() { return TCNT0; }
+		void clear() { TCNT0 = 0; }
+	};
+
+	class Timer1 : public Timer16bit {
+		public:
+		Timer1(Prescaler pre) : Timer16bit(pre, &TCCR1A) {
+			TCCR1A = (1<<COM1B1) | (1<<COM1A1) | (1<<WGM11);
+			TCCR1B = (1<<WGM13) | (1<<WGM12);
+		}
+		uint16_t count() { return TCNT1; }
+		void clear() { TCNT1 = 0; }
+	};
+
+	class Timer2 : public Timer16bit {
+		public:
+		Timer2(Prescaler pre) : Timer16bit(pre, &TCCR2A) {
+			TCCR2A = (1<<COM1B1) | (1<<COM1A1) | (1<<WGM11);
+			TCCR2B = (1<<WGM13) | (1<<WGM12);
+		}
+		uint16_t count() { return TCNT2; }
+		void clear() { TCNT2 = 0; }
+	};
+}
+*/
+
+enum Prescaler1 {
+	PRESCALER1_1 = 1U,
+	PRESCALER1_8 = 2U,
+	PRESCALER1_64 = 3U,
+	PRESCALER1_256 = 4U,
+	PRESCALER1_1024 = 5U,
+	PRESCALER1_MASK = 7U
+};
+
+enum Prescaler2 {
+	PRESCALER2_1 = 0x01,
+	PRESCALER2_8 = 0x02,
+	PRESCALER2_32 = 0x03,
+	PRESCALER2_64 = 0x04,
+	PRESCALE2R_128 = 0x05,
+	PRESCALER2_256 = 0x06,
+	PRESCALER2_1024 = 0x07,
+	PRESCALER2_MASK = 0x07
+};
+
+class Timer1 {
+private:
+	Prescaler1 prescale;
+public:
+	Timer1(Prescaler1 pre) : prescale(pre) {
+		TCCR1A = (1<<COM1B1) | (1<<COM1A1) | (1<<WGM11);
+		TCCR1B = (1<<WGM13) | (1<<WGM12);
+	}
+	void inline start() { TCCR1B |= prescale; }
+	void inline stop() { TCCR1B &= ~PRESCALER1_MASK; }
+	bool is_running() { return TCCR1B & PRESCALER1_MASK; }
+	uint16_t count() { return TCNT1; }
+	inline void clear() { TCNT1 = 0; }
 };
 
 SimpleBuffer<char> Serial::tx[] = { SimpleBuffer<char>(32) };
@@ -280,6 +390,19 @@ Output* Serial::txden[] = { nullptr };
 } /* end of namespace opbots */
 
 using namespace opbots;
+
+/* Basic allocators for classes */
+void * operator new(size_t n) {
+	void * const p = malloc(n);
+	if (p == nullptr) {
+		_raise_error(ErrorType::OUT_OF_MEMORY);
+	}
+	return p;
+}
+
+void operator delete(void * p) {
+	free(p);
+}
 
 ISR(ADC_vect) {
 	cli();

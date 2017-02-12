@@ -52,7 +52,7 @@ public:
 
 	void inline start() { *(base_address-1) |= prescale; }
 	void inline stop() { *(base_address-1) &= ~PRESCALER_MASK; }
-	bool inline is_running() { return *(base_address-1) & PRESCALER_MASK; }
+	bool inline is_running() { return *(base_address-1) & PRESCALER_MASK > 0; }
 	// TODO implement
 	void inline set_output_compare_A(uint16_t oc_A) { *(base_address-6) = oc_A; };
 	// TODO implement
